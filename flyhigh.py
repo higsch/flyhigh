@@ -1,4 +1,5 @@
 from time import sleep
+import datetime
 from selenium import webdriver
 from bs4 import BeautifulSoup
 
@@ -15,23 +16,29 @@ def getDriver(url):
   sleep(2)
   return driver
 
-def parseFlights(driver):
+def parseFlights(driver, date):
   def parsePrice(price):
     return int(''.join([i for i in price.split() if i.isdigit()]))
+  
+  def parseTimes(times, date):
+    return [datetime.datetime.strptime(date + '-' + time.strip(), '%Y-%m-%d-%H:%M') for time in times.split('–')]
 
   flightsSoup = BeautifulSoup(driver.page_source, 'lxml')
   for flight in flightsSoup.find_all('li', class_ = 'gws-flights-results__result-item'):
+    times = parseTimes(flight.find('div', class_ = 'gws-flights-results__times').text, date)
     yield {
       'id': flight['data-fp'],
-      'times': flight.find('div', class_ = 'gws-flights-results__times').text,
+      'departure': times[0],
+      'arrival': times[1],
       'price': parsePrice(flight.find('div', class_ = 'gws-flights-results__price').text)
     }
 
 def main():
-  url = buildQueryURL('ARN', 'FRA', '2019-03-14', 'SEK')
+  date = '2019-03-14'
+  url = buildQueryURL('ARN', 'FRA', date, 'SEK')
   print(url)
   driver = getDriver(url)
-  flights = parseFlights(driver)
+  flights = parseFlights(driver, date)
   print([flight for flight in flights])
   driver.quit()
 
