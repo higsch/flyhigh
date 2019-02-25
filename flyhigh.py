@@ -1,7 +1,6 @@
 from time import sleep
 from random import randint
 from selenium import webdriver
-from bs4 import BeautifulSoup
 
 def buildQueryURL(fr, to, date):
   url = 'https://www.google.com/flights#flt={fr}.{to}.{date};c:SEK;e:1;s:0;sd:1;t:f;tt:o'
@@ -9,10 +8,10 @@ def buildQueryURL(fr, to, date):
   return url
 
 def getDriver(url):
-  driver = webdriver.Chrome('chromedriver')
-  sleep(4)
+  options = webdriver.ChromeOptions()
+  options.add_argument('headless')
+  driver = webdriver.Chrome(chrome_options = options)
   driver.get(url)
-  sleep(randint(2, 3))
   return driver
 
 def parseFlights(driver):
