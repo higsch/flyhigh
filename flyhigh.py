@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from time import sleep
 import datetime
 from selenium import webdriver
@@ -56,7 +58,7 @@ def connectDB(dbName):
 def writeFlights(db, flights):
   cur = db.cursor()
   for flight in flights:
-    print('Writing to db... ', flight)
+    print('Writing to db...\n', flight)
     cur.execute('''
       INSERT INTO flights(flightId, departure, arrival, duration, price, timestamp) 
         VALUES(:flightId, :departure, :arrival, :duration, :price, :timestamp)
@@ -67,7 +69,7 @@ def main():
   # get flights
   date = '2019-03-14'
   url = buildQueryURL('ARN', 'FRA', date, 'SEK')
-  print(url)
+  print('Scraping', url)
   driver = getDriver(url)
   flights = parseFlights(driver, date)
 
