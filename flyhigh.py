@@ -11,27 +11,29 @@ import sqlite3
 DATEFORMAT = '%Y-%m-%d'
 
 def buildQueryURL(fr, to, date, currency):
-  url = 'https://www.google.com/flights#flt={fr}.{to}.{date};c:{currency};e:1;s:0;sd:1;t:f;tt:o'
+  url = 'https://www.google.com/flights?hl=se&gl=se#flt={fr}.{to}.{date};c:{currency};e:1;s:0;sd:1;t:f;tt:o'
   url = url.format(fr = fr, to = to, date = date, currency = currency)
   return url
 
-def getDriver(url):
+def getHTML(url):
   options = webdriver.ChromeOptions()
   options.add_argument('headless')
   options.add_argument('no-sandbox')
   driver = webdriver.Chrome(chrome_options = options)
   driver.get(url)
   sleep(2)
-  return driver
+  html = driver.page_source
+  driver.quit()
+  return html
 
-def parseFlights(driver, date):
+def parseFlights(html, date):
   def parsePrice(price):
-    return int(''.join([i for i in price.split() if i.isdigit()]))
+    return ''.join([i for i in price if i.isdigit()])
   
   def parseTimes(times, date):
     return [datetime.datetime.strptime(date + '-' + time.strip(), DATEFORMAT + '-%H:%M') for time in times.split('–')]
 
-  flightsSoup = BeautifulSoup(driver.page_source, features = 'html.parser')
+  flightsSoup = BeautifulSoup(html, features = 'html.parser')
   for flight in flightsSoup.find_all('li', class_ = 'gws-flights-results__result-item'):
     times = parseTimes(flight.find('div', class_ = 'gws-flights-results__times').text, date)
     yield {
@@ -79,12 +81,11 @@ def main():
     date = currentDate.strftime(DATEFORMAT)
     url = buildQueryURL('ARN', 'FRA', date, 'SEK')
     print('Scraping', url)
-    driver = getDriver(url)
-    flights = parseFlights(driver, date)
+    html = getHTML(url)
+    flights = parseFlights(html, date)
     db = connectDB('./db/flights.sqlite')
     with db:
       writeFlights(db, flights)
-    driver.quit()
     currentDate += datetime.timedelta(days = 1)
 
 if __name__ == '__main__':
