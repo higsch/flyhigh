@@ -15,6 +15,6 @@ COPY chromedriver_linux /usr/bin/chromedriver
 
 COPY flyhigh.py /app/
 
-RUN mkdir app/db
+RUN mkdir db
 
 CMD ["python3", "/app/flyhigh.py"]

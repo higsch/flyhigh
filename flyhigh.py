@@ -29,7 +29,7 @@ def parseFlights(driver, date):
   def parseTimes(times, date):
     return [datetime.datetime.strptime(date + '-' + time.strip(), '%Y-%m-%d-%H:%M') for time in times.split('–')]
 
-  flightsSoup = BeautifulSoup(driver.page_source)
+  flightsSoup = BeautifulSoup(driver.page_source, features = 'html.parser')
   for flight in flightsSoup.find_all('li', class_ = 'gws-flights-results__result-item'):
     times = parseTimes(flight.find('div', class_ = 'gws-flights-results__times').text, date)
     yield {
@@ -76,7 +76,7 @@ def main():
   flights = parseFlights(driver, date)
 
   # write flights to database
-  db = connectDB('/app/db/flights.sqlite')
+  db = connectDB('./db/flights.sqlite')
   with db:
     writeFlights(db, flights)
 
