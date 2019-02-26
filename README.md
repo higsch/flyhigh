@@ -1,6 +1,11 @@
 # flyhigh
 
-... tracks flight prices from ARN to FRA.
+... tracks flight prices from ARN to FRA. Experimental stage.
+
+Get the docker image here.
+```
+docker pull matthiasstahl/flyhigh
+```
 
 Run command.
 ```
