@@ -9,5 +9,6 @@ docker pull matthiasstahl/flyhigh
 
 Run command.
 ```
-docker run -it -v "$(pwd)"/db:/app/db matthiasstahl/flyhigh
+# assumes a db folder in the current directory
+docker run -it -v "$(pwd)"/db:/db matthiasstahl/flyhigh
 ```
