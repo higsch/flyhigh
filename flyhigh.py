@@ -2,6 +2,7 @@
 
 from time import sleep
 import datetime
+
 from selenium import webdriver
 from bs4 import BeautifulSoup
 
@@ -15,6 +16,7 @@ def buildQueryURL(fr, to, date, currency):
 def getDriver(url):
   options = webdriver.ChromeOptions()
   options.add_argument('headless')
+  options.add_argument('no-sandbox')
   driver = webdriver.Chrome(chrome_options = options)
   driver.get(url)
   sleep(2)
@@ -27,7 +29,7 @@ def parseFlights(driver, date):
   def parseTimes(times, date):
     return [datetime.datetime.strptime(date + '-' + time.strip(), '%Y-%m-%d-%H:%M') for time in times.split('–')]
 
-  flightsSoup = BeautifulSoup(driver.page_source, 'lxml')
+  flightsSoup = BeautifulSoup(driver.page_source)
   for flight in flightsSoup.find_all('li', class_ = 'gws-flights-results__result-item'):
     times = parseTimes(flight.find('div', class_ = 'gws-flights-results__times').text, date)
     yield {
@@ -67,7 +69,7 @@ def writeFlights(db, flights):
 
 def main():
   # get flights
-  date = '2019-03-14'
+  date = '2019-08-24'
   url = buildQueryURL('ARN', 'FRA', date, 'SEK')
   print('Scraping', url)
   driver = getDriver(url)
