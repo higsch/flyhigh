@@ -76,7 +76,7 @@ def main():
   flights = parseFlights(driver, date)
 
   # write flights to database
-  db = connectDB('flights.sqlite')
+  db = connectDB('/app/db/flights.sqlite')
   with db:
     writeFlights(db, flights)
 
