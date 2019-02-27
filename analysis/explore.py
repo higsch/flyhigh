@@ -19,10 +19,7 @@ conn = sqlite3.connect(dbFileName)
 def reduceLabels(labels):
   i = 0
   for label in labels:
-    if (i % 20 == 0):
-      label.set_visible(True)
-    else:
-      label.set_visible(False)
+    label.set_visible(not bool(i % 20))
     i += 1
 #%%
 df = pd.read_sql_query('''
