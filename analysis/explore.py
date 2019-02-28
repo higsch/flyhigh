@@ -44,15 +44,16 @@ df = pd.read_sql_query('''
   SELECT *, strftime('%Y-%m-%d %H', timestamp) AS bookingTime
   FROM flights
   WHERE bookingTime = '2019-02-26 23'
+  ORDER BY flightDate
 ''', conn)
 fig, ax = plt.subplots()
-ax.xaxis_date()
 for key, group in df.groupby('flightId'):
-  ax.plot(group['flightDate'], group['price'], label = key)
-reduceLabels(ax.xaxis.get_ticklabels())
+  ax.plot(group['price'], label = key)
+ax.xaxis.set_ticks([])
 ax.legend(loc = 'center left', bbox_to_anchor = (1, 0.5))
 fig.autofmt_xdate()
 plt.show()
+fig.savefig(os.path.join(cwd, 'analysis', 'output', 'flightstimeline.pdf'))
 
 #%% [markdown]
 # ## fetch different booking times for one flight
@@ -68,6 +69,7 @@ for key, group in df.groupby(['flightDate', 'flightId']):
   ax.plot(group['bookingTime'], group['price'], label = key)
 fig.autofmt_xdate()
 plt.show()
+fig.savefig(os.path.join(cwd, 'analysis', 'output', 'pricetimeline.pdf'))
 
 #%%
 conn.close()
