@@ -23,44 +23,64 @@ def reduceLabels(labels):
     i += 1
 #%%
 df = pd.read_sql_query('''
-  SELECT *, strftime('%Y-%m-%d %H', timestamp) AS bookingTime
+  SELECT *,
+  strftime('%Y-%m-%d %H', timestamp) AS bookingTime,
+  strftime('%Y-%m-%d', flightDate) AS flightDateFormatted
   FROM flights
   WHERE flightId = 'ARNFRA0LH809'
 ''', conn)
 fig, ax = plt.subplots()
 ax.xaxis_date()
 for key, group in df.groupby('bookingTime'):
-  ax.plot(group['flightDate'], group['price'], label = key)
+  ax.plot(group['flightDateFormatted'], group['price'], label = key)
 reduceLabels(ax.xaxis.get_ticklabels())
 ax.legend(loc = 'center left', bbox_to_anchor = (1, 0.5))
 fig.autofmt_xdate()
 plt.show()
+fig.savefig(os.path.join(cwd, 'analysis', 'output', 'flightsbookingoverlay.pdf'))
 
 #%% [markdown]
 # ## fetch all flights over departure time
 
 #%%
 df = pd.read_sql_query('''
-  SELECT *, strftime('%Y-%m-%d %H', timestamp) AS bookingTime
+  SELECT *,
+  strftime('%Y-%m-%d %H', timestamp) AS bookingTime,
+  (julianday(departure) - julianday(timestamp)) AS daysRemaining
   FROM flights
   WHERE bookingTime = '2019-02-26 23'
   ORDER BY flightDate
 ''', conn)
 fig, ax = plt.subplots()
 for key, group in df.groupby('flightId'):
-  ax.plot(group['price'], label = key)
-ax.xaxis.set_ticks([])
+  ax.plot(group['daysRemaining'], group['price'], label = key)
 ax.legend(loc = 'center left', bbox_to_anchor = (1, 0.5))
-fig.autofmt_xdate()
 plt.show()
-fig.savefig(os.path.join(cwd, 'analysis', 'output', 'flightstimeline.pdf'))
+fig.savefig(os.path.join(cwd, 'analysis', 'output', 'routetimeline.pdf'))
 
 #%% [markdown]
-# ## fetch different booking times for one flight
+# ## fetch different booking times per flight
 
 #%%
 df = pd.read_sql_query('''
-  SELECT *, strftime('%Y-%m-%d %H', timestamp) AS bookingTime
+  SELECT *,
+  strftime('%Y-%m-%d %H', timestamp) AS bookingTime,
+  (julianday(departure) - julianday(timestamp)) AS daysRemaining
+  FROM flights
+''', conn)
+fig, ax = plt.subplots()
+for key, group in df.groupby(['flightDate', 'flightId']):
+  ax.plot(group['daysRemaining'], group['price'], label = key)
+plt.show()
+fig.savefig(os.path.join(cwd, 'analysis', 'output', 'pricetimeline.pdf'))
+
+#%% [markdown]
+# ## fetch different booking times (not ordered)
+
+#%%
+df = pd.read_sql_query('''
+  SELECT *,
+  strftime('%Y-%m-%d %H', timestamp) AS bookingTime
   FROM flights
 ''', conn)
 fig, ax = plt.subplots()
@@ -69,7 +89,8 @@ for key, group in df.groupby(['flightDate', 'flightId']):
   ax.plot(group['bookingTime'], group['price'], label = key)
 fig.autofmt_xdate()
 plt.show()
-fig.savefig(os.path.join(cwd, 'analysis', 'output', 'pricetimeline.pdf'))
+fig.savefig(os.path.join(cwd, 'analysis', 'output', 'bookingtimeline.pdf'))
+
 
 #%%
 conn.close()
