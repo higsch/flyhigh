@@ -46,9 +46,9 @@ fig.savefig(os.path.join(cwd, 'analysis', 'output', 'flightsbookingoverlay.pdf')
 df = pd.read_sql_query('''
   SELECT *,
   strftime('%Y-%m-%d %H', timestamp) AS bookingTime,
-  (julianday(departure) - julianday(timestamp)) AS daysRemaining
+  (julianday(timestamp) - julianday(departure)) AS daysRemaining
   FROM flights
-  WHERE bookingTime = '2019-02-26 23'
+  WHERE bookingTime = '2019-03-01 11'
   ORDER BY flightDate
 ''', conn)
 fig, ax = plt.subplots()
@@ -65,7 +65,7 @@ fig.savefig(os.path.join(cwd, 'analysis', 'output', 'routetimeline.pdf'))
 df = pd.read_sql_query('''
   SELECT *,
   strftime('%Y-%m-%d %H', timestamp) AS bookingTime,
-  (julianday(departure) - julianday(timestamp)) AS daysRemaining
+  (julianday(timestamp) - julianday(departure)) AS daysRemaining
   FROM flights
 ''', conn)
 fig, ax = plt.subplots()
