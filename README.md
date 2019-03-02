@@ -5,6 +5,9 @@
 Get the docker image here.
 ```
 docker pull matthiasstahl/flyhigh
+
+#or: if you are on a raspberry pi system
+docker pull matthiasstahl/flyhigh:pi
 ```
 
 Run command.
