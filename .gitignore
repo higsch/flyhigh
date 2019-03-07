@@ -1,5 +1,4 @@
 .DS_Store
 .vscode
-db
-download_db.sh
+flights.sqlite
 output
