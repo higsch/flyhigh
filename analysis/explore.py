@@ -70,7 +70,7 @@ df = pd.read_sql_query('''
 ''', conn)
 fig, ax = plt.subplots()
 for key, group in df.groupby(['flightDate', 'flightId']):
-  ax.plot(group['daysRemaining'], group['price'], label = key)
+  ax.plot(group['daysRemaining'], group['price'], label = key, linewidth = 0.4)
 plt.show()
 fig.savefig(os.path.join(cwd, 'analysis', 'output', 'pricetimeline.pdf'))
 
@@ -80,13 +80,13 @@ fig.savefig(os.path.join(cwd, 'analysis', 'output', 'pricetimeline.pdf'))
 #%%
 df = pd.read_sql_query('''
   SELECT *,
-  strftime('%Y-%m-%d %H', timestamp) AS bookingTime
+  strftime('%Y-%m-%d', timestamp) AS bookingTime
   FROM flights
 ''', conn)
 fig, ax = plt.subplots()
 ax.xaxis_date()
 for key, group in df.groupby(['flightDate', 'flightId']):
-  ax.plot(group['bookingTime'], group['price'], label = key)
+  ax.plot(group['bookingTime'], group['price'], label = key, linewidth = 0.4)
 fig.autofmt_xdate()
 plt.show()
 fig.savefig(os.path.join(cwd, 'analysis', 'output', 'bookingtimeline.pdf'))

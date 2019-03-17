@@ -21,5 +21,5 @@ And of course, if you want to have it run on your system directly.
 pip3 install selenium bs4
 python3 flyhigh.py
 ```
-Check if your `chromedriver` is in your `PATH`. Otherwise download
+Check if the `chromedriver` is in your `PATH`. Otherwise download
 an appropriate version from the [electron repo](https://github.com/electron/electron/releases).
