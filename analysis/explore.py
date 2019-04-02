@@ -34,7 +34,7 @@ ax.xaxis_date()
 for key, group in df.groupby('bookingTime'):
   ax.plot(group['flightDateFormatted'], group['price'], label = key)
 reduceLabels(ax.xaxis.get_ticklabels())
-ax.legend(loc = 'center left', bbox_to_anchor = (1, 0.5))
+#ax.legend(loc = 'center left', bbox_to_anchor = (1, 0.5))
 fig.autofmt_xdate()
 plt.show()
 fig.savefig(os.path.join(cwd, 'analysis', 'output', 'flightsbookingoverlay.pdf'))
