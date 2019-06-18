@@ -10,6 +10,9 @@ conn <- dbConnect(drv = RSQLite::SQLite(),
 flights <- dbGetQuery(conn = conn,
                       statement = "select * from flights")
 
+# close DB connection
+dbDisconnect(conn = conn)
+
 # convert the dates and times to ms
 datetime.cols <- c("flightDate", "departure", "arrival", "timestamp")
 datetime.df <- sapply(X = datetime.cols,
@@ -48,6 +51,12 @@ flights %>%
   geom_line() +
   scale_x_reverse()
 
+# plot for August 30th
+flights %>%
+  filter(flightDate == "2019-08-30") %>%
+  ggplot(aes(x = timeToDeparture@.Data/(24*60*60), y = price, group = departure, color = flightId)) +
+  geom_line() +
+  scale_x_reverse()
 
 #############
 # correlation analysis
@@ -102,7 +111,7 @@ write.table(x = cor.mat,
             col.names = NA)
 
 # plot special flights
-summerFlights <- c("LH803_2019_6_8_13_10",	"LH809_2019_6_10_6_5", "LH801_2019_6_7_10_0", "LH807_2019_6_7_16_25",
+summerFlights <- c("LH803_2019_6_8_13_10", "LH809_2019_6_10_6_5", "LH801_2019_6_7_10_0", "LH807_2019_6_7_16_25",
                    "LH803_2019_6_7_13_10", "LH805_2019_6_7_18_50", "LH807_2019_6_9_16_25", "LH801_2019_6_8_10_0",
                    "LH805_2019_6_9_18_50", "LH805_2019_6_8_18_50", "LH807_2019_6_8_16_25", "LH809_2019_6_9_6_20",
                    "LH801_2019_6_10_10_10", "LH803_2019_6_9_13_10", "LH807_2019_4_21_16_25")
