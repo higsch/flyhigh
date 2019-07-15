@@ -32,10 +32,31 @@ flights <- flights %>%
 
 # modify the flightId
 flights$flightId <-  gsub(pattern = "ARNFRA0", replacement = "", x = flights$flightId)
+
+# round timestamp and departure to halfdays
+roundHalfDay <- function (daytime, switchTz = FALSE) {
+  if (switchTz) {
+    dt <- daytime %>% with_tz("Europe/Stockholm")
+  } else {
+    dt <- daytime
+  }
+  days <- floor_date(dt, unit = "days")
+  hours <- floor_date(dt, unit = "hour") %>% hour()
   
+  midnight <- hours %in% c(0, 1, 2, 3)
+  days[!midnight] <- days[!midnight] + dhours(12)
+  
+  return(days)
+}
+
+flights <- flights %>%
+  mutate(timestampRounded = roundHalfDay(timestamp, switchTz = TRUE)) %>%
+  mutate(departureRounded = roundHalfDay(departure, switchTz = FALSE))
+
 # calculate time from timestamp until departure and introduce unique character ID
 flights <- flights %>%
   mutate(timeToDeparture = as.duration(timestamp %--% departure)) %>%
+  mutate(timeToDepartureRounded = as.duration(timestampRounded %--% departureRounded)) %>%
   mutate(flightIdUnique = paste(flightId, year(departure), month(departure), day(departure), hour(departure), minute(departure), sep = "_"))
 
 # add some information columns for later on
@@ -64,14 +85,25 @@ flights %>%
 
 # only one timepoint per day and only up to today
 flights.forCorr <- flights %>%
-  filter(hour(timestamp) %in% c(22, 23, 0)) %>%
-  filter(departure < today()) %>%
+  filter(departureRounded < today()) %>%
   filter(!grepl("LH622[79]", flightId))
 
 # mutate
 flights.forCorr <- flights.forCorr %>%
-  mutate(timeToDepartureDays = floor(as.numeric(timeToDeparture)/(24*60*60))) %>%
+  mutate(timeToDepartureDays = as.numeric(timeToDepartureRounded)/(24*60*60)) %>%
   select(flightIdUnique, timeToDepartureDays, price)
+
+# check for duplicates
+allFlights <- unique(flights.forCorr$flightIdUnique)
+any(sapply(X = allFlights,
+           FUN = function (flight) {
+             flights.forCorr %>%
+               filter(flightIdUnique == flight) %>%
+               select(timeToDepartureDays) %>%
+               unlist() %>%
+               duplicated() %>%
+               any()
+           }))
 
 # plot
 flights.forCorr %>%
