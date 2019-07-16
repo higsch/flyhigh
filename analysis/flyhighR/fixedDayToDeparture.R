@@ -1,5 +1,5 @@
 days <- 30
-dateBreak <- "2019-06-01"
+dateBreak <- "2019-06-20"
 
 # spring flights
 flights.fixedSpring <- flights %>%
@@ -23,12 +23,8 @@ data %>%
   ggplot() +
   geom_density(aes(x = price, group = daysToDeparture, color = daysToDeparture)) +
   facet_wrap(~ season, nrow = 2) + 
-  ylim(0, 0.002)
+  ylim(0, 0.0015)
 
-data %>%
-  ggplot() +
-  geom_freqpoly(aes(x = price, group = daysToDeparture, color = daysToDeparture)) +
-  facet_wrap(~ season, nrow = 2)
 
 # based on discrete prices
 data.priceGrouped <- data %>%
@@ -39,3 +35,5 @@ data.priceGrouped %>%
   ggplot() +
   geom_bar(aes(x = price, y = price_count, color = daysToDeparture, group = daysToDeparture), stat = "identity") +
   facet_wrap(~ season, nrow = 2)
+
+# TODO: use cluster separation for density plots
