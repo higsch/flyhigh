@@ -104,10 +104,16 @@ data <- flights.clust %>%
   mutate(timeToDepartureDays = round(2*as.numeric(timeToDepartureRounded)/(24*60*60))/2) %>%
   filter(timeToDepartureDays <= 60 & timeToDepartureDays >= 1) %>%
   group_by(timeToDepartureDays) %>%
-  summarise(medianPrice = median(price),
+  summarise(medianPrice = median(price, na.rm = TRUE),
+            meanPrice = mean(price, na.rm = TRUE),
             countPrices = n())
 
 data %>%
   ggplot() +
   geom_point(aes(x = timeToDepartureDays, y = medianPrice, color = countPrices)) +
+  scale_x_reverse()
+
+data %>%
+  ggplot() +
+  geom_point(aes(x = timeToDepartureDays, y = meanPrice, color = medianPrice)) +
   scale_x_reverse()
