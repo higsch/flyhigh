@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Fly high – pay low</title>
+	<meta name="author" content="Matthias Stahl">
+	<meta name="description" content="Tracked flight prices from Stockholm to Frankfurt">
+	<meta name="keywords" content="data, visualization, visualisation, data visualization, data visualisation, flights, flight, flight prices, Lufthansa, SAS, Stockholm, Frankfurt">
+	
+	<meta property="og:title" content="Fly high – pay low">
+	<meta property="og:site_name" content="higsch">
+	<meta property="og:url" content="http://www.higsch.me">
+	<meta property="og:description" content="Tracked flight prices from Stockholm to Frankfurt">
+	<meta property="og:type" content="article">
+	<meta property="og:locale" content="en_US">
+	<meta property="og:image" content="">
+	<meta property="og:image:type" content="image/jpeg">
+	<meta property="og:image:width" content="1920">
+	<meta property="og:image:height" content="1080">
+	
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@bioschema">
+	<meta name="twitter:creator" content="@bioschema">
+	<meta name="twitter:title" content="Fly high – pay low">
+	<meta name="twitter:description" content="Tracked flight prices from Stockholm to Frankfurt">
+	<meta name="twitter:image:src" content="">
+
+	<!-- JavaScript plugin files -->
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+
+	<!-- Custom JavaScript files -->
+	<script src="flyhigh.js"></script>
+
+	<!-- Styling -->
+  <link href="style.css" rel="stylesheet">
+  
+  <!-- Fonts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="chart-container">
+      <div id="chart"></div>
+    </div>
+  </div>
+
+  <script>
+    WebFont.load({
+			google: {
+				families: ['Barlow Semi Condensed:400,400i,60','Barlow:400']
+			},
+			active: function() { 
+				createChart();
+			}
+    });
+    
+    d3.select(window).on('resize', () => {
+      createChart();
+    });
+  </script>
+</body>
+</html>

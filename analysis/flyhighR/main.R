@@ -30,7 +30,6 @@ flights <- cbind(flights, as.data.frame(datetime.df))
 
 # transform everything to UTC time
 flights <- flights %>%
-  mutate(flightDate = with_tz(time = flightDate, tzone = "UTC")) %>%
   mutate(departure = with_tz(time = departure, tzone = "UTC")) %>%
   mutate(arrival = with_tz(time = arrival, tzone = "UTC"))
 

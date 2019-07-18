@@ -20,13 +20,13 @@ data.norm <- apply(X = data,
   as.data.frame()
 
 # normalised
-# data.final <- rbind(rep(4, ncol(data.norm)), rep(0, ncol(data.norm)), data.norm)
-# radarchart(data.final, 
-#            axistype = 1,
-#            maxmin = TRUE,
-#            pty = 32,
-#            plty = 1,
-#            cglty = 0)
+data.final <- rbind(rep(4, ncol(data.norm)), rep(0, ncol(data.norm)), data.norm)
+radarchart(data.final,
+           axistype = 1,
+           maxmin = TRUE,
+           pty = 32,
+           plty = 1,
+           cglty = 0)
 
 # non-normalised
 data.nonnorm <- data %>%

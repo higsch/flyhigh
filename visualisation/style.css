@@ -1,0 +1,9 @@
+.chart-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#chart {
+  /* border: 1px solid black; */
+}

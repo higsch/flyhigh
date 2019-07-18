@@ -2,7 +2,7 @@
 # correlation analysis
 #############
 
-days <- 60
+days <- 30
 
 # flights with 50 days of followup
 selectedFlights <- flights %>%
