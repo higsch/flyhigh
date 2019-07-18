@@ -11,26 +11,34 @@ function createChart() {
   
   // the chart container
   let container = d3.select('#chart');
+  let brushContainer = d3.select('#time-brush');
 
   // remove old stuff
-  container.selectAll('svg, canvas').remove();
+  container.selectAll('canvas').remove();
+  brushContainer.selectAll('svg').remove();
   container.style('height', null);
+  brushContainer.style('height', null);
   
   // the window dimensions
   const ww = window.innerWidth;
   const wh = window.innerHeight;
 
   // defining the visual dimensions
-  const baseWidth = 1600;
+  const baseWidth = 500;
   const width = ww;
 
-  const height = Math.max(wh, width / 1.5);
+  const height = wh;
 
   const sizeFactor = width / baseWidth;
 
+  const brushHeight = 100;
+  const canvasHeight = height - brushHeight;
+
   // set the container to the calculated dimensions
   container.style('width', `${width}px`);
-  container.style('height', `${height}px`);
+  container.style('height', `${canvasHeight}px`);
+  brushContainer.style('width', `${width}px`);
+  brushContainer.style('height', `${brushHeight}px`);
 
   // create canvas for the lines
   let canvas = container.append('canvas').attr('id', 'canvas-target');
@@ -39,11 +47,11 @@ function createChart() {
   // make the canvas nice looking
   canvas
     .attr('width', sf * width)
-    .attr('height', sf * height)
+    .attr('height', sf * (canvasHeight))
     .style('width', `${width}px`)
-    .style('height', `${height}px`);
+    .style('height', `${canvasHeight}px`);
   ctx.scale(sf, sf);
-  ctx.translate(width / 2, height / 2);
+  ctx.translate(width / 2, canvasHeight / 2);
 
   // general settings
   ctx.globalCompositeOperation = 'color'; // darken, lighten, color
@@ -91,7 +99,17 @@ function createChart() {
 
     let priceScale = d3.scaleLinear()
       .domain([0, maxPrice])
-      .range([width / 15, width * 0.4]);
+      .range([width / (sizeFactor * 15), Math.min(width, canvasHeight) * 0.5]);
+
+    const daysToAngle = (days) => {
+      return -pi2 * days / 30;
+    }
+
+    const line = d3.lineRadial()
+      .angle(d => d.angle)
+      .radius(d => d.radius)
+      .curve(d3.curveBasis)
+      .context(ctx);
 
     const nData = d3.nest()
       .key(d => d.flightIdUnique)
@@ -99,25 +117,25 @@ function createChart() {
 
     const radialDataPreCalc = nData.map(priceLine => {
       let priceLineData = [];
+      let endRadius = -100;
       priceLine.values.forEach(d => {
-        const angle = -pi2 * (d.timeToDepartureDays - 1) / (30 * 1.15);
+        const radius = priceScale(d.price);
+        const angle = daysToAngle(d.timeToDepartureDays);
+        if (d.timeToDepartureDays === 1) endRadius = radius;
         const point = {
           day: d.timeToDepartureDays,
-          radius: priceScale(d.price),
-          angle: angle,
-          x: (0.5 + Math.cos(angle - pi1_2) * priceScale(d.price)) << 0,
-          y: (0.5 + Math.sin(angle - pi1_2) * priceScale(d.price)) << 0
+          radius,
+          angle
         };
         priceLineData.push(point);
       });
 
       const minRadius = Math.min(...priceLineData.map(elem => elem.radius));
       const maxRadius = Math.max(...priceLineData.map(elem => elem.radius));
-      const endRadius = priceLineData.filter(v => v.day === 1)[0].radius;
-      const middleStop = Math.min((endRadius - minRadius) / (maxRadius - minRadius), 1.0);
+      const middleStop = Math.min((endRadius - minRadius) / (maxRadius - minRadius), 1.0) || 0;
 
       let color;
-      if (maxRadius - minRadius <= 0.0) {
+      if (minRadius / maxRadius >= 0.9) {
         color = '#E3D8F1';
       } else {
         color = ctx.createRadialGradient(0, 0, minRadius, 0, 0, maxRadius);
@@ -137,31 +155,62 @@ function createChart() {
       };
     });
 
+    drawRadialChartAnnotation();
+
     drawTimeBrush(flightInfo, radialDataPreCalc);
+
+    function drawRadialChartAnnotation() {
+      let annotation = container.append('svg')
+        .attr('class', 'radial-chart-annotation')
+        .style('width', width)
+        .style('height', canvasHeight);
+
+      const ticks = [30, 20, 10, 1].map(tick => {
+        const radius = priceScale(6000);
+        const angle = daysToAngle(tick) * 360 / pi2 + 360 - 90;
+        return {
+          xOffset: width / 2 + (Math.cos(angle) * radius),
+          yOffset: canvasHeight / 2 + (Math.sin(angle) * radius),
+          angle,
+          text: tick
+        }
+      });
+      console.log(ticks)
+
+      annotation.selectAll('g')
+        .data(ticks)
+        .enter().append('g')
+        .attr('class', 'radial-tick')
+        .attr('transform', d => (
+          `translate(${d.xOffset} ${d.yOffset})
+           rotate(${d.angle})`))
+        .append('text').text(d => d.text);
+    }
 
     function drawCanvas(data) {
       ctx.clearRect(-width / 2, -height / 2, width, height);
       ctx.globalAlpha = 0.6;
-
       data.forEach(d => {
         ctx.beginPath();
-        d.priceLineData.forEach((point, index) => {
-          ctx.lineTo(point.x, point.y);
-        })
-        ctx.lineWidth = 3 * sizeFactor;
+        line(d.priceLineData);
+        ctx.lineWidth = sizeFactor;
         ctx.strokeStyle = d.color;
         ctx.stroke();
       });
     }
 
     function drawTimeBrush(flightInfo, radialData) {
+      const padding = {
+        top: 20
+      };
+      const maxAnimate = 40;
+
       const formatTime = d3.timeFormat('%Y-%m-%d');
       const radialDataIndex = radialData.map(d => {
         return formatTime(d.departure);
       });
 
-      const brushHeight = 100;
-      let svg = container.append('svg').lower()
+      let svg = brushContainer.append('svg')
         .attr('id','departure-brush')
         .attr('width', width)
         .attr('height', brushHeight);
@@ -172,9 +221,25 @@ function createChart() {
         .domain(d3.extent(flightInfo, d => d.departure))
         .range([0, width]);
 
+      let xAxis = svg.append('g')
+        .attr('class', 'x axis')
+        .attr('transform', `translate(0, ${padding.top})`)
+        .call(d3.axisTop(x)
+          .ticks(7))
+      
+      xAxis.selectAll('path')
+        .style('display', 'none');
+
+      xAxis.selectAll('text')
+        .attr('fill', '#777');
+
+      xAxis.selectAll('line')
+        .attr('stroke', '#777')
+        .attr('transform', 'translate(0 2)');
+
       let yGenerator = (category) => d3.scaleLinear()
         .domain([0, d3.max(flightInfo, d => d[category])])
-        .range([brushHeight, 0]);
+        .range([brushHeight, padding.top]);
       
       const area = (category) => d3.area()
         .x(d => x(d.departure))
@@ -182,33 +247,37 @@ function createChart() {
         .y1(d => yGenerator(category)(d[category]))
         .curve(d3.curveBasis)
 
-        graph.selectAll('.path-end-price')
-          .data([flightInfo])
-          .enter().append('path')
-          .attr('d', area('endPrice'))
-          .attr('fill', lineColor.middle)
-          .attr('fill-opacity', 1);
+      graph.selectAll('.path-end-price')
+        .data([flightInfo])
+        .enter().append('path')
+        .attr('d', area('meanPrice'))
+        .attr('fill', lineColor.middle)
+        .attr('fill-opacity', 1);
 
-        const brush = d3.brushX()
-          .extent([[0, 0], [width, brushHeight]])
-          .on('brush end', brushed);
+      const brush = d3.brushX()
+        .extent([[0, 0], [width, brushHeight]])
+        .on('brush end', brushed);
 
-        svg.append('g')
+      let brusher = svg.append('g')
         .attr('class', 'brush')
         .call(brush)
         .call(brush.move,
-          [x(timeParser('2019-06-01T00:00:00Z')),
-          x(timeParser('2019-06-08T00:00:00Z'))]);
+          [x(timeParser('2019-07-11T00:00:00Z')),
+          x(timeParser('2019-07-14T00:00:00Z'))]);
 
-        function brushed() {
-          const selectionX = d3.event.selection;
-          const selectionTime = selectionX.map(elem => x.invert(elem)).map(elem => formatTime(elem));
-          const start = radialDataIndex.indexOf(selectionTime[0]);
-          const stop = radialDataIndex.lastIndexOf(selectionTime[1]);
-          if (Math.abs(stop - start) <= 60 || d3.event.type === 'end') {
-            drawCanvas(radialData.slice(start, stop + 1));
-          }
+      brusher
+        .selectAll('rect.selection')
+        .attr('fill', lineColor.low);
+
+      function brushed() {
+        const selectionX = d3.event.selection;
+        const selectionTime = selectionX.map(elem => x.invert(elem)).map(elem => formatTime(elem));
+        const start = radialDataIndex.indexOf(selectionTime[0]);
+        const stop = radialDataIndex.lastIndexOf(selectionTime[1]);
+        if (Math.abs(stop - start) <= maxAnimate || d3.event.type === 'end') {
+          drawCanvas(radialData.slice(start, stop + 1));
         }
+      }
     }
   }
 }

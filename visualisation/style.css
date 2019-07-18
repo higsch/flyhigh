@@ -1,9 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .chart-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
 #chart {
+  position: relative;
   /* border: 1px solid black; */
+}
+
+#canvas-target {
+  position: absolute;
+  z-index: 0;
+}
+
+svg.radial-chart-annotation {
+  position: absolute;
+  z-index: 100;
 }
