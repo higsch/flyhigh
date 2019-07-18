@@ -65,7 +65,8 @@ flights <- flights %>%
   mutate(company = substring(flightId, 1, 2)) %>%
   mutate(departureMonth = month(departure)) %>%
   mutate(departureDay = day(departure)) %>%
-  mutate(departureHour = hour(departure))
+  mutate(departureHour = hour(departure)) %>%
+  mutate(departureWeekday = weekdays(departure))
 
 # plot
 if (plotIt) {
