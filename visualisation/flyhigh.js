@@ -175,7 +175,6 @@ function createChart() {
           text: tick
         }
       });
-      console.log(ticks)
 
       annotation.selectAll('g')
         .data(ticks)
@@ -203,11 +202,18 @@ function createChart() {
       const padding = {
         top: 20
       };
-      const maxAnimate = 40;
+      const maxAnimate = 300;
+      let isInit = true;
 
       const formatTime = d3.timeFormat('%Y-%m-%d');
-      const radialDataIndex = radialData.map(d => {
-        return formatTime(d.departure);
+      let radialDataIndex = {};
+      radialData.forEach((d, index, arr) => {
+        const departure = formatTime(d.departure);
+        if (!Object.keys(radialDataIndex).includes(departure)) {
+          radialDataIndex[departure] = [index];
+        } else {
+          radialDataIndex[departure] = [radialDataIndex[departure][0], index];
+        }
       });
 
       let svg = brushContainer.append('svg')
@@ -245,12 +251,12 @@ function createChart() {
         .x(d => x(d.departure))
         .y0(yGenerator(category)(0))
         .y1(d => yGenerator(category)(d[category]))
-        .curve(d3.curveBasis)
+        .curve(d3.curveBasis);
 
       graph.selectAll('.path-end-price')
         .data([flightInfo])
         .enter().append('path')
-        .attr('d', area('meanPrice'))
+        .attr('d', area('endPrice'))
         .attr('fill', lineColor.middle)
         .attr('fill-opacity', 1);
 
@@ -262,18 +268,37 @@ function createChart() {
         .attr('class', 'brush')
         .call(brush)
         .call(brush.move,
-          [x(timeParser('2019-07-11T00:00:00Z')),
-          x(timeParser('2019-07-14T00:00:00Z'))]);
+          [
+            x(timeParser('2019-07-11T00:00:00Z')),
+            x(timeParser('2019-07-14T00:00:00Z'))
+          ]);
 
       brusher
         .selectAll('rect.selection')
         .attr('fill', lineColor.low);
 
       function brushed() {
+        if (!isInit && !d3.event.sourceEvent || !d3.event.selection) return;
+
+        isInit = false;
+
         const selectionX = d3.event.selection;
-        const selectionTime = selectionX.map(elem => x.invert(elem)).map(elem => formatTime(elem));
-        const start = radialDataIndex.indexOf(selectionTime[0]);
-        const stop = radialDataIndex.lastIndexOf(selectionTime[1]);
+        let selectionTime = selectionX.map(x.invert);
+        let selectionTimeRounded = selectionTime.map(d3.timeDay.round);
+
+        if (selectionTimeRounded[0] >= selectionTimeRounded[1]) {
+          selectionTimeRounded[0] = d3.timeDay.floor(selectionTime[0]);
+          selectionTimeRounded[1] = d3.timeDay.offset(selectionTimeRounded[0]);
+        }
+
+        if (d3.event.type === 'end') {
+          d3.select(this).transition().call(d3.event.target.move, selectionTimeRounded.map(x));
+        }
+        
+        selectionTime = selectionTimeRounded.map(formatTime);
+
+        const start = radialDataIndex[selectionTime[0]][0];
+        const stop = radialDataIndex[selectionTime[1]][1];
         if (Math.abs(stop - start) <= maxAnimate || d3.event.type === 'end') {
           drawCanvas(radialData.slice(start, stop + 1));
         }
