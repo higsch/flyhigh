@@ -14,7 +14,7 @@
   const sf = 2;
   const globalAlpha = 0.6;
 
-  let canvas, ctx;
+  let canvasElement, canvas, ctx;
   let canvasData;
   let line;
   let lineWidth = 2;
@@ -68,7 +68,7 @@
   }
 
   onMount(() => {
-    canvas = d3select('#canvas');
+    canvas = d3select(canvasElement);
     ctx = canvas.node().getContext('2d');
     ctx.globalAlpha = globalAlpha;
     line = lineRadial()
@@ -78,7 +78,7 @@
       .context(ctx);
   });
 
-  $: if (canvas && ctx && width && height && data) {
+  $: if (canvas && ctx && data) {
     setupCanvas();
     if (data.length > 0) canvasData = renderColorGradients();
   }
@@ -87,4 +87,11 @@
   $: if (canvasData) drawCanvas();
 </script>
 
-<canvas id="canvas"></canvas>
+<canvas bind:this={canvasElement}></canvas>
+
+<style>
+  canvas {
+    position: absolute;
+    z-index: 100;
+  }
+</style>

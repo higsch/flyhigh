@@ -22,9 +22,13 @@
   const padding = {
     top: 20
   };
+  const initTime = {
+    start: timeParser('2019-05-02T00:00:00Z'),
+    end: timeParser('2019-05-03T00:00:00Z')
+  };
 
   let width, height;
-  let svg;
+  let svgElement;
   let x, y;
   let area;
   let path;
@@ -86,30 +90,30 @@
     });
   }
 
-  $: if (svg && x) {
-    d3select('#svg-target').selectAll('g.brush').remove();
+  $: if (svgElement && x) {
+    d3select(svgElement).selectAll('g.brush').remove();
 
     brush = brushX()
       .extent([[0, 0], [width, height]])
       .on('brush end', brushed);
 
-    d3select('#svg-target').append('g')
+    d3select(svgElement).append('g')
       .attr('class', 'brush')
       .call(brush)
       .call(brush.move,
-        [x(timeParser('2019-05-15T00:00:00Z')), x(timeParser('2019-05-30T00:00:00Z'))]);
+        [x(initTime.start), x(initTime.end)]);
   }
 </script>
 
 <div class="wrapper" bind:offsetWidth={width} bind:offsetHeight={height}>
   {#if path}
-    <svg id="svg-target" bind:this={svg}>
+    <svg bind:this={svgElement}>
       <g class="axis" transform="translate(0 {padding.top})">
         {#each ticks as {departure, show, id}, i (id)}
           {#if show}
             <g class="tick" transform="translate({x(departure)} 0)">
               <text>{timeFormat('%b, %d')(departure)}</text>
-              <line x1={0} y1={0} x2={0} y2={5} transform="translate(0 2)"></line>
+              <line x1={0} y1={0} x2={0} y2={5} transform="translate(0 6)"></line>
             </g>
           {/if}
         {/each}
@@ -134,11 +138,12 @@
 
   g.tick text {
     fill: var(--gray);
-    font-size: 0.5rem;
+    font-size: 0.7rem;
     text-anchor: middle;
   }
 
   g.tick line {
     stroke: var(--gray);
+    stroke-linecap: round;
   }
 </style>

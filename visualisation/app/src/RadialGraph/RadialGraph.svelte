@@ -10,12 +10,13 @@
 
   export let data;
   export let timeRange = [];
-  export let maxAnimate = 100;
   export let colors;
 
+  const sizeOffset = 10;
   const pi2 = 2 * Math.PI;
   const daysOnCircle = 35;
   const dayOffset = 1;
+  const priceLabels = [100, 1000, 3000, 6000];
 
   let width, height;
   let maxPrice = 0;
@@ -23,6 +24,7 @@
   let dataPreCalc;
   let radialDataIndex;
   let slicedData;
+  let priceCoords;
 
   function dayToAngle(day) {
     return -pi2 * day / daysOnCircle + pi2 * dayOffset / daysOnCircle;
@@ -61,10 +63,10 @@
     });
   }
 
-  $: if (width && height && data) {
+  $: if (width && height && data && data.length > 0) {
     // Get the maximum price in the whole dataset
     maxPrice = d3max(data, d => d.price);
-
+    
     // Define the price scale, i.e. radii
     priceScale = scaleLinear()
       .domain([0, maxPrice])
@@ -90,6 +92,14 @@
         }
       });
     }
+
+    // build the coordinates to show
+    priceCoords = priceLabels.map(label => ({
+      radius: priceScale(label),
+      angleStart: dayToAngle(0),
+      angleEnd: dayToAngle(daysOnCircle),
+      label: `${label}kr`
+    }));
   }
 
   $: if (dataPreCalc) {
@@ -105,10 +115,12 @@
 </script>
 
 <div class="wrapper" bind:offsetWidth={width} bind:offsetHeight={height}>
-  <Coordinates />
+  <Coordinates priceCoords={priceCoords}
+               width={width - sizeOffset}
+               height={height - sizeOffset} />
   <RadialCanvas data={slicedData}
-                width={width - 10}
-                height={height - 10}
+                width={width - sizeOffset}
+                height={height - sizeOffset}
                 colors={colors} />
 </div>
 
