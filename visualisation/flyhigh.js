@@ -102,7 +102,7 @@ function createChart() {
       .range([width / (sizeFactor * 15), Math.min(width, canvasHeight) * 0.5]);
 
     const daysToAngle = (days) => {
-      return -pi2 * days / 30;
+      return -pi2 * days / 35 + pi2 * 1 / 35;
     }
 
     const line = d3.lineRadial()
@@ -139,9 +139,17 @@ function createChart() {
         color = '#E3D8F1';
       } else {
         color = ctx.createRadialGradient(0, 0, minRadius, 0, 0, maxRadius);
-        color.addColorStop(0, lineColor.low);
+        if (middleStop < 0.01) {
+          color.addColorStop(0, lineColor.middle);
+        } else {
+          color.addColorStop(0, lineColor.low);
+        }
         color.addColorStop(middleStop, lineColor.middle);
-        color.addColorStop(1, lineColor.high);
+        if (middleStop > 0.99) {
+          color.addColorStop(1, lineColor.middle);
+        } else {
+          color.addColorStop(1, lineColor.high);
+        }
       }
 
       return {
@@ -167,23 +175,33 @@ function createChart() {
 
       const ticks = [30, 20, 10, 1].map(tick => {
         const radius = priceScale(6000);
-        const angle = daysToAngle(tick) * 360 / pi2 + 360 - 90;
+        const angle = daysToAngle(tick) - pi1_2;
         return {
           xOffset: width / 2 + (Math.cos(angle) * radius),
           yOffset: canvasHeight / 2 + (Math.sin(angle) * radius),
-          angle,
-          text: tick
+          text: `-${tick}`
         }
       });
 
-      annotation.selectAll('g')
-        .data(ticks)
-        .enter().append('g')
-        .attr('class', 'radial-tick')
-        .attr('transform', d => (
-          `translate(${d.xOffset} ${d.yOffset})
-           rotate(${d.angle})`))
-        .append('text').text(d => d.text);
+      // let labels = annotation.selectAll('g.labels')
+      //   .data(ticks)
+      //   .enter().append('g')
+      //     .attr('class', 'labels')
+      //     .attr('transform', d => `translate(${d.xOffset} ${d.yOffset})`)
+      //     .append('text')
+      //       .text(d => d.text)
+      
+      // let lines = annotation.selectAll('g.lines')
+      //   .data(ticks)
+      //   .enter().append('g')
+      //     .attr('class', 'lines')
+      //     .append('line')
+      //       .attr('x1', width / 2)
+      //       .attr('x2', d => d.offsetX)
+      //       .attr('y1', canvasHeight / 2)
+      //       .attr('y2', d => d.offsetY)
+      //       .style('stroke', '#DDD')
+      //       .style('stroke-width', 2)
     }
 
     function drawCanvas(data) {
@@ -269,8 +287,8 @@ function createChart() {
         .call(brush)
         .call(brush.move,
           [
-            x(timeParser('2019-07-11T00:00:00Z')),
-            x(timeParser('2019-07-14T00:00:00Z'))
+            x(timeParser('2019-05-15T00:00:00Z')),
+            x(timeParser('2019-05-16T00:00:00Z'))
           ]);
 
       brusher
