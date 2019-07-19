@@ -69,7 +69,7 @@
     // Define the price scale, i.e. radii
     priceScale = scaleLinear()
       .domain([0, maxPrice])
-      .range([Math.min(width, height) / 11, Math.min(width, height) * 0.5]);
+      .range([Math.min(width, height) / 11, Math.min(width, height) * 0.65]);
 
     // Nest the data by unique flights
     const dataNested = nest()

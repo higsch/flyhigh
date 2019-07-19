@@ -73,10 +73,11 @@
     
     path = area(data);
 
+    const tickInterval = width > 800 ? 7 : 14;
     let lastTime = data[0].departure;
     ticks = data.map(({ departure }, index) => {
       let show;
-      if ((departure - lastTime) / (1000 * 60 * 60 * 24) >= 7) {
+      if ((departure - lastTime) / (1000 * 60 * 60 * 24) >= tickInterval) {
         lastTime = departure;
         show = true;
       } else {
