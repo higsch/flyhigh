@@ -44,7 +44,8 @@
   const colors = {
     lowPrice: '#2274A5',
     endPrice: '#E3D8F1',
-    highPrice: '#EF6461'
+    highPrice: '#EF6461',
+    lightGray: '#DDD'
   };
 
   // Set up the basic data object
@@ -97,7 +98,7 @@
   }
 
   .bottom-wrapper {
-    height: 12%;
+    height: 13%;
   }
 
   .container.radial-graph {

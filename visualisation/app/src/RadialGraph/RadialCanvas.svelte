@@ -76,15 +76,17 @@
       .radius(d => d.radius)
       .curve(curveBasis)
       .context(ctx);
+    ctx.lineCap = 'round';
   });
 
-  $: if (canvas && ctx && data) {
+  $: if (width && height) {
     setupCanvas();
-    if (data.length > 0) canvasData = renderColorGradients();
   }
 
-  // Draw canvas
-  $: if (canvasData) drawCanvas();
+  $: if (canvas && ctx && data && data.length > 0) {
+    canvasData = renderColorGradients();
+    drawCanvas();
+  }
 </script>
 
 <canvas bind:this={canvasElement}></canvas>

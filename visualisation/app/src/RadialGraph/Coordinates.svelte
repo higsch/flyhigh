@@ -4,8 +4,10 @@
     curveBasis } from 'd3';
 
   export let priceScale;
+  export let dayToAngle;
   export let width = 0;
   export let height = 0;
+  export let colors;
 
   const pi2 = Math.PI * 2;
   const arc = d3arc()
@@ -14,7 +16,7 @@
     .startAngle(d => d.startAngle)
     .endAngle(d => d.endAngle);
 
-  let priceCoords;
+  let priceCoords, dayCoords;
 
   function addNumberCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -25,6 +27,17 @@
       label: `${addNumberCommas(price)} kr`,
       radius: priceScale(price)
     }));
+
+    dayCoords = [1, 30].map(day => {
+      const angle = dayToAngle(day) + pi2 / 2;
+      return {
+        label: `-${day}`,
+        x1: Math.sin(angle) * priceScale(5500),
+        y1: Math.cos(angle) * priceScale(5500),
+        x2: Math.sin(angle) * priceScale(6000),
+        y2: Math.cos(angle) * priceScale(6000)
+      };
+    });
   }
 </script>
 
@@ -44,6 +57,13 @@
               {label}
             </textPath>
           </text>
+        </g>
+      {/each}
+    </g>
+    <g class="day-coords" transform="translate({width / 2} {height / 2})">
+      {#each dayCoords as { label, x1, y1, x2, y2 }}
+        <g class="day-coord">
+          <!-- <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="{colors.lightGray}"></line> -->
         </g>
       {/each}
     </g>

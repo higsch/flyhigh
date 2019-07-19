@@ -107,8 +107,10 @@
 
 <div class="wrapper" bind:offsetWidth={width} bind:offsetHeight={height}>
   <Coordinates priceScale={priceScale}
+               dayToAngle={dayToAngle}
                width={width - sizeOffset}
-               height={height - sizeOffset} />
+               height={height - sizeOffset}
+               colors={colors} />
   <RadialCanvas data={slicedData}
                 width={width - sizeOffset}
                 height={height - sizeOffset}
