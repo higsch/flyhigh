@@ -47,5 +47,10 @@ export default {
 	],
 	watch: {
 		clearScreen: false
+	},
+	// suppress warnings coming from circular dependencies
+	onwarn: function (warning, warn) {
+		if (warning.code === 'CIRCULAR_DEPENDENCY') return;
+		warn(warning);
 	}
 };
