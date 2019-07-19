@@ -12,6 +12,8 @@
 	--high-price: #EF6461;
 
 	--gray: #777;
+	--light-gray: #DDD;
+	--light-purple: rgb(197, 161, 245);
 }
 
 /* Global dimensions */
@@ -20,7 +22,8 @@ html, body {
 	height: 100vh;
 	margin: 0;
 	padding: 0;
-	background-color: #FFFFFF;
+	/* background-color: #FFFFFF; */
+	font-family: 'Raleway', sans-serif;
 }
 
 /* Components */
