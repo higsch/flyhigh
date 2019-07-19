@@ -9,8 +9,8 @@
   import { formatTime } from '../utils';
 
   export let data;
-  export let minMaxTime = [];
-  export let maxAnimate = 50;
+  export let timeRange = [];
+  export let maxAnimate = 100;
   export let colors;
 
   const pi2 = 2 * Math.PI;
@@ -21,7 +21,7 @@
   let maxPrice = 0;
   let priceScale;
   let dataPreCalc;
-  let radialDataIndex = {};
+  let radialDataIndex;
   let slicedData;
 
   function dayToAngle(day) {
@@ -68,7 +68,7 @@
     // Define the price scale, i.e. radii
     priceScale = scaleLinear()
       .domain([0, maxPrice])
-      .range([width / 8, Math.min(width, height) * 0.5]);
+      .range([Math.min(width, height) / 11, Math.min(width, height) * 0.5]);
 
     // Nest the data by unique flights
     const dataNested = nest()
@@ -79,23 +79,25 @@
     dataPreCalc = preCalculateGeometry(dataNested);
 
     // build a departure index
-    dataPreCalc.forEach((d, index) => {
-      const departure = formatTime(d.departure);
-      if (!Object.keys(radialDataIndex).includes(departure)) {
-        radialDataIndex[departure] = [index];
-      } else {
-        radialDataIndex[departure] = [radialDataIndex[departure][0], index];
-      }
-    });
+    if (dataPreCalc.length > 0) {
+      radialDataIndex = {};
+      dataPreCalc.forEach((d, index) => {
+        const departure = formatTime(d.departure);
+        if (!Object.keys(radialDataIndex).includes(departure)) {
+          radialDataIndex[departure] = [index];
+        } else {
+          radialDataIndex[departure] = [radialDataIndex[departure][0], index];
+        }
+      });
+    }
   }
 
   $: if (dataPreCalc) {
-    if (minMaxTime.length === 2) {
-      const start = radialDataIndex[minMaxTime[0]][0];
-      const stop = radialDataIndex[minMaxTime[1]][1];
-      if (Math.abs(stop - start) <= maxAnimate) {
-        slicedData = dataPreCalc.slice(start, stop + 1);
-      }
+    if (radialDataIndex && timeRange.length === 2) {
+      const tr = timeRange.map(formatTime);
+      const start = radialDataIndex[tr[0]][0];
+      const stop = radialDataIndex[tr[1]][1];
+      slicedData = dataPreCalc.slice(start, stop + 1);
     } else {
       slicedData = dataPreCalc;
     }
@@ -105,8 +107,8 @@
 <div class="wrapper" bind:offsetWidth={width} bind:offsetHeight={height}>
   <Coordinates />
   <RadialCanvas data={slicedData}
-                width={width}
-                height={height}
+                width={width - 10}
+                height={height - 10}
                 colors={colors} />
 </div>
 

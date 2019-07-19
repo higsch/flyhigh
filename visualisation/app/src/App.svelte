@@ -50,6 +50,8 @@
   // Set up the basic data object
   let data = dataPaths.map(elem => ({name: elem.name, data: []}));
 
+  let timeRange = [];
+
   // Fetch the data from csv and convert to D3 appropriate json
   onMount(async function () {
     data = await Promise.all(dataPaths.map(entry => {
@@ -66,6 +68,7 @@
     <div class="container radial-graph">
       {#await data.find(elem => elem.name === 'flights').data then data}
         <RadialGraph data={data}
+                     timeRange={timeRange}
                      colors={colors} />
       {/await}
     </div>
@@ -74,7 +77,8 @@
     <div class="container time-brush">
       {#await data.find(elem => elem.name === 'flightInfo').data then data}
         <TimeBrush data={data}
-                   colors={colors} />
+                   colors={colors}
+                   on:timerangeselected={(e) => timeRange = e.detail} />
       {/await}
     </div>
   </div>

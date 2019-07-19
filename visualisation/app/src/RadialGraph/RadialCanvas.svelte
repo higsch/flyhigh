@@ -27,7 +27,7 @@
       .style('height', `${height}px`);
     ctx.scale(sf, sf);
     ctx.translate(width / 2, height / 2);
-    lineWidth = 2 * width / 500;
+    lineWidth = 2 * Math.min(width, height) / 500;
   }
 
   function renderColorGradients() {

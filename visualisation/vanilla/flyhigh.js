@@ -311,6 +311,7 @@ function createChart() {
 
         if (d3.event.type === 'end') {
           d3.select(this).transition().call(d3.event.target.move, selectionTimeRounded.map(x));
+          console.log(this)
         }
         
         selectionTime = selectionTimeRounded.map(formatTime);

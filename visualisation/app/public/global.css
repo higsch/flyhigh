@@ -10,6 +10,8 @@
 	--low-price: #2274A5;
 	--end-price: #E3D8F1;
 	--high-price: #EF6461;
+
+	--gray: #777;
 }
 
 /* Global dimensions */
@@ -23,6 +25,10 @@ html, body {
 
 /* Components */
 .wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
 	width: 100%;
 	height: 100%;
 }
