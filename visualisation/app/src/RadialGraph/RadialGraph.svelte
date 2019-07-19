@@ -15,7 +15,7 @@
   const sizeOffset = 10;
   const pi2 = 2 * Math.PI;
   const daysOnCircle = 35;
-  const dayOffset = 1;
+  const dayOffset = -2;
   const priceLabels = [100, 1000, 3000, 6000];
 
   let width, height;
@@ -24,7 +24,6 @@
   let dataPreCalc;
   let radialDataIndex;
   let slicedData;
-  let priceCoords;
 
   function dayToAngle(day) {
     return -pi2 * day / daysOnCircle + pi2 * dayOffset / daysOnCircle;
@@ -92,14 +91,6 @@
         }
       });
     }
-
-    // build the coordinates to show
-    priceCoords = priceLabels.map(label => ({
-      radius: priceScale(label),
-      angleStart: dayToAngle(0),
-      angleEnd: dayToAngle(daysOnCircle),
-      label: `${label}kr`
-    }));
   }
 
   $: if (dataPreCalc) {
@@ -115,7 +106,7 @@
 </script>
 
 <div class="wrapper" bind:offsetWidth={width} bind:offsetHeight={height}>
-  <Coordinates priceCoords={priceCoords}
+  <Coordinates priceScale={priceScale}
                width={width - sizeOffset}
                height={height - sizeOffset} />
   <RadialCanvas data={slicedData}
