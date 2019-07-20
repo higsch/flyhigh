@@ -187,7 +187,7 @@ flights.clust %>%
 
 # the ring data
 flightsByDayToDep <- flights.clust %>%
-  filter(departureMonth %in% c(5, 6, 7)) %>%
+  filter(departureMonth %in% c(4, 5, 6, 7)) %>%
   mutate(timeToDepartureDays = round(2*as.numeric(timeToDepartureRounded)/(24*60*60))/2) %>%
   filter(timeToDepartureDays >= 1) %>%
   select(flightIdUnique, timeToDepartureDays, price, departure)
