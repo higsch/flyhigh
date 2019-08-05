@@ -68,6 +68,10 @@ flights <- flights %>%
   mutate(departureHour = hour(departure)) %>%
   mutate(departureWeekday = weekdays(departure))
 
+# change to EUR
+flights <- flights %>%
+  mutate(price = price * 0.0929829)
+
 # plot
 if (plotIt) {
   flights %>%
@@ -199,7 +203,7 @@ flightsWith1 <- flightsByDayToDep %>%
   unlist() %>%
   unique()
 
-# take onlz those
+# take only those
 flightsFinal <- flightsByDayToDep %>%
   filter(flightIdUnique %in% flightsWith1)
 
