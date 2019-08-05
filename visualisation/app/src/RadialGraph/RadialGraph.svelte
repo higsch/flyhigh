@@ -14,9 +14,10 @@
 
   const sizeOffset = 10;
   const pi2 = 2 * Math.PI;
+  const days = 30;
+  const timeStep = 0.5;
   const daysOnCircle = 35;
   const dayOffset = -2;
-  const priceLabels = [100, 1000, 3000, 6000];
 
   let width, height;
   let maxPrice = 0;
@@ -46,7 +47,7 @@
         };
         priceLineData.push(point);
       });
-
+      
       const minRadius = Math.min(...priceLineData.map(elem => elem.radius));
       const maxRadius = Math.max(...priceLineData.map(elem => elem.radius));
       const middleStop = Math.min((endRadius - minRadius) / (maxRadius - minRadius), 1.0) || 0;
@@ -69,7 +70,7 @@
     // Define the price scale, i.e. radii
     priceScale = scaleLinear()
       .domain([0, maxPrice])
-      .range([Math.min(width, height) / 11, Math.min(width, height) * 0.65]);
+      .range([Math.min(width, height) / 11, Math.min(width, height) * 0.55]);
 
     // Nest the data by unique flights
     const dataNested = nest()
@@ -95,9 +96,12 @@
 
   $: if (dataPreCalc) {
     if (radialDataIndex && timeRange.length === 2) {
+      if (timeRange.reduce((a, c) => Math.abs(a - c)) / (1000 * 60 * 60) <= 24) {
+        timeRange = [timeRange[0], timeRange[0]];
+      }
       const tr = timeRange.map(formatTime);
       const start = radialDataIndex[tr[0]][0];
-      const stop = radialDataIndex[tr[1]][1];
+      const stop = radialDataIndex[tr[1]][1] || start;
       slicedData = dataPreCalc.slice(start, stop + 1);
     } else {
       slicedData = dataPreCalc;

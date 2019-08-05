@@ -32,7 +32,7 @@
       callback: function (d) {
         return {
           ...d,
-          price: +d.price,
+          price: parseFloat(d.price),
           timeToDepartureDays: +d.timeToDepartureDays,
           departure: timeParser(d.departure)
         };

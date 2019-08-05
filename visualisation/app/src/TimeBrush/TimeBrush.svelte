@@ -8,7 +8,7 @@
     scaleLinear,
     max as d3max,
     area as d3area,
-    curveBasis,
+    curveCatmullRom,
     timeFormat,
     brushX,
     event as d3event,
@@ -23,8 +23,8 @@
     top: 20
   };
   const initTime = {
-    start: timeParser('2019-05-02T00:00:00Z'),
-    end: timeParser('2019-05-03T00:00:00Z')
+    start: timeParser('2019-06-01T00:00:00Z'),
+    end: timeParser('2019-06-02T00:00:00Z')
   };
 
   let width, height;
@@ -35,6 +35,7 @@
   let ticks;
   let brush;
   let isInit = true;
+  let previousBrush = initTime;
 
   function brushed() {
     if (!isInit && !d3event.sourceEvent || !d3event.selection) return;
@@ -42,6 +43,7 @@
     
     const selectionX = d3event.selection;
     let selectionTime = selectionX.map(x.invert);
+
     let selectionTimeRounded = selectionTime.map(timeDay.round);
 
     if (selectionTimeRounded[0] >= selectionTimeRounded[1]) {
@@ -49,11 +51,18 @@
       selectionTimeRounded[1] = timeDay.offset(selectionTimeRounded[0]);
     }
 
+    if (selectionTimeRounded[1] > x.domain()[1]) {
+      selectionTimeRounded[1] = x.domain()[1];
+    }
+
     if (d3event.type === 'end') {
       d3select(this).transition().call(d3event.target.move, selectionTimeRounded.map(x));
     }
 
-    dispatch('timerangeselected', selectionTimeRounded);
+    if (previousBrush.toString() !== selectionTimeRounded.toString()) {
+      previousBrush = selectionTimeRounded;
+      dispatch('timerangeselected', selectionTimeRounded);
+    }
   }
 
   $: if (data && data.length > 0 && width && height) {
@@ -69,7 +78,7 @@
       .x(d => x(d.departure))
       .y0(y(0))
       .y1(d => y(d.endPrice))
-      .curve(curveBasis);
+      .curve(curveCatmullRom.alpha(0.5));
     
     path = area(data);
 

@@ -5,6 +5,7 @@
 
   export let priceScale;
   export let dayToAngle;
+  export let priceLabels = [100, 300, 500];
   export let width = 0;
   export let height = 0;
   export let colors;
@@ -23,8 +24,8 @@
 }
 
   $: if (priceScale) {
-    priceCoords = [1000, 3000, 5000].map(price => ({
-      label: `${addNumberCommas(price)} kr`,
+    priceCoords = priceLabels.map(price => ({
+      label: `${addNumberCommas(price)} €`,
       radius: priceScale(price)
     }));
 

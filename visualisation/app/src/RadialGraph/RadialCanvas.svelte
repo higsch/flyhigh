@@ -4,7 +4,9 @@
   import {
     select as d3select,
     lineRadial,
-    curveBasis } from 'd3';
+    curveCatmullRom } from 'd3';
+
+  // import * as d3 from 'd3';
 
   export let data;
   export let width;
@@ -12,7 +14,6 @@
   export let colors;
 
   const sf = 2;
-  const globalAlpha = 0.6;
 
   let canvasElement, canvas, ctx;
   let canvasData;
@@ -70,11 +71,10 @@
   onMount(() => {
     canvas = d3select(canvasElement);
     ctx = canvas.node().getContext('2d');
-    ctx.globalAlpha = globalAlpha;
     line = lineRadial()
       .angle(d => d.angle)
       .radius(d => d.radius)
-      .curve(curveBasis)
+      .curve(curveCatmullRom.alpha(0.5))
       .context(ctx);
     ctx.lineCap = 'round';
   });
