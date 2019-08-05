@@ -1,0 +1,5 @@
+- [ ] add date landmarks (vacation, 4th July, etc.)
+- [ ] guided tout through the visual (special dates)
+- [ ] change SEK to EUR
+- [ ] make dashed lines out of gaps
+- [ ] make color legend
