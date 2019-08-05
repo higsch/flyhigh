@@ -101,7 +101,8 @@
       }
       const tr = timeRange.map(formatTime);
       const start = radialDataIndex[tr[0]][0];
-      const stop = radialDataIndex[tr[1]][1] || start;
+      const stop = radialDataIndex[tr[1]][1] || radialDataIndex[tr[1]][0];
+      console.log(start, stop)
       slicedData = dataPreCalc.slice(start, stop + 1);
     } else {
       slicedData = dataPreCalc;

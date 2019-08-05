@@ -8,3 +8,4 @@
 ## bugs
 - [x] snapping
 - [x] snap at the very end
+- [x] another snap bug
