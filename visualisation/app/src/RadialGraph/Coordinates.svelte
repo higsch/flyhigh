@@ -33,10 +33,10 @@
       const angle = dayToAngle(day) + pi2 / 2;
       return {
         label: `-${day}`,
-        x1: Math.sin(angle) * priceScale(5500),
-        y1: Math.cos(angle) * priceScale(5500),
-        x2: Math.sin(angle) * priceScale(6000),
-        y2: Math.cos(angle) * priceScale(6000)
+        x1: Math.sin(angle) * priceScale(550),
+        y1: Math.cos(angle) * priceScale(550),
+        x2: Math.sin(angle) * priceScale(600),
+        y2: Math.cos(angle) * priceScale(600)
       };
     });
   }

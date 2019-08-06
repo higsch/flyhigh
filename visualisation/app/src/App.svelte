@@ -48,6 +48,7 @@
     lightGray: '#DDD'
   };
 
+  let width, height;
   // Set up the basic data object
   let data = dataPaths.map(elem => ({name: elem.name, data: []}));
 
@@ -64,7 +65,12 @@
   });
 </script>
 
+<svelte:window bind:innerWidth={width} bind:innerHeight={height} />
+<svelte:body width={width} height={height} />
+
 <div class="outer-wrapper">
+  <h1>The last 30 days before takeoff</h1>
+  <h3>Following thousands of flight prices starting a month before departure.</h3>
   <div class="top-wrapper">
     <div class="container radial-graph">
       {#await data.find(elem => elem.name === 'flights').data then data}
@@ -93,12 +99,29 @@
     height: 100%;
   }
 
+  h1 {
+    width: 97%;
+    margin: 1.5rem auto 1rem auto;
+    font-size: 3rem;
+    font-weight: 400;
+    text-align: center;
+    color: #444;
+  }
+
+  h3 {
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: center;
+    color: var(--gray);
+  }
+
   .top-wrapper {
     flex: 1;
   }
 
   .bottom-wrapper {
-    height: 13%;
+    height: 17%;
   }
 
   .container.radial-graph {

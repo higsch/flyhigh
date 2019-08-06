@@ -7,7 +7,8 @@
     nest,
     scaleLinear,
     lineRadial,
-    curveCatmullRom } from 'd3';
+    curveCatmullRom,
+    timeFormat } from 'd3';
   import { formatTime } from '../utils';
 
   export let data;
@@ -87,6 +88,14 @@
     });
   }
 
+  function formatCenterTimeRange(timeRange) {
+    if (timeRange[0].toString() === timeRange[1].toString()) {
+      return timeFormat('%b, %d')(timeRange[0]);
+    } else {
+      return timeFormat('%b, %d')(timeRange[0]) + ' – ' + timeFormat('%b, %d')(timeRange[1]);
+    }
+  }
+
   $: if (width && height && data && data.length > 0) {
     // Get the maximum price in the whole dataset
     maxPrice = d3max(data, d => d.price);
@@ -143,7 +152,32 @@
                 width={width - sizeOffset}
                 height={height - sizeOffset}
                 colors={colors} />
+  {#if priceScale && timeRange}
+    <div class="selected-time-range"
+         style="width: {priceScale(300)}px;">
+      <span class="pre-string">Departure</span>
+      {@html formatCenterTimeRange(timeRange)}
+    </div>
+  {/if}
 </div>
 
 <style>
+  .wrapper {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .selected-time-range {
+    position: absolute;
+    z-index: 100;
+    font-size: 1.2rem;
+    text-align: center;
+    color: var(--gray);
+  }
+
+  .selected-time-range .pre-string {
+    display: block;
+    font-size: 1rem;
+  }
 </style>

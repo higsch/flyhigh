@@ -1,6 +1,5 @@
 <script>
   import { onMount } from 'svelte';
-  import { fade } from 'svelte/transition';
 
   import {
     select as d3select } from 'd3';
@@ -9,10 +8,11 @@
   export let width;
   export let height;
   export let colors;
-  export let hoverId = 'LH809_2019_5_5_4_20';
+  export let highlightId = 'LH809_2019_6_23_4_20';
 
   const sf = 2;
   const globalAlpha = 0.8;
+  const dashSwitch = [[], [1, 7]];
 
   let canvasElement, canvas, ctx;
   let canvasData;
@@ -29,7 +29,7 @@
       .style('height', `${height}px`);
     ctx.scale(sf, sf);
     ctx.translate(width / 2, height / 2);
-    lineWidth = 2 * Math.min(width, height) / 500;
+    lineWidth = 2.7 * Math.min(width, height) / 450;
     ctx.lineWidth = lineWidth;
   }
 
@@ -49,10 +49,7 @@
   }
 
   function drawCanvas(highlightId = null) {
-    const dashSwitch = [[], [5, 5]];
-
     ctx.clearRect(- width / 2, - height / 2, width, height);
-
     canvasData.forEach(({ id, path, color }) => {
       ctx.globalAlpha = (!highlightId) ? globalAlpha : ((highlightId === id) ? 1.0 : 0.1);
       ctx.lineCap = 'round';
@@ -73,23 +70,24 @@
           ctx.bezierCurveTo(...point.d);
         }
       });
+      ctx.setLineDash(dashSwitch[Number(path[path.length - 1].gap)]);
       ctx.stroke();
     });
   }
 
   function highlightFlight() {
-    const hoveredFlight = data.find(elem => elem.id === hoverId);
+    const highlightedFlight = data.find(elem => elem.id === highlightId);
 
     let dots = [];
-    if (hoveredFlight) {
-      dots = hoveredFlight.path.slice(1).map((point, i) => {
+    if (highlightedFlight) {
+      dots = highlightedFlight.path.map((point, i) => {
         return {
           id: i,
-          cx: point.d[4],
-          cy: point.d[5]
+          cx: point.d[4] || point.d[0],
+          cy: point.d[5] || point.d[1]
         };
       });
-      drawCanvas(hoverId);
+      drawCanvas(highlightId);
     }
 
     d3select(dotsG).selectAll('.dot')
@@ -98,7 +96,7 @@
       .attr('class', 'dot')
       .attr('fill', '#321321')
       .attr('fill-opacity', 0.8)
-      .attr('r', lineWidth * 1.2)
+      .attr('r', lineWidth * 1.1)
       .transition().duration(500).delay((d) => 7 * d.id)
       .attr('cx', (d) => +d.cx)
       .attr('cy', (d) => +d.cy);
@@ -119,7 +117,7 @@
     drawCanvas();
   }
 
-  $: if (data && hoverId) highlightFlight();
+  $: if (data && highlightId) highlightFlight();
 </script>
 
 <svg width={width} height={height}>

@@ -8,7 +8,6 @@
     scaleLinear,
     max as d3max,
     area as d3area,
-    curveCatmullRom,
     timeFormat,
     brushX,
     event as d3event,
@@ -23,8 +22,8 @@
     top: 20
   };
   const initTime = {
-    start: timeParser('2019-05-05T00:00:00Z'),
-    end: timeParser('2019-05-06T00:00:00Z')
+    start: timeParser('2019-06-23T00:00:00Z'),
+    end: timeParser('2019-06-24T00:00:00Z')
   };
 
   let width, height;
@@ -55,6 +54,9 @@
       selectionTimeRounded[1] = x.domain()[1];
     }
 
+    // Subtract a few milliseconds to get to the day before
+    selectionTimeRounded[1] = selectionTimeRounded[1] - 100;
+
     if (d3event.type === 'end') {
       d3select(this).transition().call(d3event.target.move, selectionTimeRounded.map(x));
     }
@@ -66,6 +68,7 @@
   }
 
   $: if (data && data.length > 0 && width && height) {
+    console.log(data)
     x = scaleTime()
       .domain(extent(data, d => d.departure))
       .range([0, width]);
@@ -77,8 +80,7 @@
     area = d3area()
       .x(d => x(d.departure))
       .y0(y(0))
-      .y1(d => y(d.endPrice))
-      .curve(curveCatmullRom.alpha(0.5));
+      .y1(d => y(d.endPrice));
     
     path = area(data);
 
