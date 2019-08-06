@@ -23,8 +23,8 @@
     top: 20
   };
   const initTime = {
-    start: timeParser('2019-06-01T00:00:00Z'),
-    end: timeParser('2019-06-02T00:00:00Z')
+    start: timeParser('2019-05-05T00:00:00Z'),
+    end: timeParser('2019-05-06T00:00:00Z')
   };
 
   let width, height;

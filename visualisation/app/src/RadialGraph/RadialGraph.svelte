@@ -1,11 +1,15 @@
 <script>
+  import { onMount } from 'svelte';
+
   import Coordinates from './Coordinates.svelte';
   import RadialCanvas from './RadialCanvas.svelte';
 
   import {
     max as d3max,
     nest,
-    scaleLinear } from 'd3';
+    scaleLinear,
+    lineRadial,
+    curveCatmullRom } from 'd3';
   import { formatTime } from '../utils';
 
   export let data;
@@ -18,6 +22,11 @@
   const timeStep = 0.5;
   const daysOnCircle = 35;
   const dayOffset = -2;
+
+  const line = lineRadial()
+    .angle(d => d.angle)
+    .radius(d => d.radius)
+    .curve(curveCatmullRom.alpha(0.5));
 
   let width, height;
   let maxPrice = 0;
@@ -34,6 +43,8 @@
     return dataNested.map(priceLine => {
       let priceLineData = [];
       let endRadius = -100;
+      let gapArr = [];
+      let previousDay = days;
 
       priceLine.values.forEach(d => {
         const radius = priceScale(d.price);
@@ -46,14 +57,28 @@
           angle
         };
         priceLineData.push(point);
+
+        // Keep track of data gaps
+        gapArr.push(previousDay - d.timeToDepartureDays > timeStep);
+        previousDay = d.timeToDepartureDays;
       });
       
       const minRadius = Math.min(...priceLineData.map(elem => elem.radius));
       const maxRadius = Math.max(...priceLineData.map(elem => elem.radius));
       const middleStop = Math.min((endRadius - minRadius) / (maxRadius - minRadius), 1.0) || 0;
 
+      // Calculate the path for the whole line
+      const path = line(priceLineData);
+      const objectPath = path.split('C').map((elem, i) =>{
+        return {
+          type: elem[0] === 'M' ? 'M' : 'C', 
+          gap: gapArr[i] || false,
+          d: elem.replace('M', '').split(',')
+        };
+      });
+
       return {
-        priceLineData,
+        path: objectPath,
         minRadius,
         maxRadius,
         endRadius,
@@ -62,6 +87,10 @@
       };
     });
   }
+
+  onMount(() => {
+    
+  });
 
   $: if (width && height && data && data.length > 0) {
     // Get the maximum price in the whole dataset

@@ -2,11 +2,7 @@
   import { onMount } from 'svelte';
 
   import {
-    select as d3select,
-    lineRadial,
-    curveCatmullRom } from 'd3';
-
-  // import * as d3 from 'd3';
+    select as d3select } from 'd3';
 
   export let data;
   export let width;
@@ -47,12 +43,29 @@
   }
 
   function drawCanvas() {
-    ctx.clearRect(-width / 2, -height / 2, width, height);
-    canvasData.forEach(d => {
-      ctx.beginPath();
-      line(d.priceLineData);
+    const dashSwitch = [[], [5, 3]];
+
+    ctx.clearRect(- width / 2, - height / 2, width, height);
+
+    canvasData.forEach(({ path, color }) => {
+      ctx.setLineDash(dashSwitch[0]);
       ctx.lineWidth = lineWidth;
-      ctx.strokeStyle = d.color;
+      ctx.strokeStyle = color;
+      ctx.beginPath();
+      path.forEach((point, i , arr) => {
+        if (arr[i - 1] && point.gap !== arr[i - 1].gap) {
+          ctx.setLineDash(dashSwitch[Number(arr[i - 1].gap)]);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.moveTo(...arr[i - 1].d.slice(-2));
+        }
+
+        if (point.type === 'M') {
+          ctx.moveTo(...point.d);
+        } else if (point.type === 'C') {
+          ctx.bezierCurveTo(...point.d);
+        }
+      });
       ctx.stroke();
     });
   }
@@ -60,17 +73,10 @@
   onMount(() => {
     canvas = d3select(canvasElement);
     ctx = canvas.node().getContext('2d');
-    line = lineRadial()
-      .angle(d => d.angle)
-      .radius(d => d.radius)
-      .curve(curveCatmullRom.alpha(0.5))
-      .context(ctx);
     ctx.lineCap = 'round';
   });
 
-  $: if (width && height) {
-    setupCanvas();
-  }
+  $: if (width && height) setupCanvas();
 
   $: if (canvas && ctx && data && data.length > 0) {
     canvasData = renderColorGradients();
