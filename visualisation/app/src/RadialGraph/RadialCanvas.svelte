@@ -21,6 +21,7 @@
   let dotsG;
 
   let highlightId = null;
+  let highlightedPoints = 60;
 
   function setupCanvas() {
     lineWidth = 2.7 * Math.min(width, height) / 450;
@@ -100,22 +101,35 @@
           cy: point.d[5] || point.d[1]
         };
       });
+      highlightedPoints = dots.length;
       drawCanvas('visible', highlightId);
     } else {
-      dots = [];
       drawCanvas('visible');
     }
 
+    const t = d3select(dotsG).transition().duration(300);
+
     d3select(dotsG).selectAll('.dot')
       .data(dots, (d) => d.id)
-      .join('circle')
+      .join(
+        enter => enter.append('circle')
+                  .call(enter => enter.transition(t).delay((d) => d.id * 7)
+                    .attr('cx', (d) => +d.cx)
+                    .attr('cy', (d) => +d.cy)),
+        update => update
+                    .call(enter => enter.transition(t)
+                      .attr('cx', (d) => +d.cx)
+                      .attr('cy', (d) => +d.cy)),
+        exit => exit
+                  .call(enter => enter.transition(t).delay((d) => (highlightedPoints - d.id) * 7)
+                    .attr('cx', 0)
+                    .attr('cy', 0)
+                    .remove())
+      )
       .attr('class', 'dot')
       .attr('fill', '#321321')
       .attr('fill-opacity', 0.6)
-      .attr('r', lineWidth * 1.1)
-      .transition().duration(500).delay((d) => 7 * d.id)
-      .attr('cx', (d) => +d.cx)
-      .attr('cy', (d) => +d.cy);
+      .attr('r', lineWidth * 1.1);
   }
 
   function handleClick(e) {
