@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import { fade } from 'svelte/transition';
 
   import {
     select as d3select } from 'd3';
@@ -8,13 +9,17 @@
   export let width;
   export let height;
   export let colors;
+  export let hoverId = 'LH809_2019_5_5_4_20';
 
   const sf = 2;
+  const globalAlpha = 0.8;
 
   let canvasElement, canvas, ctx;
   let canvasData;
   let line;
   let lineWidth = 2;
+
+  let dotsG;
 
   function setupCanvas() {
     canvas
@@ -24,7 +29,9 @@
       .style('height', `${height}px`);
     ctx.scale(sf, sf);
     ctx.translate(width / 2, height / 2);
+    ctx.globalAlpha = globalAlpha;
     lineWidth = 2 * Math.min(width, height) / 500;
+    ctx.lineWidth = lineWidth;
   }
 
   function renderColorGradients() {
@@ -49,7 +56,6 @@
 
     canvasData.forEach(({ path, color }) => {
       ctx.setLineDash(dashSwitch[0]);
-      ctx.lineWidth = lineWidth;
       ctx.strokeStyle = color;
       ctx.beginPath();
       path.forEach((point, i , arr) => {
@@ -70,11 +76,40 @@
     });
   }
 
+  function highlightFlight() {
+    const hoveredFlight = data.find(elem => elem.id === hoverId);
+
+    let dots = [];
+    if (hoveredFlight) {
+      dots = hoveredFlight.path.slice(1).map((point, i) => {
+        return {
+          id: i,
+          cx: point.d[4],
+          cy: point.d[5]
+        };
+      });
+    }
+
+    d3select(dotsG).selectAll('.dot')
+      .data(dots)
+      .join('circle')
+      .attr('class', 'dot')
+      .attr('fill', '#321321')
+      .attr('fill-opacity', 0.8)
+      .attr('r', lineWidth * 1.2)
+      .transition().duration(500).delay((d) => 10 * d.id)
+      .attr('cx', (d) => +d.cx)
+      .attr('cy', (d) => +d.cy);
+  }
+
   onMount(() => {
     canvas = d3select(canvasElement);
     ctx = canvas.node().getContext('2d');
     ctx.lineCap = 'round';
   });
+
+  $: width = width || 0;
+  $: height = height || 0;
 
   $: if (width && height) setupCanvas();
 
@@ -82,11 +117,22 @@
     canvasData = renderColorGradients();
     drawCanvas();
   }
+
+  $: if (data && hoverId) highlightFlight();
 </script>
 
+<svg width={width} height={height}>
+  <g bind:this={dotsG} transform="translate({width / 2} {height / 2})">
+  </g>
+</svg>
 <canvas bind:this={canvasElement}></canvas>
 
 <style>
+  svg {
+    position: absolute;
+    z-index: 200;
+  }
+
   canvas {
     position: absolute;
     z-index: 100;

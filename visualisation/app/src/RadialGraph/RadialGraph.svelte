@@ -1,6 +1,4 @@
 <script>
-  import { onMount } from 'svelte';
-
   import Coordinates from './Coordinates.svelte';
   import RadialCanvas from './RadialCanvas.svelte';
 
@@ -78,6 +76,7 @@
       });
 
       return {
+        id: priceLine.key,
         path: objectPath,
         minRadius,
         maxRadius,
@@ -87,10 +86,6 @@
       };
     });
   }
-
-  onMount(() => {
-    
-  });
 
   $: if (width && height && data && data.length > 0) {
     // Get the maximum price in the whole dataset
