@@ -8,7 +8,7 @@
   export let width;
   export let height;
   export let colors;
-  export let highlightId = 'LH809_2019_6_23_4_20';
+  export let highlightId = null;
 
   const sf = 2;
   const globalAlpha = 0.8;
@@ -75,7 +75,7 @@
     });
   }
 
-  function highlightFlight() {
+  function highlightFlight(highlightId) {
     const highlightedFlight = data.find(elem => elem.id === highlightId);
 
     let dots = [];
@@ -88,6 +88,9 @@
         };
       });
       drawCanvas(highlightId);
+    } else {
+      dots = [];
+      drawCanvas();
     }
 
     d3select(dotsG).selectAll('.dot')
@@ -95,7 +98,7 @@
       .join('circle')
       .attr('class', 'dot')
       .attr('fill', '#321321')
-      .attr('fill-opacity', 0.8)
+      .attr('fill-opacity', 0.6)
       .attr('r', lineWidth * 1.1)
       .transition().duration(500).delay((d) => 7 * d.id)
       .attr('cx', (d) => +d.cx)
@@ -117,7 +120,7 @@
     drawCanvas();
   }
 
-  $: if (data && highlightId) highlightFlight();
+  $: if (data) highlightFlight(highlightId);
 </script>
 
 <svg width={width} height={height}>

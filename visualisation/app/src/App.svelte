@@ -73,10 +73,13 @@
   <h3>Following thousands of flight prices starting a month before departure.</h3>
   <div class="top-wrapper">
     <div class="container radial-graph">
-      {#await data.find(elem => elem.name === 'flights').data then data}
-        <RadialGraph data={data}
-                     timeRange={timeRange}
-                     colors={colors} />
+      {#await data.find(elem => elem.name === 'flights').data then prices}
+        {#await data.find(elem => elem.name === 'flightInfo').data then flightInfo}
+          <RadialGraph data={prices}
+                       flightInfo={flightInfo}
+                       timeRange={timeRange}
+                       colors={colors} />
+        {/await}
       {/await}
     </div>
   </div>

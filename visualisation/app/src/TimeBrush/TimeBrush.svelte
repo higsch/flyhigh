@@ -68,7 +68,6 @@
   }
 
   $: if (data && data.length > 0 && width && height) {
-    console.log(data)
     x = scaleTime()
       .domain(extent(data, d => d.departure))
       .range([0, width]);

@@ -1,4 +1,6 @@
 <script>
+  import { flip } from 'svelte/animate';
+
   import Coordinates from './Coordinates.svelte';
   import RadialCanvas from './RadialCanvas.svelte';
 
@@ -12,6 +14,7 @@
   import { formatTime } from '../utils';
 
   export let data;
+  export let flightInfo;
   export let timeRange = [];
   export let colors;
 
@@ -33,6 +36,8 @@
   let dataPreCalc;
   let radialDataIndex;
   let slicedData;
+  let legendArr = [];
+  let highlightId = null;
 
   function dayToAngle(day) {
     return -pi2 * day / daysOnCircle + pi2 * dayOffset / daysOnCircle;
@@ -139,8 +144,17 @@
     } else {
       slicedData = dataPreCalc;
     }
+    
+    if (slicedData.length <= 12 && flightInfo) {
+      legendArr = flightInfo.filter(elem => slicedData.map(d => d.id).includes(elem.flightIdUnique));
+    } else {
+      legendArr = [];
+      highlightId = null;
+    }
   }
 </script>
+
+<svelte:window on:click={() => highlightId = null}/>
 
 <div class="wrapper" bind:offsetWidth={width} bind:offsetHeight={height}>
   <Coordinates priceScale={priceScale}
@@ -151,12 +165,25 @@
   <RadialCanvas data={slicedData}
                 width={width - sizeOffset}
                 height={height - sizeOffset}
-                colors={colors} />
+                colors={colors}
+                highlightId={highlightId} />
   {#if priceScale && timeRange}
     <div class="selected-time-range"
          style="width: {priceScale(300)}px;">
       <span class="pre-string">Departure</span>
       {@html formatCenterTimeRange(timeRange)}
+    </div>
+    <div class="flight-legend" style="height: {(height - 2 * priceScale(550)) / 2}px;">
+      <ul class="flight-list">
+        {#each legendArr as item (item.flightIdUnique)}
+          <li on:click|stopPropagation={() => highlightId = item.flightIdUnique}
+              class:active={highlightId === item.flightIdUnique}
+              animate:flip={{duration: 200, delay: 0}}>
+            <span class="flight-id">{item.flightId}</span>
+            <span class="flight-time">{timeFormat('%b, %d, %H:%M')(item.departure)}</span>
+          </li>
+        {/each}
+      </ul>
     </div>
   {/if}
 </div>
@@ -178,6 +205,43 @@
 
   .selected-time-range .pre-string {
     display: block;
-    font-size: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .flight-legend {
+    position: absolute;
+    z-index: 1000;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .flight-legend ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 100%;
+  }
+
+  .flight-legend ul li {
+    display: inline-block;
+    margin: 0 0.2rem;
+    padding: 0.4rem;
+    font-family: Arial, sans-serif;
+    font-size: 0.9rem;
+    color: var(--gray);
+    border: 1px solid var(--gray);
+    border-radius: 3px;
+    background-color: white;
+    cursor: pointer;
+  }
+
+  .flight-legend ul li.active {
+    color: white;
+    background-color: var(--gray);
+  }
+
+  .flight-legend ul li .flight-time {
+    font-size: 0.7rem;
   }
 </style>
