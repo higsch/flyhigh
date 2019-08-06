@@ -37,7 +37,21 @@
   let radialDataIndex;
   let slicedData;
   let legendArr = [];
-  let highlightId = null;
+
+  let nextCol = 1;
+
+  function generateColor(){
+    let ret = [];
+    if(nextCol < 16777215) {
+      ret.push(nextCol & 0xff); // R
+      ret.push((nextCol & 0xff00) >> 8); // G 
+      ret.push((nextCol & 0xff0000) >> 16); // B
+
+      nextCol += 1;
+    }
+    const col = `rgb(${ret.join(',')})`;
+    return col;
+  }
 
   function dayToAngle(day) {
     return -pi2 * day / daysOnCircle + pi2 * dayOffset / daysOnCircle;
@@ -88,7 +102,8 @@
         maxRadius,
         endRadius,
         middleStop,
-        departure: priceLine.values[0].departure
+        departure: priceLine.values[0].departure,
+        colorId: generateColor()
       };
     });
   }
@@ -101,8 +116,7 @@
     }
   }
 
-  $: if (width && height && data && data.length > 0) {
-    // Get the maximum price in the whole dataset
+  function prepareData() {
     maxPrice = d3max(data, d => d.price);
     
     // Define the price scale, i.e. radii
@@ -115,7 +129,7 @@
       .key(d => d.flightIdUnique)
       .entries(data);
 
-    // Precalculate geometrical parameters for the whole dataset
+    // // Precalculate geometrical parameters for the whole dataset
     dataPreCalc = preCalculateGeometry(dataNested);
 
     // build a departure index
@@ -132,7 +146,7 @@
     }
   }
 
-  $: if (dataPreCalc) {
+  function sliceData(timeRange) {
     if (radialDataIndex && timeRange.length === 2) {
       if (timeRange.reduce((a, c) => Math.abs(a - c)) / (1000 * 60 * 60) <= 24) {
         timeRange = [timeRange[0], timeRange[0]];
@@ -144,17 +158,12 @@
     } else {
       slicedData = dataPreCalc;
     }
-    
-    if (slicedData.length <= 12 && flightInfo) {
-      legendArr = flightInfo.filter(elem => slicedData.map(d => d.id).includes(elem.flightIdUnique));
-    } else {
-      legendArr = [];
-      highlightId = null;
-    }
   }
-</script>
 
-<svelte:window on:click={() => highlightId = null}/>
+  $: if (width && height && data && data.length > 0) prepareData();
+
+  $: if (dataPreCalc) sliceData(timeRange);
+</script>
 
 <div class="wrapper" bind:offsetWidth={width} bind:offsetHeight={height}>
   <Coordinates priceScale={priceScale}
@@ -165,8 +174,7 @@
   <RadialCanvas data={slicedData}
                 width={width - sizeOffset}
                 height={height - sizeOffset}
-                colors={colors}
-                highlightId={highlightId} />
+                colors={colors} />
   {#if priceScale && timeRange}
     <div class="selected-time-range"
          style="width: {priceScale(300)}px;">
@@ -174,16 +182,7 @@
       {@html formatCenterTimeRange(timeRange)}
     </div>
     <div class="flight-legend" style="height: {(height - 2 * priceScale(550)) / 2}px;">
-      <ul class="flight-list">
-        {#each legendArr as item (item.flightIdUnique)}
-          <li on:click|stopPropagation={() => highlightId = item.flightIdUnique}
-              class:active={highlightId === item.flightIdUnique}
-              animate:flip={{duration: 200, delay: 0}}>
-            <span class="flight-id">{item.flightId}</span>
-            <span class="flight-time">{timeFormat('%b, %d, %H:%M')(item.departure)}</span>
-          </li>
-        {/each}
-      </ul>
+      
     </div>
   {/if}
 </div>
@@ -213,35 +212,5 @@
     z-index: 1000;
     bottom: 0;
     width: 100%;
-  }
-
-  .flight-legend ul {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    height: 100%;
-  }
-
-  .flight-legend ul li {
-    display: inline-block;
-    margin: 0 0.2rem;
-    padding: 0.4rem;
-    font-family: Arial, sans-serif;
-    font-size: 0.9rem;
-    color: var(--gray);
-    border: 1px solid var(--gray);
-    border-radius: 3px;
-    background-color: white;
-    cursor: pointer;
-  }
-
-  .flight-legend ul li.active {
-    color: white;
-    background-color: var(--gray);
-  }
-
-  .flight-legend ul li .flight-time {
-    font-size: 0.7rem;
   }
 </style>

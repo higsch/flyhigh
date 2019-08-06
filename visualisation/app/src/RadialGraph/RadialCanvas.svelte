@@ -8,29 +8,37 @@
   export let width;
   export let height;
   export let colors;
-  export let highlightId = null;
 
   const sf = 2;
-  const globalAlpha = 0.8;
+  const globalAlpha = 1.0;
   const dashSwitch = [[], [1, 7]];
 
-  let canvasElement, canvas, ctx;
+  let canvasElement, hiddenCanvasElement, canvas, ctx, hiddenCanvas, hiddenCtx;
   let canvasData;
   let line;
   let lineWidth = 2;
 
   let dotsG;
 
+  let highlightId = null;
+
   function setupCanvas() {
-    canvas
-      .attr('width', sf * width)
-      .attr('height', sf * height)
-      .style('width', `${width}px`)
-      .style('height', `${height}px`);
-    ctx.scale(sf, sf);
-    ctx.translate(width / 2, height / 2);
     lineWidth = 2.7 * Math.min(width, height) / 450;
-    ctx.lineWidth = lineWidth;
+
+    function init(canvas, ctx) {
+      canvas
+        .attr('width', sf * width)
+        .attr('height', sf * height)
+        .style('width', `${width}px`)
+        .style('height', `${height}px`);
+      ctx.scale(sf, sf);
+      ctx.translate(width / 2, height / 2);
+      ctx.lineWidth = ctx.canvas.classList[0] === 'hidden' ? 2 * lineWidth : lineWidth;
+      return [canvas, ctx];
+    }
+
+    [canvas, ctx] = init(canvas, ctx);
+    [hiddenCanvas, hiddenCtx] = init(hiddenCanvas, hiddenCtx);
   }
 
   function renderColorGradients() {
@@ -48,34 +56,39 @@
     });
   }
 
-  function drawCanvas(highlightId = null) {
-    ctx.clearRect(- width / 2, - height / 2, width, height);
-    canvasData.forEach(({ id, path, color }) => {
-      ctx.globalAlpha = (!highlightId) ? globalAlpha : ((highlightId === id) ? 1.0 : 0.1);
-      ctx.lineCap = 'round';
-      ctx.setLineDash(dashSwitch[0]);
-      ctx.strokeStyle = color;
-      ctx.beginPath();
+  function drawCanvas(mode, highlightId = null) {
+    const context = (mode === 'hidden') ? hiddenCtx : ctx;
+
+    context.clearRect(- width / 2, - height / 2, width, height);
+
+    canvasData.forEach(({ id, path, color, colorId }) => {
+      context.globalAlpha = (!highlightId) ? globalAlpha : ((highlightId === id) ? 1.0 : 0.1);
+      context.lineCap = 'round';
+      context.setLineDash(dashSwitch[0]);
+      context.strokeStyle = mode === 'hidden' ? colorId : color;
+      context.beginPath();
       path.forEach((point, i , arr) => {
         if (arr[i - 1] && point.gap !== arr[i - 1].gap) {
-          ctx.setLineDash(dashSwitch[Number(arr[i - 1].gap)]);
-          ctx.stroke();
-          ctx.beginPath();
-          ctx.moveTo(...arr[i - 1].d.slice(-2));
+          context.setLineDash(dashSwitch[Number(arr[i - 1].gap)]);
+          context.stroke();
+          context.beginPath();
+          context.moveTo(...arr[i - 1].d.slice(-2));
         }
 
         if (point.type === 'M') {
-          ctx.moveTo(...point.d);
+          context.moveTo(...point.d);
         } else if (point.type === 'C') {
-          ctx.bezierCurveTo(...point.d);
+          context.bezierCurveTo(...point.d);
         }
       });
-      ctx.setLineDash(dashSwitch[Number(path[path.length - 1].gap)]);
-      ctx.stroke();
+      context.setLineDash(dashSwitch[Number(path[path.length - 1].gap)]);
+      context.stroke();
     });
   }
 
   function highlightFlight(highlightId) {
+    if (!data) return;
+
     const highlightedFlight = data.find(elem => elem.id === highlightId);
 
     let dots = [];
@@ -87,10 +100,10 @@
           cy: point.d[5] || point.d[1]
         };
       });
-      drawCanvas(highlightId);
+      drawCanvas('visible', highlightId);
     } else {
       dots = [];
-      drawCanvas();
+      drawCanvas('visible');
     }
 
     d3select(dotsG).selectAll('.dot')
@@ -105,9 +118,22 @@
       .attr('cy', (d) => +d.cy);
   }
 
+  function handleClick(e) {
+    const col = hiddenCtx.getImageData(e.layerX * sf, e.layerY * sf, 1, 1).data;
+    const colorId = `rgb(${col[0]},${col[1]},${col[2]})`;
+    const flight = canvasData.find(elem => elem.colorId === colorId);
+    if (flight) {
+      highlightId = flight.id;
+    } else {
+      highlightId = null;
+    }
+  }
+
   onMount(() => {
     canvas = d3select(canvasElement);
     ctx = canvas.node().getContext('2d');
+    hiddenCanvas = d3select(hiddenCanvasElement);
+    hiddenCtx = hiddenCanvas.node().getContext('2d');
   });
 
   $: width = width || 0;
@@ -115,18 +141,23 @@
 
   $: if (width && height) setupCanvas();
 
-  $: if (canvas && ctx && data && data.length > 0) {
+  $: if (data && data.length > 0) {
     canvasData = renderColorGradients();
-    drawCanvas();
+    drawCanvas('visible');
+    drawCanvas('hidden');
+    if (!canvasData.map(elem => elem.id).includes(highlightId)) highlightId = null;
   }
 
-  $: if (data) highlightFlight(highlightId);
+  $: highlightFlight(highlightId);
 </script>
 
-<svg width={width} height={height}>
+<svelte:window on:click={() => {if (highlightId !== null) highlightId = null;}}/>
+
+<svg width={width} height={height} on:click|stopPropagation={(e) => handleClick(e)}>
   <g bind:this={dotsG} transform="translate({width / 2} {height / 2})"></g>
 </svg>
-<canvas bind:this={canvasElement}></canvas>
+<canvas class="visible" bind:this={canvasElement}></canvas>
+<canvas class="hidden" bind:this={hiddenCanvasElement}></canvas>
 
 <style>
   svg {
@@ -134,8 +165,14 @@
     z-index: 200;
   }
 
-  canvas {
+  canvas.visible {
     position: absolute;
     z-index: 100;
+  }
+
+  canvas.hidden {
+    display: none;
+    position: absolute;
+    z-index: -1;
   }
 </style>
