@@ -69,8 +69,10 @@
 <svelte:body width={width} height={height} />
 
 <div class="outer-wrapper">
-  <h1>The last 30 days before takeoff</h1>
-  <h3>Following thousands of flight prices starting a month before departure.</h3>
+  <div class="title-bar">
+    <h1>The last 30 days before takeoff</h1>
+    <h3>Following thousands of flight prices starting a month before departure.</h3>
+  </div>
   <div class="top-wrapper">
     <div class="container radial-graph">
       {#await data.find(elem => elem.name === 'flights').data then prices}
@@ -97,25 +99,29 @@
 <style>
   .outer-wrapper {
     display: flex;
+    position: relative;
     flex-direction: column;
     width: 100%;
     height: 100%;
   }
 
+  .title-bar {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    padding: 1rem 0 0 0;
+    text-align: center;
+  }
+
   h1 {
-    width: 97%;
-    margin: 1.5rem auto 1rem auto;
     font-size: 3rem;
     font-weight: 400;
-    text-align: center;
     color: #444;
   }
 
   h3 {
-    width: 100%;
     font-size: 1rem;
     font-weight: 400;
-    text-align: center;
     color: var(--gray);
   }
 
