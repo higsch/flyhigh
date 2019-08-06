@@ -33,22 +33,11 @@
 
   function renderColorGradients() {
     return data.map(d => {
-      let color;
-      color = ctx.createRadialGradient(0, 0, d.minRadius, 0, 0, d.maxRadius);
+      let color = ctx.createRadialGradient(0, 0, d.minRadius, 0, 0, d.maxRadius);
       
-      if (d.middleStop < 0.01) {
-        color.addColorStop(0, colors.endPrice);
-      } else {
-        color.addColorStop(0, colors.lowPrice);
-      }
-
+      color.addColorStop(0, (d.middleStop < 0.01) ? colors.endPrice : colors.lowPrice);
       color.addColorStop(d.middleStop, colors.endPrice);
-
-      if (d.middleStop > 0.99) {
-        color.addColorStop(1, colors.endPrice);
-      } else {
-        color.addColorStop(1, colors.highPrice);
-      }
+      color.addColorStop(1, (d.middleStop > 0.99) ? colors.endPrice : colors.highPrice);
 
       return {
         ...d,
