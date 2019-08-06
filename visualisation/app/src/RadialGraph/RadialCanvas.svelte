@@ -29,7 +29,6 @@
       .style('height', `${height}px`);
     ctx.scale(sf, sf);
     ctx.translate(width / 2, height / 2);
-    ctx.globalAlpha = globalAlpha;
     lineWidth = 2 * Math.min(width, height) / 500;
     ctx.lineWidth = lineWidth;
   }
@@ -49,12 +48,14 @@
     });
   }
 
-  function drawCanvas() {
-    const dashSwitch = [[], [5, 3]];
+  function drawCanvas(highlightId = null) {
+    const dashSwitch = [[], [5, 5]];
 
     ctx.clearRect(- width / 2, - height / 2, width, height);
 
-    canvasData.forEach(({ path, color }) => {
+    canvasData.forEach(({ id, path, color }) => {
+      ctx.globalAlpha = (!highlightId) ? globalAlpha : ((highlightId === id) ? 1.0 : 0.1);
+      ctx.lineCap = 'round';
       ctx.setLineDash(dashSwitch[0]);
       ctx.strokeStyle = color;
       ctx.beginPath();
@@ -88,16 +89,17 @@
           cy: point.d[5]
         };
       });
+      drawCanvas(hoverId);
     }
 
     d3select(dotsG).selectAll('.dot')
-      .data(dots)
+      .data(dots, (d) => d.id)
       .join('circle')
       .attr('class', 'dot')
       .attr('fill', '#321321')
       .attr('fill-opacity', 0.8)
       .attr('r', lineWidth * 1.2)
-      .transition().duration(500).delay((d) => 10 * d.id)
+      .transition().duration(500).delay((d) => 7 * d.id)
       .attr('cx', (d) => +d.cx)
       .attr('cy', (d) => +d.cy);
   }
@@ -105,7 +107,6 @@
   onMount(() => {
     canvas = d3select(canvasElement);
     ctx = canvas.node().getContext('2d');
-    ctx.lineCap = 'round';
   });
 
   $: width = width || 0;
@@ -122,8 +123,7 @@
 </script>
 
 <svg width={width} height={height}>
-  <g bind:this={dotsG} transform="translate({width / 2} {height / 2})">
-  </g>
+  <g bind:this={dotsG} transform="translate({width / 2} {height / 2})"></g>
 </svg>
 <canvas bind:this={canvasElement}></canvas>
 
