@@ -8,7 +8,7 @@
     scaleLinear,
     max as d3max,
     line as d3line,
-    curveCatmullRom,
+    curveMonotoneX,
     timeFormat,
     brushX,
     event as d3event,
@@ -81,7 +81,7 @@
     line = d3line()
       .x(d => x(d.departure))
       .y(d => y(d.endPrice))
-      .curve(curveCatmullRom.alpha(0.5));
+      .curve(curveMonotoneX);
     
     path = line(data);
 
@@ -126,14 +126,14 @@
           {#if show}
             <g class="tick" transform="translate({x(departure)} 0)">
               <line x1={0} y1={-10} x2={0} y2={-15}></line>
-              <text>{timeFormat('%b, %d')(departure)}</text>
+              <text>{timeFormat('%b %d')(departure)}</text>
             </g>
           {/if}
         {/each}
       </g>
       <g class="end-price">
         <path class="end-price-line"
-              stroke-width={Math.max(width, height) / 500}
+              stroke-width={Math.max(width, height) / 700}
               d={path}></path>
       </g>
     </svg>

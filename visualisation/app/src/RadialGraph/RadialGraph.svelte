@@ -106,9 +106,10 @@
   }
 
   function formatCenterTimeRange(timeRange) {
-    const time1 = timeFormat('%b, %d')(timeRange[0]);
-    const time2 = timeFormat('%b, %d')(timeRange[1]);
-    return (time1 === time2) ? time1 : `${time1} - ${time2}`;
+    const weekday = timeFormat('%a')(timeRange[0]);
+    const time1 = timeFormat('%b %d')(timeRange[0]);
+    const time2 = timeFormat('%b %d')(timeRange[1]);
+    return (time1 === time2) ? `${weekday}, ${time1}` : `${time1} - ${time2}`;
   }
 
   function prepareData() {
