@@ -169,7 +169,8 @@
   <RadialCanvas data={slicedData}
                 width={width - sizeOffset}
                 height={height - sizeOffset}
-                colors={colors} />
+                colors={colors}
+                on:flightclick />
   {#if priceScale && timeRange}
     <div class="selected-time-range"
          style="width: {priceScale(300)}px;">

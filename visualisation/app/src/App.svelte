@@ -55,6 +55,12 @@
 
   let timeRange = [];
 
+  let highlightedFlightId = null;
+
+  async function assembleFlightDetails(id) {
+    const flightInfo = await data.find(elem => elem.name === 'flightInfo').data
+  }
+
   // Fetch the data from csv and convert to D3 appropriate json
   onMount(async function () {
     data = await Promise.all(dataPaths.map(entry => {
@@ -78,23 +84,24 @@
     <div class="container radial-graph">
       {#await data.find(elem => elem.name === 'flights').data then data}
         <RadialGraph data={data}
-                      timeRange={timeRange}
-                      colors={colors} />
+                     timeRange={timeRange}
+                     colors={colors}
+                     on:flightclick={(e) => highlightedFlightId = e.detail} />
       {/await}
     </div>
   </div>
-  <div class="bottom-wrapper">
-    <div class="container time-brush">
-      {#await data.find(elem => elem.name === 'flightInfo').data then data}
+  {#await data.find(elem => elem.name === 'flightInfo').data then data}
+    <div class="bottom-wrapper">
+      <div class="container time-brush">
         <TimeBrush data={data}
                    colors={colors}
                    on:timerangeselected={(e) => timeRange = e.detail} />
-      {/await}
+      </div>
     </div>
-  </div>
-  <div class="flight-card">
-    <FlightCard />
-  </div>
+    <div class="flight-card">
+      <FlightCard data={data.find(elem => elem.flightIdUnique === highlightedFlightId)}/>
+    </div>
+  {/await}
 </div>
 
 <style>

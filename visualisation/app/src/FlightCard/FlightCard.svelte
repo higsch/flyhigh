@@ -1,13 +1,19 @@
 <script>
+  import { fade, fly } from 'svelte/transition';
+
   import Fin from './Fin.svelte';
+
+  export let data;
 </script>
 
-<div class="wrapper">
-  <div class="info"></div>
-  <div class="fin">
-    <Fin />
+{#if data}
+  <div class="wrapper" transition:fly="{{ x: 200, duration: 600}}">
+    <div class="info"></div>
+    <div class="fin">
+      <Fin company={data.company}/>
+    </div>
   </div>
-</div>
+{/if}
 
 <style>
   .wrapper {

@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, createEventDispatcher } from 'svelte';
 
   import {
     select as d3select } from 'd3';
@@ -9,6 +9,7 @@
   export let height;
   export let colors;
 
+  const dispatch = createEventDispatcher();
   const sf = 2;
   const globalAlpha = 1.0;
   const dashSwitch = [[], [1, 7]];
@@ -130,6 +131,8 @@
       .attr('fill', '#321321')
       .attr('fill-opacity', 0.6)
       .attr('r', lineWidth * 1.1);
+
+      dispatch('flightclick', highlightId);
   }
 
   function handleClick(e) {
