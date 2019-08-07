@@ -7,7 +7,8 @@
     extent,
     scaleLinear,
     max as d3max,
-    area as d3area,
+    line as d3line,
+    curveCatmullRom,
     timeFormat,
     brushX,
     event as d3event,
@@ -19,7 +20,8 @@
 
   const dispatch = createEventDispatcher();
   const padding = {
-    top: 20
+    top: 20,
+    bottom: 10
   };
   const initTime = {
     start: timeParser('2019-06-23T00:00:00Z'),
@@ -29,7 +31,7 @@
   let width, height;
   let svgElement;
   let x, y;
-  let area;
+  let line;
   let path;
   let ticks;
   let brush;
@@ -76,12 +78,12 @@
       .domain([0, d3max(data, d => d.endPrice)])
       .range([height, padding.top]);
 
-    area = d3area()
+    line = d3line()
       .x(d => x(d.departure))
-      .y0(y(0))
-      .y1(d => y(d.endPrice));
+      .y(d => y(d.endPrice))
+      .curve(curveCatmullRom.alpha(0.5));
     
-    path = area(data);
+    path = line(data);
 
     const tickInterval = width > 800 ? 7 : 14;
     let lastTime = data[0].departure;
@@ -119,18 +121,19 @@
 <div class="wrapper" bind:offsetWidth={width} bind:offsetHeight={height}>
   {#if path}
     <svg bind:this={svgElement}>
-      <g class="axis" transform="translate(0 {padding.top})">
+      <g class="axis" transform="translate(0 {height - padding.bottom})">
         {#each ticks as {departure, show, id}, i (id)}
           {#if show}
             <g class="tick" transform="translate({x(departure)} 0)">
+              <line x1={0} y1={-10} x2={0} y2={-15}></line>
               <text>{timeFormat('%b, %d')(departure)}</text>
-              <line x1={0} y1={0} x2={0} y2={5} transform="translate(0 6)"></line>
             </g>
           {/if}
         {/each}
       </g>
       <g class="end-price">
-        <path class="end-price-area"
+        <path class="end-price-line"
+              stroke-width={Math.max(width, height) / 500}
               d={path}></path>
       </g>
     </svg>
@@ -143,8 +146,9 @@
     height: 100%;
   }
 
-  g.end-price {
-    fill: var(--end-price);
+  g.end-price path {
+    stroke: var(--end-price);
+    fill: none;
   }
 
   g.tick text {
