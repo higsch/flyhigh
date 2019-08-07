@@ -77,7 +77,7 @@
 
 <div class="outer-wrapper">
   <div class="title-bar">
-    <h1>The last 30 days before takeoff</h1>
+    <h1>30 days to takeoff</h1>
     <h3>Following thousands of flight prices starting a month before departure.</h3>
   </div>
   <div class="top-wrapper">

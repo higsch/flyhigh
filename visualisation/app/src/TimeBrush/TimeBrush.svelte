@@ -24,8 +24,8 @@
     bottom: 10
   };
   const initTime = {
-    start: timeParser('2019-06-23T00:00:00Z'),
-    end: timeParser('2019-06-24T00:00:00Z')
+    start: timeParser('2019-05-29T00:00:00Z'),
+    end: timeParser('2019-05-30T00:00:00Z')
   };
 
   let width, height;
