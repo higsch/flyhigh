@@ -157,7 +157,7 @@
 
   $: if (data && data.length > 0) {
     canvasData = renderColorGradients();
-    drawCanvas('visible');
+    drawCanvas('visible', highlightId);
     drawCanvas('hidden');
     if (!canvasData.map(elem => elem.id).includes(highlightId)) highlightId = null;
   }

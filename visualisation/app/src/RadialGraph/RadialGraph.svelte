@@ -1,6 +1,4 @@
 <script>
-  import { flip } from 'svelte/animate';
-
   import Coordinates from './Coordinates.svelte';
   import RadialCanvas from './RadialCanvas.svelte';
 
@@ -14,7 +12,6 @@
   import { formatTime } from '../utils';
 
   export let data;
-  export let flightInfo;
   export let timeRange = [];
   export let colors;
 
@@ -109,11 +106,9 @@
   }
 
   function formatCenterTimeRange(timeRange) {
-    if (timeRange[0].toString() === timeRange[1].toString()) {
-      return timeFormat('%b, %d')(timeRange[0]);
-    } else {
-      return timeFormat('%b, %d')(timeRange[0]) + ' – ' + timeFormat('%b, %d')(timeRange[1]);
-    }
+    const time1 = timeFormat('%b, %d')(timeRange[0]);
+    const time2 = timeFormat('%b, %d')(timeRange[1]);
+    return (time1 === time2) ? time1 : `${time1} - ${time2}`;
   }
 
   function prepareData() {
@@ -181,9 +176,6 @@
       <span class="pre-string">Departure</span>
       {@html formatCenterTimeRange(timeRange)}
     </div>
-    <div class="flight-legend" style="height: {(height - 2 * priceScale(550)) / 2}px;">
-      
-    </div>
   {/if}
 </div>
 
@@ -205,12 +197,5 @@
   .selected-time-range .pre-string {
     display: block;
     font-size: 0.9rem;
-  }
-
-  .flight-legend {
-    position: absolute;
-    z-index: 1000;
-    bottom: 0;
-    width: 100%;
   }
 </style>

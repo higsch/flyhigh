@@ -55,7 +55,7 @@
     }
 
     // Subtract a few milliseconds to get to the day before
-    selectionTimeRounded[1] = selectionTimeRounded[1] - 100;
+    selectionTimeRounded[1] = new Date(selectionTimeRounded[1] - 100);
 
     if (d3event.type === 'end') {
       d3select(this).transition().call(d3event.target.move, selectionTimeRounded.map(x));

@@ -1,5 +1,6 @@
 <script>
   import RadialGraph from './RadialGraph/RadialGraph.svelte';
+  import FlightCard from './FlightCard/FlightCard.svelte';
   import TimeBrush from './TimeBrush/TimeBrush.svelte';
 
   import { onMount } from 'svelte';
@@ -75,13 +76,10 @@
   </div>
   <div class="top-wrapper">
     <div class="container radial-graph">
-      {#await data.find(elem => elem.name === 'flights').data then prices}
-        {#await data.find(elem => elem.name === 'flightInfo').data then flightInfo}
-          <RadialGraph data={prices}
-                       flightInfo={flightInfo}
-                       timeRange={timeRange}
-                       colors={colors} />
-        {/await}
+      {#await data.find(elem => elem.name === 'flights').data then data}
+        <RadialGraph data={data}
+                      timeRange={timeRange}
+                      colors={colors} />
       {/await}
     </div>
   </div>
@@ -94,12 +92,15 @@
       {/await}
     </div>
   </div>
+  <div class="flight-card">
+    <FlightCard />
+  </div>
 </div>
 
 <style>
   .outer-wrapper {
-    display: flex;
     position: relative;
+    display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
@@ -127,6 +128,15 @@
 
   .top-wrapper {
     flex: 1;
+  }
+
+  .flight-card {
+    position: absolute;
+    bottom: 17%;
+    z-index: 1;
+    width: 100%;
+    height: 20%;
+    max-height: 43vw;
   }
 
   .bottom-wrapper {
