@@ -25,8 +25,27 @@ html, body {
 	height: 100vh;
 	margin: 0;
 	padding: 0;
-	/* background-color: #FFFFFF; */
 	font-family: 'Raleway', sans-serif;
+	font-size: 14px;
+}
+
+/* Switch font size for different devices */
+@media (min-width: 600px ) {
+	html, body {
+		font-size: 15px;
+	}
+}
+
+@media (min-width: 980px ) {
+	html, body {
+		font-size: 17px;
+	}
+}
+
+@media (min-width: 1260px ) {
+	html, body {
+		font-size: 18px;
+	}
 }
 
 /* Components */
