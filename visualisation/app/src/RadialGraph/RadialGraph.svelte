@@ -107,8 +107,8 @@
 
   function formatCenterTimeRange(timeRange) {
     const weekday = timeFormat('%a')(timeRange[0]);
-    const time1 = timeFormat('%b %d')(timeRange[0]);
-    const time2 = timeFormat('%b %d')(timeRange[1]);
+    const time1 = timeFormat('%b %d')(timeRange[0]).replace(' ', '&nbsp;');
+    const time2 = timeFormat('%b %d')(timeRange[1]).replace(' ', '&nbsp;');
     return (time1 === time2) ? `${weekday}, ${time1}` : `${time1} - ${time2}`;
   }
 
@@ -118,7 +118,7 @@
     // Define the price scale, i.e. radii
     priceScale = scaleLinear()
       .domain([0, maxPrice])
-      .range([Math.min(width, height) / 11, Math.min(width, height) * 0.55]);
+      .range([Math.min(width, height) / 11, Math.min(width, height) * 0.5]);
 
     // Nest the data by unique flights
     const dataNested = nest()
@@ -191,13 +191,13 @@
   .selected-time-range {
     position: absolute;
     z-index: 100;
-    font-size: 1.2rem;
+    font-size: calc(0.5rem + 1vw);
     text-align: center;
     color: var(--gray);
   }
 
   .selected-time-range .pre-string {
     display: block;
-    font-size: 0.9rem;
+    font-size: calc(0.7rem + 0.6vw);
   }
 </style>

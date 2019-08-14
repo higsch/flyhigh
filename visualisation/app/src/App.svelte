@@ -90,18 +90,35 @@
       {/await}
     </div>
   </div>
-  {#await data.find(elem => elem.name === 'flightInfo').data then data}
-    <div class="bottom-wrapper">
-      <div class="container time-brush">
+  <div class="info-bar">
+    <div class="left legend">
+      <div class="legend-text">
+        <h4>How to read this chart</h4>
+        <p class="mt">Lines represent flight prices. They run clockwise from 30 days before
+          departure to one day before takeoff.</p>
+        <p class="mt">The color at each time point tells you whether the price is <em class="high">above</em>
+          the final ticket or <em class="low">below</em> the <em class="end">final price</em>.</p>
+      </div>
+      <svg class="color-legend"></svg>
+      <div class="legend-info">Check out further explanations in the desktop version.</div>
+    </div>
+    <div class="right">
+      {#await data.find(elem => elem.name === 'flightInfo').data then data}
+        <div class="flight-card">
+          <FlightCard data={data.find(elem => elem.flightIdUnique === highlightedFlightId)}/>
+        </div>
+      {/await}
+    </div>
+  </div>
+  <div class="time-bar">
+    <div class="container time-brush">
+      {#await data.find(elem => elem.name === 'flightInfo').data then data}
         <TimeBrush data={data}
                    colors={colors}
                    on:timerangeselected={(e) => timeRange = e.detail} />
-      </div>
+      {/await}
     </div>
-    <div class="flight-card">
-      <FlightCard data={data.find(elem => elem.flightIdUnique === highlightedFlightId)}/>
-    </div>
-  {/await}
+  </div>
 </div>
 
 <style>
@@ -109,32 +126,86 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     width: 100%;
     height: 100%;
   }
 
   .title-bar {
-    position: absolute;
-    z-index: -1;
+    z-index: 300;
     width: 100%;
-    padding: 1rem 0 0 0;
+    padding: 1vh 0 0 0;
     text-align: center;
   }
 
   h1 {
-    font-size: 3rem;
-    font-weight: 400;
+    font-size: calc(1.8rem + 2.5vh);
+    font-weight: bold;
     color: #444;
   }
 
   h3 {
-    font-size: 1rem;
-    font-weight: 400;
+    margin: 0.2rem 0;
+    font-size: calc(0.8rem + 0.2vw);
+    font-weight: normal;
     color: var(--gray);
   }
 
+  h4 {
+    margin: 0.3rem 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
   .top-wrapper {
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    height: 90%;
+    top: 5%;
+  }
+
+  .info-bar {
+    z-index: -1;
     flex: 1;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .info-bar > div {
+    max-width: 30%;
+    padding: 0.5rem;
+    color: var(--gray);
+  }
+
+  .legend-info {
+    display: none;
+    font-size: 0.8rem;
+  }
+
+  @media (orientation: portrait) {
+    .info-bar {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .info-bar > div {
+      max-width: 100%;
+    }
+
+    .legend-text {
+      display: none;
+    }
+
+    .legend-info {
+      display: block;
+    }
+  }
+
+  .legend {
+    margin: 1rem 0;
+    font-size: 1rem;
+    line-height: 1.5;
   }
 
   .flight-card {
@@ -146,10 +217,8 @@
     max-height: 43vw;
   }
 
-  .bottom-wrapper {
-    position: absolute;
-    bottom: 0;
-    z-index: 1000;
+  .time-bar {
+    z-index: 300;
     width: 100%;
     height: 17%;
   }

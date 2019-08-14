@@ -48,16 +48,11 @@
       {#each priceCoords as { label, radius, startAngle, endAngle }, i}
         <g class="price-coord">
           <path class="price-circle" d={arc({radius, startAngle: 0, endAngle: pi2})}></path>
-          <path id="price-label-path-{i}"
-                class="price-label-path"
-                d={arc({radius: radius + 6, startAngle: -pi2 / 2, endAngle: pi2 / 2})}>
-          </path>
-          <text>
-            <textPath href="#price-label-path-{i}"
-                      startOffset="25%">
-              {label}
-            </textPath>
-          </text>
+          <g class="price-label" transform="translate(0 {- radius - 6})">
+            <text>
+                {label}
+            </text>
+          </g>
         </g>
       {/each}
     </g>
@@ -83,13 +78,9 @@
     stroke-opacity: 0.4;
   }
 
-  g.price-coord path.price-label-path {
-    fill: transparent;
-  }
-
   g.price-coord text {
     fill: var(--light-gray);
     text-anchor: middle;
-    font-size: 1.5vmin;
+    font-size: 0.9rem;
   }
 </style>

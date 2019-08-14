@@ -1,5 +1,5 @@
 <script>
-  import { fade, fly } from 'svelte/transition';
+  import { fade } from 'svelte/transition';
 
   import Fin from './Fin.svelte';
 
@@ -7,13 +7,14 @@
 </script>
 
 {#if data}
-  <div class="wrapper" transition:fly="{{ x: 200, duration: 600}}">
+  <div class="wrapper" transition:fade="{{ duration: 300}}">
     <div class="info"></div>
-    <div class="fin">
-      <Fin company={data.company}/>
-    </div>
   </div>
 {/if}
+
+<!-- <div class="fin">
+  <Fin company={data.company}/>
+</div> -->
 
 <style>
   .wrapper {
