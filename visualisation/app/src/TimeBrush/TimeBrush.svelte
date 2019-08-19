@@ -18,7 +18,7 @@
   export let data;
   export let colors;
 
-  const shrinkingFactor = 0.8;
+  const shrinkingFactor = 0.75;
   const dispatch = createEventDispatcher();
   const padding = {
     top: 20,
@@ -45,7 +45,6 @@
   function brushed() {
     if (!isInit && !d3event.sourceEvent || !d3event.selection) return;
     isInit = false;
-    console.log('brushed')
     
     const selectionX = d3event.selection;
     let selectionTime = selectionX.map(x.invert);
@@ -152,7 +151,7 @@
         {#each ticks as {departure, show, id}, i (id)}
           {#if show}
             <g class="tick" transform="translate({x(departure)} 0)">
-              <circle cx={0} cy={-11} r="2"></circle>
+              <circle cx={0} cy={-12} r="2"></circle>
               <text>{timeFormat('%b %d')(departure)}</text>
             </g>
           {/if}
