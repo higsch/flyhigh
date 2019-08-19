@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import { onMount, createEventDispatcher } from 'svelte';
 
   import {
     select as d3select,
@@ -18,16 +18,18 @@
   export let data;
   export let colors;
 
+  const shrinkingFactor = 0.8;
   const dispatch = createEventDispatcher();
   const padding = {
     top: 20,
     bottom: 10
   };
   const initTime = {
-    start: timeParser('2019-05-29T00:00:00Z'),
-    end: timeParser('2019-05-30T00:00:00Z')
+    start: timeParser('2019-04-29T00:00:00Z'),
+    end: timeParser('2019-04-30T00:00:00Z')
   };
 
+  let dataMonth;
   let width, height;
   let svgElement;
   let x, y;
@@ -37,10 +39,13 @@
   let brush;
   let isInit = true;
   let previousBrush = initTime;
+  let selectedMonth;
+  let brushPosition = [];
 
   function brushed() {
     if (!isInit && !d3event.sourceEvent || !d3event.selection) return;
     isInit = false;
+    console.log('brushed')
     
     const selectionX = d3event.selection;
     let selectionTime = selectionX.map(x.invert);
@@ -66,28 +71,41 @@
     if (previousBrush.toString() !== selectionTimeRounded.toString()) {
       previousBrush = selectionTimeRounded;
       dispatch('timerangeselected', selectionTimeRounded);
+      brushPosition = selectionX;
     }
   }
 
-  $: if (data && data.length > 0 && width && height) {
+  function selectMonth(month) {
+    if (!month) return;
+    isInit = true;
+    dataMonth = data.filter(elem => elem.departure.getMonth() === month);
+  }
+
+  onMount(() => {
+    selectedMonth = 3;
+  });
+  
+  $: selectMonth(selectedMonth);
+
+  $: if (dataMonth && dataMonth.length > 0 && width && height) {
     x = scaleTime()
-      .domain(extent(data, d => d.departure))
+      .domain(extent(dataMonth, d => d.departure))
       .range([0, width]);
 
     y = scaleLinear()
       .domain([0, d3max(data, d => d.endPrice)])
-      .range([height, padding.top]);
+      .range([height * shrinkingFactor, padding.top]);
 
     line = d3line()
       .x(d => x(d.departure))
       .y(d => y(d.endPrice))
       .curve(curveMonotoneX);
     
-    path = line(data);
+    path = line(dataMonth);
 
-    const tickInterval = width > 800 ? 7 : 14;
-    let lastTime = data[0].departure;
-    ticks = data.map(({ departure }, index) => {
+    const tickInterval = 3;
+    let lastTime = dataMonth[0].departure;
+    ticks = dataMonth.map(({ departure }, index) => {
       let show;
       if ((departure - lastTime) / (1000 * 60 * 60 * 24) >= tickInterval) {
         lastTime = departure;
@@ -101,39 +119,48 @@
         show
       };
     });
+    ticks = ticks.slice(3, -3);
   }
 
   $: if (svgElement && x) {
     d3select(svgElement).selectAll('g.brush').remove();
 
     brush = brushX()
-      .extent([[0, 0], [width, height]])
+      .extent([[0, 0], [width, height * shrinkingFactor]])
       .on('brush end', brushed);
 
     d3select(svgElement).append('g')
       .attr('class', 'brush')
       .call(brush)
       .call(brush.move,
-        [x(initTime.start), x(initTime.end)]);
+        [x(timeParser(`2019-0${selectedMonth + 1}-10T00:00:00Z`)), x(timeParser(`2019-0${selectedMonth + 1}-11T00:00:00Z`))]);
   }
 </script>
 
 <div class="wrapper" bind:offsetWidth={width} bind:offsetHeight={height}>
+  <div class="top-line">
+    <div class="label">Final prices per departure date in</div>
+    <div class="month-selector" class:active={selectedMonth === 3} on:click={() => selectedMonth = 3}>April</div>
+    <div class="month-selector" class:active={selectedMonth === 4} on:click={() => selectedMonth = 4}>May</div>
+    <div class="month-selector" class:active={selectedMonth === 5} on:click={() => selectedMonth = 5}>June</div>
+    <div class="label">2019</div>
+    <!-- <div class="month-selector" class:active={selectedMonth === 6} on:click={() => selectedMonth = 6}>July</div> -->
+  </div>
   {#if path}
     <svg bind:this={svgElement}>
-      <g class="axis" transform="translate(0 {height - padding.bottom})">
+      <g class="axis" transform="translate(0 {height * shrinkingFactor - padding.bottom})">
         {#each ticks as {departure, show, id}, i (id)}
           {#if show}
             <g class="tick" transform="translate({x(departure)} 0)">
-              <line x1={0} y1={-10} x2={0} y2={-15}></line>
+              <circle cx={0} cy={-11} r="2"></circle>
               <text>{timeFormat('%b %d')(departure)}</text>
             </g>
           {/if}
         {/each}
       </g>
-      <g class="end-price">
+      <g class="end-price" transform="translate(0 -10)">
         <path class="end-price-line"
-              stroke-width={Math.max(width, height) / 700}
+              stroke-width={Math.max(width, height * shrinkingFactor) / 700}
               d={path}></path>
       </g>
     </svg>
@@ -141,6 +168,37 @@
 </div>
 
 <style>
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .top-line {
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    margin-left: 0.5rem;
+  }
+
+  .label {
+    font-size: 0.8rem;
+    color: var(--gray);
+  }
+
+  .month-selector {
+    margin: 0.3rem;
+    padding: 0.3rem;
+    font-size: 0.9rem;
+    color: var(--gray);
+    background-color: var(--end-price);
+    border-radius: 3px;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+
+  .month-selector:hover, .month-selector.active {
+    border-color: var(--gray);
+  }
+
   svg {
     width: 100%;
     height: 100%;
@@ -166,8 +224,7 @@
     text-anchor: middle;
   }
 
-  g.tick line {
-    stroke: var(--gray);
-    stroke-linecap: round;
+  g.tick circle {
+    fill: var(--gray);
   }
 </style>

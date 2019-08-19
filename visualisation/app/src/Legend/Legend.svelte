@@ -2,7 +2,7 @@
   const lineMargin = 15;
   let width;
 
-  $: effectiveWidth = width - lineMargin;
+  $: effectiveWidth = width || 0 - lineMargin;
 </script>
 
 <div class="text" bind:clientWidth={width}>
