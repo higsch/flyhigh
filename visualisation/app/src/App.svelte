@@ -1,4 +1,5 @@
 <script>
+  import Legend from './Legend/Legend.svelte';
   import RadialGraph from './RadialGraph/RadialGraph.svelte';
   import FlightCard from './FlightCard/FlightCard.svelte';
   import TimeBrush from './TimeBrush/TimeBrush.svelte';
@@ -92,15 +93,7 @@
   </div>
   <div class="info-bar">
     <div class="left legend">
-      <div class="legend-text">
-        <h4>How to read this chart</h4>
-        <p class="mt">Lines represent flight prices. They run clockwise from 30 days before
-          departure to one day before takeoff.</p>
-        <p class="mt">The color at each time point tells you whether the price is <em class="high">above</em>
-          the final ticket or <em class="low">below</em> the <em class="end">final price</em>.</p>
-      </div>
-      <svg class="color-legend"></svg>
-      <div class="legend-info">Check out further explanations in the desktop version.</div>
+      <Legend />
     </div>
     <div class="right">
       {#await data.find(elem => elem.name === 'flightInfo').data then data}
@@ -151,12 +144,6 @@
     color: var(--gray);
   }
 
-  h4 {
-    margin: 0.3rem 0;
-    font-size: 1.1rem;
-    font-weight: bold;
-  }
-
   .top-wrapper {
     position: absolute;
     z-index: 100;
@@ -174,13 +161,9 @@
 
   .info-bar > div {
     max-width: 30%;
+    max-width: 400px;
     padding: 0.5rem;
     color: var(--gray);
-  }
-
-  .legend-info {
-    display: none;
-    font-size: 0.8rem;
   }
 
   @media (orientation: portrait) {
@@ -192,29 +175,6 @@
     .info-bar > div {
       max-width: 100%;
     }
-
-    .legend-text {
-      display: none;
-    }
-
-    .legend-info {
-      display: block;
-    }
-  }
-
-  .legend {
-    margin: 1rem 0;
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-
-  .flight-card {
-    position: absolute;
-    bottom: 17%;
-    z-index: 1;
-    width: 100%;
-    height: 20%;
-    max-height: 43vw;
   }
 
   .time-bar {
