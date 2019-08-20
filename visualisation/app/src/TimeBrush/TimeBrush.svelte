@@ -24,10 +24,6 @@
     top: 20,
     bottom: 10
   };
-  const initTime = {
-    start: timeParser('2019-04-29T00:00:00Z'),
-    end: timeParser('2019-04-30T00:00:00Z')
-  };
 
   let dataMonth;
   let width, height;
@@ -38,9 +34,27 @@
   let ticks;
   let brush;
   let isInit = true;
-  let previousBrush = initTime;
   let selectedMonth;
   let brushPosition = [];
+  let lastDays = {
+    3: [timeParser('2019-04-24T00:00:00Z'), timeParser('2019-04-25T00:00:00Z')],
+    4: [timeParser('2019-05-24T00:00:00Z'), timeParser('2019-05-25T00:00:00Z')],
+    5: [timeParser('2019-06-24T00:00:00Z'), timeParser('2019-06-25T00:00:00Z')]
+  };
+
+  function buildBrush() {
+    d3select(svgElement).selectAll('g.brush').remove();
+
+    brush = brushX()
+      .extent([[0, 0], [width, height * shrinkingFactor]])
+      .on('brush end', brushed);
+
+    d3select(svgElement).append('g')
+      .attr('class', 'brush')
+      .call(brush)
+      .call(brush.move,
+        [x(lastDays[selectedMonth][0]), x(lastDays[selectedMonth][1])]);
+  }
 
   function brushed() {
     if (!isInit && !d3event.sourceEvent || !d3event.selection) return;
@@ -67,8 +81,8 @@
       d3select(this).transition().call(d3event.target.move, selectionTimeRounded.map(x));
     }
 
-    if (previousBrush.toString() !== selectionTimeRounded.toString()) {
-      previousBrush = selectionTimeRounded;
+    if (lastDays[selectedMonth].toString() !== selectionTimeRounded.toString()) {
+      lastDays[selectedMonth] = [selectionTimeRounded[0], selectionTimeRounded[1]];
       dispatch('timerangeselected', selectionTimeRounded);
       brushPosition = selectionX;
     }
@@ -78,6 +92,7 @@
     if (!month) return;
     isInit = true;
     dataMonth = data.filter(elem => elem.departure.getMonth() === month);
+    dispatch('timerangeselected', lastDays[selectedMonth]);
   }
 
   onMount(() => {
@@ -121,19 +136,7 @@
     ticks = ticks.slice(3, -3);
   }
 
-  $: if (svgElement && x) {
-    d3select(svgElement).selectAll('g.brush').remove();
-
-    brush = brushX()
-      .extent([[0, 0], [width, height * shrinkingFactor]])
-      .on('brush end', brushed);
-
-    d3select(svgElement).append('g')
-      .attr('class', 'brush')
-      .call(brush)
-      .call(brush.move,
-        [x(timeParser(`2019-0${selectedMonth + 1}-10T00:00:00Z`)), x(timeParser(`2019-0${selectedMonth + 1}-11T00:00:00Z`))]);
-  }
+  $: if (x && svgElement) buildBrush();
 </script>
 
 <div class="wrapper" bind:offsetWidth={width} bind:offsetHeight={height}>
@@ -143,7 +146,6 @@
     <div class="month-selector" class:active={selectedMonth === 4} on:click={() => selectedMonth = 4}>May</div>
     <div class="month-selector" class:active={selectedMonth === 5} on:click={() => selectedMonth = 5}>June</div>
     <div class="label">2019</div>
-    <!-- <div class="month-selector" class:active={selectedMonth === 6} on:click={() => selectedMonth = 6}>July</div> -->
   </div>
   {#if path}
     <svg bind:this={svgElement}>

@@ -1,11 +1,14 @@
 <script>
-  const lineMargin = 15;
-  let width;
+  const margin = 15;
+  let width, height;
 
-  $: effectiveWidth = width || 0 - lineMargin;
+  $: lineWidth = ((width || 0) - margin * 3) / 3;
+  $: svgHeight = (height || 0) / 2;
+  $: lineYOffset = svgHeight / 1.5;
+  $: textYOffset = svgHeight / 2.5;
 </script>
 
-<div class="text" bind:clientWidth={width}>
+<div class="text" bind:clientWidth={width} bind:clientHeight={height}>
   <h4>How to read this chart</h4>
   <p class="mt">
     Each line is showing prices for a flight from Stockholm to Frankfurt for one passenger – collected from
@@ -13,21 +16,24 @@
     The color at each time point tells whether the price is above or below the final price.
   </p>
 </div>
-<svg width={width} height="2.2rem">
-  <g class="lines">
-    <line class="low" x1={lineMargin} y1="10" x2={effectiveWidth / 3} y2="10"></line>
-    <line class="high" x1={effectiveWidth / 3 + lineMargin} y1="10" x2={2 * effectiveWidth / 3} y2="10"></line>
-    <line class="final" x1={2 * effectiveWidth / 3 + lineMargin} y1="10" x2={3 * effectiveWidth / 3} y2="10"></line>
+<svg width={width} height={svgHeight}>
+  <g class="first" transform="translate({margin / 2} 0)">
+    <line class="low" x1="0" y1={lineYOffset} x2={lineWidth} y2={lineYOffset}></line>
+    <text transform="translate({lineWidth / 2} {textYOffset})">below</text>
   </g>
-  <g class="labels" transform="translate(0 30)">
-    <text transform="translate({effectiveWidth / 6} 0)">below</text>
-    <text transform="translate({3 * effectiveWidth / 6} 0)">above</text>
-    <text transform="translate({5 * effectiveWidth / 6} 0)">final price</text>
+  <g class="second" transform="translate({1.5 * margin + lineWidth} 0)">
+    <line class="high" x1="0" y1={lineYOffset} x2={lineWidth} y2={lineYOffset}></line>
+    <text transform="translate({lineWidth / 2} {textYOffset})">above</text>
+  </g>
+  <g class="third" transform="translate({2.5 * margin + 2 * lineWidth} 0)">
+    <line class="final" x1="0" y1={lineYOffset} x2={lineWidth} y2={lineYOffset}></line>
+    <text transform="translate({lineWidth / 2} {textYOffset})">final price</text>
   </g>
 </svg>
 
 <style>
   .text {
+    margin: 0 0 0.5rem 0;
     font-size: 0.7rem;
   }
 

@@ -97,9 +97,7 @@
     </div>
     <div class="right">
       {#await data.find(elem => elem.name === 'flightInfo').data then data}
-        <div class="flight-card">
-          <FlightCard data={data.find(elem => elem.flightIdUnique === highlightedFlightId)}/>
-        </div>
+        <FlightCard data={data.find(elem => elem.flightIdUnique === highlightedFlightId)}/>
       {/await}
     </div>
   </div>
@@ -132,7 +130,7 @@
   }
 
   h1 {
-    font-size: calc(1.8rem + 2.5vh);
+    font-size: calc(1.5rem + 2.5vh);
     font-weight: bold;
     color: #444;
   }
@@ -160,21 +158,29 @@
   }
 
   .info-bar > div {
-    max-width: 30%;
+    width: 40%;
     max-width: 400px;
     padding: 0.5rem;
     color: var(--gray);
   }
 
-  @media (orientation: portrait) {
+  @media (orientation: portrait) and (max-width: 500px) {
     .info-bar {
       flex-direction: column;
       align-items: center;
     }
 
     .info-bar > div {
+      width: 100%;
       max-width: 100%;
     }
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
   }
 
   .time-bar {
