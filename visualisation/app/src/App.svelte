@@ -171,8 +171,8 @@
     }
 
     .info-bar > div {
-      width: 100%;
-      max-width: 100%;
+      width: 95%;
+      max-width: 95%;
     }
   }
 
