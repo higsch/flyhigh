@@ -4,6 +4,11 @@ library(tidyverse)
 
 plotIt <- FALSE
 
+
+########################################################################
+# Load data from database
+########################################################################
+
 # connect to the database
 conn <- dbConnect(drv = RSQLite::SQLite(),
                   dbname = file.path("data", "flights.sqlite"))
@@ -14,6 +19,11 @@ flights <- dbGetQuery(conn = conn,
 
 # close DB connection
 dbDisconnect(conn = conn)
+
+
+########################################################################
+# Tidy up
+########################################################################
 
 # convert the dates and times to ms
 datetime.cols <- c("flightDate", "departure", "arrival", "timestamp")
@@ -68,7 +78,7 @@ flights <- flights %>%
   mutate(departureHour = hour(departure)) %>%
   mutate(departureWeekday = weekdays(departure))
 
-# change to EUR
+# change currency to EUR
 flights <- flights %>%
   mutate(price = price * 0.0929829)
 
@@ -79,21 +89,22 @@ if (plotIt) {
     geom_line() +
     scale_x_reverse()
   
-  # plot for August 30th
+  # plot for May 30th
   flights %>%
-    filter(flightDate == "2019-08-30") %>%
+    filter(flightDate == "2019-05-30") %>%
     ggplot(aes(x = timeToDeparture@.Data/(24*60*60), y = price, group = departure, color = flightId)) +
     geom_line() +
     scale_x_reverse() 
 }
 
-#############
-# correlation analysis
-#############
+
+########################################################################
+# Prepare dataframe for visual
+########################################################################
 
 days <- 30
 
-# flights with 50 days of followup
+# flights with x days of followup
 selectedFlights <- flights %>%
   filter(departure < today()) %>%
   group_by(flightIdUnique) %>%
@@ -106,95 +117,23 @@ selectedFlights <- flights %>%
   unique()
 
 # only one timepoint per day and only up to today
-flights.forCorr <- flights %>%
+# filter out some extra flight numbers that occured rarely
+flights <- flights %>%
   filter(flightIdUnique %in% selectedFlights) %>%
   filter(timeToDepartureRounded <= days(days)) %>%
   filter(!grepl("LH622[79]", flightId))
 
-# mutate
-flights.forCorr.filt <- flights.forCorr %>%
-  mutate(timeToDepartureDays = round(2*as.numeric(timeToDepartureRounded)/(24*60*60))/2) %>%
-  select(flightIdUnique, timeToDepartureDays, price)
 
-# check for duplicates
-allFlights <- unique(flights.forCorr.filt$flightIdUnique)
-dups <- sapply(X = allFlights,
-               FUN = function (flight) {
-                 flights.forCorr.filt %>%
-                   filter(flightIdUnique == flight) %>%
-                   select(timeToDepartureDays) %>%
-                   unlist() %>%
-                   duplicated() %>%
-                   any()
-               })
-any(dups)
-# flights.forCorr.filt %>%
-#   filter(flightIdUnique %in% names(dups[dups == TRUE])) %>%
-#   View()
-
-# plot
-flights.forCorr.filt %>%
-  ggplot(aes(x = timeToDepartureDays, y = price, group = flightIdUnique)) +
-  geom_line() +
-  scale_x_reverse()
-
-# make a wide table
-flights.wide <- flights.forCorr.filt %>%
-  spread(key = flightIdUnique, value = price) %>%
-  column_to_rownames("timeToDepartureDays")
-
-# calculate the correlation matrix
-cor.mat <- cor(flights.wide,
-               method = "pearson",
-               use = "pairwise.complete.obs")
-
-# replace NAs
-sum(is.na(cor.mat))
-cor.mat[is.na(cor.mat)] <- 0
-
-# hierarchical clustering
-hCluster <- hclust(d = dist(cor.mat,
-                            method = "euclidean"),
-                   method = "average")
-plot(hCluster)
-
-labels <- cutree(tree = hCluster, k = 10)
-cluster.df <- data.frame(flightIdUnique = names(labels),
-                         cluster = labels,
-                         stringsAsFactors = FALSE)
-
-cor.df <- cor.mat[hCluster$order, hCluster$order] %>%
-  as.data.frame() %>%
-  rownames_to_column("flightIdUnique") %>%
-  left_join(cluster.df, by = "flightIdUnique") %>%
-  left_join(flights %>% filter(!duplicated(flightIdUnique)), by = "flightIdUnique") %>%
-  select(matches("^[^LS]"), everything())
-
-# export it
-write.table(x = cor.df,
-            file = file.path("output", "price_correlation_matrix.txt"),
-            quote = FALSE,
-            sep = "\t",
-            row.names = TRUE,
-            col.names = NA)
-
-# plot cluster-wise
-flights.clust <- flights.forCorr %>%
-  left_join(cluster.df, by = "flightIdUnique")
-
-flights.clust %>%
-  ggplot(aes(x = timeToDeparture@.Data, y = price, group = flightIdUnique, color = flightId)) +
-  geom_line() +
-  scale_x_reverse() +
-  facet_wrap(~ cluster)
-
+########################################################################
+# Prepare data for the visual
+########################################################################
 
 # the ring data
-flightsByDayToDep <- flights.clust %>%
-  filter(departureMonth %in% c(4, 5, 6, 7)) %>%
-  mutate(timeToDepartureDays = round(2*as.numeric(timeToDepartureRounded)/(24*60*60))/2) %>%
+flightsByDayToDep <- flights %>%
+  filter(departureMonth %in% c(4, 5, 6)) %>%
+  mutate(timeToDepartureDays = round(2 * as.numeric(timeToDepartureRounded) / (24*60*60)) / 2) %>%
   filter(timeToDepartureDays >= 1) %>%
-  select(flightIdUnique, timeToDepartureDays, price, departure)
+  select(flightIdUnique, timeToDepartureDays, price, departure, timestamp, timestampRounded)
 
 # get all flights with day 1 info
 flightsWith1 <- flightsByDayToDep %>%
@@ -207,7 +146,7 @@ flightsWith1 <- flightsByDayToDep %>%
 flightsFinal <- flightsByDayToDep %>%
   filter(flightIdUnique %in% flightsWith1)
 
-flightsFinal %>%
+if (plotIt) flightsFinal %>%
   ggplot() +
   geom_line(aes(x = timeToDepartureDays, y = price, group = flightIdUnique)) +
   scale_x_reverse()
@@ -219,7 +158,7 @@ write_csv(x = flightsFinal,
 
 
 # the flight infos
-flightInfo <- flights.clust %>%
+flightInfo <- flights %>%
   filter(flightIdUnique %in% flightsWith1) %>%
   mutate(timeToDepartureDays = round(2*as.numeric(timeToDepartureRounded)/(24*60*60))/2) %>%
   group_by(flightIdUnique) %>%
