@@ -1,7 +1,8 @@
 <script>
   import {
     arc as d3arc,
-    curveBasis } from 'd3';
+    curveBasis,
+    range as d3range } from 'd3';
 
   export let priceScale;
   export let dayToAngle;
@@ -17,8 +18,13 @@
     .startAngle(d => d.startAngle)
     .endAngle(d => d.endAngle);
   const maxDays = 31;
+  const arcDays = d3arc()
+    .innerRadius(d => d.innerRadius)
+    .outerRadius(d => d.outerRadius)
+    .startAngle(d => d.startAngle)
+    .endAngle(d => d.endAngle);
 
-  let priceCoords, dayCoords;
+  let priceCoords, dayArcs;
 
   function addNumberCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -30,12 +36,12 @@
       radius: priceScale(price)
     }));
 
-    dayCoords = [1, 7, 12, 19, 24, 30].map(day => {
-      const angle = dayToAngle(day) + pi2 / 2;
+    dayArcs = d3range(1, maxDays - 1, 1).map(day => {
       return {
-        label: `-${maxDays - day} ${(day === 1 ? 'days' : '')}`,
-        x: Math.sin(angle) * priceScale(550),
-        y: Math.cos(angle) * priceScale(550)
+        innerRadius: priceScale(525),
+        outerRadius: priceScale(550),
+        startAngle: dayToAngle(day),
+        endAngle: dayToAngle(day + 1)
       };
     });
   }
@@ -55,11 +61,11 @@
         </g>
       {/each}
     </g>
-    <g class="day-coords" transform="translate({width / 2} {height / 2})">
-      {#each dayCoords as { label, x, y }}
-        <g class="day-coord" transform="translate({x} {y})">
-          <text>{label}</text>
-        </g>
+  {/if}
+  {#if dayArcs}
+    <g class="day-arcs" transform="translate({width / 2} {height / 2})">
+      {#each dayArcs as a, i}
+        <path d="{arcDays(a)}" class={i % 2 === 0 ? 'even' : 'odd'}></path>
       {/each}
     </g>
   {/if}
@@ -83,7 +89,12 @@
     font-size: 0.9rem;
   }
 
-  g.day-coord text {
-    font-size: 0.7rem;
+  g.day-arcs path.odd {
+    fill: none;
+  } 
+
+  g.day-arcs path.even {
+    fill: var(--light-gray);
+    fill-opacity: 0.4;
   }
 </style>

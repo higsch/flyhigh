@@ -164,7 +164,7 @@
     color: var(--gray);
   }
 
-  @media (orientation: portrait) and (max-width: 500px) {
+  @media (orientation: portrait) and (max-width: 620px) {
     .info-bar {
       flex-direction: column;
       align-items: center;

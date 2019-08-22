@@ -33,9 +33,8 @@
   }
 
   .info {
-    margin: 0 calc(100 / 1vw) 0.5rem 0;
     font-size: 1rem;
-    line-height: 1.5;
+    line-height: 1.3;
   }
 
   .info span {
@@ -45,6 +44,6 @@
   }
 
   .fin {
-    max-width: 50%;
+    max-width: 40%;
   }
 </style>

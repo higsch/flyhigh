@@ -69,7 +69,9 @@
 
         const point = {
           radius,
-          angle
+          angle,
+          price: d.price,
+          timeToDepartureDays: d.timeToDepartureDays
         };
         priceLineData.push(point);
 
@@ -88,7 +90,9 @@
         return {
           type: elem[0] === 'M' ? 'M' : 'C', 
           gap: gapArr[i] || false,
-          d: elem.replace('M', '').split(',')
+          d: elem.replace('M', '').split(','),
+          price: priceLineData[i].price,
+          timeToDepartureDays: priceLineData[i].timeToDepartureDays
         };
       });
 
@@ -125,7 +129,7 @@
       .key(d => d.flightIdUnique)
       .entries(data);
 
-    // // Precalculate geometrical parameters for the whole dataset
+    // Precalculate geometrical parameters for the whole dataset
     dataPreCalc = preCalculateGeometry(dataNested);
 
     // build a departure index

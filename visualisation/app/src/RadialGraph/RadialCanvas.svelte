@@ -1,5 +1,6 @@
 <script>
   import { onMount, createEventDispatcher } from 'svelte';
+  import { fade } from 'svelte/transition';
 
   import {
     select as d3select } from 'd3';
@@ -23,6 +24,8 @@
 
   let highlightId = null;
   let highlightedPoints = 60;
+
+  let tooltip;
 
   function setupCanvas() {
     lineWidth = 2.7 * Math.min(width, height) / 450;
@@ -99,7 +102,9 @@
         return {
           id: i,
           cx: point.d[4] || point.d[0],
-          cy: point.d[5] || point.d[1]
+          cy: point.d[5] || point.d[1],
+          price: point.price,
+          timeToDepartureDays: point.timeToDepartureDays
         };
       });
       highlightedPoints = dots.length;
@@ -130,7 +135,9 @@
       .attr('class', 'dot')
       .attr('fill', '#321321')
       .attr('fill-opacity', 0.6)
-      .attr('r', lineWidth * 1.1);
+      .attr('r', lineWidth * 1.1)
+      .on('mouseover', (d) => setTooltip(d.price, d.timeToDepartureDays, d.cx, d.cy))
+      .on('mouseout', (d) => setTooltip(null));
 
       dispatch('flightclick', highlightId);
   }
@@ -144,6 +151,24 @@
     } else {
       highlightId = null;
     }
+  }
+
+  function setTooltip(price, timeToDepartureDays = 0, x = 0, y = 0) {
+    if (price === null) {
+      tooltip = null;
+      return;
+    }
+
+    const tooltipWidth = 150;
+    const tooltipHeight = 50;
+    tooltip = {
+      textDays: `${timeToDepartureDays === 1 ? 'final price' : timeToDepartureDays + ' days to departure.'}`,
+      textPrice: `${Math.round(price)} €`,
+      x: Number(x) - tooltipWidth / 2,
+      y: Number(y) + 10,
+      width: tooltipWidth,
+      height: tooltipHeight
+    };
   }
 
   onMount(() => {
@@ -171,7 +196,16 @@
 <svelte:window on:click={() => {if (highlightId !== null) highlightId = null;}}/>
 
 <svg width={width} height={height} on:click|stopPropagation={(e) => handleClick(e)}>
-  <g bind:this={dotsG} transform="translate({width / 2} {height / 2})"></g>
+  <g class="circle-origin" transform="translate({width / 2} {height / 2})">
+    <g bind:this={dotsG}></g>
+    {#if tooltip}
+      <g class="tooltip" transform="translate({tooltip.x} {tooltip.y})" transition:fade>
+        <rect x="0" y="0" width={tooltip.width} height={tooltip.height} rx="6" ry="6"></rect>
+        <text class="price" transform="translate({tooltip.width / 2} {tooltip.height * 0.4})">{tooltip.textPrice}</text>
+        <text class="days" transform="translate({tooltip.width / 2} {tooltip.height * 0.75})">{tooltip.textDays}</text>
+      </g>
+    {/if}
+  </g>
 </svg>
 <canvas class="visible" bind:this={canvasElement}></canvas>
 <canvas class="hidden" bind:this={hiddenCanvasElement}></canvas>
@@ -180,6 +214,27 @@
   svg {
     position: absolute;
     z-index: 200;
+  }
+
+  g.tooltip rect {
+    fill: #FFFFFF;
+    fill-opacity: 1;
+    stroke: var(--gray);
+    stroke-width: 1;
+    stroke-dasharray: 4;
+  }
+
+  g.tooltip text {
+    fill: var(--gray);
+    text-anchor: middle;
+  }
+
+  g.tooltip text.price {
+    font-weight: bold;
+  }
+
+  g.tooltip text.days {
+    font-size: 0.8rem;
   }
 
   canvas.visible {
