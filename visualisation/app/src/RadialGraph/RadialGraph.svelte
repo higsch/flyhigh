@@ -112,8 +112,8 @@
   function formatCenterTimeRange(timeRange) {
     const weekday = timeFormat('%a')(timeRange[0]);
     const time1 = timeFormat('%b %d')(timeRange[0]).replace(' ', '&nbsp;');
-    const time2 = timeFormat('%b %d')(timeRange[1]).replace(' ', '&nbsp;');
-    return (time1 === time2) ? `${weekday}, ${time1}` : `${time1} - ${time2}`;
+    const time2 = timeFormat('%d')(timeRange[1]).replace(' ', '&nbsp;');
+    return (time1 === timeFormat('%b %d')(timeRange[1]).replace(' ', '&nbsp;')) ? `${weekday}, ${time1}` : `${time1} - ${time2}`;
   }
 
   function prepareData() {
