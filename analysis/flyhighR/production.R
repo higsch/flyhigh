@@ -104,22 +104,9 @@ if (plotIt) {
 
 days <- 30
 
-# flights with x days of followup
-selectedFlights <- flights %>%
-  filter(departure < today()) %>%
-  group_by(flightIdUnique) %>%
-  summarise(maxTimeToDepartureRounded = max(timeToDepartureRounded),
-            minTimeToDepartureRounded = min(timeToDepartureRounded)) %>%
-  filter(maxTimeToDepartureRounded >= days(days)) %>%
-  filter(minTimeToDepartureRounded <= hours(25)) %>%
-  select(flightIdUnique) %>%
-  unlist() %>%
-  unique()
-
 # only one timepoint per day and only up to today
 # filter out some extra flight numbers that occured rarely
 flights <- flights %>%
-  filter(flightIdUnique %in% selectedFlights) %>%
   filter(timeToDepartureRounded <= days(days)) %>%
   filter(!grepl("LH622[79]", flightId))
 
@@ -131,6 +118,7 @@ flights <- flights %>%
 # the ring data
 flightsByDayToDep <- flights %>%
   filter(departureMonth %in% c(4, 5, 6)) %>%
+  # mutate(timeToDepartureDays = as.numeric(timeToDepartureRounded) / (24*60*60) / 2) %>%
   mutate(timeToDepartureDays = round(2 * as.numeric(timeToDepartureRounded) / (24*60*60)) / 2) %>%
   filter(timeToDepartureDays >= 1) %>%
   select(flightIdUnique, timeToDepartureDays, price, departure, timestamp, timestampRounded)
