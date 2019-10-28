@@ -4,15 +4,19 @@
 
 
 ## Visualise flight prices
-Get it running:
+
+
+### Get it running
 ```
 git clone https://github.com/higsch/flyhigh.git
 cd visualisation/app/
 npm run dev
 ```
 
-This is how it looks like.
+### This is how it looks like
 ![Screenshot_00](/visualisation/app/screenshot_00.png)
+
+
 ![Screenshot_01](/visualisation/app/screenshot_01.png)
 
 
