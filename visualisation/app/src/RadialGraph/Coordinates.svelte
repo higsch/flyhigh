@@ -24,7 +24,7 @@
     .startAngle(d => d.startAngle)
     .endAngle(d => d.endAngle);
 
-  let priceCoords, dayArcs;
+  let priceCoords, dayArcs, dayArcsLabel;
 
   function addNumberCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -44,10 +44,28 @@
         endAngle: dayToAngle(day + 1)
       };
     });
+
+    dayArcsLabel = {
+      innerRadius: priceScale(570),
+      outerRadius: priceScale(575),
+      startAngle: dayToAngle(maxDays - 1),
+      endAngle: dayToAngle(maxDays - 4.5)
+    };
   }
 </script>
 
 <svg width={width || 0} height={height || 0}>
+  <defs>
+    <marker id="arrow"
+            viewBox="0 -5 10 10"
+            refX="5"
+					  refY="0"
+					  markerWidth="4"
+					  markerHeight="4"
+					  orient="auto">
+      <path d="M0,-5L10,0L0,5" class="arrow-head"></path>
+    </marker>
+  </defs>
   {#if priceCoords}
     <g class="price-coords" transform="translate({width / 2} {height / 2})">
       {#each priceCoords as { label, radius, startAngle, endAngle }, i}
@@ -55,7 +73,7 @@
           <path class="price-circle" d={arc({radius, startAngle: 0, endAngle: pi2})}></path>
           <g class="price-label" transform="translate(0 {- radius - 6})">
             <text>
-                {label}
+              {label}
             </text>
           </g>
         </g>
@@ -69,12 +87,31 @@
       {/each}
     </g>
   {/if}
+  {#if priceScale}
+    <g class="day-arcs-label" transform="translate({width / 2} {height / 2})">
+      <path class="direction-arrow" d="{arc({radius: priceScale(590), startAngle: dayToAngle(maxDays - 4.5), endAngle: dayToAngle(maxDays - 1)}).replace('Z', '')}"
+            marker-end="url(#arrow)"></path>
+      <path id="text-path-start" class="text-path" d="{arc({radius: priceScale(525), startAngle: dayToAngle(maxDays + 1), endAngle: dayToAngle(maxDays - 1)}).replace('Z', '')}"></path>
+      <text>
+        <textPath href="#text-path-start" startOffset="30%">-{maxDays - 1} days</textPath>
+      </text>
+      <path id="text-path-end" class="text-path" d="{arc({radius: priceScale(525), startAngle: dayToAngle(1), endAngle: dayToAngle(0)}).replace('Z', '')}"></path>
+      <text>
+        <textPath href="#text-path-end" startOffset="30%">-1 day</textPath>
+      </text>
+    </g>
+  {/if}
 </svg>
 
 <style>
   svg {
     position: absolute;
     z-index: 0;
+  }
+
+  marker#arrow path {
+    stroke: none;
+    fill: var(--light-gray);
   }
 
   g.price-coord path.price-circle {
@@ -96,5 +133,19 @@
   g.day-arcs path.even {
     fill: var(--light-gray);
     fill-opacity: 0.4;
+  }
+
+  g.day-arcs-label path.direction-arrow {
+    stroke: var(--light-gray);
+    stroke-width: 0.3vmin;
+    stroke-opacity: 0.4;
+  }
+
+  g.day-arcs-label path.text-path {
+    stroke: none;
+  }
+
+  g.day-arcs-label text {
+    text-anchor: middle;
   }
 </style>
