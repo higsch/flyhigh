@@ -195,13 +195,13 @@
   .selected-time-range {
     position: absolute;
     z-index: 100;
-    font-size: calc(0.5rem + 1vw);
+    font-size: calc(0.5rem + 1vmin);
     text-align: center;
     color: var(--gray);
   }
 
   .selected-time-range .pre-string {
     display: block;
-    font-size: calc(0.7rem + 0.6vw);
+    font-size: calc(0.4rem + 1vmin);
   }
 </style>
