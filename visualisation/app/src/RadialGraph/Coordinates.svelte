@@ -22,7 +22,8 @@
     .innerRadius(d => d.innerRadius)
     .outerRadius(d => d.outerRadius)
     .startAngle(d => d.startAngle)
-    .endAngle(d => d.endAngle);
+    .endAngle(d => d.endAngle)
+    .cornerRadius(3);
 
   let priceCoords, dayArcs, dayArcsLabel;
 
@@ -91,11 +92,11 @@
     <g class="day-arcs-label" transform="translate({width / 2} {height / 2})">
       <path class="direction-arrow" d="{arc({radius: priceScale(590), startAngle: dayToAngle(maxDays - 4.5), endAngle: dayToAngle(maxDays - 1)}).replace('Z', '')}"
             marker-end="url(#arrow)"></path>
-      <path id="text-path-start" class="text-path" d="{arc({radius: priceScale(525), startAngle: dayToAngle(maxDays + 1), endAngle: dayToAngle(maxDays - 1)}).replace('Z', '')}"></path>
+      <path id="text-path-start" class="text-path" d="{arc({radius: priceScale(525), startAngle: dayToAngle(maxDays + 1.1), endAngle: dayToAngle(maxDays - 0.9)}).replace('Z', '')}"></path>
       <text>
         <textPath href="#text-path-start" startOffset="30%">-{maxDays - 1} days</textPath>
       </text>
-      <path id="text-path-end" class="text-path" d="{arc({radius: priceScale(525), startAngle: dayToAngle(1), endAngle: dayToAngle(0)}).replace('Z', '')}"></path>
+      <path id="text-path-end" class="text-path" d="{arc({radius: priceScale(525), startAngle: dayToAngle(1.1), endAngle: dayToAngle(-0.1)}).replace('Z', '')}"></path>
       <text>
         <textPath href="#text-path-end" startOffset="30%">-1 day</textPath>
       </text>
@@ -112,6 +113,7 @@
   marker#arrow path {
     stroke: none;
     fill: var(--light-gray);
+    opacity: 1;
   }
 
   g.price-coord path.price-circle {
@@ -123,7 +125,7 @@
   g text {
     fill: var(--light-gray);
     text-anchor: middle;
-    font-size: 0.9rem;
+    font-size: calc(0.5rem + 0.6vmin);
   }
 
   g.day-arcs path.odd {
@@ -132,20 +134,16 @@
 
   g.day-arcs path.even {
     fill: var(--light-gray);
-    fill-opacity: 0.4;
+    fill-opacity: 1;
   }
 
   g.day-arcs-label path.direction-arrow {
     stroke: var(--light-gray);
     stroke-width: 0.3vmin;
-    stroke-opacity: 0.4;
+    stroke-opacity: 1;
   }
 
   g.day-arcs-label path.text-path {
     stroke: none;
-  }
-
-  g.day-arcs-label text {
-    text-anchor: middle;
   }
 </style>
