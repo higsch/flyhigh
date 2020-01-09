@@ -140,7 +140,7 @@
   g.day-arcs-label path.direction-arrow {
     stroke: var(--light-gray);
     stroke-width: 0.3vmin;
-    stroke-opacity: 1;
+    stroke-linecap: round;
   }
 
   g.day-arcs-label path.text-path {

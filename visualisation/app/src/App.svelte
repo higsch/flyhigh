@@ -13,7 +13,7 @@
   const dataPaths = [
     {
       name: 'flightInfo',
-      path: '/data/flight_info.csv',
+      path: 'data/flight_info.csv',
       callback: function (d) {
         return {
           ...d,
@@ -30,7 +30,7 @@
     },
     {
       name: 'flights',
-      path: '/data/flights_by_day_to_departure.csv',
+      path: 'data/flights_by_day_to_departure.csv',
       callback: function (d) {
         return {
           ...d,
