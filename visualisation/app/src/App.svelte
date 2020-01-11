@@ -147,7 +147,7 @@
     z-index: 100;
     width: 100%;
     height: 90%;
-    top: 5%;
+    bottom: 1vmin;
   }
 
   .info-bar {
@@ -192,13 +192,6 @@
   .container.radial-graph {
     width: 100%;
     height: 100%;
-  }
-
-  @media (max-width: 1200px) {
-    .container.radial-graph {
-      height: 92%;
-      margin-top: 8%;
-    }
   }
 
   .container.time-brush {

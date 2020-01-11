@@ -141,11 +141,11 @@
 
 <div class="wrapper" bind:offsetWidth={width} bind:offsetHeight={height}>
   <div class="top-line">
-    <div class="label">Final prices per departure date in</div>
+    <div class="label">Relative final prices per departure date in</div>
     <div class="month-selector" class:active={selectedMonth === 3} on:click={() => selectedMonth = 3}>April</div>
     <div class="month-selector" class:active={selectedMonth === 4} on:click={() => selectedMonth = 4}>May</div>
     <div class="month-selector" class:active={selectedMonth === 5} on:click={() => selectedMonth = 5}>June</div>
-    <div class="label">2019</div>
+    <div class="label">2019.</div>
   </div>
   {#if path}
     <svg bind:this={svgElement}>
