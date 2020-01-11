@@ -50,6 +50,11 @@ html, body {
 	}
 }
 
+p {
+	line-height: 1.1rem;
+	text-align: justify;
+}
+
 /* Components */
 .wrapper {
 	display: flex;
