@@ -194,6 +194,13 @@
     height: 100%;
   }
 
+  @media (max-width: 1200px) {
+    .container.radial-graph {
+      height: 92%;
+      margin-top: 8%;
+    }
+  }
+
   .container.time-brush {
     width: 100%;
     height: 100%;

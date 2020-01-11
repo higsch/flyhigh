@@ -1,2 +1,11225 @@
-var app=function(){"use strict";function t(){}const e=t=>t;function n(t,e){for(const n in e)t[n]=e[n];return t}function r(t){return t()}function a(){return Object.create(null)}function i(t){t.forEach(r)}function c(t){return"function"==typeof t}function o(t,e){return t!=t?e==e:t!==e||t&&"object"==typeof t||"function"==typeof t}const f="undefined"!=typeof window;let s=f?()=>window.performance.now():()=>Date.now(),u=f?t=>requestAnimationFrame(t):t;const l=new Set;let d,h=!1;function b(){l.forEach(t=>{t[0](s())||(l.delete(t),t[1]())}),(h=l.size>0)&&u(b)}function p(t,e){t.appendChild(e)}function g(t,e,n){t.insertBefore(e,n||null)}function y(t){t.parentNode.removeChild(t)}function v(t,e){for(let n=0;n<t.length;n+=1)t[n]&&t[n].d(e)}function m(t){return document.createElement(t)}function _(t){return document.createElementNS("http://www.w3.org/2000/svg",t)}function w(t){return document.createTextNode(t)}function x(){return w(" ")}function M(){return w("")}function A(t,e,n,r){return t.addEventListener(e,n,r),()=>t.removeEventListener(e,n,r)}function k(t,e,n){null==n?t.removeAttribute(e):t.setAttribute(e,n)}function T(t,e){e=""+e,t.data!==e&&(t.data=e)}function C(t,e,n){t.style.setProperty(e,n)}function $(t,e){"static"===getComputedStyle(t).position&&(t.style.position="relative");const n=document.createElement("object");let r;return n.setAttribute("style","display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; pointer-events: none; z-index: -1;"),n.type="text/html",n.tabIndex=-1,n.onload=(()=>{(r=n.contentDocument.defaultView).addEventListener("resize",e)}),/Trident/.test(navigator.userAgent)?(t.appendChild(n),n.data="about:blank"):(n.data="about:blank",t.appendChild(n)),{cancel:()=>{r&&r.removeEventListener&&r.removeEventListener("resize",e),t.removeChild(n)}}}function N(t,e,n){t.classList[n?"add":"remove"](e)}function S(t,e){const n=document.createEvent("CustomEvent");return n.initCustomEvent(t,!1,!1,e),n}class D{constructor(t,e=null){this.e=m("div"),this.a=e,this.u(t)}m(t,e=null){for(let n=0;n<this.n.length;n+=1)g(t,this.n[n],e);this.t=t}u(t){this.e.innerHTML=t,this.n=Array.from(this.e.childNodes)}p(t){this.d(),this.u(t),this.m(this.t,this.a)}d(){this.n.forEach(y)}}let E,P=0,z={};function U(t,e,n,r,a,i,c,o=0){const f=16.666/r;let s="{\n";for(let t=0;t<=1;t+=f){const r=e+(n-e)*i(t);s+=100*t+`%{${c(r,1-r)}}\n`}const u=s+`100% {${c(n,1-n)}}\n}`,l=`__svelte_${function(t){let e=5381,n=t.length;for(;n--;)e=(e<<5)-e^t.charCodeAt(n);return e>>>0}(u)}_${o}`;if(!z[l]){if(!d){const t=m("style");document.head.appendChild(t),d=t.sheet}z[l]=!0,d.insertRule(`@keyframes ${l} ${u}`,d.cssRules.length)}const h=t.style.animation||"";return t.style.animation=`${h?`${h}, `:""}${l} ${r}ms linear ${a}ms 1 both`,P+=1,l}function Y(t,e){t.style.animation=(t.style.animation||"").split(", ").filter(e?t=>t.indexOf(e)<0:t=>-1===t.indexOf("__svelte")).join(", "),e&&!--P&&u(()=>{if(P)return;let t=d.cssRules.length;for(;t--;)d.deleteRule(t);z={}})}function L(t){E=t}function O(t){(function(){if(!E)throw new Error("Function called outside component initialization");return E})().$$.on_mount.push(t)}function R(){const t=E;return(e,n)=>{const r=t.$$.callbacks[e];if(r){const a=S(e,n);r.slice().forEach(e=>{e.call(t,a)})}}}const F=[],I=[],H=[],j=[],q=Promise.resolve();let W,Z=!1;function X(t){H.push(t)}function V(){const t=new Set;do{for(;F.length;){const t=F.shift();L(t),B(t.$$)}for(;I.length;)I.pop()();for(let e=0;e<H.length;e+=1){const n=H[e];t.has(n)||(n(),t.add(n))}H.length=0}while(F.length);for(;j.length;)j.pop()();Z=!1}function B(t){t.fragment&&(t.update(t.dirty),i(t.before_update),t.fragment.p(t.dirty,t.ctx),t.dirty=null,t.after_update.forEach(X))}function G(t,e,n){t.dispatchEvent(S(`${e?"intro":"outro"}${n}`))}const Q=new Set;let J;function K(){J={r:0,c:[],p:J}}function tt(){J.r||i(J.c),J=J.p}function et(t,e){t&&t.i&&(Q.delete(t),t.i(e))}function nt(t,e,n,r){if(t&&t.o){if(Q.has(t))return;Q.add(t),J.c.push(()=>{Q.delete(t),r&&(n&&t.d(1),r())}),t.o(e)}}function rt(n,r,a,o){let f=r(n,a),d=o?0:1,p=null,g=null,y=null;function v(){y&&Y(n,y)}function m(t,e){const n=t.b-d;return e*=Math.abs(n),{a:d,b:t.b,d:n,duration:e,start:t.start,end:t.start+e,group:t.group}}function _(r){const{delay:a=0,duration:c=300,easing:o=e,tick:_=t,css:w}=f,x={start:s()+a,b:r};r||(x.group=J,J.r+=1),p?g=x:(w&&(v(),y=U(n,d,r,c,a,o,w)),r&&_(0,1),p=m(x,c),X(()=>G(n,r,"start")),function(t){let e;h||(h=!0,u(b)),new Promise(n=>{l.add(e=[t,n])})}(t=>{if(g&&t>g.start&&(p=m(g,c),g=null,G(n,p.b,"start"),w&&(v(),y=U(n,d,p.b,p.duration,0,o,f.css))),p)if(t>=p.end)_(d=p.b,1-d),G(n,p.b,"end"),g||(p.b?v():--p.group.r||i(p.group.c)),p=null;else if(t>=p.start){const e=t-p.start;d=p.a+p.d*o(e/p.duration),_(d,1-d)}return!(!p&&!g)}))}return{run(t){c(f)?(W||(W=Promise.resolve()).then(()=>{W=null}),W).then(()=>{f=f(),_(t)}):_(t)},end(){v(),p=g=null}}}function at(t,e){const r=e.token={};function a(t,a,i,c){if(e.token!==r)return;e.resolved=i&&{[i]:c};const o=n(n({},e.ctx),e.resolved),f=t&&(e.current=t)(o);e.block&&(e.blocks?e.blocks.forEach((t,n)=>{n!==a&&t&&(K(),nt(t,1,1,()=>{e.blocks[n]=null}),tt())}):e.block.d(1),f.c(),et(f,1),f.m(e.mount(),e.anchor),V()),e.block=f,e.blocks&&(e.blocks[a]=f)}if((i=t)&&"object"==typeof i&&"function"==typeof i.then){if(t.then(t=>{a(e.then,1,e.value,t)},t=>{a(e.catch,2,e.error,t)}),e.current!==e.pending)return a(e.pending,0),!0}else{if(e.current!==e.then)return a(e.then,1,e.value,t),!0;e.resolved={[e.value]:t}}var i}function it(t,e){t.d(1),e.delete(t.key)}function ct(t,e,n){const{fragment:a,on_mount:o,on_destroy:f,after_update:s}=t.$$;a.m(e,n),X(()=>{const e=o.map(r).filter(c);f?f.push(...e):i(e),t.$$.on_mount=[]}),s.forEach(X)}function ot(t,e){t.$$.fragment&&(i(t.$$.on_destroy),t.$$.fragment.d(e),t.$$.on_destroy=t.$$.fragment=null,t.$$.ctx={})}function ft(t,e){t.$$.dirty||(F.push(t),Z||(Z=!0,q.then(V)),t.$$.dirty=a()),t.$$.dirty[e]=!0}function st(e,n,r,c,o,f){const s=E;L(e);const u=n.props||{},l=e.$$={fragment:null,ctx:null,props:f,update:t,not_equal:o,bound:a(),on_mount:[],on_destroy:[],before_update:[],after_update:[],context:new Map(s?s.$$.context:[]),callbacks:a(),dirty:null};let d=!1;var h;l.ctx=r?r(e,u,(t,n)=>{l.ctx&&o(l.ctx[t],l.ctx[t]=n)&&(l.bound[t]&&l.bound[t](n),d&&ft(e,t))}):u,l.update(),d=!0,i(l.before_update),l.fragment=c(l.ctx),n.target&&(n.hydrate?l.fragment.l((h=n.target,Array.from(h.childNodes))):l.fragment.c(),n.intro&&et(e.$$.fragment),ct(e,n.target,n.anchor),V()),L(s)}class ut{$destroy(){ot(this,1),this.$destroy=t}$on(t,e){const n=this.$$.callbacks[t]||(this.$$.callbacks[t]=[]);return n.push(e),()=>{const t=n.indexOf(e);-1!==t&&n.splice(t,1)}}$set(){}}function lt(e){var n,r,a,i,c,o,f,s,u,l,d,h,b,v,M,A,T,C,N,S,D;return{c(){(n=m("div")).innerHTML='<h4 class="svelte-cyhztp">How to read this chart</h4> <p class="mt">\n\t\t\t    Each line is showing prices for a flight from Stockholm to Frankfurt for one passenger – collected from\n\t\t\t    30 days before departure until the day before takeoff.\n\t\t\t    The color at each time point tells whether the price is above or below the final price.\n\t\t\t  </p>',a=x(),i=_("svg"),c=_("g"),o=_("line"),f=_("text"),s=w("below"),l=_("g"),d=_("line"),h=_("text"),b=w("above"),A=_("g"),T=_("line"),C=_("text"),N=w("final price"),X(()=>e.div_resize_handler.call(n)),k(n,"class","text svelte-cyhztp"),k(o,"class","low svelte-cyhztp"),k(o,"x1","0"),k(o,"y1",e.lineYOffset),k(o,"x2",e.lineWidth),k(o,"y2",e.lineYOffset),k(f,"transform",u="translate("+e.lineWidth/2+" "+e.textYOffset+")"),k(f,"class","svelte-cyhztp"),k(c,"class","first"),k(c,"transform","translate("+dt/2+" 0)"),k(d,"class","high svelte-cyhztp"),k(d,"x1","0"),k(d,"y1",e.lineYOffset),k(d,"x2",e.lineWidth),k(d,"y2",e.lineYOffset),k(h,"transform",v="translate("+e.lineWidth/2+" "+e.textYOffset+")"),k(h,"class","svelte-cyhztp"),k(l,"class","second"),k(l,"transform",M="translate("+(1.5*dt+e.lineWidth)+" 0)"),k(T,"class","final svelte-cyhztp"),k(T,"x1","0"),k(T,"y1",e.lineYOffset),k(T,"x2",e.lineWidth),k(T,"y2",e.lineYOffset),k(C,"transform",S="translate("+e.lineWidth/2+" "+e.textYOffset+")"),k(C,"class","svelte-cyhztp"),k(A,"class","third"),k(A,"transform",D="translate("+(2.5*dt+2*e.lineWidth)+" 0)"),k(i,"width",e.width),k(i,"height",e.svgHeight),k(i,"class","svelte-cyhztp")},m(t,u){g(t,n,u),r=$(n,e.div_resize_handler.bind(n)),g(t,a,u),g(t,i,u),p(i,c),p(c,o),p(c,f),p(f,s),p(i,l),p(l,d),p(l,h),p(h,b),p(i,A),p(A,T),p(A,C),p(C,N)},p(t,e){t.lineYOffset&&k(o,"y1",e.lineYOffset),t.lineWidth&&k(o,"x2",e.lineWidth),t.lineYOffset&&k(o,"y2",e.lineYOffset),(t.lineWidth||t.textYOffset)&&u!==(u="translate("+e.lineWidth/2+" "+e.textYOffset+")")&&k(f,"transform",u),t.lineYOffset&&k(d,"y1",e.lineYOffset),t.lineWidth&&k(d,"x2",e.lineWidth),t.lineYOffset&&k(d,"y2",e.lineYOffset),(t.lineWidth||t.textYOffset)&&v!==(v="translate("+e.lineWidth/2+" "+e.textYOffset+")")&&k(h,"transform",v),t.lineWidth&&M!==(M="translate("+(1.5*dt+e.lineWidth)+" 0)")&&k(l,"transform",M),t.lineYOffset&&k(T,"y1",e.lineYOffset),t.lineWidth&&k(T,"x2",e.lineWidth),t.lineYOffset&&k(T,"y2",e.lineYOffset),(t.lineWidth||t.textYOffset)&&S!==(S="translate("+e.lineWidth/2+" "+e.textYOffset+")")&&k(C,"transform",S),t.lineWidth&&D!==(D="translate("+(2.5*dt+2*e.lineWidth)+" 0)")&&k(A,"transform",D),t.width&&k(i,"width",e.width),t.svgHeight&&k(i,"height",e.svgHeight)},i:t,o:t,d(t){t&&y(n),r.cancel(),t&&(y(a),y(i))}}}const dt=15;function ht(t,e,n){let r,a,i,c,o,f;return t.$$.update=((t={width:1,height:1,svgHeight:1})=>{t.width&&n("lineWidth",i=((r||0)-3*dt)/3),t.height&&n("svgHeight",c=(a||0)/2),t.svgHeight&&n("lineYOffset",o=c/1.5),t.svgHeight&&n("textYOffset",f=c/2.5)}),{width:r,height:a,lineWidth:i,svgHeight:c,lineYOffset:o,textYOffset:f,div_resize_handler:function(){r=this.clientWidth,a=this.clientHeight,n("width",r),n("height",a)}}}class bt extends ut{constructor(t){super(),st(this,t,ht,lt,o,[])}}function pt(t,e){return t<e?-1:t>e?1:t>=e?0:NaN}function gt(t){var e;return 1===t.length&&(e=t,t=function(t,n){return pt(e(t),n)}),{left:function(e,n,r,a){for(null==r&&(r=0),null==a&&(a=e.length);r<a;){var i=r+a>>>1;t(e[i],n)<0?r=i+1:a=i}return r},right:function(e,n,r,a){for(null==r&&(r=0),null==a&&(a=e.length);r<a;){var i=r+a>>>1;t(e[i],n)>0?a=i:r=i+1}return r}}}var yt=gt(pt).right;var vt=Math.sqrt(50),mt=Math.sqrt(10),_t=Math.sqrt(2);function wt(t,e,n){var r=(e-t)/Math.max(0,n),a=Math.floor(Math.log(r)/Math.LN10),i=r/Math.pow(10,a);return a>=0?(i>=vt?10:i>=mt?5:i>=_t?2:1)*Math.pow(10,a):-Math.pow(10,-a)/(i>=vt?10:i>=mt?5:i>=_t?2:1)}function xt(t,e,n){var r=Math.abs(e-t)/Math.max(0,n),a=Math.pow(10,Math.floor(Math.log(r)/Math.LN10)),i=r/a;return i>=vt?a*=10:i>=mt?a*=5:i>=_t&&(a*=2),e<t?-a:a}function Mt(t,e){var n,r,a=t.length,i=-1;if(null==e){for(;++i<a;)if(null!=(n=t[i])&&n>=n)for(r=n;++i<a;)null!=(n=t[i])&&n>r&&(r=n)}else for(;++i<a;)if(null!=(n=e(t[i],i,t))&&n>=n)for(r=n;++i<a;)null!=(n=e(t[i],i,t))&&n>r&&(r=n);return r}var At={value:function(){}};function kt(){for(var t,e=0,n=arguments.length,r={};e<n;++e){if(!(t=arguments[e]+"")||t in r)throw new Error("illegal type: "+t);r[t]=[]}return new Tt(r)}function Tt(t){this._=t}function Ct(t,e){for(var n,r=0,a=t.length;r<a;++r)if((n=t[r]).name===e)return n.value}function $t(t,e,n){for(var r=0,a=t.length;r<a;++r)if(t[r].name===e){t[r]=At,t=t.slice(0,r).concat(t.slice(r+1));break}return null!=n&&t.push({name:e,value:n}),t}Tt.prototype=kt.prototype={constructor:Tt,on:function(t,e){var n,r,a=this._,i=(r=a,(t+"").trim().split(/^|\s+/).map(function(t){var e="",n=t.indexOf(".");if(n>=0&&(e=t.slice(n+1),t=t.slice(0,n)),t&&!r.hasOwnProperty(t))throw new Error("unknown type: "+t);return{type:t,name:e}})),c=-1,o=i.length;if(!(arguments.length<2)){if(null!=e&&"function"!=typeof e)throw new Error("invalid callback: "+e);for(;++c<o;)if(n=(t=i[c]).type)a[n]=$t(a[n],t.name,e);else if(null==e)for(n in a)a[n]=$t(a[n],t.name,null);return this}for(;++c<o;)if((n=(t=i[c]).type)&&(n=Ct(a[n],t.name)))return n},copy:function(){var t={},e=this._;for(var n in e)t[n]=e[n].slice();return new Tt(t)},call:function(t,e){if((n=arguments.length-2)>0)for(var n,r,a=new Array(n),i=0;i<n;++i)a[i]=arguments[i+2];if(!this._.hasOwnProperty(t))throw new Error("unknown type: "+t);for(i=0,n=(r=this._[t]).length;i<n;++i)r[i].value.apply(e,a)},apply:function(t,e,n){if(!this._.hasOwnProperty(t))throw new Error("unknown type: "+t);for(var r=this._[t],a=0,i=r.length;a<i;++a)r[a].value.apply(e,n)}};var Nt="http://www.w3.org/1999/xhtml",St={svg:"http://www.w3.org/2000/svg",xhtml:Nt,xlink:"http://www.w3.org/1999/xlink",xml:"http://www.w3.org/XML/1998/namespace",xmlns:"http://www.w3.org/2000/xmlns/"};function Dt(t){var e=t+="",n=e.indexOf(":");return n>=0&&"xmlns"!==(e=t.slice(0,n))&&(t=t.slice(n+1)),St.hasOwnProperty(e)?{space:St[e],local:t}:t}function Et(t){var e=Dt(t);return(e.local?function(t){return function(){return this.ownerDocument.createElementNS(t.space,t.local)}}:function(t){return function(){var e=this.ownerDocument,n=this.namespaceURI;return n===Nt&&e.documentElement.namespaceURI===Nt?e.createElement(t):e.createElementNS(n,t)}})(e)}function Pt(){}function zt(t){return null==t?Pt:function(){return this.querySelector(t)}}function Ut(){return[]}function Yt(t){return null==t?Ut:function(){return this.querySelectorAll(t)}}function Lt(t){return function(){return this.matches(t)}}function Ot(t){return new Array(t.length)}function Rt(t,e){this.ownerDocument=t.ownerDocument,this.namespaceURI=t.namespaceURI,this._next=null,this._parent=t,this.__data__=e}Rt.prototype={constructor:Rt,appendChild:function(t){return this._parent.insertBefore(t,this._next)},insertBefore:function(t,e){return this._parent.insertBefore(t,e)},querySelector:function(t){return this._parent.querySelector(t)},querySelectorAll:function(t){return this._parent.querySelectorAll(t)}};var Ft="$";function It(t,e,n,r,a,i){for(var c,o=0,f=e.length,s=i.length;o<s;++o)(c=e[o])?(c.__data__=i[o],r[o]=c):n[o]=new Rt(t,i[o]);for(;o<f;++o)(c=e[o])&&(a[o]=c)}function Ht(t,e,n,r,a,i,c){var o,f,s,u={},l=e.length,d=i.length,h=new Array(l);for(o=0;o<l;++o)(f=e[o])&&(h[o]=s=Ft+c.call(f,f.__data__,o,e),s in u?a[o]=f:u[s]=f);for(o=0;o<d;++o)(f=u[s=Ft+c.call(t,i[o],o,i)])?(r[o]=f,f.__data__=i[o],u[s]=null):n[o]=new Rt(t,i[o]);for(o=0;o<l;++o)(f=e[o])&&u[h[o]]===f&&(a[o]=f)}function jt(t,e){return t<e?-1:t>e?1:t>=e?0:NaN}function qt(t){return t.ownerDocument&&t.ownerDocument.defaultView||t.document&&t||t.defaultView}function Wt(t,e){return t.style.getPropertyValue(e)||qt(t).getComputedStyle(t,null).getPropertyValue(e)}function Zt(t){return t.trim().split(/^|\s+/)}function Xt(t){return t.classList||new Vt(t)}function Vt(t){this._node=t,this._names=Zt(t.getAttribute("class")||"")}function Bt(t,e){for(var n=Xt(t),r=-1,a=e.length;++r<a;)n.add(e[r])}function Gt(t,e){for(var n=Xt(t),r=-1,a=e.length;++r<a;)n.remove(e[r])}function Qt(){this.textContent=""}function Jt(){this.innerHTML=""}function Kt(){this.nextSibling&&this.parentNode.appendChild(this)}function te(){this.previousSibling&&this.parentNode.insertBefore(this,this.parentNode.firstChild)}function ee(){return null}function ne(){var t=this.parentNode;t&&t.removeChild(this)}function re(){return this.parentNode.insertBefore(this.cloneNode(!1),this.nextSibling)}function ae(){return this.parentNode.insertBefore(this.cloneNode(!0),this.nextSibling)}Vt.prototype={add:function(t){this._names.indexOf(t)<0&&(this._names.push(t),this._node.setAttribute("class",this._names.join(" ")))},remove:function(t){var e=this._names.indexOf(t);e>=0&&(this._names.splice(e,1),this._node.setAttribute("class",this._names.join(" ")))},contains:function(t){return this._names.indexOf(t)>=0}};var ie={},ce=null;"undefined"!=typeof document&&("onmouseenter"in document.documentElement||(ie={mouseenter:"mouseover",mouseleave:"mouseout"}));function oe(t,e,n){return t=fe(t,e,n),function(e){var n=e.relatedTarget;n&&(n===this||8&n.compareDocumentPosition(this))||t.call(this,e)}}function fe(t,e,n){return function(r){var a=ce;ce=r;try{t.call(this,this.__data__,e,n)}finally{ce=a}}}function se(t){return function(){var e=this.__on;if(e){for(var n,r=0,a=-1,i=e.length;r<i;++r)n=e[r],t.type&&n.type!==t.type||n.name!==t.name?e[++a]=n:this.removeEventListener(n.type,n.listener,n.capture);++a?e.length=a:delete this.__on}}}function ue(t,e,n){var r=ie.hasOwnProperty(t.type)?oe:fe;return function(a,i,c){var o,f=this.__on,s=r(e,i,c);if(f)for(var u=0,l=f.length;u<l;++u)if((o=f[u]).type===t.type&&o.name===t.name)return this.removeEventListener(o.type,o.listener,o.capture),this.addEventListener(o.type,o.listener=s,o.capture=n),void(o.value=e);this.addEventListener(t.type,s,n),o={type:t.type,name:t.name,value:e,listener:s,capture:n},f?f.push(o):this.__on=[o]}}function le(t,e,n){var r=qt(t),a=r.CustomEvent;"function"==typeof a?a=new a(e,n):(a=r.document.createEvent("Event"),n?(a.initEvent(e,n.bubbles,n.cancelable),a.detail=n.detail):a.initEvent(e,!1,!1)),t.dispatchEvent(a)}var de=[null];function he(t,e){this._groups=t,this._parents=e}function be(){return new he([[document.documentElement]],de)}function pe(t){return"string"==typeof t?new he([[document.querySelector(t)]],[document.documentElement]):new he([[t]],de)}function ge(){for(var t,e=ce;t=e.sourceEvent;)e=t;return e}function ye(t){var e=ge();return e.changedTouches&&(e=e.changedTouches[0]),function(t,e){var n=t.ownerSVGElement||t;if(n.createSVGPoint){var r=n.createSVGPoint();return r.x=e.clientX,r.y=e.clientY,[(r=r.matrixTransform(t.getScreenCTM().inverse())).x,r.y]}var a=t.getBoundingClientRect();return[e.clientX-a.left-t.clientLeft,e.clientY-a.top-t.clientTop]}(t,e)}function ve(){ce.preventDefault(),ce.stopImmediatePropagation()}function me(t,e,n){t.prototype=e.prototype=n,n.constructor=t}function _e(t,e){var n=Object.create(t.prototype);for(var r in e)n[r]=e[r];return n}function we(){}he.prototype=be.prototype={constructor:he,select:function(t){"function"!=typeof t&&(t=zt(t));for(var e=this._groups,n=e.length,r=new Array(n),a=0;a<n;++a)for(var i,c,o=e[a],f=o.length,s=r[a]=new Array(f),u=0;u<f;++u)(i=o[u])&&(c=t.call(i,i.__data__,u,o))&&("__data__"in i&&(c.__data__=i.__data__),s[u]=c);return new he(r,this._parents)},selectAll:function(t){"function"!=typeof t&&(t=Yt(t));for(var e=this._groups,n=e.length,r=[],a=[],i=0;i<n;++i)for(var c,o=e[i],f=o.length,s=0;s<f;++s)(c=o[s])&&(r.push(t.call(c,c.__data__,s,o)),a.push(c));return new he(r,a)},filter:function(t){"function"!=typeof t&&(t=Lt(t));for(var e=this._groups,n=e.length,r=new Array(n),a=0;a<n;++a)for(var i,c=e[a],o=c.length,f=r[a]=[],s=0;s<o;++s)(i=c[s])&&t.call(i,i.__data__,s,c)&&f.push(i);return new he(r,this._parents)},data:function(t,e){if(!t)return b=new Array(this.size()),u=-1,this.each(function(t){b[++u]=t}),b;var n,r=e?Ht:It,a=this._parents,i=this._groups;"function"!=typeof t&&(n=t,t=function(){return n});for(var c=i.length,o=new Array(c),f=new Array(c),s=new Array(c),u=0;u<c;++u){var l=a[u],d=i[u],h=d.length,b=t.call(l,l&&l.__data__,u,a),p=b.length,g=f[u]=new Array(p),y=o[u]=new Array(p);r(l,d,g,y,s[u]=new Array(h),b,e);for(var v,m,_=0,w=0;_<p;++_)if(v=g[_]){for(_>=w&&(w=_+1);!(m=y[w])&&++w<p;);v._next=m||null}}return(o=new he(o,a))._enter=f,o._exit=s,o},enter:function(){return new he(this._enter||this._groups.map(Ot),this._parents)},exit:function(){return new he(this._exit||this._groups.map(Ot),this._parents)},join:function(t,e,n){var r=this.enter(),a=this,i=this.exit();return r="function"==typeof t?t(r):r.append(t+""),null!=e&&(a=e(a)),null==n?i.remove():n(i),r&&a?r.merge(a).order():a},merge:function(t){for(var e=this._groups,n=t._groups,r=e.length,a=n.length,i=Math.min(r,a),c=new Array(r),o=0;o<i;++o)for(var f,s=e[o],u=n[o],l=s.length,d=c[o]=new Array(l),h=0;h<l;++h)(f=s[h]||u[h])&&(d[h]=f);for(;o<r;++o)c[o]=e[o];return new he(c,this._parents)},order:function(){for(var t=this._groups,e=-1,n=t.length;++e<n;)for(var r,a=t[e],i=a.length-1,c=a[i];--i>=0;)(r=a[i])&&(c&&4^r.compareDocumentPosition(c)&&c.parentNode.insertBefore(r,c),c=r);return this},sort:function(t){function e(e,n){return e&&n?t(e.__data__,n.__data__):!e-!n}t||(t=jt);for(var n=this._groups,r=n.length,a=new Array(r),i=0;i<r;++i){for(var c,o=n[i],f=o.length,s=a[i]=new Array(f),u=0;u<f;++u)(c=o[u])&&(s[u]=c);s.sort(e)}return new he(a,this._parents).order()},call:function(){var t=arguments[0];return arguments[0]=this,t.apply(null,arguments),this},nodes:function(){var t=new Array(this.size()),e=-1;return this.each(function(){t[++e]=this}),t},node:function(){for(var t=this._groups,e=0,n=t.length;e<n;++e)for(var r=t[e],a=0,i=r.length;a<i;++a){var c=r[a];if(c)return c}return null},size:function(){var t=0;return this.each(function(){++t}),t},empty:function(){return!this.node()},each:function(t){for(var e=this._groups,n=0,r=e.length;n<r;++n)for(var a,i=e[n],c=0,o=i.length;c<o;++c)(a=i[c])&&t.call(a,a.__data__,c,i);return this},attr:function(t,e){var n=Dt(t);if(arguments.length<2){var r=this.node();return n.local?r.getAttributeNS(n.space,n.local):r.getAttribute(n)}return this.each((null==e?n.local?function(t){return function(){this.removeAttributeNS(t.space,t.local)}}:function(t){return function(){this.removeAttribute(t)}}:"function"==typeof e?n.local?function(t,e){return function(){var n=e.apply(this,arguments);null==n?this.removeAttributeNS(t.space,t.local):this.setAttributeNS(t.space,t.local,n)}}:function(t,e){return function(){var n=e.apply(this,arguments);null==n?this.removeAttribute(t):this.setAttribute(t,n)}}:n.local?function(t,e){return function(){this.setAttributeNS(t.space,t.local,e)}}:function(t,e){return function(){this.setAttribute(t,e)}})(n,e))},style:function(t,e,n){return arguments.length>1?this.each((null==e?function(t){return function(){this.style.removeProperty(t)}}:"function"==typeof e?function(t,e,n){return function(){var r=e.apply(this,arguments);null==r?this.style.removeProperty(t):this.style.setProperty(t,r,n)}}:function(t,e,n){return function(){this.style.setProperty(t,e,n)}})(t,e,null==n?"":n)):Wt(this.node(),t)},property:function(t,e){return arguments.length>1?this.each((null==e?function(t){return function(){delete this[t]}}:"function"==typeof e?function(t,e){return function(){var n=e.apply(this,arguments);null==n?delete this[t]:this[t]=n}}:function(t,e){return function(){this[t]=e}})(t,e)):this.node()[t]},classed:function(t,e){var n=Zt(t+"");if(arguments.length<2){for(var r=Xt(this.node()),a=-1,i=n.length;++a<i;)if(!r.contains(n[a]))return!1;return!0}return this.each(("function"==typeof e?function(t,e){return function(){(e.apply(this,arguments)?Bt:Gt)(this,t)}}:e?function(t){return function(){Bt(this,t)}}:function(t){return function(){Gt(this,t)}})(n,e))},text:function(t){return arguments.length?this.each(null==t?Qt:("function"==typeof t?function(t){return function(){var e=t.apply(this,arguments);this.textContent=null==e?"":e}}:function(t){return function(){this.textContent=t}})(t)):this.node().textContent},html:function(t){return arguments.length?this.each(null==t?Jt:("function"==typeof t?function(t){return function(){var e=t.apply(this,arguments);this.innerHTML=null==e?"":e}}:function(t){return function(){this.innerHTML=t}})(t)):this.node().innerHTML},raise:function(){return this.each(Kt)},lower:function(){return this.each(te)},append:function(t){var e="function"==typeof t?t:Et(t);return this.select(function(){return this.appendChild(e.apply(this,arguments))})},insert:function(t,e){var n="function"==typeof t?t:Et(t),r=null==e?ee:"function"==typeof e?e:zt(e);return this.select(function(){return this.insertBefore(n.apply(this,arguments),r.apply(this,arguments)||null)})},remove:function(){return this.each(ne)},clone:function(t){return this.select(t?ae:re)},datum:function(t){return arguments.length?this.property("__data__",t):this.node().__data__},on:function(t,e,n){var r,a,i=function(t){return t.trim().split(/^|\s+/).map(function(t){var e="",n=t.indexOf(".");return n>=0&&(e=t.slice(n+1),t=t.slice(0,n)),{type:t,name:e}})}(t+""),c=i.length;if(!(arguments.length<2)){for(o=e?ue:se,null==n&&(n=!1),r=0;r<c;++r)this.each(o(i[r],e,n));return this}var o=this.node().__on;if(o)for(var f,s=0,u=o.length;s<u;++s)for(r=0,f=o[s];r<c;++r)if((a=i[r]).type===f.type&&a.name===f.name)return f.value},dispatch:function(t,e){return this.each(("function"==typeof e?function(t,e){return function(){return le(this,t,e.apply(this,arguments))}}:function(t,e){return function(){return le(this,t,e)}})(t,e))}};var xe="\\s*([+-]?\\d+)\\s*",Me="\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)\\s*",Ae="\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)%\\s*",ke=/^#([0-9a-f]{3})$/,Te=/^#([0-9a-f]{6})$/,Ce=new RegExp("^rgb\\("+[xe,xe,xe]+"\\)$"),$e=new RegExp("^rgb\\("+[Ae,Ae,Ae]+"\\)$"),Ne=new RegExp("^rgba\\("+[xe,xe,xe,Me]+"\\)$"),Se=new RegExp("^rgba\\("+[Ae,Ae,Ae,Me]+"\\)$"),De=new RegExp("^hsl\\("+[Me,Ae,Ae]+"\\)$"),Ee=new RegExp("^hsla\\("+[Me,Ae,Ae,Me]+"\\)$"),Pe={aliceblue:15792383,antiquewhite:16444375,aqua:65535,aquamarine:8388564,azure:15794175,beige:16119260,bisque:16770244,black:0,blanchedalmond:16772045,blue:255,blueviolet:9055202,brown:10824234,burlywood:14596231,cadetblue:6266528,chartreuse:8388352,chocolate:13789470,coral:16744272,cornflowerblue:6591981,cornsilk:16775388,crimson:14423100,cyan:65535,darkblue:139,darkcyan:35723,darkgoldenrod:12092939,darkgray:11119017,darkgreen:25600,darkgrey:11119017,darkkhaki:12433259,darkmagenta:9109643,darkolivegreen:5597999,darkorange:16747520,darkorchid:10040012,darkred:9109504,darksalmon:15308410,darkseagreen:9419919,darkslateblue:4734347,darkslategray:3100495,darkslategrey:3100495,darkturquoise:52945,darkviolet:9699539,deeppink:16716947,deepskyblue:49151,dimgray:6908265,dimgrey:6908265,dodgerblue:2003199,firebrick:11674146,floralwhite:16775920,forestgreen:2263842,fuchsia:16711935,gainsboro:14474460,ghostwhite:16316671,gold:16766720,goldenrod:14329120,gray:8421504,green:32768,greenyellow:11403055,grey:8421504,honeydew:15794160,hotpink:16738740,indianred:13458524,indigo:4915330,ivory:16777200,khaki:15787660,lavender:15132410,lavenderblush:16773365,lawngreen:8190976,lemonchiffon:16775885,lightblue:11393254,lightcoral:15761536,lightcyan:14745599,lightgoldenrodyellow:16448210,lightgray:13882323,lightgreen:9498256,lightgrey:13882323,lightpink:16758465,lightsalmon:16752762,lightseagreen:2142890,lightskyblue:8900346,lightslategray:7833753,lightslategrey:7833753,lightsteelblue:11584734,lightyellow:16777184,lime:65280,limegreen:3329330,linen:16445670,magenta:16711935,maroon:8388608,mediumaquamarine:6737322,mediumblue:205,mediumorchid:12211667,mediumpurple:9662683,mediumseagreen:3978097,mediumslateblue:8087790,mediumspringgreen:64154,mediumturquoise:4772300,mediumvioletred:13047173,midnightblue:1644912,mintcream:16121850,mistyrose:16770273,moccasin:16770229,navajowhite:16768685,navy:128,oldlace:16643558,olive:8421376,olivedrab:7048739,orange:16753920,orangered:16729344,orchid:14315734,palegoldenrod:15657130,palegreen:10025880,paleturquoise:11529966,palevioletred:14381203,papayawhip:16773077,peachpuff:16767673,peru:13468991,pink:16761035,plum:14524637,powderblue:11591910,purple:8388736,rebeccapurple:6697881,red:16711680,rosybrown:12357519,royalblue:4286945,saddlebrown:9127187,salmon:16416882,sandybrown:16032864,seagreen:3050327,seashell:16774638,sienna:10506797,silver:12632256,skyblue:8900331,slateblue:6970061,slategray:7372944,slategrey:7372944,snow:16775930,springgreen:65407,steelblue:4620980,tan:13808780,teal:32896,thistle:14204888,tomato:16737095,turquoise:4251856,violet:15631086,wheat:16113331,white:16777215,whitesmoke:16119285,yellow:16776960,yellowgreen:10145074};function ze(t){var e;return t=(t+"").trim().toLowerCase(),(e=ke.exec(t))?new Re((e=parseInt(e[1],16))>>8&15|e>>4&240,e>>4&15|240&e,(15&e)<<4|15&e,1):(e=Te.exec(t))?Ue(parseInt(e[1],16)):(e=Ce.exec(t))?new Re(e[1],e[2],e[3],1):(e=$e.exec(t))?new Re(255*e[1]/100,255*e[2]/100,255*e[3]/100,1):(e=Ne.exec(t))?Ye(e[1],e[2],e[3],e[4]):(e=Se.exec(t))?Ye(255*e[1]/100,255*e[2]/100,255*e[3]/100,e[4]):(e=De.exec(t))?Ie(e[1],e[2]/100,e[3]/100,1):(e=Ee.exec(t))?Ie(e[1],e[2]/100,e[3]/100,e[4]):Pe.hasOwnProperty(t)?Ue(Pe[t]):"transparent"===t?new Re(NaN,NaN,NaN,0):null}function Ue(t){return new Re(t>>16&255,t>>8&255,255&t,1)}function Ye(t,e,n,r){return r<=0&&(t=e=n=NaN),new Re(t,e,n,r)}function Le(t){return t instanceof we||(t=ze(t)),t?new Re((t=t.rgb()).r,t.g,t.b,t.opacity):new Re}function Oe(t,e,n,r){return 1===arguments.length?Le(t):new Re(t,e,n,null==r?1:r)}function Re(t,e,n,r){this.r=+t,this.g=+e,this.b=+n,this.opacity=+r}function Fe(t){return((t=Math.max(0,Math.min(255,Math.round(t)||0)))<16?"0":"")+t.toString(16)}function Ie(t,e,n,r){return r<=0?t=e=n=NaN:n<=0||n>=1?t=e=NaN:e<=0&&(t=NaN),new He(t,e,n,r)}function He(t,e,n,r){this.h=+t,this.s=+e,this.l=+n,this.opacity=+r}function je(t,e,n){return 255*(t<60?e+(n-e)*t/60:t<180?n:t<240?e+(n-e)*(240-t)/60:e)}me(we,ze,{displayable:function(){return this.rgb().displayable()},hex:function(){return this.rgb().hex()},toString:function(){return this.rgb()+""}}),me(Re,Oe,_e(we,{brighter:function(t){return t=null==t?1/.7:Math.pow(1/.7,t),new Re(this.r*t,this.g*t,this.b*t,this.opacity)},darker:function(t){return t=null==t?.7:Math.pow(.7,t),new Re(this.r*t,this.g*t,this.b*t,this.opacity)},rgb:function(){return this},displayable:function(){return-.5<=this.r&&this.r<255.5&&-.5<=this.g&&this.g<255.5&&-.5<=this.b&&this.b<255.5&&0<=this.opacity&&this.opacity<=1},hex:function(){return"#"+Fe(this.r)+Fe(this.g)+Fe(this.b)},toString:function(){var t=this.opacity;return(1===(t=isNaN(t)?1:Math.max(0,Math.min(1,t)))?"rgb(":"rgba(")+Math.max(0,Math.min(255,Math.round(this.r)||0))+", "+Math.max(0,Math.min(255,Math.round(this.g)||0))+", "+Math.max(0,Math.min(255,Math.round(this.b)||0))+(1===t?")":", "+t+")")}})),me(He,function(t,e,n,r){return 1===arguments.length?function(t){if(t instanceof He)return new He(t.h,t.s,t.l,t.opacity);if(t instanceof we||(t=ze(t)),!t)return new He;if(t instanceof He)return t;var e=(t=t.rgb()).r/255,n=t.g/255,r=t.b/255,a=Math.min(e,n,r),i=Math.max(e,n,r),c=NaN,o=i-a,f=(i+a)/2;return o?(c=e===i?(n-r)/o+6*(n<r):n===i?(r-e)/o+2:(e-n)/o+4,o/=f<.5?i+a:2-i-a,c*=60):o=f>0&&f<1?0:c,new He(c,o,f,t.opacity)}(t):new He(t,e,n,null==r?1:r)},_e(we,{brighter:function(t){return t=null==t?1/.7:Math.pow(1/.7,t),new He(this.h,this.s,this.l*t,this.opacity)},darker:function(t){return t=null==t?.7:Math.pow(.7,t),new He(this.h,this.s,this.l*t,this.opacity)},rgb:function(){var t=this.h%360+360*(this.h<0),e=isNaN(t)||isNaN(this.s)?0:this.s,n=this.l,r=n+(n<.5?n:1-n)*e,a=2*n-r;return new Re(je(t>=240?t-240:t+120,a,r),je(t,a,r),je(t<120?t+240:t-120,a,r),this.opacity)},displayable:function(){return(0<=this.s&&this.s<=1||isNaN(this.s))&&0<=this.l&&this.l<=1&&0<=this.opacity&&this.opacity<=1}}));var qe=Math.PI/180,We=180/Math.PI,Ze=.96422,Xe=1,Ve=.82521,Be=4/29,Ge=6/29,Qe=3*Ge*Ge,Je=Ge*Ge*Ge;function Ke(t){if(t instanceof tn)return new tn(t.l,t.a,t.b,t.opacity);if(t instanceof cn)return on(t);t instanceof Re||(t=Le(t));var e,n,r=an(t.r),a=an(t.g),i=an(t.b),c=en((.2225045*r+.7168786*a+.0606169*i)/Xe);return r===a&&a===i?e=n=c:(e=en((.4360747*r+.3850649*a+.1430804*i)/Ze),n=en((.0139322*r+.0971045*a+.7141733*i)/Ve)),new tn(116*c-16,500*(e-c),200*(c-n),t.opacity)}function tn(t,e,n,r){this.l=+t,this.a=+e,this.b=+n,this.opacity=+r}function en(t){return t>Je?Math.pow(t,1/3):t/Qe+Be}function nn(t){return t>Ge?t*t*t:Qe*(t-Be)}function rn(t){return 255*(t<=.0031308?12.92*t:1.055*Math.pow(t,1/2.4)-.055)}function an(t){return(t/=255)<=.04045?t/12.92:Math.pow((t+.055)/1.055,2.4)}function cn(t,e,n,r){this.h=+t,this.c=+e,this.l=+n,this.opacity=+r}function on(t){if(isNaN(t.h))return new tn(t.l,0,0,t.opacity);var e=t.h*qe;return new tn(t.l,Math.cos(e)*t.c,Math.sin(e)*t.c,t.opacity)}me(tn,function(t,e,n,r){return 1===arguments.length?Ke(t):new tn(t,e,n,null==r?1:r)},_e(we,{brighter:function(t){return new tn(this.l+18*(null==t?1:t),this.a,this.b,this.opacity)},darker:function(t){return new tn(this.l-18*(null==t?1:t),this.a,this.b,this.opacity)},rgb:function(){var t=(this.l+16)/116,e=isNaN(this.a)?t:t+this.a/500,n=isNaN(this.b)?t:t-this.b/200;return new Re(rn(3.1338561*(e=Ze*nn(e))-1.6168667*(t=Xe*nn(t))-.4906146*(n=Ve*nn(n))),rn(-.9787684*e+1.9161415*t+.033454*n),rn(.0719453*e-.2289914*t+1.4052427*n),this.opacity)}})),me(cn,function(t,e,n,r){return 1===arguments.length?function(t){if(t instanceof cn)return new cn(t.h,t.c,t.l,t.opacity);if(t instanceof tn||(t=Ke(t)),0===t.a&&0===t.b)return new cn(NaN,0<t.l&&t.l<100?0:NaN,t.l,t.opacity);var e=Math.atan2(t.b,t.a)*We;return new cn(e<0?e+360:e,Math.sqrt(t.a*t.a+t.b*t.b),t.l,t.opacity)}(t):new cn(t,e,n,null==r?1:r)},_e(we,{brighter:function(t){return new cn(this.h,this.c,this.l+18*(null==t?1:t),this.opacity)},darker:function(t){return new cn(this.h,this.c,this.l-18*(null==t?1:t),this.opacity)},rgb:function(){return on(this).rgb()}}));var fn=-.14861,sn=1.78277,un=-.29227,ln=-.90649,dn=1.97294,hn=dn*ln,bn=dn*sn,pn=sn*un-ln*fn;function gn(t,e,n,r){return 1===arguments.length?function(t){if(t instanceof yn)return new yn(t.h,t.s,t.l,t.opacity);t instanceof Re||(t=Le(t));var e=t.r/255,n=t.g/255,r=t.b/255,a=(pn*r+hn*e-bn*n)/(pn+hn-bn),i=r-a,c=(dn*(n-a)-un*i)/ln,o=Math.sqrt(c*c+i*i)/(dn*a*(1-a)),f=o?Math.atan2(c,i)*We-120:NaN;return new yn(f<0?f+360:f,o,a,t.opacity)}(t):new yn(t,e,n,null==r?1:r)}function yn(t,e,n,r){this.h=+t,this.s=+e,this.l=+n,this.opacity=+r}function vn(t){return function(){return t}}function mn(t,e){return function(n){return t+n*e}}function _n(t){return 1==(t=+t)?wn:function(e,n){return n-e?function(t,e,n){return t=Math.pow(t,n),e=Math.pow(e,n)-t,n=1/n,function(r){return Math.pow(t+r*e,n)}}(e,n,t):vn(isNaN(e)?n:e)}}function wn(t,e){var n=e-t;return n?mn(t,n):vn(isNaN(t)?e:t)}me(yn,gn,_e(we,{brighter:function(t){return t=null==t?1/.7:Math.pow(1/.7,t),new yn(this.h,this.s,this.l*t,this.opacity)},darker:function(t){return t=null==t?.7:Math.pow(.7,t),new yn(this.h,this.s,this.l*t,this.opacity)},rgb:function(){var t=isNaN(this.h)?0:(this.h+120)*qe,e=+this.l,n=isNaN(this.s)?0:this.s*e*(1-e),r=Math.cos(t),a=Math.sin(t);return new Re(255*(e+n*(fn*r+sn*a)),255*(e+n*(un*r+ln*a)),255*(e+n*(dn*r)),this.opacity)}}));var xn=function t(e){var n=_n(e);function r(t,e){var r=n((t=Oe(t)).r,(e=Oe(e)).r),a=n(t.g,e.g),i=n(t.b,e.b),c=wn(t.opacity,e.opacity);return function(e){return t.r=r(e),t.g=a(e),t.b=i(e),t.opacity=c(e),t+""}}return r.gamma=t,r}(1);var Mn,An=(Mn=function(t){var e=t.length-1;return function(n){var r=n<=0?n=0:n>=1?(n=1,e-1):Math.floor(n*e),a=t[r],i=t[r+1],c=r>0?t[r-1]:2*a-i,o=r<e-1?t[r+2]:2*i-a;return function(t,e,n,r,a){var i=t*t,c=i*t;return((1-3*t+3*i-c)*e+(4-6*i+3*c)*n+(1+3*t+3*i-3*c)*r+c*a)/6}((n-r/e)*e,c,a,i,o)}},function(t){var e,n,r=t.length,a=new Array(r),i=new Array(r),c=new Array(r);for(e=0;e<r;++e)n=Oe(t[e]),a[e]=n.r||0,i[e]=n.g||0,c[e]=n.b||0;return a=Mn(a),i=Mn(i),c=Mn(c),n.opacity=1,function(t){return n.r=a(t),n.g=i(t),n.b=c(t),n+""}});function kn(t,e){return e-=t=+t,function(n){return t+e*n}}var Tn=/[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g,Cn=new RegExp(Tn.source,"g");function $n(t,e){var n,r,a,i=Tn.lastIndex=Cn.lastIndex=0,c=-1,o=[],f=[];for(t+="",e+="";(n=Tn.exec(t))&&(r=Cn.exec(e));)(a=r.index)>i&&(a=e.slice(i,a),o[c]?o[c]+=a:o[++c]=a),(n=n[0])===(r=r[0])?o[c]?o[c]+=r:o[++c]=r:(o[++c]=null,f.push({i:c,x:kn(n,r)})),i=Cn.lastIndex;return i<e.length&&(a=e.slice(i),o[c]?o[c]+=a:o[++c]=a),o.length<2?f[0]?function(t){return function(e){return t(e)+""}}(f[0].x):function(t){return function(){return t}}(e):(e=f.length,function(t){for(var n,r=0;r<e;++r)o[(n=f[r]).i]=n.x(t);return o.join("")})}function Nn(t,e){var n,r=typeof e;return null==e||"boolean"===r?vn(e):("number"===r?kn:"string"===r?(n=ze(e))?(e=n,xn):$n:e instanceof ze?xn:e instanceof Date?function(t,e){var n=new Date;return e-=t=+t,function(r){return n.setTime(t+e*r),n}}:Array.isArray(e)?function(t,e){var n,r=e?e.length:0,a=t?Math.min(r,t.length):0,i=new Array(a),c=new Array(r);for(n=0;n<a;++n)i[n]=Nn(t[n],e[n]);for(;n<r;++n)c[n]=e[n];return function(t){for(n=0;n<a;++n)c[n]=i[n](t);return c}}:"function"!=typeof e.valueOf&&"function"!=typeof e.toString||isNaN(e)?function(t,e){var n,r={},a={};for(n in null!==t&&"object"==typeof t||(t={}),null!==e&&"object"==typeof e||(e={}),e)n in t?r[n]=Nn(t[n],e[n]):a[n]=e[n];return function(t){for(n in r)a[n]=r[n](t);return a}}:kn)(t,e)}function Sn(t,e){return e-=t=+t,function(n){return Math.round(t+e*n)}}var Dn,En,Pn,zn,Un=180/Math.PI,Yn={translateX:0,translateY:0,rotate:0,skewX:0,scaleX:1,scaleY:1};function Ln(t,e,n,r,a,i){var c,o,f;return(c=Math.sqrt(t*t+e*e))&&(t/=c,e/=c),(f=t*n+e*r)&&(n-=t*f,r-=e*f),(o=Math.sqrt(n*n+r*r))&&(n/=o,r/=o,f/=o),t*r<e*n&&(t=-t,e=-e,f=-f,c=-c),{translateX:a,translateY:i,rotate:Math.atan2(e,t)*Un,skewX:Math.atan(f)*Un,scaleX:c,scaleY:o}}function On(t,e,n,r){function a(t){return t.length?t.pop()+" ":""}return function(i,c){var o=[],f=[];return i=t(i),c=t(c),function(t,r,a,i,c,o){if(t!==a||r!==i){var f=c.push("translate(",null,e,null,n);o.push({i:f-4,x:kn(t,a)},{i:f-2,x:kn(r,i)})}else(a||i)&&c.push("translate("+a+e+i+n)}(i.translateX,i.translateY,c.translateX,c.translateY,o,f),function(t,e,n,i){t!==e?(t-e>180?e+=360:e-t>180&&(t+=360),i.push({i:n.push(a(n)+"rotate(",null,r)-2,x:kn(t,e)})):e&&n.push(a(n)+"rotate("+e+r)}(i.rotate,c.rotate,o,f),function(t,e,n,i){t!==e?i.push({i:n.push(a(n)+"skewX(",null,r)-2,x:kn(t,e)}):e&&n.push(a(n)+"skewX("+e+r)}(i.skewX,c.skewX,o,f),function(t,e,n,r,i,c){if(t!==n||e!==r){var o=i.push(a(i)+"scale(",null,",",null,")");c.push({i:o-4,x:kn(t,n)},{i:o-2,x:kn(e,r)})}else 1===n&&1===r||i.push(a(i)+"scale("+n+","+r+")")}(i.scaleX,i.scaleY,c.scaleX,c.scaleY,o,f),i=c=null,function(t){for(var e,n=-1,r=f.length;++n<r;)o[(e=f[n]).i]=e.x(t);return o.join("")}}}var Rn=On(function(t){return"none"===t?Yn:(Dn||(Dn=document.createElement("DIV"),En=document.documentElement,Pn=document.defaultView),Dn.style.transform=t,t=Pn.getComputedStyle(En.appendChild(Dn),null).getPropertyValue("transform"),En.removeChild(Dn),Ln(+(t=t.slice(7,-1).split(","))[0],+t[1],+t[2],+t[3],+t[4],+t[5]))},"px, ","px)","deg)"),Fn=On(function(t){return null==t?Yn:(zn||(zn=document.createElementNS("http://www.w3.org/2000/svg","g")),zn.setAttribute("transform",t),(t=zn.transform.baseVal.consolidate())?Ln((t=t.matrix).a,t.b,t.c,t.d,t.e,t.f):Yn)},", ",")",")");Math.SQRT2;function In(t){return function e(n){function r(e,r){var a=t((e=gn(e)).h,(r=gn(r)).h),i=wn(e.s,r.s),c=wn(e.l,r.l),o=wn(e.opacity,r.opacity);return function(t){return e.h=a(t),e.s=i(t),e.l=c(Math.pow(t,n)),e.opacity=o(t),e+""}}return n=+n,r.gamma=e,r}(1)}In(function(t,e){var n=e-t;return n?mn(t,n>180||n<-180?n-360*Math.round(n/360):n):vn(isNaN(t)?e:t)});var Hn,jn,qn=In(wn),Wn=0,Zn=0,Xn=0,Vn=1e3,Bn=0,Gn=0,Qn=0,Jn="object"==typeof performance&&performance.now?performance:Date,Kn="object"==typeof window&&window.requestAnimationFrame?window.requestAnimationFrame.bind(window):function(t){setTimeout(t,17)};function tr(){return Gn||(Kn(er),Gn=Jn.now()+Qn)}function er(){Gn=0}function nr(){this._call=this._time=this._next=null}function rr(t,e,n){var r=new nr;return r.restart(t,e,n),r}function ar(){Gn=(Bn=Jn.now())+Qn,Wn=Zn=0;try{!function(){tr(),++Wn;for(var t,e=Hn;e;)(t=Gn-e._time)>=0&&e._call.call(null,t),e=e._next;--Wn}()}finally{Wn=0,function(){var t,e,n=Hn,r=1/0;for(;n;)n._call?(r>n._time&&(r=n._time),t=n,n=n._next):(e=n._next,n._next=null,n=t?t._next=e:Hn=e);jn=t,cr(r)}(),Gn=0}}function ir(){var t=Jn.now(),e=t-Bn;e>Vn&&(Qn-=e,Bn=t)}function cr(t){Wn||(Zn&&(Zn=clearTimeout(Zn)),t-Gn>24?(t<1/0&&(Zn=setTimeout(ar,t-Jn.now()-Qn)),Xn&&(Xn=clearInterval(Xn))):(Xn||(Bn=Jn.now(),Xn=setInterval(ir,Vn)),Wn=1,Kn(ar)))}function or(t,e,n){var r=new nr;return e=null==e?0:+e,r.restart(function(n){r.stop(),t(n+e)},e,n),r}nr.prototype=rr.prototype={constructor:nr,restart:function(t,e,n){if("function"!=typeof t)throw new TypeError("callback is not a function");n=(null==n?tr():+n)+(null==e?0:+e),this._next||jn===this||(jn?jn._next=this:Hn=this,jn=this),this._call=t,this._time=n,cr()},stop:function(){this._call&&(this._call=null,this._time=1/0,cr())}};var fr=kt("start","end","cancel","interrupt"),sr=[],ur=0,lr=1,dr=2,hr=3,br=4,pr=5,gr=6;function yr(t,e,n,r,a,i){var c=t.__transition;if(c){if(n in c)return}else t.__transition={};!function(t,e,n){var r,a=t.__transition;function i(f){var s,u,l,d;if(n.state!==lr)return o();for(s in a)if((d=a[s]).name===n.name){if(d.state===hr)return or(i);d.state===br?(d.state=gr,d.timer.stop(),d.on.call("interrupt",t,t.__data__,d.index,d.group),delete a[s]):+s<e&&(d.state=gr,d.timer.stop(),d.on.call("cancel",t,t.__data__,d.index,d.group),delete a[s])}if(or(function(){n.state===hr&&(n.state=br,n.timer.restart(c,n.delay,n.time),c(f))}),n.state=dr,n.on.call("start",t,t.__data__,n.index,n.group),n.state===dr){for(n.state=hr,r=new Array(l=n.tween.length),s=0,u=-1;s<l;++s)(d=n.tween[s].value.call(t,t.__data__,n.index,n.group))&&(r[++u]=d);r.length=u+1}}function c(e){for(var a=e<n.duration?n.ease.call(null,e/n.duration):(n.timer.restart(o),n.state=pr,1),i=-1,c=r.length;++i<c;)r[i].call(t,a);n.state===pr&&(n.on.call("end",t,t.__data__,n.index,n.group),o())}function o(){for(var r in n.state=gr,n.timer.stop(),delete a[e],a)return;delete t.__transition}a[e]=n,n.timer=rr(function(t){n.state=lr,n.timer.restart(i,n.delay,n.time),n.delay<=t&&i(t-n.delay)},0,n.time)}(t,n,{name:e,index:r,group:a,on:fr,tween:sr,time:i.time,delay:i.delay,duration:i.duration,ease:i.ease,timer:null,state:ur})}function vr(t,e){var n=_r(t,e);if(n.state>ur)throw new Error("too late; already scheduled");return n}function mr(t,e){var n=_r(t,e);if(n.state>hr)throw new Error("too late; already running");return n}function _r(t,e){var n=t.__transition;if(!n||!(n=n[e]))throw new Error("transition not found");return n}function wr(t,e){var n,r,a,i=t.__transition,c=!0;if(i){for(a in e=null==e?null:e+"",i)(n=i[a]).name===e?(r=n.state>dr&&n.state<pr,n.state=gr,n.timer.stop(),n.on.call(r?"interrupt":"cancel",t,t.__data__,n.index,n.group),delete i[a]):c=!1;c&&delete t.__transition}}function xr(t,e,n){var r=t._id;return t.each(function(){var t=mr(this,r);(t.value||(t.value={}))[e]=n.apply(this,arguments)}),function(t){return _r(t,r).value[e]}}function Mr(t,e){var n;return("number"==typeof e?kn:e instanceof ze?xn:(n=ze(e))?(e=n,xn):$n)(t,e)}var Ar=be.prototype.constructor;function kr(t){return function(){this.style.removeProperty(t)}}var Tr=0;function Cr(t,e,n,r){this._groups=t,this._parents=e,this._name=n,this._id=r}function $r(){return++Tr}var Nr=be.prototype;Cr.prototype=function(t){return be().transition(t)}.prototype={constructor:Cr,select:function(t){var e=this._name,n=this._id;"function"!=typeof t&&(t=zt(t));for(var r=this._groups,a=r.length,i=new Array(a),c=0;c<a;++c)for(var o,f,s=r[c],u=s.length,l=i[c]=new Array(u),d=0;d<u;++d)(o=s[d])&&(f=t.call(o,o.__data__,d,s))&&("__data__"in o&&(f.__data__=o.__data__),l[d]=f,yr(l[d],e,n,d,l,_r(o,n)));return new Cr(i,this._parents,e,n)},selectAll:function(t){var e=this._name,n=this._id;"function"!=typeof t&&(t=Yt(t));for(var r=this._groups,a=r.length,i=[],c=[],o=0;o<a;++o)for(var f,s=r[o],u=s.length,l=0;l<u;++l)if(f=s[l]){for(var d,h=t.call(f,f.__data__,l,s),b=_r(f,n),p=0,g=h.length;p<g;++p)(d=h[p])&&yr(d,e,n,p,h,b);i.push(h),c.push(f)}return new Cr(i,c,e,n)},filter:function(t){"function"!=typeof t&&(t=Lt(t));for(var e=this._groups,n=e.length,r=new Array(n),a=0;a<n;++a)for(var i,c=e[a],o=c.length,f=r[a]=[],s=0;s<o;++s)(i=c[s])&&t.call(i,i.__data__,s,c)&&f.push(i);return new Cr(r,this._parents,this._name,this._id)},merge:function(t){if(t._id!==this._id)throw new Error;for(var e=this._groups,n=t._groups,r=e.length,a=n.length,i=Math.min(r,a),c=new Array(r),o=0;o<i;++o)for(var f,s=e[o],u=n[o],l=s.length,d=c[o]=new Array(l),h=0;h<l;++h)(f=s[h]||u[h])&&(d[h]=f);for(;o<r;++o)c[o]=e[o];return new Cr(c,this._parents,this._name,this._id)},selection:function(){return new Ar(this._groups,this._parents)},transition:function(){for(var t=this._name,e=this._id,n=$r(),r=this._groups,a=r.length,i=0;i<a;++i)for(var c,o=r[i],f=o.length,s=0;s<f;++s)if(c=o[s]){var u=_r(c,e);yr(c,t,n,s,o,{time:u.time+u.delay+u.duration,delay:0,duration:u.duration,ease:u.ease})}return new Cr(r,this._parents,t,n)},call:Nr.call,nodes:Nr.nodes,node:Nr.node,size:Nr.size,empty:Nr.empty,each:Nr.each,on:function(t,e){var n=this._id;return arguments.length<2?_r(this.node(),n).on.on(t):this.each(function(t,e,n){var r,a,i=function(t){return(t+"").trim().split(/^|\s+/).every(function(t){var e=t.indexOf(".");return e>=0&&(t=t.slice(0,e)),!t||"start"===t})}(e)?vr:mr;return function(){var c=i(this,t),o=c.on;o!==r&&(a=(r=o).copy()).on(e,n),c.on=a}}(n,t,e))},attr:function(t,e){var n=Dt(t),r="transform"===n?Fn:Mr;return this.attrTween(t,"function"==typeof e?(n.local?function(t,e,n){var r,a,i;return function(){var c,o,f=n(this);if(null!=f)return(c=this.getAttributeNS(t.space,t.local))===(o=f+"")?null:c===r&&o===a?i:(a=o,i=e(r=c,f));this.removeAttributeNS(t.space,t.local)}}:function(t,e,n){var r,a,i;return function(){var c,o,f=n(this);if(null!=f)return(c=this.getAttribute(t))===(o=f+"")?null:c===r&&o===a?i:(a=o,i=e(r=c,f));this.removeAttribute(t)}})(n,r,xr(this,"attr."+t,e)):null==e?(n.local?function(t){return function(){this.removeAttributeNS(t.space,t.local)}}:function(t){return function(){this.removeAttribute(t)}})(n):(n.local?function(t,e,n){var r,a,i=n+"";return function(){var c=this.getAttributeNS(t.space,t.local);return c===i?null:c===r?a:a=e(r=c,n)}}:function(t,e,n){var r,a,i=n+"";return function(){var c=this.getAttribute(t);return c===i?null:c===r?a:a=e(r=c,n)}})(n,r,e))},attrTween:function(t,e){var n="attr."+t;if(arguments.length<2)return(n=this.tween(n))&&n._value;if(null==e)return this.tween(n,null);if("function"!=typeof e)throw new Error;var r=Dt(t);return this.tween(n,(r.local?function(t,e){var n,r;function a(){var a=e.apply(this,arguments);return a!==r&&(n=(r=a)&&function(t,e){return function(n){this.setAttributeNS(t.space,t.local,e(n))}}(t,a)),n}return a._value=e,a}:function(t,e){var n,r;function a(){var a=e.apply(this,arguments);return a!==r&&(n=(r=a)&&function(t,e){return function(n){this.setAttribute(t,e(n))}}(t,a)),n}return a._value=e,a})(r,e))},style:function(t,e,n){var r="transform"==(t+="")?Rn:Mr;return null==e?this.styleTween(t,function(t,e){var n,r,a;return function(){var i=Wt(this,t),c=(this.style.removeProperty(t),Wt(this,t));return i===c?null:i===n&&c===r?a:a=e(n=i,r=c)}}(t,r)).on("end.style."+t,kr(t)):"function"==typeof e?this.styleTween(t,function(t,e,n){var r,a,i;return function(){var c=Wt(this,t),o=n(this),f=o+"";return null==o&&(this.style.removeProperty(t),f=o=Wt(this,t)),c===f?null:c===r&&f===a?i:(a=f,i=e(r=c,o))}}(t,r,xr(this,"style."+t,e))).each(function(t,e){var n,r,a,i,c="style."+e,o="end."+c;return function(){var f=mr(this,t),s=f.on,u=null==f.value[c]?i||(i=kr(e)):void 0;s===n&&a===u||(r=(n=s).copy()).on(o,a=u),f.on=r}}(this._id,t)):this.styleTween(t,function(t,e,n){var r,a,i=n+"";return function(){var c=Wt(this,t);return c===i?null:c===r?a:a=e(r=c,n)}}(t,r,e),n).on("end.style."+t,null)},styleTween:function(t,e,n){var r="style."+(t+="");if(arguments.length<2)return(r=this.tween(r))&&r._value;if(null==e)return this.tween(r,null);if("function"!=typeof e)throw new Error;return this.tween(r,function(t,e,n){var r,a;function i(){var i=e.apply(this,arguments);return i!==a&&(r=(a=i)&&function(t,e,n){return function(r){this.style.setProperty(t,e(r),n)}}(t,i,n)),r}return i._value=e,i}(t,e,null==n?"":n))},text:function(t){return this.tween("text","function"==typeof t?function(t){return function(){var e=t(this);this.textContent=null==e?"":e}}(xr(this,"text",t)):function(t){return function(){this.textContent=t}}(null==t?"":t+""))},remove:function(){return this.on("end.remove",(t=this._id,function(){var e=this.parentNode;for(var n in this.__transition)if(+n!==t)return;e&&e.removeChild(this)}));var t},tween:function(t,e){var n=this._id;if(t+="",arguments.length<2){for(var r,a=_r(this.node(),n).tween,i=0,c=a.length;i<c;++i)if((r=a[i]).name===t)return r.value;return null}return this.each((null==e?function(t,e){var n,r;return function(){var a=mr(this,t),i=a.tween;if(i!==n)for(var c=0,o=(r=n=i).length;c<o;++c)if(r[c].name===e){(r=r.slice()).splice(c,1);break}a.tween=r}}:function(t,e,n){var r,a;if("function"!=typeof n)throw new Error;return function(){var i=mr(this,t),c=i.tween;if(c!==r){a=(r=c).slice();for(var o={name:e,value:n},f=0,s=a.length;f<s;++f)if(a[f].name===e){a[f]=o;break}f===s&&a.push(o)}i.tween=a}})(n,t,e))},delay:function(t){var e=this._id;return arguments.length?this.each(("function"==typeof t?function(t,e){return function(){vr(this,t).delay=+e.apply(this,arguments)}}:function(t,e){return e=+e,function(){vr(this,t).delay=e}})(e,t)):_r(this.node(),e).delay},duration:function(t){var e=this._id;return arguments.length?this.each(("function"==typeof t?function(t,e){return function(){mr(this,t).duration=+e.apply(this,arguments)}}:function(t,e){return e=+e,function(){mr(this,t).duration=e}})(e,t)):_r(this.node(),e).duration},ease:function(t){var e=this._id;return arguments.length?this.each(function(t,e){if("function"!=typeof e)throw new Error;return function(){mr(this,t).ease=e}}(e,t)):_r(this.node(),e).ease},end:function(){var t,e,n=this,r=n._id,a=n.size();return new Promise(function(i,c){var o={value:c},f={value:function(){0==--a&&i()}};n.each(function(){var n=mr(this,r),a=n.on;a!==t&&((e=(t=a).copy())._.cancel.push(o),e._.interrupt.push(o),e._.end.push(f)),n.on=e})})}};Math.PI,Math.PI;var Sr={time:null,delay:0,duration:250,ease:function(t){return((t*=2)<=1?t*t*t:(t-=2)*t*t+2)/2}};function Dr(t,e){for(var n;!(n=t.__transition)||!(n=n[e]);)if(!(t=t.parentNode))return Sr.time=tr(),Sr;return n}function Er(t){return function(){return t}}function Pr(t,e,n){this.target=t,this.type=e,this.selection=n}function zr(){ce.stopImmediatePropagation()}function Ur(){ce.preventDefault(),ce.stopImmediatePropagation()}be.prototype.interrupt=function(t){return this.each(function(){wr(this,t)})},be.prototype.transition=function(t){var e,n;t instanceof Cr?(e=t._id,t=t._name):(e=$r(),(n=Sr).time=tr(),t=null==t?null:t+"");for(var r=this._groups,a=r.length,i=0;i<a;++i)for(var c,o=r[i],f=o.length,s=0;s<f;++s)(c=o[s])&&yr(c,t,e,s,o,n||Dr(c,e));return new Cr(r,this._parents,t,e)};var Yr={name:"drag"},Lr={name:"space"},Or={name:"handle"},Rr={name:"center"},Fr={name:"x",handles:["e","w"].map(Xr),input:function(t,e){return t&&[[t[0],e[0][1]],[t[1],e[1][1]]]},output:function(t){return t&&[t[0][0],t[1][0]]}},Ir={name:"y",handles:["n","s"].map(Xr),input:function(t,e){return t&&[[e[0][0],t[0]],[e[1][0],t[1]]]},output:function(t){return t&&[t[0][1],t[1][1]]}},Hr={overlay:"crosshair",selection:"move",n:"ns-resize",e:"ew-resize",s:"ns-resize",w:"ew-resize",nw:"nwse-resize",ne:"nesw-resize",se:"nwse-resize",sw:"nesw-resize"},jr={e:"w",w:"e",nw:"ne",ne:"nw",se:"sw",sw:"se"},qr={n:"s",s:"n",nw:"sw",ne:"se",se:"ne",sw:"nw"},Wr={overlay:1,selection:1,n:null,e:1,s:null,w:-1,nw:-1,ne:1,se:1,sw:-1},Zr={overlay:1,selection:1,n:-1,e:null,s:1,w:null,nw:-1,ne:-1,se:1,sw:1};function Xr(t){return{type:t}}function Vr(){return!ce.button}function Br(){var t=this.ownerSVGElement||this;return[[0,0],[t.width.baseVal.value,t.height.baseVal.value]]}function Gr(t){for(;!t.__brush;)if(!(t=t.parentNode))return;return t.__brush}function Qr(t){return t[0][0]===t[1][0]||t[0][1]===t[1][1]}function Jr(){return function(t){var e,n=Br,r=Vr,a=kt(c,"start","brush","end"),i=6;function c(e){var n=e.property("__brush",l).selectAll(".overlay").data([Xr("overlay")]);n.enter().append("rect").attr("class","overlay").attr("pointer-events","all").attr("cursor",Hr.overlay).merge(n).each(function(){var t=Gr(this).extent;pe(this).attr("x",t[0][0]).attr("y",t[0][1]).attr("width",t[1][0]-t[0][0]).attr("height",t[1][1]-t[0][1])}),e.selectAll(".selection").data([Xr("selection")]).enter().append("rect").attr("class","selection").attr("cursor",Hr.selection).attr("fill","#777").attr("fill-opacity",.3).attr("stroke","#fff").attr("shape-rendering","crispEdges");var r=e.selectAll(".handle").data(t.handles,function(t){return t.type});r.exit().remove(),r.enter().append("rect").attr("class",function(t){return"handle handle--"+t.type}).attr("cursor",function(t){return Hr[t.type]}),e.each(o).attr("fill","none").attr("pointer-events","all").style("-webkit-tap-highlight-color","rgba(0,0,0,0)").on("mousedown.brush touchstart.brush",u)}function o(){var t=pe(this),e=Gr(this).selection;e?(t.selectAll(".selection").style("display",null).attr("x",e[0][0]).attr("y",e[0][1]).attr("width",e[1][0]-e[0][0]).attr("height",e[1][1]-e[0][1]),t.selectAll(".handle").style("display",null).attr("x",function(t){return"e"===t.type[t.type.length-1]?e[1][0]-i/2:e[0][0]-i/2}).attr("y",function(t){return"s"===t.type[0]?e[1][1]-i/2:e[0][1]-i/2}).attr("width",function(t){return"n"===t.type||"s"===t.type?e[1][0]-e[0][0]+i:i}).attr("height",function(t){return"e"===t.type||"w"===t.type?e[1][1]-e[0][1]+i:i})):t.selectAll(".selection,.handle").style("display","none").attr("x",null).attr("y",null).attr("width",null).attr("height",null)}function f(t,e){return t.__brush.emitter||new s(t,e)}function s(t,e){this.that=t,this.args=e,this.state=t.__brush,this.active=0}function u(){if(ce.touches){if(ce.changedTouches.length<ce.touches.length)return Ur()}else if(e)return;if(r.apply(this,arguments)){var n,a,i,c,s,u,l,d,h,b,p,g,y,v=this,m=ce.target.__data__.type,_="selection"===(ce.metaKey?m="overlay":m)?Yr:ce.altKey?Rr:Or,w=t===Ir?null:Wr[m],x=t===Fr?null:Zr[m],M=Gr(v),A=M.extent,k=M.selection,T=A[0][0],C=A[0][1],$=A[1][0],N=A[1][1],S=w&&x&&ce.shiftKey,D=ye(v),E=D,P=f(v,arguments).beforestart();"overlay"===m?M.selection=k=[[n=t===Ir?T:D[0],i=t===Fr?C:D[1]],[s=t===Ir?$:n,l=t===Fr?N:i]]:(n=k[0][0],i=k[0][1],s=k[1][0],l=k[1][1]),a=n,c=i,u=s,d=l;var z=pe(v).attr("pointer-events","none"),U=z.selectAll(".overlay").attr("cursor",Hr[m]);if(ce.touches)z.on("touchmove.brush",L,!0).on("touchend.brush touchcancel.brush",R,!0);else{var Y=pe(ce.view).on("keydown.brush",function(){switch(ce.keyCode){case 16:S=w&&x;break;case 18:_===Or&&(w&&(s=u-h*w,n=a+h*w),x&&(l=d-b*x,i=c+b*x),_=Rr,O());break;case 32:_!==Or&&_!==Rr||(w<0?s=u-h:w>0&&(n=a-h),x<0?l=d-b:x>0&&(i=c-b),_=Lr,U.attr("cursor",Hr.selection),O());break;default:return}Ur()},!0).on("keyup.brush",function(){switch(ce.keyCode){case 16:S&&(g=y=S=!1,O());break;case 18:_===Rr&&(w<0?s=u:w>0&&(n=a),x<0?l=d:x>0&&(i=c),_=Or,O());break;case 32:_===Lr&&(ce.altKey?(w&&(s=u-h*w,n=a+h*w),x&&(l=d-b*x,i=c+b*x),_=Rr):(w<0?s=u:w>0&&(n=a),x<0?l=d:x>0&&(i=c),_=Or),U.attr("cursor",Hr[m]),O());break;default:return}Ur()},!0).on("mousemove.brush",L,!0).on("mouseup.brush",R,!0);!function(t){var e=t.document.documentElement,n=pe(t).on("dragstart.drag",ve,!0);"onselectstart"in e?n.on("selectstart.drag",ve,!0):(e.__noselect=e.style.MozUserSelect,e.style.MozUserSelect="none")}(ce.view)}zr(),wr(v),o.call(v),P.start()}function L(){var t=ye(v);!S||g||y||(Math.abs(t[0]-E[0])>Math.abs(t[1]-E[1])?y=!0:g=!0),E=t,p=!0,Ur(),O()}function O(){var t;switch(h=E[0]-D[0],b=E[1]-D[1],_){case Lr:case Yr:w&&(h=Math.max(T-n,Math.min($-s,h)),a=n+h,u=s+h),x&&(b=Math.max(C-i,Math.min(N-l,b)),c=i+b,d=l+b);break;case Or:w<0?(h=Math.max(T-n,Math.min($-n,h)),a=n+h,u=s):w>0&&(h=Math.max(T-s,Math.min($-s,h)),a=n,u=s+h),x<0?(b=Math.max(C-i,Math.min(N-i,b)),c=i+b,d=l):x>0&&(b=Math.max(C-l,Math.min(N-l,b)),c=i,d=l+b);break;case Rr:w&&(a=Math.max(T,Math.min($,n-h*w)),u=Math.max(T,Math.min($,s+h*w))),x&&(c=Math.max(C,Math.min(N,i-b*x)),d=Math.max(C,Math.min(N,l+b*x)))}u<a&&(w*=-1,t=n,n=s,s=t,t=a,a=u,u=t,m in jr&&U.attr("cursor",Hr[m=jr[m]])),d<c&&(x*=-1,t=i,i=l,l=t,t=c,c=d,d=t,m in qr&&U.attr("cursor",Hr[m=qr[m]])),M.selection&&(k=M.selection),g&&(a=k[0][0],u=k[1][0]),y&&(c=k[0][1],d=k[1][1]),k[0][0]===a&&k[0][1]===c&&k[1][0]===u&&k[1][1]===d||(M.selection=[[a,c],[u,d]],o.call(v),P.brush())}function R(){if(zr(),ce.touches){if(ce.touches.length)return;e&&clearTimeout(e),e=setTimeout(function(){e=null},500),z.on("touchmove.brush touchend.brush touchcancel.brush",null)}else!function(t,e){var n=t.document.documentElement,r=pe(t).on("dragstart.drag",null);e&&(r.on("click.drag",ve,!0),setTimeout(function(){r.on("click.drag",null)},0)),"onselectstart"in n?r.on("selectstart.drag",null):(n.style.MozUserSelect=n.__noselect,delete n.__noselect)}(ce.view,p),Y.on("keydown.brush keyup.brush mousemove.brush mouseup.brush",null);z.attr("pointer-events","all"),U.attr("cursor",Hr.overlay),M.selection&&(k=M.selection),Qr(k)&&(M.selection=null,o.call(v)),P.end()}}function l(){var e=this.__brush||{selection:null};return e.extent=n.apply(this,arguments),e.dim=t,e}return c.move=function(e,n){e.selection?e.on("start.brush",function(){f(this,arguments).beforestart().start()}).on("interrupt.brush end.brush",function(){f(this,arguments).end()}).tween("brush",function(){var e=this,r=e.__brush,a=f(e,arguments),i=r.selection,c=t.input("function"==typeof n?n.apply(this,arguments):n,r.extent),s=Nn(i,c);function u(t){r.selection=1===t&&Qr(c)?null:s(t),o.call(e),a.brush()}return i&&c?u:u(1)}):e.each(function(){var e=arguments,r=this.__brush,a=t.input("function"==typeof n?n.apply(this,e):n,r.extent),i=f(this,e).beforestart();wr(this),r.selection=null==a||Qr(a)?null:a,o.call(this),i.start().brush().end()})},s.prototype={beforestart:function(){return 1==++this.active&&(this.state.emitter=this,this.starting=!0),this},start:function(){return this.starting&&(this.starting=!1,this.emit("start")),this},brush:function(){return this.emit("brush"),this},end:function(){return 0==--this.active&&(delete this.state.emitter,this.emit("end")),this},emit:function(e){!function(t,e,n,r){var a=ce;t.sourceEvent=ce,ce=t;try{e.apply(n,r)}finally{ce=a}}(new Pr(c,e,t.output(this.state.selection)),a.apply,a,[e,this.that,this.args])}},c.extent=function(t){return arguments.length?(n="function"==typeof t?t:Er([[+t[0][0],+t[0][1]],[+t[1][0],+t[1][1]]]),c):n},c.filter=function(t){return arguments.length?(r="function"==typeof t?t:Er(!!t),c):r},c.handleSize=function(t){return arguments.length?(i=+t,c):i},c.on=function(){var t=a.on.apply(a,arguments);return t===a?c:t},c}(Fr)}Math.PI;var Kr=Math.PI,ta=2*Kr,ea=ta-1e-6;function na(){this._x0=this._y0=this._x1=this._y1=null,this._=""}function ra(){return new na}na.prototype=ra.prototype={constructor:na,moveTo:function(t,e){this._+="M"+(this._x0=this._x1=+t)+","+(this._y0=this._y1=+e)},closePath:function(){null!==this._x1&&(this._x1=this._x0,this._y1=this._y0,this._+="Z")},lineTo:function(t,e){this._+="L"+(this._x1=+t)+","+(this._y1=+e)},quadraticCurveTo:function(t,e,n,r){this._+="Q"+ +t+","+ +e+","+(this._x1=+n)+","+(this._y1=+r)},bezierCurveTo:function(t,e,n,r,a,i){this._+="C"+ +t+","+ +e+","+ +n+","+ +r+","+(this._x1=+a)+","+(this._y1=+i)},arcTo:function(t,e,n,r,a){t=+t,e=+e,n=+n,r=+r,a=+a;var i=this._x1,c=this._y1,o=n-t,f=r-e,s=i-t,u=c-e,l=s*s+u*u;if(a<0)throw new Error("negative radius: "+a);if(null===this._x1)this._+="M"+(this._x1=t)+","+(this._y1=e);else if(l>1e-6)if(Math.abs(u*o-f*s)>1e-6&&a){var d=n-i,h=r-c,b=o*o+f*f,p=d*d+h*h,g=Math.sqrt(b),y=Math.sqrt(l),v=a*Math.tan((Kr-Math.acos((b+l-p)/(2*g*y)))/2),m=v/y,_=v/g;Math.abs(m-1)>1e-6&&(this._+="L"+(t+m*s)+","+(e+m*u)),this._+="A"+a+","+a+",0,0,"+ +(u*d>s*h)+","+(this._x1=t+_*o)+","+(this._y1=e+_*f)}else this._+="L"+(this._x1=t)+","+(this._y1=e);else;},arc:function(t,e,n,r,a,i){t=+t,e=+e;var c=(n=+n)*Math.cos(r),o=n*Math.sin(r),f=t+c,s=e+o,u=1^i,l=i?r-a:a-r;if(n<0)throw new Error("negative radius: "+n);null===this._x1?this._+="M"+f+","+s:(Math.abs(this._x1-f)>1e-6||Math.abs(this._y1-s)>1e-6)&&(this._+="L"+f+","+s),n&&(l<0&&(l=l%ta+ta),l>ea?this._+="A"+n+","+n+",0,1,"+u+","+(t-c)+","+(e-o)+"A"+n+","+n+",0,1,"+u+","+(this._x1=f)+","+(this._y1=s):l>1e-6&&(this._+="A"+n+","+n+",0,"+ +(l>=Kr)+","+u+","+(this._x1=t+n*Math.cos(a))+","+(this._y1=e+n*Math.sin(a))))},rect:function(t,e,n,r){this._+="M"+(this._x0=this._x1=+t)+","+(this._y0=this._y1=+e)+"h"+ +n+"v"+ +r+"h"+-n+"Z"},toString:function(){return this._}};function aa(){}function ia(t,e){var n=new aa;if(t instanceof aa)t.each(function(t,e){n.set(e,t)});else if(Array.isArray(t)){var r,a=-1,i=t.length;if(null==e)for(;++a<i;)n.set(a,t[a]);else for(;++a<i;)n.set(e(r=t[a],a,t),r)}else if(t)for(var c in t)n.set(c,t[c]);return n}function ca(){var t,e,n,r=[],a=[];function i(n,a,c,o){if(a>=r.length)return null!=t&&n.sort(t),null!=e?e(n):n;for(var f,s,u,l=-1,d=n.length,h=r[a++],b=ia(),p=c();++l<d;)(u=b.get(f=h(s=n[l])+""))?u.push(s):b.set(f,[s]);return b.each(function(t,e){o(p,e,i(t,a,c,o))}),p}return n={object:function(t){return i(t,0,oa,fa)},map:function(t){return i(t,0,sa,ua)},entries:function(t){return function t(n,i){if(++i>r.length)return n;var c,o=a[i-1];return null!=e&&i>=r.length?c=n.entries():(c=[],n.each(function(e,n){c.push({key:n,values:t(e,i)})})),null!=o?c.sort(function(t,e){return o(t.key,e.key)}):c}(i(t,0,sa,ua),0)},key:function(t){return r.push(t),n},sortKeys:function(t){return a[r.length-1]=t,n},sortValues:function(e){return t=e,n},rollup:function(t){return e=t,n}}}function oa(){return{}}function fa(t,e,n){t[e]=n}function sa(){return ia()}function ua(t,e,n){t.set(e,n)}function la(){}aa.prototype=ia.prototype={constructor:aa,has:function(t){return"$"+t in this},get:function(t){return this["$"+t]},set:function(t,e){return this["$"+t]=e,this},remove:function(t){var e="$"+t;return e in this&&delete this[e]},clear:function(){for(var t in this)"$"===t[0]&&delete this[t]},keys:function(){var t=[];for(var e in this)"$"===e[0]&&t.push(e.slice(1));return t},values:function(){var t=[];for(var e in this)"$"===e[0]&&t.push(this[e]);return t},entries:function(){var t=[];for(var e in this)"$"===e[0]&&t.push({key:e.slice(1),value:this[e]});return t},size:function(){var t=0;for(var e in this)"$"===e[0]&&++t;return t},empty:function(){for(var t in this)if("$"===t[0])return!1;return!0},each:function(t){for(var e in this)"$"===e[0]&&t(this[e],e.slice(1),this)}};var da=ia.prototype;la.prototype=function(t,e){var n=new la;if(t instanceof la)t.each(function(t){n.add(t)});else if(t){var r=-1,a=t.length;if(null==e)for(;++r<a;)n.add(t[r]);else for(;++r<a;)n.add(e(t[r],r,t))}return n}.prototype={constructor:la,has:da.has,add:function(t){return this["$"+(t+="")]=t,this},remove:da.remove,clear:da.clear,values:da.keys,size:da.size,empty:da.empty,each:da.each};var ha={},ba={},pa=34,ga=10,ya=13;function va(t){return new Function("d","return {"+t.map(function(t,e){return JSON.stringify(t)+": d["+e+"]"}).join(",")+"}")}function ma(t){var e=Object.create(null),n=[];return t.forEach(function(t){for(var r in t)r in e||n.push(e[r]=r)}),n}function _a(t,e){var n=t+"",r=n.length;return r<e?new Array(e-r+1).join(0)+n:n}function wa(t){var e,n=t.getUTCHours(),r=t.getUTCMinutes(),a=t.getUTCSeconds(),i=t.getUTCMilliseconds();return isNaN(t)?"Invalid Date":((e=t.getUTCFullYear())<0?"-"+_a(-e,6):e>9999?"+"+_a(e,6):_a(e,4))+"-"+_a(t.getUTCMonth()+1,2)+"-"+_a(t.getUTCDate(),2)+(i?"T"+_a(n,2)+":"+_a(r,2)+":"+_a(a,2)+"."+_a(i,3)+"Z":a?"T"+_a(n,2)+":"+_a(r,2)+":"+_a(a,2)+"Z":r||n?"T"+_a(n,2)+":"+_a(r,2)+"Z":"")}function xa(t){var e=new RegExp('["'+t+"\n\r]"),n=t.charCodeAt(0);function r(t,e){var r,a=[],i=t.length,c=0,o=0,f=i<=0,s=!1;function u(){if(f)return ba;if(s)return s=!1,ha;var e,r,a=c;if(t.charCodeAt(a)===pa){for(;c++<i&&t.charCodeAt(c)!==pa||t.charCodeAt(++c)===pa;);return(e=c)>=i?f=!0:(r=t.charCodeAt(c++))===ga?s=!0:r===ya&&(s=!0,t.charCodeAt(c)===ga&&++c),t.slice(a+1,e-1).replace(/""/g,'"')}for(;c<i;){if((r=t.charCodeAt(e=c++))===ga)s=!0;else if(r===ya)s=!0,t.charCodeAt(c)===ga&&++c;else if(r!==n)continue;return t.slice(a,e)}return f=!0,t.slice(a,i)}for(t.charCodeAt(i-1)===ga&&--i,t.charCodeAt(i-1)===ya&&--i;(r=u())!==ba;){for(var l=[];r!==ha&&r!==ba;)l.push(r),r=u();e&&null==(l=e(l,o++))||a.push(l)}return a}function a(e,n){return e.map(function(e){return n.map(function(t){return c(e[t])}).join(t)})}function i(e){return e.map(c).join(t)}function c(t){return null==t?"":t instanceof Date?wa(t):e.test(t+="")?'"'+t.replace(/"/g,'""')+'"':t}return{parse:function(t,e){var n,a,i=r(t,function(t,r){if(n)return n(t,r-1);a=t,n=e?function(t,e){var n=va(t);return function(r,a){return e(n(r),a,t)}}(t,e):va(t)});return i.columns=a||[],i},parseRows:r,format:function(e,n){return null==n&&(n=ma(e)),[n.map(c).join(t)].concat(a(e,n)).join("\n")},formatBody:function(t,e){return null==e&&(e=ma(t)),a(t,e).join("\n")},formatRows:function(t){return t.map(i).join("\n")}}}var Ma=xa(",").parse;xa("\t");function Aa(t){if(!t.ok)throw new Error(t.status+" "+t.statusText);return t.text()}var ka,Ta=(ka=Ma,function(t,e,n){return 2===arguments.length&&"function"==typeof e&&(n=e,e=void 0),function(t,e){return fetch(t,e).then(Aa)}(t,e).then(function(t){return ka(t,n)})});function Ca(t,e,n,r){if(isNaN(e)||isNaN(n))return t;var a,i,c,o,f,s,u,l,d,h=t._root,b={data:r},p=t._x0,g=t._y0,y=t._x1,v=t._y1;if(!h)return t._root=b,t;for(;h.length;)if((s=e>=(i=(p+y)/2))?p=i:y=i,(u=n>=(c=(g+v)/2))?g=c:v=c,a=h,!(h=h[l=u<<1|s]))return a[l]=b,t;if(o=+t._x.call(null,h.data),f=+t._y.call(null,h.data),e===o&&n===f)return b.next=h,a?a[l]=b:t._root=b,t;do{a=a?a[l]=new Array(4):t._root=new Array(4),(s=e>=(i=(p+y)/2))?p=i:y=i,(u=n>=(c=(g+v)/2))?g=c:v=c}while((l=u<<1|s)==(d=(f>=c)<<1|o>=i));return a[d]=h,a[l]=b,t}function $a(t,e,n,r,a){this.node=t,this.x0=e,this.y0=n,this.x1=r,this.y1=a}function Na(t){return t[0]}function Sa(t){return t[1]}function Da(t,e,n,r,a,i){this._x=t,this._y=e,this._x0=n,this._y0=r,this._x1=a,this._y1=i,this._root=void 0}function Ea(t){for(var e={data:t.data},n=e;t=t.next;)n=n.next={data:t.data};return e}var Pa=function(t,e,n){var r=new Da(null==e?Na:e,null==n?Sa:n,NaN,NaN,NaN,NaN);return null==t?r:r.addAll(t)}.prototype=Da.prototype;Pa.copy=function(){var t,e,n=new Da(this._x,this._y,this._x0,this._y0,this._x1,this._y1),r=this._root;if(!r)return n;if(!r.length)return n._root=Ea(r),n;for(t=[{source:r,target:n._root=new Array(4)}];r=t.pop();)for(var a=0;a<4;++a)(e=r.source[a])&&(e.length?t.push({source:e,target:r.target[a]=new Array(4)}):r.target[a]=Ea(e));return n},Pa.add=function(t){var e=+this._x.call(null,t),n=+this._y.call(null,t);return Ca(this.cover(e,n),e,n,t)},Pa.addAll=function(t){var e,n,r,a,i=t.length,c=new Array(i),o=new Array(i),f=1/0,s=1/0,u=-1/0,l=-1/0;for(n=0;n<i;++n)isNaN(r=+this._x.call(null,e=t[n]))||isNaN(a=+this._y.call(null,e))||(c[n]=r,o[n]=a,r<f&&(f=r),r>u&&(u=r),a<s&&(s=a),a>l&&(l=a));if(f>u||s>l)return this;for(this.cover(f,s).cover(u,l),n=0;n<i;++n)Ca(this,c[n],o[n],t[n]);return this},Pa.cover=function(t,e){if(isNaN(t=+t)||isNaN(e=+e))return this;var n=this._x0,r=this._y0,a=this._x1,i=this._y1;if(isNaN(n))a=(n=Math.floor(t))+1,i=(r=Math.floor(e))+1;else{for(var c,o,f=a-n,s=this._root;n>t||t>=a||r>e||e>=i;)switch(o=(e<r)<<1|t<n,(c=new Array(4))[o]=s,s=c,f*=2,o){case 0:a=n+f,i=r+f;break;case 1:n=a-f,i=r+f;break;case 2:a=n+f,r=i-f;break;case 3:n=a-f,r=i-f}this._root&&this._root.length&&(this._root=s)}return this._x0=n,this._y0=r,this._x1=a,this._y1=i,this},Pa.data=function(){var t=[];return this.visit(function(e){if(!e.length)do{t.push(e.data)}while(e=e.next)}),t},Pa.extent=function(t){return arguments.length?this.cover(+t[0][0],+t[0][1]).cover(+t[1][0],+t[1][1]):isNaN(this._x0)?void 0:[[this._x0,this._y0],[this._x1,this._y1]]},Pa.find=function(t,e,n){var r,a,i,c,o,f,s,u=this._x0,l=this._y0,d=this._x1,h=this._y1,b=[],p=this._root;for(p&&b.push(new $a(p,u,l,d,h)),null==n?n=1/0:(u=t-n,l=e-n,d=t+n,h=e+n,n*=n);f=b.pop();)if(!(!(p=f.node)||(a=f.x0)>d||(i=f.y0)>h||(c=f.x1)<u||(o=f.y1)<l))if(p.length){var g=(a+c)/2,y=(i+o)/2;b.push(new $a(p[3],g,y,c,o),new $a(p[2],a,y,g,o),new $a(p[1],g,i,c,y),new $a(p[0],a,i,g,y)),(s=(e>=y)<<1|t>=g)&&(f=b[b.length-1],b[b.length-1]=b[b.length-1-s],b[b.length-1-s]=f)}else{var v=t-+this._x.call(null,p.data),m=e-+this._y.call(null,p.data),_=v*v+m*m;if(_<n){var w=Math.sqrt(n=_);u=t-w,l=e-w,d=t+w,h=e+w,r=p.data}}return r},Pa.remove=function(t){if(isNaN(i=+this._x.call(null,t))||isNaN(c=+this._y.call(null,t)))return this;var e,n,r,a,i,c,o,f,s,u,l,d,h=this._root,b=this._x0,p=this._y0,g=this._x1,y=this._y1;if(!h)return this;if(h.length)for(;;){if((s=i>=(o=(b+g)/2))?b=o:g=o,(u=c>=(f=(p+y)/2))?p=f:y=f,e=h,!(h=h[l=u<<1|s]))return this;if(!h.length)break;(e[l+1&3]||e[l+2&3]||e[l+3&3])&&(n=e,d=l)}for(;h.data!==t;)if(r=h,!(h=h.next))return this;return(a=h.next)&&delete h.next,r?(a?r.next=a:delete r.next,this):e?(a?e[l]=a:delete e[l],(h=e[0]||e[1]||e[2]||e[3])&&h===(e[3]||e[2]||e[1]||e[0])&&!h.length&&(n?n[d]=h:this._root=h),this):(this._root=a,this)},Pa.removeAll=function(t){for(var e=0,n=t.length;e<n;++e)this.remove(t[e]);return this},Pa.root=function(){return this._root},Pa.size=function(){var t=0;return this.visit(function(e){if(!e.length)do{++t}while(e=e.next)}),t},Pa.visit=function(t){var e,n,r,a,i,c,o=[],f=this._root;for(f&&o.push(new $a(f,this._x0,this._y0,this._x1,this._y1));e=o.pop();)if(!t(f=e.node,r=e.x0,a=e.y0,i=e.x1,c=e.y1)&&f.length){var s=(r+i)/2,u=(a+c)/2;(n=f[3])&&o.push(new $a(n,s,u,i,c)),(n=f[2])&&o.push(new $a(n,r,u,s,c)),(n=f[1])&&o.push(new $a(n,s,a,i,u)),(n=f[0])&&o.push(new $a(n,r,a,s,u))}return this},Pa.visitAfter=function(t){var e,n=[],r=[];for(this._root&&n.push(new $a(this._root,this._x0,this._y0,this._x1,this._y1));e=n.pop();){var a=e.node;if(a.length){var i,c=e.x0,o=e.y0,f=e.x1,s=e.y1,u=(c+f)/2,l=(o+s)/2;(i=a[0])&&n.push(new $a(i,c,o,u,l)),(i=a[1])&&n.push(new $a(i,u,o,f,l)),(i=a[2])&&n.push(new $a(i,c,l,u,s)),(i=a[3])&&n.push(new $a(i,u,l,f,s))}r.push(e)}for(;e=r.pop();)t(e.node,e.x0,e.y0,e.x1,e.y1);return this},Pa.x=function(t){return arguments.length?(this._x=t,this):this._x},Pa.y=function(t){return arguments.length?(this._y=t,this):this._y};Math.PI,Math.sqrt(5);function za(t,e){if((n=(t=e?t.toExponential(e-1):t.toExponential()).indexOf("e"))<0)return null;var n,r=t.slice(0,n);return[r.length>1?r[0]+r.slice(2):r,+t.slice(n+1)]}function Ua(t){return(t=za(Math.abs(t)))?t[1]:NaN}var Ya,La=/^(?:(.)?([<>=^]))?([+\-( ])?([$#])?(0)?(\d+)?(,)?(\.\d+)?(~)?([a-z%])?$/i;function Oa(t){return new Ra(t)}function Ra(t){if(!(e=La.exec(t)))throw new Error("invalid format: "+t);var e;this.fill=e[1]||" ",this.align=e[2]||">",this.sign=e[3]||"-",this.symbol=e[4]||"",this.zero=!!e[5],this.width=e[6]&&+e[6],this.comma=!!e[7],this.precision=e[8]&&+e[8].slice(1),this.trim=!!e[9],this.type=e[10]||""}function Fa(t,e){var n=za(t,e);if(!n)return t+"";var r=n[0],a=n[1];return a<0?"0."+new Array(-a).join("0")+r:r.length>a+1?r.slice(0,a+1)+"."+r.slice(a+1):r+new Array(a-r.length+2).join("0")}Oa.prototype=Ra.prototype,Ra.prototype.toString=function(){return this.fill+this.align+this.sign+this.symbol+(this.zero?"0":"")+(null==this.width?"":Math.max(1,0|this.width))+(this.comma?",":"")+(null==this.precision?"":"."+Math.max(0,0|this.precision))+(this.trim?"~":"")+this.type};var Ia={"%":function(t,e){return(100*t).toFixed(e)},b:function(t){return Math.round(t).toString(2)},c:function(t){return t+""},d:function(t){return Math.round(t).toString(10)},e:function(t,e){return t.toExponential(e)},f:function(t,e){return t.toFixed(e)},g:function(t,e){return t.toPrecision(e)},o:function(t){return Math.round(t).toString(8)},p:function(t,e){return Fa(100*t,e)},r:Fa,s:function(t,e){var n=za(t,e);if(!n)return t+"";var r=n[0],a=n[1],i=a-(Ya=3*Math.max(-8,Math.min(8,Math.floor(a/3))))+1,c=r.length;return i===c?r:i>c?r+new Array(i-c+1).join("0"):i>0?r.slice(0,i)+"."+r.slice(i):"0."+new Array(1-i).join("0")+za(t,Math.max(0,e+i-1))[0]},X:function(t){return Math.round(t).toString(16).toUpperCase()},x:function(t){return Math.round(t).toString(16)}};function Ha(t){return t}var ja,qa,Wa,Za=["y","z","a","f","p","n","µ","m","","k","M","G","T","P","E","Z","Y"];function Xa(t){var e,n,r=t.grouping&&t.thousands?(e=t.grouping,n=t.thousands,function(t,r){for(var a=t.length,i=[],c=0,o=e[0],f=0;a>0&&o>0&&(f+o+1>r&&(o=Math.max(1,r-f)),i.push(t.substring(a-=o,a+o)),!((f+=o+1)>r));)o=e[c=(c+1)%e.length];return i.reverse().join(n)}):Ha,a=t.currency,i=t.decimal,c=t.numerals?function(t){return function(e){return e.replace(/[0-9]/g,function(e){return t[+e]})}}(t.numerals):Ha,o=t.percent||"%";function f(t){var e=(t=Oa(t)).fill,n=t.align,f=t.sign,s=t.symbol,u=t.zero,l=t.width,d=t.comma,h=t.precision,b=t.trim,p=t.type;"n"===p?(d=!0,p="g"):Ia[p]||(null==h&&(h=12),b=!0,p="g"),(u||"0"===e&&"="===n)&&(u=!0,e="0",n="=");var g="$"===s?a[0]:"#"===s&&/[boxX]/.test(p)?"0"+p.toLowerCase():"",y="$"===s?a[1]:/[%p]/.test(p)?o:"",v=Ia[p],m=/[defgprs%]/.test(p);function _(t){var a,o,s,_=g,w=y;if("c"===p)w=v(t)+w,t="";else{var x=(t=+t)<0;if(t=v(Math.abs(t),h),b&&(t=function(t){t:for(var e,n=t.length,r=1,a=-1;r<n;++r)switch(t[r]){case".":a=e=r;break;case"0":0===a&&(a=r),e=r;break;default:if(a>0){if(!+t[r])break t;a=0}}return a>0?t.slice(0,a)+t.slice(e+1):t}(t)),x&&0==+t&&(x=!1),_=(x?"("===f?f:"-":"-"===f||"("===f?"":f)+_,w=("s"===p?Za[8+Ya/3]:"")+w+(x&&"("===f?")":""),m)for(a=-1,o=t.length;++a<o;)if(48>(s=t.charCodeAt(a))||s>57){w=(46===s?i+t.slice(a+1):t.slice(a))+w,t=t.slice(0,a);break}}d&&!u&&(t=r(t,1/0));var M=_.length+t.length+w.length,A=M<l?new Array(l-M+1).join(e):"";switch(d&&u&&(t=r(A+t,A.length?l-w.length:1/0),A=""),n){case"<":t=_+t+w+A;break;case"=":t=_+A+t+w;break;case"^":t=A.slice(0,M=A.length>>1)+_+t+w+A.slice(M);break;default:t=A+_+t+w}return c(t)}return h=null==h?6:/[gprs]/.test(p)?Math.max(1,Math.min(21,h)):Math.max(0,Math.min(20,h)),_.toString=function(){return t+""},_}return{format:f,formatPrefix:function(t,e){var n=f(((t=Oa(t)).type="f",t)),r=3*Math.max(-8,Math.min(8,Math.floor(Ua(e)/3))),a=Math.pow(10,-r),i=Za[8+r/3];return function(t){return n(a*t)+i}}}}function Va(){return new Ba}function Ba(){this.reset()}ja=Xa({decimal:".",thousands:",",grouping:[3],currency:["$",""]}),qa=ja.format,Wa=ja.formatPrefix,Ba.prototype={constructor:Ba,reset:function(){this.s=this.t=0},add:function(t){Qa(Ga,t,this.t),Qa(this,Ga.s,this.s),this.s?this.t+=Ga.t:this.s=Ga.t},valueOf:function(){return this.s}};var Ga=new Ba;function Qa(t,e,n){var r=t.s=e+n,a=r-e,i=r-a;t.t=e-i+(n-a)}Math.PI,Va(),Va(),Va(),Va(),Va(),Va(),Va(),Va();function Ja(t,e){switch(arguments.length){case 0:break;case 1:this.range(t);break;default:this.range(e).domain(t)}return this}var Ka=Array.prototype,ti=Ka.map,ei=Ka.slice;function ni(t){return+t}var ri=[0,1];function ai(t){return t}function ii(t,e){return(e-=t=+t)?function(n){return(n-t)/e}:(n=isNaN(e)?NaN:.5,function(){return n});var n}function ci(t){var e,n=t[0],r=t[t.length-1];return n>r&&(e=n,n=r,r=e),function(t){return Math.max(n,Math.min(r,t))}}function oi(t,e,n){var r=t[0],a=t[1],i=e[0],c=e[1];return a<r?(r=ii(a,r),i=n(c,i)):(r=ii(r,a),i=n(i,c)),function(t){return i(r(t))}}function fi(t,e,n){var r=Math.min(t.length,e.length)-1,a=new Array(r),i=new Array(r),c=-1;for(t[r]<t[0]&&(t=t.slice().reverse(),e=e.slice().reverse());++c<r;)a[c]=ii(t[c],t[c+1]),i[c]=n(e[c],e[c+1]);return function(e){var n=yt(t,e,1,r)-1;return i[n](a[n](e))}}function si(t,e){return e.domain(t.domain()).range(t.range()).interpolate(t.interpolate()).clamp(t.clamp()).unknown(t.unknown())}function ui(t,e){return function(){var t,e,n,r,a,i,c=ri,o=ri,f=Nn,s=ai;function u(){return r=Math.min(c.length,o.length)>2?fi:oi,a=i=null,l}function l(e){return isNaN(e=+e)?n:(a||(a=r(c.map(t),o,f)))(t(s(e)))}return l.invert=function(n){return s(e((i||(i=r(o,c.map(t),kn)))(n)))},l.domain=function(t){return arguments.length?(c=ti.call(t,ni),s===ai||(s=ci(c)),u()):c.slice()},l.range=function(t){return arguments.length?(o=ei.call(t),u()):o.slice()},l.rangeRound=function(t){return o=ei.call(t),f=Sn,u()},l.clamp=function(t){return arguments.length?(s=t?ci(c):ai,l):s!==ai},l.interpolate=function(t){return arguments.length?(f=t,u()):f},l.unknown=function(t){return arguments.length?(n=t,l):n},function(n,r){return t=n,e=r,u()}}()(t,e)}function li(t,e,n,r){var a,i=xt(t,e,n);switch((r=Oa(null==r?",f":r)).type){case"s":var c=Math.max(Math.abs(t),Math.abs(e));return null!=r.precision||isNaN(a=function(t,e){return Math.max(0,3*Math.max(-8,Math.min(8,Math.floor(Ua(e)/3)))-Ua(Math.abs(t)))}(i,c))||(r.precision=a),Wa(r,c);case"":case"e":case"g":case"p":case"r":null!=r.precision||isNaN(a=function(t,e){return t=Math.abs(t),e=Math.abs(e)-t,Math.max(0,Ua(e)-Ua(t))+1}(i,Math.max(Math.abs(t),Math.abs(e))))||(r.precision=a-("e"===r.type));break;case"f":case"%":null!=r.precision||isNaN(a=function(t){return Math.max(0,-Ua(Math.abs(t)))}(i))||(r.precision=a-2*("%"===r.type))}return qa(r)}function di(t){var e=t.domain;return t.ticks=function(t){var n=e();return function(t,e,n){var r,a,i,c,o=-1;if(n=+n,(t=+t)==(e=+e)&&n>0)return[t];if((r=e<t)&&(a=t,t=e,e=a),0===(c=wt(t,e,n))||!isFinite(c))return[];if(c>0)for(t=Math.ceil(t/c),e=Math.floor(e/c),i=new Array(a=Math.ceil(e-t+1));++o<a;)i[o]=(t+o)*c;else for(t=Math.floor(t*c),e=Math.ceil(e*c),i=new Array(a=Math.ceil(t-e+1));++o<a;)i[o]=(t-o)/c;return r&&i.reverse(),i}(n[0],n[n.length-1],null==t?10:t)},t.tickFormat=function(t,n){var r=e();return li(r[0],r[r.length-1],null==t?10:t,n)},t.nice=function(n){null==n&&(n=10);var r,a=e(),i=0,c=a.length-1,o=a[i],f=a[c];return f<o&&(r=o,o=f,f=r,r=i,i=c,c=r),(r=wt(o,f,n))>0?r=wt(o=Math.floor(o/r)*r,f=Math.ceil(f/r)*r,n):r<0&&(r=wt(o=Math.ceil(o*r)/r,f=Math.floor(f*r)/r,n)),r>0?(a[i]=Math.floor(o/r)*r,a[c]=Math.ceil(f/r)*r,e(a)):r<0&&(a[i]=Math.ceil(o*r)/r,a[c]=Math.floor(f*r)/r,e(a)),t},t}function hi(){var t=ui(ai,ai);return t.copy=function(){return si(t,hi())},Ja.apply(t,arguments),di(t)}var bi=new Date,pi=new Date;function gi(t,e,n,r){function a(e){return t(e=new Date(+e)),e}return a.floor=a,a.ceil=function(n){return t(n=new Date(n-1)),e(n,1),t(n),n},a.round=function(t){var e=a(t),n=a.ceil(t);return t-e<n-t?e:n},a.offset=function(t,n){return e(t=new Date(+t),null==n?1:Math.floor(n)),t},a.range=function(n,r,i){var c,o=[];if(n=a.ceil(n),i=null==i?1:Math.floor(i),!(n<r&&i>0))return o;do{o.push(c=new Date(+n)),e(n,i),t(n)}while(c<n&&n<r);return o},a.filter=function(n){return gi(function(e){if(e>=e)for(;t(e),!n(e);)e.setTime(e-1)},function(t,r){if(t>=t)if(r<0)for(;++r<=0;)for(;e(t,-1),!n(t););else for(;--r>=0;)for(;e(t,1),!n(t););})},n&&(a.count=function(e,r){return bi.setTime(+e),pi.setTime(+r),t(bi),t(pi),Math.floor(n(bi,pi))},a.every=function(t){return t=Math.floor(t),isFinite(t)&&t>0?t>1?a.filter(r?function(e){return r(e)%t==0}:function(e){return a.count(0,e)%t==0}):a:null}),a}var yi=gi(function(){},function(t,e){t.setTime(+t+e)},function(t,e){return e-t});yi.every=function(t){return t=Math.floor(t),isFinite(t)&&t>0?t>1?gi(function(e){e.setTime(Math.floor(e/t)*t)},function(e,n){e.setTime(+e+n*t)},function(e,n){return(n-e)/t}):yi:null};var vi=6e4,mi=6048e5,_i=gi(function(t){t.setTime(t-t.getMilliseconds())},function(t,e){t.setTime(+t+1e3*e)},function(t,e){return(e-t)/1e3},function(t){return t.getUTCSeconds()}),wi=gi(function(t){t.setTime(t-t.getMilliseconds()-1e3*t.getSeconds())},function(t,e){t.setTime(+t+e*vi)},function(t,e){return(e-t)/vi},function(t){return t.getMinutes()}),xi=gi(function(t){t.setTime(t-t.getMilliseconds()-1e3*t.getSeconds()-t.getMinutes()*vi)},function(t,e){t.setTime(+t+36e5*e)},function(t,e){return(e-t)/36e5},function(t){return t.getHours()}),Mi=gi(function(t){t.setHours(0,0,0,0)},function(t,e){t.setDate(t.getDate()+e)},function(t,e){return(e-t-(e.getTimezoneOffset()-t.getTimezoneOffset())*vi)/864e5},function(t){return t.getDate()-1});function Ai(t){return gi(function(e){e.setDate(e.getDate()-(e.getDay()+7-t)%7),e.setHours(0,0,0,0)},function(t,e){t.setDate(t.getDate()+7*e)},function(t,e){return(e-t-(e.getTimezoneOffset()-t.getTimezoneOffset())*vi)/mi})}var ki=Ai(0),Ti=Ai(1),Ci=(Ai(2),Ai(3),Ai(4)),$i=(Ai(5),Ai(6),gi(function(t){t.setDate(1),t.setHours(0,0,0,0)},function(t,e){t.setMonth(t.getMonth()+e)},function(t,e){return e.getMonth()-t.getMonth()+12*(e.getFullYear()-t.getFullYear())},function(t){return t.getMonth()})),Ni=gi(function(t){t.setMonth(0,1),t.setHours(0,0,0,0)},function(t,e){t.setFullYear(t.getFullYear()+e)},function(t,e){return e.getFullYear()-t.getFullYear()},function(t){return t.getFullYear()});Ni.every=function(t){return isFinite(t=Math.floor(t))&&t>0?gi(function(e){e.setFullYear(Math.floor(e.getFullYear()/t)*t),e.setMonth(0,1),e.setHours(0,0,0,0)},function(e,n){e.setFullYear(e.getFullYear()+n*t)}):null};gi(function(t){t.setUTCSeconds(0,0)},function(t,e){t.setTime(+t+e*vi)},function(t,e){return(e-t)/vi},function(t){return t.getUTCMinutes()}),gi(function(t){t.setUTCMinutes(0,0,0)},function(t,e){t.setTime(+t+36e5*e)},function(t,e){return(e-t)/36e5},function(t){return t.getUTCHours()});var Si=gi(function(t){t.setUTCHours(0,0,0,0)},function(t,e){t.setUTCDate(t.getUTCDate()+e)},function(t,e){return(e-t)/864e5},function(t){return t.getUTCDate()-1});function Di(t){return gi(function(e){e.setUTCDate(e.getUTCDate()-(e.getUTCDay()+7-t)%7),e.setUTCHours(0,0,0,0)},function(t,e){t.setUTCDate(t.getUTCDate()+7*e)},function(t,e){return(e-t)/mi})}var Ei=Di(0),Pi=Di(1),zi=(Di(2),Di(3),Di(4)),Ui=(Di(5),Di(6),gi(function(t){t.setUTCDate(1),t.setUTCHours(0,0,0,0)},function(t,e){t.setUTCMonth(t.getUTCMonth()+e)},function(t,e){return e.getUTCMonth()-t.getUTCMonth()+12*(e.getUTCFullYear()-t.getUTCFullYear())},function(t){return t.getUTCMonth()}),gi(function(t){t.setUTCMonth(0,1),t.setUTCHours(0,0,0,0)},function(t,e){t.setUTCFullYear(t.getUTCFullYear()+e)},function(t,e){return e.getUTCFullYear()-t.getUTCFullYear()},function(t){return t.getUTCFullYear()}));function Yi(t){if(0<=t.y&&t.y<100){var e=new Date(-1,t.m,t.d,t.H,t.M,t.S,t.L);return e.setFullYear(t.y),e}return new Date(t.y,t.m,t.d,t.H,t.M,t.S,t.L)}function Li(t){if(0<=t.y&&t.y<100){var e=new Date(Date.UTC(-1,t.m,t.d,t.H,t.M,t.S,t.L));return e.setUTCFullYear(t.y),e}return new Date(Date.UTC(t.y,t.m,t.d,t.H,t.M,t.S,t.L))}function Oi(t){return{y:t,m:0,d:1,H:0,M:0,S:0,L:0}}Ui.every=function(t){return isFinite(t=Math.floor(t))&&t>0?gi(function(e){e.setUTCFullYear(Math.floor(e.getUTCFullYear()/t)*t),e.setUTCMonth(0,1),e.setUTCHours(0,0,0,0)},function(e,n){e.setUTCFullYear(e.getUTCFullYear()+n*t)}):null};var Ri,Fi,Ii,Hi,ji={"-":"",_:" ",0:"0"},qi=/^\s*\d+/,Wi=/^%/,Zi=/[\\^$*+?|[\]().{}]/g;function Xi(t,e,n){var r=t<0?"-":"",a=(r?-t:t)+"",i=a.length;return r+(i<n?new Array(n-i+1).join(e)+a:a)}function Vi(t){return t.replace(Zi,"\\$&")}function Bi(t){return new RegExp("^(?:"+t.map(Vi).join("|")+")","i")}function Gi(t){for(var e={},n=-1,r=t.length;++n<r;)e[t[n].toLowerCase()]=n;return e}function Qi(t,e,n){var r=qi.exec(e.slice(n,n+1));return r?(t.w=+r[0],n+r[0].length):-1}function Ji(t,e,n){var r=qi.exec(e.slice(n,n+1));return r?(t.u=+r[0],n+r[0].length):-1}function Ki(t,e,n){var r=qi.exec(e.slice(n,n+2));return r?(t.U=+r[0],n+r[0].length):-1}function tc(t,e,n){var r=qi.exec(e.slice(n,n+2));return r?(t.V=+r[0],n+r[0].length):-1}function ec(t,e,n){var r=qi.exec(e.slice(n,n+2));return r?(t.W=+r[0],n+r[0].length):-1}function nc(t,e,n){var r=qi.exec(e.slice(n,n+4));return r?(t.y=+r[0],n+r[0].length):-1}function rc(t,e,n){var r=qi.exec(e.slice(n,n+2));return r?(t.y=+r[0]+(+r[0]>68?1900:2e3),n+r[0].length):-1}function ac(t,e,n){var r=/^(Z)|([+-]\d\d)(?::?(\d\d))?/.exec(e.slice(n,n+6));return r?(t.Z=r[1]?0:-(r[2]+(r[3]||"00")),n+r[0].length):-1}function ic(t,e,n){var r=qi.exec(e.slice(n,n+2));return r?(t.m=r[0]-1,n+r[0].length):-1}function cc(t,e,n){var r=qi.exec(e.slice(n,n+2));return r?(t.d=+r[0],n+r[0].length):-1}function oc(t,e,n){var r=qi.exec(e.slice(n,n+3));return r?(t.m=0,t.d=+r[0],n+r[0].length):-1}function fc(t,e,n){var r=qi.exec(e.slice(n,n+2));return r?(t.H=+r[0],n+r[0].length):-1}function sc(t,e,n){var r=qi.exec(e.slice(n,n+2));return r?(t.M=+r[0],n+r[0].length):-1}function uc(t,e,n){var r=qi.exec(e.slice(n,n+2));return r?(t.S=+r[0],n+r[0].length):-1}function lc(t,e,n){var r=qi.exec(e.slice(n,n+3));return r?(t.L=+r[0],n+r[0].length):-1}function dc(t,e,n){var r=qi.exec(e.slice(n,n+6));return r?(t.L=Math.floor(r[0]/1e3),n+r[0].length):-1}function hc(t,e,n){var r=Wi.exec(e.slice(n,n+1));return r?n+r[0].length:-1}function bc(t,e,n){var r=qi.exec(e.slice(n));return r?(t.Q=+r[0],n+r[0].length):-1}function pc(t,e,n){var r=qi.exec(e.slice(n));return r?(t.Q=1e3*+r[0],n+r[0].length):-1}function gc(t,e){return Xi(t.getDate(),e,2)}function yc(t,e){return Xi(t.getHours(),e,2)}function vc(t,e){return Xi(t.getHours()%12||12,e,2)}function mc(t,e){return Xi(1+Mi.count(Ni(t),t),e,3)}function _c(t,e){return Xi(t.getMilliseconds(),e,3)}function wc(t,e){return _c(t,e)+"000"}function xc(t,e){return Xi(t.getMonth()+1,e,2)}function Mc(t,e){return Xi(t.getMinutes(),e,2)}function Ac(t,e){return Xi(t.getSeconds(),e,2)}function kc(t){var e=t.getDay();return 0===e?7:e}function Tc(t,e){return Xi(ki.count(Ni(t),t),e,2)}function Cc(t,e){var n=t.getDay();return t=n>=4||0===n?Ci(t):Ci.ceil(t),Xi(Ci.count(Ni(t),t)+(4===Ni(t).getDay()),e,2)}function $c(t){return t.getDay()}function Nc(t,e){return Xi(Ti.count(Ni(t),t),e,2)}function Sc(t,e){return Xi(t.getFullYear()%100,e,2)}function Dc(t,e){return Xi(t.getFullYear()%1e4,e,4)}function Ec(t){var e=t.getTimezoneOffset();return(e>0?"-":(e*=-1,"+"))+Xi(e/60|0,"0",2)+Xi(e%60,"0",2)}function Pc(t,e){return Xi(t.getUTCDate(),e,2)}function zc(t,e){return Xi(t.getUTCHours(),e,2)}function Uc(t,e){return Xi(t.getUTCHours()%12||12,e,2)}function Yc(t,e){return Xi(1+Si.count(Ui(t),t),e,3)}function Lc(t,e){return Xi(t.getUTCMilliseconds(),e,3)}function Oc(t,e){return Lc(t,e)+"000"}function Rc(t,e){return Xi(t.getUTCMonth()+1,e,2)}function Fc(t,e){return Xi(t.getUTCMinutes(),e,2)}function Ic(t,e){return Xi(t.getUTCSeconds(),e,2)}function Hc(t){var e=t.getUTCDay();return 0===e?7:e}function jc(t,e){return Xi(Ei.count(Ui(t),t),e,2)}function qc(t,e){var n=t.getUTCDay();return t=n>=4||0===n?zi(t):zi.ceil(t),Xi(zi.count(Ui(t),t)+(4===Ui(t).getUTCDay()),e,2)}function Wc(t){return t.getUTCDay()}function Zc(t,e){return Xi(Pi.count(Ui(t),t),e,2)}function Xc(t,e){return Xi(t.getUTCFullYear()%100,e,2)}function Vc(t,e){return Xi(t.getUTCFullYear()%1e4,e,4)}function Bc(){return"+0000"}function Gc(){return"%"}function Qc(t){return+t}function Jc(t){return Math.floor(+t/1e3)}!function(t){Ri=function(t){var e=t.dateTime,n=t.date,r=t.time,a=t.periods,i=t.days,c=t.shortDays,o=t.months,f=t.shortMonths,s=Bi(a),u=Gi(a),l=Bi(i),d=Gi(i),h=Bi(c),b=Gi(c),p=Bi(o),g=Gi(o),y=Bi(f),v=Gi(f),m={a:function(t){return c[t.getDay()]},A:function(t){return i[t.getDay()]},b:function(t){return f[t.getMonth()]},B:function(t){return o[t.getMonth()]},c:null,d:gc,e:gc,f:wc,H:yc,I:vc,j:mc,L:_c,m:xc,M:Mc,p:function(t){return a[+(t.getHours()>=12)]},Q:Qc,s:Jc,S:Ac,u:kc,U:Tc,V:Cc,w:$c,W:Nc,x:null,X:null,y:Sc,Y:Dc,Z:Ec,"%":Gc},_={a:function(t){return c[t.getUTCDay()]},A:function(t){return i[t.getUTCDay()]},b:function(t){return f[t.getUTCMonth()]},B:function(t){return o[t.getUTCMonth()]},c:null,d:Pc,e:Pc,f:Oc,H:zc,I:Uc,j:Yc,L:Lc,m:Rc,M:Fc,p:function(t){return a[+(t.getUTCHours()>=12)]},Q:Qc,s:Jc,S:Ic,u:Hc,U:jc,V:qc,w:Wc,W:Zc,x:null,X:null,y:Xc,Y:Vc,Z:Bc,"%":Gc},w={a:function(t,e,n){var r=h.exec(e.slice(n));return r?(t.w=b[r[0].toLowerCase()],n+r[0].length):-1},A:function(t,e,n){var r=l.exec(e.slice(n));return r?(t.w=d[r[0].toLowerCase()],n+r[0].length):-1},b:function(t,e,n){var r=y.exec(e.slice(n));return r?(t.m=v[r[0].toLowerCase()],n+r[0].length):-1},B:function(t,e,n){var r=p.exec(e.slice(n));return r?(t.m=g[r[0].toLowerCase()],n+r[0].length):-1},c:function(t,n,r){return A(t,e,n,r)},d:cc,e:cc,f:dc,H:fc,I:fc,j:oc,L:lc,m:ic,M:sc,p:function(t,e,n){var r=s.exec(e.slice(n));return r?(t.p=u[r[0].toLowerCase()],n+r[0].length):-1},Q:bc,s:pc,S:uc,u:Ji,U:Ki,V:tc,w:Qi,W:ec,x:function(t,e,r){return A(t,n,e,r)},X:function(t,e,n){return A(t,r,e,n)},y:rc,Y:nc,Z:ac,"%":hc};function x(t,e){return function(n){var r,a,i,c=[],o=-1,f=0,s=t.length;for(n instanceof Date||(n=new Date(+n));++o<s;)37===t.charCodeAt(o)&&(c.push(t.slice(f,o)),null!=(a=ji[r=t.charAt(++o)])?r=t.charAt(++o):a="e"===r?" ":"0",(i=e[r])&&(r=i(n,a)),c.push(r),f=o+1);return c.push(t.slice(f,o)),c.join("")}}function M(t,e){return function(n){var r,a,i=Oi(1900);if(A(i,t,n+="",0)!=n.length)return null;if("Q"in i)return new Date(i.Q);if("p"in i&&(i.H=i.H%12+12*i.p),"V"in i){if(i.V<1||i.V>53)return null;"w"in i||(i.w=1),"Z"in i?(a=(r=Li(Oi(i.y))).getUTCDay(),r=a>4||0===a?Pi.ceil(r):Pi(r),r=Si.offset(r,7*(i.V-1)),i.y=r.getUTCFullYear(),i.m=r.getUTCMonth(),i.d=r.getUTCDate()+(i.w+6)%7):(a=(r=e(Oi(i.y))).getDay(),r=a>4||0===a?Ti.ceil(r):Ti(r),r=Mi.offset(r,7*(i.V-1)),i.y=r.getFullYear(),i.m=r.getMonth(),i.d=r.getDate()+(i.w+6)%7)}else("W"in i||"U"in i)&&("w"in i||(i.w="u"in i?i.u%7:"W"in i?1:0),a="Z"in i?Li(Oi(i.y)).getUTCDay():e(Oi(i.y)).getDay(),i.m=0,i.d="W"in i?(i.w+6)%7+7*i.W-(a+5)%7:i.w+7*i.U-(a+6)%7);return"Z"in i?(i.H+=i.Z/100|0,i.M+=i.Z%100,Li(i)):e(i)}}function A(t,e,n,r){for(var a,i,c=0,o=e.length,f=n.length;c<o;){if(r>=f)return-1;if(37===(a=e.charCodeAt(c++))){if(a=e.charAt(c++),!(i=w[a in ji?e.charAt(c++):a])||(r=i(t,n,r))<0)return-1}else if(a!=n.charCodeAt(r++))return-1}return r}return m.x=x(n,m),m.X=x(r,m),m.c=x(e,m),_.x=x(n,_),_.X=x(r,_),_.c=x(e,_),{format:function(t){var e=x(t+="",m);return e.toString=function(){return t},e},parse:function(t){var e=M(t+="",Yi);return e.toString=function(){return t},e},utcFormat:function(t){var e=x(t+="",_);return e.toString=function(){return t},e},utcParse:function(t){var e=M(t,Li);return e.toString=function(){return t},e}}}(t),Fi=Ri.format,Ri.parse,Ii=Ri.utcFormat,Hi=Ri.utcParse}({dateTime:"%x, %X",date:"%-m/%-d/%Y",time:"%-I:%M:%S %p",periods:["AM","PM"],days:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],shortDays:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],months:["January","February","March","April","May","June","July","August","September","October","November","December"],shortMonths:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]});Date.prototype.toISOString||Ii("%Y-%m-%dT%H:%M:%S.%LZ");+new Date("2000-01-01T00:00:00.000Z")||Hi("%Y-%m-%dT%H:%M:%S.%LZ");var Kc=1e3,to=60*Kc,eo=60*to,no=24*eo,ro=7*no,ao=30*no,io=365*no;function co(t){return new Date(t)}function oo(t){return t instanceof Date?+t:+new Date(+t)}function fo(){return Ja.apply(function t(e,n,r,a,i,c,o,f,s){var u=ui(ai,ai),l=u.invert,d=u.domain,h=s(".%L"),b=s(":%S"),p=s("%I:%M"),g=s("%I %p"),y=s("%a %d"),v=s("%b %d"),m=s("%B"),_=s("%Y"),w=[[o,1,Kc],[o,5,5*Kc],[o,15,15*Kc],[o,30,30*Kc],[c,1,to],[c,5,5*to],[c,15,15*to],[c,30,30*to],[i,1,eo],[i,3,3*eo],[i,6,6*eo],[i,12,12*eo],[a,1,no],[a,2,2*no],[r,1,ro],[n,1,ao],[n,3,3*ao],[e,1,io]];function x(t){return(o(t)<t?h:c(t)<t?b:i(t)<t?p:a(t)<t?g:n(t)<t?r(t)<t?y:v:e(t)<t?m:_)(t)}function M(t,n,r,a){if(null==t&&(t=10),"number"==typeof t){var i=Math.abs(r-n)/t,c=gt(function(t){return t[2]}).right(w,i);c===w.length?(a=xt(n/io,r/io,t),t=e):c?(a=(c=w[i/w[c-1][2]<w[c][2]/i?c-1:c])[1],t=c[0]):(a=Math.max(xt(n,r,t),1),t=f)}return null==a?t:t.every(a)}return u.invert=function(t){return new Date(l(t))},u.domain=function(t){return arguments.length?d(ti.call(t,oo)):d().map(co)},u.ticks=function(t,e){var n,r=d(),a=r[0],i=r[r.length-1],c=i<a;return c&&(n=a,a=i,i=n),n=(n=M(t,a,i,e))?n.range(a,i+1):[],c?n.reverse():n},u.tickFormat=function(t,e){return null==e?x:s(e)},u.nice=function(t,e){var n=d();return(t=M(t,n[0],n[n.length-1],e))?d(function(t,e){var n,r=0,a=(t=t.slice()).length-1,i=t[r],c=t[a];return c<i&&(n=r,r=a,a=n,n=i,i=c,c=n),t[r]=e.floor(i),t[a]=e.ceil(c),t}(n,t)):u},u.copy=function(){return si(u,t(e,n,r,a,i,c,o,f,s))},u}(Ni,$i,ki,Mi,xi,wi,_i,yi,Fi).domain([new Date(2e3,0,1),new Date(2e3,0,2)]),arguments)}function so(t){for(var e=t.length/6|0,n=new Array(e),r=0;r<e;)n[r]="#"+t.slice(6*r,6*++r);return n}function uo(t){return An(t[t.length-1])}so("1f77b4ff7f0e2ca02cd627289467bd8c564be377c27f7f7fbcbd2217becf"),so("7fc97fbeaed4fdc086ffff99386cb0f0027fbf5b17666666"),so("1b9e77d95f027570b3e7298a66a61ee6ab02a6761d666666"),so("a6cee31f78b4b2df8a33a02cfb9a99e31a1cfdbf6fff7f00cab2d66a3d9affff99b15928"),so("fbb4aeb3cde3ccebc5decbe4fed9a6ffffcce5d8bdfddaecf2f2f2"),so("b3e2cdfdcdaccbd5e8f4cae4e6f5c9fff2aef1e2cccccccc"),so("e41a1c377eb84daf4a984ea3ff7f00ffff33a65628f781bf999999"),so("66c2a5fc8d628da0cbe78ac3a6d854ffd92fe5c494b3b3b3"),so("8dd3c7ffffb3bebadafb807280b1d3fdb462b3de69fccde5d9d9d9bc80bdccebc5ffed6f"),uo(new Array(3).concat("d8b365f5f5f55ab4ac","a6611adfc27d80cdc1018571","a6611adfc27df5f5f580cdc1018571","8c510ad8b365f6e8c3c7eae55ab4ac01665e","8c510ad8b365f6e8c3f5f5f5c7eae55ab4ac01665e","8c510abf812ddfc27df6e8c3c7eae580cdc135978f01665e","8c510abf812ddfc27df6e8c3f5f5f5c7eae580cdc135978f01665e","5430058c510abf812ddfc27df6e8c3c7eae580cdc135978f01665e003c30","5430058c510abf812ddfc27df6e8c3f5f5f5c7eae580cdc135978f01665e003c30").map(so)),uo(new Array(3).concat("af8dc3f7f7f77fbf7b","7b3294c2a5cfa6dba0008837","7b3294c2a5cff7f7f7a6dba0008837","762a83af8dc3e7d4e8d9f0d37fbf7b1b7837","762a83af8dc3e7d4e8f7f7f7d9f0d37fbf7b1b7837","762a839970abc2a5cfe7d4e8d9f0d3a6dba05aae611b7837","762a839970abc2a5cfe7d4e8f7f7f7d9f0d3a6dba05aae611b7837","40004b762a839970abc2a5cfe7d4e8d9f0d3a6dba05aae611b783700441b","40004b762a839970abc2a5cfe7d4e8f7f7f7d9f0d3a6dba05aae611b783700441b").map(so)),uo(new Array(3).concat("e9a3c9f7f7f7a1d76a","d01c8bf1b6dab8e1864dac26","d01c8bf1b6daf7f7f7b8e1864dac26","c51b7de9a3c9fde0efe6f5d0a1d76a4d9221","c51b7de9a3c9fde0eff7f7f7e6f5d0a1d76a4d9221","c51b7dde77aef1b6dafde0efe6f5d0b8e1867fbc414d9221","c51b7dde77aef1b6dafde0eff7f7f7e6f5d0b8e1867fbc414d9221","8e0152c51b7dde77aef1b6dafde0efe6f5d0b8e1867fbc414d9221276419","8e0152c51b7dde77aef1b6dafde0eff7f7f7e6f5d0b8e1867fbc414d9221276419").map(so)),uo(new Array(3).concat("998ec3f7f7f7f1a340","5e3c99b2abd2fdb863e66101","5e3c99b2abd2f7f7f7fdb863e66101","542788998ec3d8daebfee0b6f1a340b35806","542788998ec3d8daebf7f7f7fee0b6f1a340b35806","5427888073acb2abd2d8daebfee0b6fdb863e08214b35806","5427888073acb2abd2d8daebf7f7f7fee0b6fdb863e08214b35806","2d004b5427888073acb2abd2d8daebfee0b6fdb863e08214b358067f3b08","2d004b5427888073acb2abd2d8daebf7f7f7fee0b6fdb863e08214b358067f3b08").map(so)),uo(new Array(3).concat("ef8a62f7f7f767a9cf","ca0020f4a58292c5de0571b0","ca0020f4a582f7f7f792c5de0571b0","b2182bef8a62fddbc7d1e5f067a9cf2166ac","b2182bef8a62fddbc7f7f7f7d1e5f067a9cf2166ac","b2182bd6604df4a582fddbc7d1e5f092c5de4393c32166ac","b2182bd6604df4a582fddbc7f7f7f7d1e5f092c5de4393c32166ac","67001fb2182bd6604df4a582fddbc7d1e5f092c5de4393c32166ac053061","67001fb2182bd6604df4a582fddbc7f7f7f7d1e5f092c5de4393c32166ac053061").map(so)),uo(new Array(3).concat("ef8a62ffffff999999","ca0020f4a582bababa404040","ca0020f4a582ffffffbababa404040","b2182bef8a62fddbc7e0e0e09999994d4d4d","b2182bef8a62fddbc7ffffffe0e0e09999994d4d4d","b2182bd6604df4a582fddbc7e0e0e0bababa8787874d4d4d","b2182bd6604df4a582fddbc7ffffffe0e0e0bababa8787874d4d4d","67001fb2182bd6604df4a582fddbc7e0e0e0bababa8787874d4d4d1a1a1a","67001fb2182bd6604df4a582fddbc7ffffffe0e0e0bababa8787874d4d4d1a1a1a").map(so)),uo(new Array(3).concat("fc8d59ffffbf91bfdb","d7191cfdae61abd9e92c7bb6","d7191cfdae61ffffbfabd9e92c7bb6","d73027fc8d59fee090e0f3f891bfdb4575b4","d73027fc8d59fee090ffffbfe0f3f891bfdb4575b4","d73027f46d43fdae61fee090e0f3f8abd9e974add14575b4","d73027f46d43fdae61fee090ffffbfe0f3f8abd9e974add14575b4","a50026d73027f46d43fdae61fee090e0f3f8abd9e974add14575b4313695","a50026d73027f46d43fdae61fee090ffffbfe0f3f8abd9e974add14575b4313695").map(so)),uo(new Array(3).concat("fc8d59ffffbf91cf60","d7191cfdae61a6d96a1a9641","d7191cfdae61ffffbfa6d96a1a9641","d73027fc8d59fee08bd9ef8b91cf601a9850","d73027fc8d59fee08bffffbfd9ef8b91cf601a9850","d73027f46d43fdae61fee08bd9ef8ba6d96a66bd631a9850","d73027f46d43fdae61fee08bffffbfd9ef8ba6d96a66bd631a9850","a50026d73027f46d43fdae61fee08bd9ef8ba6d96a66bd631a9850006837","a50026d73027f46d43fdae61fee08bffffbfd9ef8ba6d96a66bd631a9850006837").map(so)),uo(new Array(3).concat("fc8d59ffffbf99d594","d7191cfdae61abdda42b83ba","d7191cfdae61ffffbfabdda42b83ba","d53e4ffc8d59fee08be6f59899d5943288bd","d53e4ffc8d59fee08bffffbfe6f59899d5943288bd","d53e4ff46d43fdae61fee08be6f598abdda466c2a53288bd","d53e4ff46d43fdae61fee08bffffbfe6f598abdda466c2a53288bd","9e0142d53e4ff46d43fdae61fee08be6f598abdda466c2a53288bd5e4fa2","9e0142d53e4ff46d43fdae61fee08bffffbfe6f598abdda466c2a53288bd5e4fa2").map(so)),uo(new Array(3).concat("e5f5f999d8c92ca25f","edf8fbb2e2e266c2a4238b45","edf8fbb2e2e266c2a42ca25f006d2c","edf8fbccece699d8c966c2a42ca25f006d2c","edf8fbccece699d8c966c2a441ae76238b45005824","f7fcfde5f5f9ccece699d8c966c2a441ae76238b45005824","f7fcfde5f5f9ccece699d8c966c2a441ae76238b45006d2c00441b").map(so)),uo(new Array(3).concat("e0ecf49ebcda8856a7","edf8fbb3cde38c96c688419d","edf8fbb3cde38c96c68856a7810f7c","edf8fbbfd3e69ebcda8c96c68856a7810f7c","edf8fbbfd3e69ebcda8c96c68c6bb188419d6e016b","f7fcfde0ecf4bfd3e69ebcda8c96c68c6bb188419d6e016b","f7fcfde0ecf4bfd3e69ebcda8c96c68c6bb188419d810f7c4d004b").map(so)),uo(new Array(3).concat("e0f3dba8ddb543a2ca","f0f9e8bae4bc7bccc42b8cbe","f0f9e8bae4bc7bccc443a2ca0868ac","f0f9e8ccebc5a8ddb57bccc443a2ca0868ac","f0f9e8ccebc5a8ddb57bccc44eb3d32b8cbe08589e","f7fcf0e0f3dbccebc5a8ddb57bccc44eb3d32b8cbe08589e","f7fcf0e0f3dbccebc5a8ddb57bccc44eb3d32b8cbe0868ac084081").map(so)),uo(new Array(3).concat("fee8c8fdbb84e34a33","fef0d9fdcc8afc8d59d7301f","fef0d9fdcc8afc8d59e34a33b30000","fef0d9fdd49efdbb84fc8d59e34a33b30000","fef0d9fdd49efdbb84fc8d59ef6548d7301f990000","fff7ecfee8c8fdd49efdbb84fc8d59ef6548d7301f990000","fff7ecfee8c8fdd49efdbb84fc8d59ef6548d7301fb300007f0000").map(so)),uo(new Array(3).concat("ece2f0a6bddb1c9099","f6eff7bdc9e167a9cf02818a","f6eff7bdc9e167a9cf1c9099016c59","f6eff7d0d1e6a6bddb67a9cf1c9099016c59","f6eff7d0d1e6a6bddb67a9cf3690c002818a016450","fff7fbece2f0d0d1e6a6bddb67a9cf3690c002818a016450","fff7fbece2f0d0d1e6a6bddb67a9cf3690c002818a016c59014636").map(so)),uo(new Array(3).concat("ece7f2a6bddb2b8cbe","f1eef6bdc9e174a9cf0570b0","f1eef6bdc9e174a9cf2b8cbe045a8d","f1eef6d0d1e6a6bddb74a9cf2b8cbe045a8d","f1eef6d0d1e6a6bddb74a9cf3690c00570b0034e7b","fff7fbece7f2d0d1e6a6bddb74a9cf3690c00570b0034e7b","fff7fbece7f2d0d1e6a6bddb74a9cf3690c00570b0045a8d023858").map(so)),uo(new Array(3).concat("e7e1efc994c7dd1c77","f1eef6d7b5d8df65b0ce1256","f1eef6d7b5d8df65b0dd1c77980043","f1eef6d4b9dac994c7df65b0dd1c77980043","f1eef6d4b9dac994c7df65b0e7298ace125691003f","f7f4f9e7e1efd4b9dac994c7df65b0e7298ace125691003f","f7f4f9e7e1efd4b9dac994c7df65b0e7298ace125698004367001f").map(so)),uo(new Array(3).concat("fde0ddfa9fb5c51b8a","feebe2fbb4b9f768a1ae017e","feebe2fbb4b9f768a1c51b8a7a0177","feebe2fcc5c0fa9fb5f768a1c51b8a7a0177","feebe2fcc5c0fa9fb5f768a1dd3497ae017e7a0177","fff7f3fde0ddfcc5c0fa9fb5f768a1dd3497ae017e7a0177","fff7f3fde0ddfcc5c0fa9fb5f768a1dd3497ae017e7a017749006a").map(so)),uo(new Array(3).concat("edf8b17fcdbb2c7fb8","ffffcca1dab441b6c4225ea8","ffffcca1dab441b6c42c7fb8253494","ffffccc7e9b47fcdbb41b6c42c7fb8253494","ffffccc7e9b47fcdbb41b6c41d91c0225ea80c2c84","ffffd9edf8b1c7e9b47fcdbb41b6c41d91c0225ea80c2c84","ffffd9edf8b1c7e9b47fcdbb41b6c41d91c0225ea8253494081d58").map(so)),uo(new Array(3).concat("f7fcb9addd8e31a354","ffffccc2e69978c679238443","ffffccc2e69978c67931a354006837","ffffccd9f0a3addd8e78c67931a354006837","ffffccd9f0a3addd8e78c67941ab5d238443005a32","ffffe5f7fcb9d9f0a3addd8e78c67941ab5d238443005a32","ffffe5f7fcb9d9f0a3addd8e78c67941ab5d238443006837004529").map(so)),uo(new Array(3).concat("fff7bcfec44fd95f0e","ffffd4fed98efe9929cc4c02","ffffd4fed98efe9929d95f0e993404","ffffd4fee391fec44ffe9929d95f0e993404","ffffd4fee391fec44ffe9929ec7014cc4c028c2d04","ffffe5fff7bcfee391fec44ffe9929ec7014cc4c028c2d04","ffffe5fff7bcfee391fec44ffe9929ec7014cc4c02993404662506").map(so)),uo(new Array(3).concat("ffeda0feb24cf03b20","ffffb2fecc5cfd8d3ce31a1c","ffffb2fecc5cfd8d3cf03b20bd0026","ffffb2fed976feb24cfd8d3cf03b20bd0026","ffffb2fed976feb24cfd8d3cfc4e2ae31a1cb10026","ffffccffeda0fed976feb24cfd8d3cfc4e2ae31a1cb10026","ffffccffeda0fed976feb24cfd8d3cfc4e2ae31a1cbd0026800026").map(so)),uo(new Array(3).concat("deebf79ecae13182bd","eff3ffbdd7e76baed62171b5","eff3ffbdd7e76baed63182bd08519c","eff3ffc6dbef9ecae16baed63182bd08519c","eff3ffc6dbef9ecae16baed64292c62171b5084594","f7fbffdeebf7c6dbef9ecae16baed64292c62171b5084594","f7fbffdeebf7c6dbef9ecae16baed64292c62171b508519c08306b").map(so)),uo(new Array(3).concat("e5f5e0a1d99b31a354","edf8e9bae4b374c476238b45","edf8e9bae4b374c47631a354006d2c","edf8e9c7e9c0a1d99b74c47631a354006d2c","edf8e9c7e9c0a1d99b74c47641ab5d238b45005a32","f7fcf5e5f5e0c7e9c0a1d99b74c47641ab5d238b45005a32","f7fcf5e5f5e0c7e9c0a1d99b74c47641ab5d238b45006d2c00441b").map(so)),uo(new Array(3).concat("f0f0f0bdbdbd636363","f7f7f7cccccc969696525252","f7f7f7cccccc969696636363252525","f7f7f7d9d9d9bdbdbd969696636363252525","f7f7f7d9d9d9bdbdbd969696737373525252252525","fffffff0f0f0d9d9d9bdbdbd969696737373525252252525","fffffff0f0f0d9d9d9bdbdbd969696737373525252252525000000").map(so)),uo(new Array(3).concat("efedf5bcbddc756bb1","f2f0f7cbc9e29e9ac86a51a3","f2f0f7cbc9e29e9ac8756bb154278f","f2f0f7dadaebbcbddc9e9ac8756bb154278f","f2f0f7dadaebbcbddc9e9ac8807dba6a51a34a1486","fcfbfdefedf5dadaebbcbddc9e9ac8807dba6a51a34a1486","fcfbfdefedf5dadaebbcbddc9e9ac8807dba6a51a354278f3f007d").map(so)),uo(new Array(3).concat("fee0d2fc9272de2d26","fee5d9fcae91fb6a4acb181d","fee5d9fcae91fb6a4ade2d26a50f15","fee5d9fcbba1fc9272fb6a4ade2d26a50f15","fee5d9fcbba1fc9272fb6a4aef3b2ccb181d99000d","fff5f0fee0d2fcbba1fc9272fb6a4aef3b2ccb181d99000d","fff5f0fee0d2fcbba1fc9272fb6a4aef3b2ccb181da50f1567000d").map(so)),uo(new Array(3).concat("fee6cefdae6be6550d","feeddefdbe85fd8d3cd94701","feeddefdbe85fd8d3ce6550da63603","feeddefdd0a2fdae6bfd8d3ce6550da63603","feeddefdd0a2fdae6bfd8d3cf16913d948018c2d04","fff5ebfee6cefdd0a2fdae6bfd8d3cf16913d948018c2d04","fff5ebfee6cefdd0a2fdae6bfd8d3cf16913d94801a636037f2704").map(so)),qn(gn(300,.5,0),gn(-240,.5,1));qn(gn(-100,.75,.35),gn(80,1.5,.8)),qn(gn(260,.75,.35),gn(80,1.5,.8)),gn(),Oe(),Math.PI,Math.PI;function lo(t){var e=t.length;return function(n){return t[Math.max(0,Math.min(e-1,Math.floor(n*e)))]}}lo(so("44015444025645045745055946075a46085c460a5d460b5e470d60470e6147106347116447136548146748166848176948186a481a6c481b6d481c6e481d6f481f70482071482173482374482475482576482677482878482979472a7a472c7a472d7b472e7c472f7d46307e46327e46337f463480453581453781453882443983443a83443b84433d84433e85423f854240864241864142874144874045884046883f47883f48893e49893e4a893e4c8a3d4d8a3d4e8a3c4f8a3c508b3b518b3b528b3a538b3a548c39558c39568c38588c38598c375a8c375b8d365c8d365d8d355e8d355f8d34608d34618d33628d33638d32648e32658e31668e31678e31688e30698e306a8e2f6b8e2f6c8e2e6d8e2e6e8e2e6f8e2d708e2d718e2c718e2c728e2c738e2b748e2b758e2a768e2a778e2a788e29798e297a8e297b8e287c8e287d8e277e8e277f8e27808e26818e26828e26828e25838e25848e25858e24868e24878e23888e23898e238a8d228b8d228c8d228d8d218e8d218f8d21908d21918c20928c20928c20938c1f948c1f958b1f968b1f978b1f988b1f998a1f9a8a1e9b8a1e9c891e9d891f9e891f9f881fa0881fa1881fa1871fa28720a38620a48621a58521a68522a78522a88423a98324aa8325ab8225ac8226ad8127ad8128ae8029af7f2ab07f2cb17e2db27d2eb37c2fb47c31b57b32b67a34b67935b77937b87838b9773aba763bbb753dbc743fbc7340bd7242be7144bf7046c06f48c16e4ac16d4cc26c4ec36b50c46a52c56954c56856c66758c7655ac8645cc8635ec96260ca6063cb5f65cb5e67cc5c69cd5b6ccd5a6ece5870cf5773d05675d05477d1537ad1517cd2507fd34e81d34d84d44b86d54989d5488bd6468ed64590d74393d74195d84098d83e9bd93c9dd93ba0da39a2da37a5db36a8db34aadc32addc30b0dd2fb2dd2db5de2bb8de29bade28bddf26c0df25c2df23c5e021c8e020cae11fcde11dd0e11cd2e21bd5e21ad8e219dae319dde318dfe318e2e418e5e419e7e419eae51aece51befe51cf1e51df4e61ef6e620f8e621fbe723fde725"));lo(so("00000401000501010601010802010902020b02020d03030f03031204041405041606051806051a07061c08071e0907200a08220b09240c09260d0a290e0b2b100b2d110c2f120d31130d34140e36150e38160f3b180f3d19103f1a10421c10441d11471e114920114b21114e22115024125325125527125829115a2a115c2c115f2d11612f116331116533106734106936106b38106c390f6e3b0f703d0f713f0f72400f74420f75440f764510774710784910784a10794c117a4e117b4f127b51127c52137c54137d56147d57157e59157e5a167e5c167f5d177f5f187f601880621980641a80651a80671b80681c816a1c816b1d816d1d816e1e81701f81721f817320817521817621817822817922827b23827c23827e24828025828125818326818426818627818827818928818b29818c29818e2a81902a81912b81932b80942c80962c80982d80992d809b2e7f9c2e7f9e2f7fa02f7fa1307ea3307ea5317ea6317da8327daa337dab337cad347cae347bb0357bb2357bb3367ab5367ab73779b83779ba3878bc3978bd3977bf3a77c03a76c23b75c43c75c53c74c73d73c83e73ca3e72cc3f71cd4071cf4070d0416fd2426fd3436ed5446dd6456cd8456cd9466bdb476adc4869de4968df4a68e04c67e24d66e34e65e44f64e55064e75263e85362e95462ea5661eb5760ec5860ed5a5fee5b5eef5d5ef05f5ef1605df2625df2645cf3655cf4675cf4695cf56b5cf66c5cf66e5cf7705cf7725cf8745cf8765cf9785df9795df97b5dfa7d5efa7f5efa815ffb835ffb8560fb8761fc8961fc8a62fc8c63fc8e64fc9065fd9266fd9467fd9668fd9869fd9a6afd9b6bfe9d6cfe9f6dfea16efea36ffea571fea772fea973feaa74feac76feae77feb078feb27afeb47bfeb67cfeb77efeb97ffebb81febd82febf84fec185fec287fec488fec68afec88cfeca8dfecc8ffecd90fecf92fed194fed395fed597fed799fed89afdda9cfddc9efddea0fde0a1fde2a3fde3a5fde5a7fde7a9fde9aafdebacfcecaefceeb0fcf0b2fcf2b4fcf4b6fcf6b8fcf7b9fcf9bbfcfbbdfcfdbf")),lo(so("00000401000501010601010802010a02020c02020e03021004031204031405041706041907051b08051d09061f0a07220b07240c08260d08290e092b10092d110a30120a32140b34150b37160b39180c3c190c3e1b0c411c0c431e0c451f0c48210c4a230c4c240c4f260c51280b53290b552b0b572d0b592f0a5b310a5c320a5e340a5f3609613809623909633b09643d09653e0966400a67420a68440a68450a69470b6a490b6a4a0c6b4c0c6b4d0d6c4f0d6c510e6c520e6d540f6d550f6d57106e59106e5a116e5c126e5d126e5f136e61136e62146e64156e65156e67166e69166e6a176e6c186e6d186e6f196e71196e721a6e741a6e751b6e771c6d781c6d7a1d6d7c1d6d7d1e6d7f1e6c801f6c82206c84206b85216b87216b88226a8a226a8c23698d23698f24699025689225689326679526679727669827669a28659b29649d29649f2a63a02a63a22b62a32c61a52c60a62d60a82e5fa92e5eab2f5ead305dae305cb0315bb1325ab3325ab43359b63458b73557b93556ba3655bc3754bd3853bf3952c03a51c13a50c33b4fc43c4ec63d4dc73e4cc83f4bca404acb4149cc4248ce4347cf4446d04545d24644d34743d44842d54a41d74b3fd84c3ed94d3dda4e3cdb503bdd513ade5238df5337e05536e15635e25734e35933e45a31e55c30e65d2fe75e2ee8602de9612bea632aeb6429eb6628ec6726ed6925ee6a24ef6c23ef6e21f06f20f1711ff1731df2741cf3761bf37819f47918f57b17f57d15f67e14f68013f78212f78410f8850ff8870ef8890cf98b0bf98c0af98e09fa9008fa9207fa9407fb9606fb9706fb9906fb9b06fb9d07fc9f07fca108fca309fca50afca60cfca80dfcaa0ffcac11fcae12fcb014fcb216fcb418fbb61afbb81dfbba1ffbbc21fbbe23fac026fac228fac42afac62df9c72ff9c932f9cb35f8cd37f8cf3af7d13df7d340f6d543f6d746f5d949f5db4cf4dd4ff4df53f4e156f3e35af3e55df2e661f2e865f2ea69f1ec6df1ed71f1ef75f1f179f2f27df2f482f3f586f3f68af4f88ef5f992f6fa96f8fb9af9fc9dfafda1fcffa4")),lo(so("0d088710078813078916078a19068c1b068d1d068e20068f2206902406912605912805922a05932c05942e05952f059631059733059735049837049938049a3a049a3c049b3e049c3f049c41049d43039e44039e46039f48039f4903a04b03a14c02a14e02a25002a25102a35302a35502a45601a45801a45901a55b01a55c01a65e01a66001a66100a76300a76400a76600a76700a86900a86a00a86c00a86e00a86f00a87100a87201a87401a87501a87701a87801a87a02a87b02a87d03a87e03a88004a88104a78305a78405a78606a68707a68808a68a09a58b0aa58d0ba58e0ca48f0da4910ea3920fa39410a29511a19613a19814a099159f9a169f9c179e9d189d9e199da01a9ca11b9ba21d9aa31e9aa51f99a62098a72197a82296aa2395ab2494ac2694ad2793ae2892b02991b12a90b22b8fb32c8eb42e8db52f8cb6308bb7318ab83289ba3388bb3488bc3587bd3786be3885bf3984c03a83c13b82c23c81c33d80c43e7fc5407ec6417dc7427cc8437bc9447aca457acb4679cc4778cc4977cd4a76ce4b75cf4c74d04d73d14e72d24f71d35171d45270d5536fd5546ed6556dd7566cd8576bd9586ada5a6ada5b69db5c68dc5d67dd5e66de5f65de6164df6263e06363e16462e26561e26660e3685fe4695ee56a5de56b5de66c5ce76e5be76f5ae87059e97158e97257ea7457eb7556eb7655ec7754ed7953ed7a52ee7b51ef7c51ef7e50f07f4ff0804ef1814df1834cf2844bf3854bf3874af48849f48948f58b47f58c46f68d45f68f44f79044f79143f79342f89441f89540f9973ff9983ef99a3efa9b3dfa9c3cfa9e3bfb9f3afba139fba238fca338fca537fca636fca835fca934fdab33fdac33fdae32fdaf31fdb130fdb22ffdb42ffdb52efeb72dfeb82cfeba2cfebb2bfebd2afebe2afec029fdc229fdc328fdc527fdc627fdc827fdca26fdcb26fccd25fcce25fcd025fcd225fbd324fbd524fbd724fad824fada24f9dc24f9dd25f8df25f8e125f7e225f7e425f6e626f6e826f5e926f5eb27f4ed27f3ee27f3f027f2f227f1f426f1f525f0f724f0f921"));function ho(t){return function(){return t}}var bo=Math.abs,po=Math.atan2,go=Math.cos,yo=Math.max,vo=Math.min,mo=Math.sin,_o=Math.sqrt,wo=1e-12,xo=Math.PI,Mo=xo/2,Ao=2*xo;function ko(t){return t>=1?Mo:t<=-1?-Mo:Math.asin(t)}function To(t){return t.innerRadius}function Co(t){return t.outerRadius}function $o(t){return t.startAngle}function No(t){return t.endAngle}function So(t){return t&&t.padAngle}function Do(t,e,n,r,a,i,c){var o=t-n,f=e-r,s=(c?i:-i)/_o(o*o+f*f),u=s*f,l=-s*o,d=t+u,h=e+l,b=n+u,p=r+l,g=(d+b)/2,y=(h+p)/2,v=b-d,m=p-h,_=v*v+m*m,w=a-i,x=d*p-b*h,M=(m<0?-1:1)*_o(yo(0,w*w*_-x*x)),A=(x*m-v*M)/_,k=(-x*v-m*M)/_,T=(x*m+v*M)/_,C=(-x*v+m*M)/_,$=A-g,N=k-y,S=T-g,D=C-y;return $*$+N*N>S*S+D*D&&(A=T,k=C),{cx:A,cy:k,x01:-u,y01:-l,x11:A*(a/w-1),y11:k*(a/w-1)}}function Eo(){var t=To,e=Co,n=ho(0),r=null,a=$o,i=No,c=So,o=null;function f(){var f,s,u,l=+t.apply(this,arguments),d=+e.apply(this,arguments),h=a.apply(this,arguments)-Mo,b=i.apply(this,arguments)-Mo,p=bo(b-h),g=b>h;if(o||(o=f=ra()),d<l&&(s=d,d=l,l=s),d>wo)if(p>Ao-wo)o.moveTo(d*go(h),d*mo(h)),o.arc(0,0,d,h,b,!g),l>wo&&(o.moveTo(l*go(b),l*mo(b)),o.arc(0,0,l,b,h,g));else{var y,v,m=h,_=b,w=h,x=b,M=p,A=p,k=c.apply(this,arguments)/2,T=k>wo&&(r?+r.apply(this,arguments):_o(l*l+d*d)),C=vo(bo(d-l)/2,+n.apply(this,arguments)),$=C,N=C;if(T>wo){var S=ko(T/l*mo(k)),D=ko(T/d*mo(k));(M-=2*S)>wo?(w+=S*=g?1:-1,x-=S):(M=0,w=x=(h+b)/2),(A-=2*D)>wo?(m+=D*=g?1:-1,_-=D):(A=0,m=_=(h+b)/2)}var E=d*go(m),P=d*mo(m),z=l*go(x),U=l*mo(x);if(C>wo){var Y,L=d*go(_),O=d*mo(_),R=l*go(w),F=l*mo(w);if(p<xo&&(Y=function(t,e,n,r,a,i,c,o){var f=n-t,s=r-e,u=c-a,l=o-i,d=l*f-u*s;if(!(d*d<wo))return[t+(d=(u*(e-i)-l*(t-a))/d)*f,e+d*s]}(E,P,R,F,L,O,z,U))){var I=E-Y[0],H=P-Y[1],j=L-Y[0],q=O-Y[1],W=1/mo(((u=(I*j+H*q)/(_o(I*I+H*H)*_o(j*j+q*q)))>1?0:u<-1?xo:Math.acos(u))/2),Z=_o(Y[0]*Y[0]+Y[1]*Y[1]);$=vo(C,(l-Z)/(W-1)),N=vo(C,(d-Z)/(W+1))}}A>wo?N>wo?(y=Do(R,F,E,P,d,N,g),v=Do(L,O,z,U,d,N,g),o.moveTo(y.cx+y.x01,y.cy+y.y01),N<C?o.arc(y.cx,y.cy,N,po(y.y01,y.x01),po(v.y01,v.x01),!g):(o.arc(y.cx,y.cy,N,po(y.y01,y.x01),po(y.y11,y.x11),!g),o.arc(0,0,d,po(y.cy+y.y11,y.cx+y.x11),po(v.cy+v.y11,v.cx+v.x11),!g),o.arc(v.cx,v.cy,N,po(v.y11,v.x11),po(v.y01,v.x01),!g))):(o.moveTo(E,P),o.arc(0,0,d,m,_,!g)):o.moveTo(E,P),l>wo&&M>wo?$>wo?(y=Do(z,U,L,O,l,-$,g),v=Do(E,P,R,F,l,-$,g),o.lineTo(y.cx+y.x01,y.cy+y.y01),$<C?o.arc(y.cx,y.cy,$,po(y.y01,y.x01),po(v.y01,v.x01),!g):(o.arc(y.cx,y.cy,$,po(y.y01,y.x01),po(y.y11,y.x11),!g),o.arc(0,0,l,po(y.cy+y.y11,y.cx+y.x11),po(v.cy+v.y11,v.cx+v.x11),g),o.arc(v.cx,v.cy,$,po(v.y11,v.x11),po(v.y01,v.x01),!g))):o.arc(0,0,l,x,w,g):o.lineTo(z,U)}else o.moveTo(0,0);if(o.closePath(),f)return o=null,f+""||null}return f.centroid=function(){var n=(+t.apply(this,arguments)+ +e.apply(this,arguments))/2,r=(+a.apply(this,arguments)+ +i.apply(this,arguments))/2-xo/2;return[go(r)*n,mo(r)*n]},f.innerRadius=function(e){return arguments.length?(t="function"==typeof e?e:ho(+e),f):t},f.outerRadius=function(t){return arguments.length?(e="function"==typeof t?t:ho(+t),f):e},f.cornerRadius=function(t){return arguments.length?(n="function"==typeof t?t:ho(+t),f):n},f.padRadius=function(t){return arguments.length?(r=null==t?null:"function"==typeof t?t:ho(+t),f):r},f.startAngle=function(t){return arguments.length?(a="function"==typeof t?t:ho(+t),f):a},f.endAngle=function(t){return arguments.length?(i="function"==typeof t?t:ho(+t),f):i},f.padAngle=function(t){return arguments.length?(c="function"==typeof t?t:ho(+t),f):c},f.context=function(t){return arguments.length?(o=null==t?null:t,f):o},f}function Po(t){this._context=t}function zo(t){return new Po(t)}function Uo(t){return t[0]}function Yo(t){return t[1]}function Lo(){var t=Uo,e=Yo,n=ho(!0),r=null,a=zo,i=null;function c(c){var o,f,s,u=c.length,l=!1;for(null==r&&(i=a(s=ra())),o=0;o<=u;++o)!(o<u&&n(f=c[o],o,c))===l&&((l=!l)?i.lineStart():i.lineEnd()),l&&i.point(+t(f,o,c),+e(f,o,c));if(s)return i=null,s+""||null}return c.x=function(e){return arguments.length?(t="function"==typeof e?e:ho(+e),c):t},c.y=function(t){return arguments.length?(e="function"==typeof t?t:ho(+t),c):e},c.defined=function(t){return arguments.length?(n="function"==typeof t?t:ho(!!t),c):n},c.curve=function(t){return arguments.length?(a=t,null!=r&&(i=a(r)),c):a},c.context=function(t){return arguments.length?(null==t?r=i=null:i=a(r=t),c):r},c}Po.prototype={areaStart:function(){this._line=0},areaEnd:function(){this._line=NaN},lineStart:function(){this._point=0},lineEnd:function(){(this._line||0!==this._line&&1===this._point)&&this._context.closePath(),this._line=1-this._line},point:function(t,e){switch(t=+t,e=+e,this._point){case 0:this._point=1,this._line?this._context.lineTo(t,e):this._context.moveTo(t,e);break;case 1:this._point=2;default:this._context.lineTo(t,e)}}};var Oo=Fo(zo);function Ro(t){this._curve=t}function Fo(t){function e(e){return new Ro(t(e))}return e._curve=t,e}function Io(){return t=Lo().curve(Oo),e=t.curve,t.angle=t.x,delete t.x,t.radius=t.y,delete t.y,t.curve=function(t){return arguments.length?e(Fo(t)):e()._curve},t;var t,e}function Ho(t,e,n){t._context.bezierCurveTo(t._x1+t._k*(t._x2-t._x0),t._y1+t._k*(t._y2-t._y0),t._x2+t._k*(t._x1-e),t._y2+t._k*(t._y1-n),t._x2,t._y2)}function jo(t,e){this._context=t,this._k=(1-e)/6}function qo(t,e){this._context=t,this._alpha=e}Ro.prototype={areaStart:function(){this._curve.areaStart()},areaEnd:function(){this._curve.areaEnd()},lineStart:function(){this._curve.lineStart()},lineEnd:function(){this._curve.lineEnd()},point:function(t,e){this._curve.point(e*Math.sin(t),e*-Math.cos(t))}},jo.prototype={areaStart:function(){this._line=0},areaEnd:function(){this._line=NaN},lineStart:function(){this._x0=this._x1=this._x2=this._y0=this._y1=this._y2=NaN,this._point=0},lineEnd:function(){switch(this._point){case 2:this._context.lineTo(this._x2,this._y2);break;case 3:Ho(this,this._x1,this._y1)}(this._line||0!==this._line&&1===this._point)&&this._context.closePath(),this._line=1-this._line},point:function(t,e){switch(t=+t,e=+e,this._point){case 0:this._point=1,this._line?this._context.lineTo(t,e):this._context.moveTo(t,e);break;case 1:this._point=2,this._x1=t,this._y1=e;break;case 2:this._point=3;default:Ho(this,t,e)}this._x0=this._x1,this._x1=this._x2,this._x2=t,this._y0=this._y1,this._y1=this._y2,this._y2=e}},qo.prototype={areaStart:function(){this._line=0},areaEnd:function(){this._line=NaN},lineStart:function(){this._x0=this._x1=this._x2=this._y0=this._y1=this._y2=NaN,this._l01_a=this._l12_a=this._l23_a=this._l01_2a=this._l12_2a=this._l23_2a=this._point=0},lineEnd:function(){switch(this._point){case 2:this._context.lineTo(this._x2,this._y2);break;case 3:this.point(this._x2,this._y2)}(this._line||0!==this._line&&1===this._point)&&this._context.closePath(),this._line=1-this._line},point:function(t,e){if(t=+t,e=+e,this._point){var n=this._x2-t,r=this._y2-e;this._l23_a=Math.sqrt(this._l23_2a=Math.pow(n*n+r*r,this._alpha))}switch(this._point){case 0:this._point=1,this._line?this._context.lineTo(t,e):this._context.moveTo(t,e);break;case 1:this._point=2;break;case 2:this._point=3;default:!function(t,e,n){var r=t._x1,a=t._y1,i=t._x2,c=t._y2;if(t._l01_a>wo){var o=2*t._l01_2a+3*t._l01_a*t._l12_a+t._l12_2a,f=3*t._l01_a*(t._l01_a+t._l12_a);r=(r*o-t._x0*t._l12_2a+t._x2*t._l01_2a)/f,a=(a*o-t._y0*t._l12_2a+t._y2*t._l01_2a)/f}if(t._l23_a>wo){var s=2*t._l23_2a+3*t._l23_a*t._l12_a+t._l12_2a,u=3*t._l23_a*(t._l23_a+t._l12_a);i=(i*s+t._x1*t._l23_2a-e*t._l12_2a)/u,c=(c*s+t._y1*t._l23_2a-n*t._l12_2a)/u}t._context.bezierCurveTo(r,a,i,c,t._x2,t._y2)}(this,t,e)}this._l01_a=this._l12_a,this._l12_a=this._l23_a,this._l01_2a=this._l12_2a,this._l12_2a=this._l23_2a,this._x0=this._x1,this._x1=this._x2,this._x2=t,this._y0=this._y1,this._y1=this._y2,this._y2=e}};var Wo=function t(e){function n(t){return e?new qo(t,e):new jo(t,0)}return n.alpha=function(e){return t(+e)},n}(.5);function Zo(t){return t<0?-1:1}function Xo(t,e,n){var r=t._x1-t._x0,a=e-t._x1,i=(t._y1-t._y0)/(r||a<0&&-0),c=(n-t._y1)/(a||r<0&&-0),o=(i*a+c*r)/(r+a);return(Zo(i)+Zo(c))*Math.min(Math.abs(i),Math.abs(c),.5*Math.abs(o))||0}function Vo(t,e){var n=t._x1-t._x0;return n?(3*(t._y1-t._y0)/n-e)/2:e}function Bo(t,e,n){var r=t._x0,a=t._y0,i=t._x1,c=t._y1,o=(i-r)/3;t._context.bezierCurveTo(r+o,a+o*e,i-o,c-o*n,i,c)}function Go(t){this._context=t}function Qo(t){this._context=t}function Jo(t){return new Go(t)}function Ko(t,e,n){const r=Object.create(t);return r.a=e[n],r.i=n,r}function tf(t,e,n){const r=Object.create(t);return r.label=e[n].label,r.radius=e[n].radius,r.startAngle=e[n].startAngle,r.endAngle=e[n].endAngle,r.i=n,r}function ef(t){for(var e,n,r=t.priceCoords,a=[],i=0;i<r.length;i+=1)a[i]=nf(tf(t,r,i));return{c(){e=_("g");for(var r=0;r<a.length;r+=1)a[r].c();k(e,"class","price-coords"),k(e,"transform",n="translate("+t.width/2+" "+t.height/2+")")},m(t,n){g(t,e,n);for(var r=0;r<a.length;r+=1)a[r].m(e,null)},p(t,i){if(t.priceCoords||t.arc||t.pi2){r=i.priceCoords;for(var c=0;c<r.length;c+=1){const n=tf(i,r,c);a[c]?a[c].p(t,n):(a[c]=nf(n),a[c].c(),a[c].m(e,null))}for(;c<a.length;c+=1)a[c].d(1);a.length=r.length}(t.width||t.height)&&n!==(n="translate("+i.width/2+" "+i.height/2+")")&&k(e,"transform",n)},d(t){t&&y(e),v(a,t)}}}function nf(t){var e,n,r,a,i,c,o,f=t.label;return{c(){e=_("g"),n=_("path"),a=_("g"),i=_("text"),c=w(f),k(n,"class","price-circle svelte-zbdhk4"),k(n,"d",r=t.arc({radius:t.radius,startAngle:0,endAngle:t.pi2})),k(i,"class","svelte-zbdhk4"),k(a,"class","price-label svelte-zbdhk4"),k(a,"transform",o="translate(0 "+(-t.radius-6)+")"),k(e,"class","price-coord svelte-zbdhk4")},m(t,r){g(t,e,r),p(e,n),p(e,a),p(a,i),p(i,c)},p(t,e){t.priceCoords&&r!==(r=e.arc({radius:e.radius,startAngle:0,endAngle:e.pi2}))&&k(n,"d",r),t.priceCoords&&f!==(f=e.label)&&T(c,f),t.priceCoords&&o!==(o="translate(0 "+(-e.radius-6)+")")&&k(a,"transform",o)},d(t){t&&y(e)}}}function rf(t){for(var e,n,r=t.dayArcs,a=[],i=0;i<r.length;i+=1)a[i]=af(Ko(t,r,i));return{c(){e=_("g");for(var r=0;r<a.length;r+=1)a[r].c();k(e,"class","day-arcs svelte-zbdhk4"),k(e,"transform",n="translate("+t.width/2+" "+t.height/2+")")},m(t,n){g(t,e,n);for(var r=0;r<a.length;r+=1)a[r].m(e,null)},p(t,i){if(t.arcDays||t.dayArcs){r=i.dayArcs;for(var c=0;c<r.length;c+=1){const n=Ko(i,r,c);a[c]?a[c].p(t,n):(a[c]=af(n),a[c].c(),a[c].m(e,null))}for(;c<a.length;c+=1)a[c].d(1);a.length=r.length}(t.width||t.height)&&n!==(n="translate("+i.width/2+" "+i.height/2+")")&&k(e,"transform",n)},d(t){t&&y(e),v(a,t)}}}function af(t){var e,n;return{c(){k(e=_("path"),"d",n=t.arcDays(t.a)),k(e,"class",(t.i%2==0?"even":"odd")+" svelte-zbdhk4")},m(t,n){g(t,e,n)},p(t,r){t.dayArcs&&n!==(n=r.arcDays(r.a))&&k(e,"d",n)},d(t){t&&y(e)}}}function cf(t){var e,n,r,a,i,c,o,f,s,u,l,d,h,b,v,m,x=ff-1;return{c(){e=_("g"),n=_("path"),a=_("path"),c=_("text"),o=_("textPath"),f=w("-"),s=w(x),u=w(" days"),l=_("path"),h=_("text"),b=_("textPath"),v=w("-1 day"),k(n,"class","direction-arrow svelte-zbdhk4"),k(n,"d",r=t.arc({radius:t.priceScale(590),startAngle:t.dayToAngle(ff-4.5),endAngle:t.dayToAngle(ff-1)}).replace("Z","")),k(n,"marker-end","url(#arrow)"),k(a,"id","text-path-start"),k(a,"class","text-path svelte-zbdhk4"),k(a,"d",i=t.arc({radius:t.priceScale(525),startAngle:t.dayToAngle(ff+1.1),endAngle:t.dayToAngle(ff-.9)}).replace("Z","")),k(o,"href","#text-path-start"),k(o,"startOffset","30%"),k(c,"class","svelte-zbdhk4"),k(l,"id","text-path-end"),k(l,"class","text-path svelte-zbdhk4"),k(l,"d",d=t.arc({radius:t.priceScale(525),startAngle:t.dayToAngle(1.1),endAngle:t.dayToAngle(-.1)}).replace("Z","")),k(b,"href","#text-path-end"),k(b,"startOffset","30%"),k(h,"class","svelte-zbdhk4"),k(e,"class","day-arcs-label svelte-zbdhk4"),k(e,"transform",m="translate("+t.width/2+" "+t.height/2+")")},m(t,r){g(t,e,r),p(e,n),p(e,a),p(e,c),p(c,o),p(o,f),p(o,s),p(o,u),p(e,l),p(e,h),p(h,b),p(b,v)},p(t,c){(t.priceScale||t.dayToAngle)&&r!==(r=c.arc({radius:c.priceScale(590),startAngle:c.dayToAngle(ff-4.5),endAngle:c.dayToAngle(ff-1)}).replace("Z",""))&&k(n,"d",r),(t.priceScale||t.dayToAngle)&&i!==(i=c.arc({radius:c.priceScale(525),startAngle:c.dayToAngle(ff+1.1),endAngle:c.dayToAngle(ff-.9)}).replace("Z",""))&&k(a,"d",i),(t.priceScale||t.dayToAngle)&&d!==(d=c.arc({radius:c.priceScale(525),startAngle:c.dayToAngle(1.1),endAngle:c.dayToAngle(-.1)}).replace("Z",""))&&k(l,"d",d),(t.width||t.height)&&m!==(m="translate("+c.width/2+" "+c.height/2+")")&&k(e,"transform",m)},d(t){t&&y(e)}}}function of(e){var n,r,a,i,c,o,f,s,u=e.priceCoords&&ef(e),l=e.dayArcs&&rf(e),d=e.priceScale&&cf(e);return{c(){n=_("svg"),r=_("defs"),a=_("marker"),i=_("path"),u&&u.c(),c=M(),l&&l.c(),o=M(),d&&d.c(),k(i,"d","M0,-5L10,0L0,5"),k(i,"class","arrow-head svelte-zbdhk4"),k(a,"id","arrow"),k(a,"viewBox","0 -5 10 10"),k(a,"refX","5"),k(a,"refY","0"),k(a,"markerWidth","4"),k(a,"markerHeight","4"),k(a,"orient","auto"),k(a,"class","svelte-zbdhk4"),k(n,"width",f=e.width||0),k(n,"height",s=e.height||0),k(n,"class","svelte-zbdhk4")},m(t,e){g(t,n,e),p(n,r),p(r,a),p(a,i),u&&u.m(n,null),p(n,c),l&&l.m(n,null),p(n,o),d&&d.m(n,null)},p(t,e){e.priceCoords?u?u.p(t,e):((u=ef(e)).c(),u.m(n,c)):u&&(u.d(1),u=null),e.dayArcs?l?l.p(t,e):((l=rf(e)).c(),l.m(n,o)):l&&(l.d(1),l=null),e.priceScale?d?d.p(t,e):((d=cf(e)).c(),d.m(n,null)):d&&(d.d(1),d=null),t.width&&f!==(f=e.width||0)&&k(n,"width",f),t.height&&s!==(s=e.height||0)&&k(n,"height",s)},i:t,o:t,d(t){t&&y(n),u&&u.d(),l&&l.d(),d&&d.d()}}}Go.prototype={areaStart:function(){this._line=0},areaEnd:function(){this._line=NaN},lineStart:function(){this._x0=this._x1=this._y0=this._y1=this._t0=NaN,this._point=0},lineEnd:function(){switch(this._point){case 2:this._context.lineTo(this._x1,this._y1);break;case 3:Bo(this,this._t0,Vo(this,this._t0))}(this._line||0!==this._line&&1===this._point)&&this._context.closePath(),this._line=1-this._line},point:function(t,e){var n=NaN;if(e=+e,(t=+t)!==this._x1||e!==this._y1){switch(this._point){case 0:this._point=1,this._line?this._context.lineTo(t,e):this._context.moveTo(t,e);break;case 1:this._point=2;break;case 2:this._point=3,Bo(this,Vo(this,n=Xo(this,t,e)),n);break;default:Bo(this,this._t0,n=Xo(this,t,e))}this._x0=this._x1,this._x1=t,this._y0=this._y1,this._y1=e,this._t0=n}}},(function(t){this._context=new Qo(t)}.prototype=Object.create(Go.prototype)).point=function(t,e){Go.prototype.point.call(this,e,t)},Qo.prototype={moveTo:function(t,e){this._context.moveTo(e,t)},closePath:function(){this._context.closePath()},lineTo:function(t,e){this._context.lineTo(e,t)},bezierCurveTo:function(t,e,n,r,a,i){this._context.bezierCurveTo(e,t,r,n,i,a)}};const ff=31;function sf(t){return t.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")}function uf(t,e,n){let{priceScale:r,dayToAngle:a,priceLabels:i=[100,300,500],width:c=0,height:o=0,colors:f}=e;const s=2*Math.PI,u=Eo().innerRadius(t=>t.radius).outerRadius(t=>t.radius).startAngle(t=>t.startAngle).endAngle(t=>t.endAngle),l=Eo().innerRadius(t=>t.innerRadius).outerRadius(t=>t.outerRadius).startAngle(t=>t.startAngle).endAngle(t=>t.endAngle).cornerRadius(3);let d,h,b;return t.$set=(t=>{"priceScale"in t&&n("priceScale",r=t.priceScale),"dayToAngle"in t&&n("dayToAngle",a=t.dayToAngle),"priceLabels"in t&&n("priceLabels",i=t.priceLabels),"width"in t&&n("width",c=t.width),"height"in t&&n("height",o=t.height),"colors"in t&&n("colors",f=t.colors)}),t.$$.update=((t={priceScale:1,priceLabels:1,dayToAngle:1})=>{(t.priceScale||t.priceLabels||t.dayToAngle)&&r&&(n("priceCoords",d=i.map(t=>({label:`${sf(t)} €`,radius:r(t)}))),n("dayArcs",h=function(t,e,n){t=+t,e=+e,n=(a=arguments.length)<2?(e=t,t=0,1):a<3?1:+n;for(var r=-1,a=0|Math.max(0,Math.ceil((e-t)/n)),i=new Array(a);++r<a;)i[r]=t+r*n;return i}(1,ff-1,1).map(t=>({innerRadius:r(525),outerRadius:r(550),startAngle:a(t),endAngle:a(t+1)}))),b={innerRadius:r(570),outerRadius:r(575),startAngle:a(ff-1),endAngle:a(ff-4.5)})}),{priceScale:r,dayToAngle:a,priceLabels:i,width:c,height:o,colors:f,pi2:s,arc:u,arcDays:l,priceCoords:d,dayArcs:h}}class lf extends ut{constructor(t){super(),st(this,t,uf,of,o,["priceScale","dayToAngle","priceLabels","width","height","colors"])}}function df(t,{delay:e=0,duration:n=400}){const r=+getComputedStyle(t).opacity;return{delay:e,duration:n,css:t=>`opacity: ${t*r}`}}function hf(t){var e,n,r,a,i,c,o,f,s,u,l,d,h,b=t.tooltip.textPrice,v=t.tooltip.textDays;return{c(){e=_("g"),n=_("rect"),i=_("text"),c=w(b),f=_("text"),s=w(v),k(n,"x","0"),k(n,"y","0"),k(n,"width",r=t.tooltip.width),k(n,"height",a=t.tooltip.height),k(n,"rx","6"),k(n,"ry","6"),k(n,"class","svelte-1loplal"),k(i,"class","price svelte-1loplal"),k(i,"transform",o="translate("+t.tooltip.width/2+" "+.4*t.tooltip.height+")"),k(f,"class","days svelte-1loplal"),k(f,"transform",u="translate("+t.tooltip.width/2+" "+.75*t.tooltip.height+")"),k(e,"class","tooltip svelte-1loplal"),k(e,"transform",l="translate("+t.tooltip.x+" "+t.tooltip.y+")")},m(t,r){g(t,e,r),p(e,n),p(e,i),p(i,c),p(e,f),p(f,s),h=!0},p(t,d){h&&!t.tooltip||r===(r=d.tooltip.width)||k(n,"width",r),h&&!t.tooltip||a===(a=d.tooltip.height)||k(n,"height",a),h&&!t.tooltip||b===(b=d.tooltip.textPrice)||T(c,b),h&&!t.tooltip||o===(o="translate("+d.tooltip.width/2+" "+.4*d.tooltip.height+")")||k(i,"transform",o),h&&!t.tooltip||v===(v=d.tooltip.textDays)||T(s,v),h&&!t.tooltip||u===(u="translate("+d.tooltip.width/2+" "+.75*d.tooltip.height+")")||k(f,"transform",u),h&&!t.tooltip||l===(l="translate("+d.tooltip.x+" "+d.tooltip.y+")")||k(e,"transform",l)},i(t){h||(X(()=>{d||(d=rt(e,df,{},!0)),d.run(1)}),h=!0)},o(t){d||(d=rt(e,df,{},!1)),d.run(0),h=!1},d(t){t&&(y(e),d&&d.end())}}}function bf(t){var e,n,r,a,c,o,f,s,u,l,d=t.tooltip&&hf(t);return{c(){var i;e=_("svg"),n=_("g"),r=_("g"),d&&d.c(),c=x(),o=m("canvas"),f=x(),s=m("canvas"),k(n,"class","circle-origin"),k(n,"transform",a="translate("+t.width/2+" "+t.height/2+")"),k(e,"width",t.width),k(e,"height",t.height),k(e,"class","svelte-1loplal"),k(o,"class","visible svelte-1loplal"),k(s,"class","hidden svelte-1loplal"),l=[A(window,"click",t.click_handler),A(e,"click",(i=t.click_handler_1,function(t){return t.stopPropagation(),i.call(this,t)}))]},m(a,i){g(a,e,i),p(e,n),p(n,r),t.g0_binding(r),d&&d.m(n,null),g(a,c,i),g(a,o,i),t.canvas0_binding(o),g(a,f,i),g(a,s,i),t.canvas1_binding(s),u=!0},p(t,r){r.tooltip?d?(d.p(t,r),et(d,1)):((d=hf(r)).c(),et(d,1),d.m(n,null)):d&&(K(),nt(d,1,1,()=>{d=null}),tt()),u&&!t.width&&!t.height||a===(a="translate("+r.width/2+" "+r.height/2+")")||k(n,"transform",a),u&&!t.width||k(e,"width",r.width),u&&!t.height||k(e,"height",r.height)},i(t){u||(et(d),u=!0)},o(t){nt(d),u=!1},d(n){n&&y(e),t.g0_binding(null),d&&d.d(),n&&(y(c),y(o)),t.canvas0_binding(null),n&&(y(f),y(s)),t.canvas1_binding(null),i(l)}}}const pf=2,gf=1;function yf(t,e,n){let{data:r,width:a,height:i,colors:c}=e;const o=R(),f=[[],[1,7]];let s,u,l,d,h,b,p,g,y,v=2,m=null,_=60;function w(t,e=null){const n="hidden"===t?b:d;n.clearRect(-a/2,-i/2,a,i),p.forEach(({id:r,path:a,color:i,colorId:c})=>{n.globalAlpha=e?e===r?1:.1:gf,n.lineCap="round",n.setLineDash(f[0]),n.strokeStyle="hidden"===t?c:i,n.beginPath(),a.forEach((t,e,r)=>{r[e-1]&&t.gap!==r[e-1].gap&&(n.setLineDash(f[Number(r[e-1].gap)]),n.stroke(),n.beginPath(),n.moveTo(...r[e-1].d.slice(-2))),"M"===t.type?n.moveTo(...t.d):"C"===t.type&&n.bezierCurveTo(...t.d)}),n.setLineDash(f[Number(a[a.length-1].gap)]),n.stroke()})}function x(t){const e=b.getImageData(t.layerX*pf,t.layerY*pf,1,1).data,r=`rgb(${e[0]},${e[1]},${e[2]})`,a=p.find(t=>t.colorId===r);n("highlightId",m=a?a.id:null)}function M(t,e=0,r=0,a=0){if(null===t)return void n("tooltip",y=null);n("tooltip",y={textDays:`${1===e?"final price":e+" days to departure."}`,textPrice:`${Math.round(t)} €`,x:Number(r)-75,y:Number(a)+10,width:150,height:50})}return O(()=>{l=pe(s),d=l.node().getContext("2d"),h=pe(u),b=h.node().getContext("2d")}),t.$set=(t=>{"data"in t&&n("data",r=t.data),"width"in t&&n("width",a=t.width),"height"in t&&n("height",i=t.height),"colors"in t&&n("colors",c=t.colors)}),t.$$.update=((t={width:1,height:1,data:1,highlightId:1,canvasData:1})=>{t.width&&n("width",a=a||0),t.height&&n("height",i=i||0),(t.width||t.height)&&a&&i&&function(){function t(t,e){return t.attr("width",pf*a).attr("height",pf*i).style("width",`${a}px`).style("height",`${i}px`),e.scale(pf,pf),e.translate(a/2,i/2),e.lineWidth="hidden"===e.canvas.classList[0]?2*v:v,[t,e]}v=2.7*Math.min(a,i)/450,[l,d]=t(l,d),[h,b]=t(h,b)}(),(t.data||t.highlightId||t.canvasData)&&r&&r.length>0&&(n("canvasData",p=r.map(t=>{let e=d.createRadialGradient(0,0,t.minRadius,0,0,t.maxRadius);return e.addColorStop(0,t.middleStop<.01?c.endPrice:c.lowPrice),e.addColorStop(t.middleStop,c.endPrice),e.addColorStop(1,t.middleStop>.99?c.endPrice:c.highPrice),{...t,color:e}})),w("visible",m),w("hidden"),p.map(t=>t.id).includes(m)||n("highlightId",m=null)),t.highlightId&&function(t){if(!r)return;const e=r.find(e=>e.id===t);let n=[];e?(n=e.path.map((t,e)=>({id:e,cx:t.d[4]||t.d[0],cy:t.d[5]||t.d[1],price:t.price,timeToDepartureDays:t.timeToDepartureDays})),_=n.length,w("visible",t)):w("visible");const a=pe(g).transition().duration(300);pe(g).selectAll(".dot").data(n,t=>t.id).join(t=>t.append("circle").call(t=>t.transition(a).delay(t=>7*t.id).attr("cx",t=>+t.cx).attr("cy",t=>+t.cy)),t=>t.call(t=>t.transition(a).attr("cx",t=>+t.cx).attr("cy",t=>+t.cy)),t=>t.call(t=>t.transition(a).delay(t=>7*(_-t.id)).attr("cx",0).attr("cy",0).remove())).attr("class","dot").attr("fill","#321321").attr("fill-opacity",.6).attr("r",1.1*v).on("mouseover",t=>M(t.price,t.timeToDepartureDays,t.cx,t.cy)).on("mouseout",t=>M(null)),o("flightclick",t)}(m)}),{data:r,width:a,height:i,colors:c,canvasElement:s,hiddenCanvasElement:u,dotsG:g,highlightId:m,tooltip:y,handleClick:x,click_handler:function(){null!==m&&(n("highlightId",m=null),n("data",r),n("canvasData",p))},g0_binding:function(t){I[t?"unshift":"push"](()=>{n("dotsG",g=t)})},click_handler_1:function(t){return x(t)},canvas0_binding:function(t){I[t?"unshift":"push"](()=>{n("canvasElement",s=t)})},canvas1_binding:function(t){I[t?"unshift":"push"](()=>{n("hiddenCanvasElement",u=t)})}}}class vf extends ut{constructor(t){super(),st(this,t,yf,bf,o,["data","width","height","colors"])}}const mf=t=>Hi("%Y-%m-%dT%I:%M:%SZ")(t),_f=Fi("%Y-%m-%d");function wf(t){var e,n,r,a,i=Cf(t.timeRange);return{c(){e=m("div"),(n=m("span")).textContent="Departure",r=x(),k(n,"class","pre-string svelte-lijv0r"),a=new D(i,null),k(e,"class","selected-time-range svelte-lijv0r"),C(e,"width",t.priceScale(300)+"px")},m(t,i){g(t,e,i),p(e,n),p(e,r),a.m(e)},p(t,n){t.timeRange&&i!==(i=Cf(n.timeRange))&&a.p(i),t.priceScale&&C(e,"width",n.priceScale(300)+"px")},d(t){t&&y(e)}}}function xf(t){var e,n,r,a,i,c=new lf({props:{priceScale:t.priceScale,dayToAngle:t.dayToAngle,width:t.width-Mf,height:t.height-Mf,colors:t.colors}}),o=new vf({props:{data:t.slicedData,width:t.width-Mf,height:t.height-Mf,colors:t.colors}});o.$on("flightclick",t.flightclick_handler);var f=t.priceScale&&t.timeRange&&wf(t);return{c(){e=m("div"),c.$$.fragment.c(),n=x(),o.$$.fragment.c(),r=x(),f&&f.c(),X(()=>t.div_resize_handler.call(e)),k(e,"class","wrapper svelte-lijv0r")},m(s,u){g(s,e,u),ct(c,e,null),p(e,n),ct(o,e,null),p(e,r),f&&f.m(e,null),a=$(e,t.div_resize_handler.bind(e)),i=!0},p(t,n){var r={};t.priceScale&&(r.priceScale=n.priceScale),t.dayToAngle&&(r.dayToAngle=n.dayToAngle),(t.width||t.sizeOffset)&&(r.width=n.width-Mf),(t.height||t.sizeOffset)&&(r.height=n.height-Mf),t.colors&&(r.colors=n.colors),c.$set(r);var a={};t.slicedData&&(a.data=n.slicedData),(t.width||t.sizeOffset)&&(a.width=n.width-Mf),(t.height||t.sizeOffset)&&(a.height=n.height-Mf),t.colors&&(a.colors=n.colors),o.$set(a),n.priceScale&&n.timeRange?f?f.p(t,n):((f=wf(n)).c(),f.m(e,null)):f&&(f.d(1),f=null)},i(t){i||(et(c.$$.fragment,t),et(o.$$.fragment,t),i=!0)},o(t){nt(c.$$.fragment,t),nt(o.$$.fragment,t),i=!1},d(t){t&&y(e),ot(c),ot(o),f&&f.d(),a.cancel()}}}const Mf=10,Af=30,kf=.5,Tf=35;function Cf(t){const e=Fi("%a")(t[0]),n=Fi("%b %d")(t[0]).replace(" ","&nbsp;"),r=Fi("%d")(t[1]).replace(" ","&nbsp;");return n===Fi("%b %d")(t[1]).replace(" ","&nbsp;")?`${e}, ${n}`:`${n} - ${r}`}function $f(t,e,n){let{data:r,timeRange:a=[],colors:i}=e;const c=2*Math.PI,o=-2,f=Io().angle(t=>t.angle).radius(t=>t.radius).curve(Wo.alpha(.5));let s,u,l,d,h,b,p=0,g=1;function y(){let t=[];return g<16777215&&(t.push(255&g),t.push((65280&g)>>8),t.push((16711680&g)>>16),g+=1),`rgb(${t.join(",")})`}function v(t){return-c*t/Tf+c*o/Tf}function m(){p=Mt(r,t=>t.price),n("priceScale",l=hi().domain([0,p]).range([Math.min(s,u)/11,.5*Math.min(s,u)]));const t=ca().key(t=>t.flightIdUnique).entries(r);n("dataPreCalc",d=function(t){return t.map(t=>{let e=[],n=-100,r=[],a=Af;t.values.forEach(t=>{const i=l(t.price),c=v(t.timeToDepartureDays);1===t.timeToDepartureDays&&(n=i);const o={radius:i,angle:c,price:t.price,timeToDepartureDays:t.timeToDepartureDays};e.push(o),r.push(a-t.timeToDepartureDays>kf),a=t.timeToDepartureDays});const i=Math.min(...e.map(t=>t.radius)),c=Math.max(...e.map(t=>t.radius)),o=Math.min((n-i)/(c-i),1)||0,s=f(e).split("C").map((t,n)=>({type:"M"===t[0]?"M":"C",gap:r[n]||!1,d:t.replace("M","").split(","),price:e[n].price,timeToDepartureDays:e[n].timeToDepartureDays}));return{id:t.key,path:s,minRadius:i,maxRadius:c,endRadius:n,middleStop:o,departure:t.values[0].departure,colorId:y()}})}(t)),d.length>0&&(h={},d.forEach((t,e)=>{const n=_f(t.departure);Object.keys(h).includes(n)?h[n]=[h[n][0],e]:h[n]=[e]}))}return t.$set=(t=>{"data"in t&&n("data",r=t.data),"timeRange"in t&&n("timeRange",a=t.timeRange),"colors"in t&&n("colors",i=t.colors)}),t.$$.update=((t={width:1,height:1,data:1,dataPreCalc:1,timeRange:1})=>{(t.width||t.height||t.data)&&s&&u&&r&&r.length>0&&m(),(t.dataPreCalc||t.timeRange)&&d&&function(t){if(h&&2===t.length){t.reduce((t,e)=>Math.abs(t-e))/36e5<=24&&(t=[t[0],t[0]]);const e=t.map(_f),r=h[e[0]][0],a=h[e[1]][1]||h[e[1]][0];n("slicedData",b=d.slice(r,a+1))}else n("slicedData",b=d)}(a)}),{data:r,timeRange:a,colors:i,width:s,height:u,priceScale:l,slicedData:b,dayToAngle:v,flightclick_handler:function(e){!function(t,e){const n=t.$$.callbacks[e.type];n&&n.slice().forEach(t=>t(e))}(t,e)},div_resize_handler:function(){s=this.offsetWidth,u=this.offsetHeight,n("width",s),n("height",u)}}}class Nf extends ut{constructor(t){super(),st(this,t,$f,xf,o,["data","timeRange","colors"])}}function Sf(t){var e,n,r,a,i;return{c(){e=_("svg"),n=_("g"),r=_("path"),a=_("g"),i=_("path"),k(r,"d","M557,0,412,376H0L45.9632,357.23952q3.03574-1.23912,5.97062-2.70642l40.54441-20.27222a47.159,47.159,0,0,0,4.87542-2.81329l27.48592-18.129a174.30662,174.30662,0,0,0,31.217-26.31882L411.15042,14.77942A46.73792,46.73792,0,0,1,445.25449,0Z"),k(r,"class","svelte-1t852gc"),k(n,"class","background"),k(i,"d","M47.1993352,0.806896552 L39.9664312,0.806896552 C39.5955131,0.806896552 39.410054,0.986206897 39.410054,0.986206897 L19.4732032,25.0137931 C19.3804736,25.1931034 19.3804736,25.2827586 19.5659327,25.2827586 L22.533278,25.2827586 C22.8114665,25.2827586 22.9041961,25.1931034 22.9041961,25.1034483 L27.1697549,19.8137931 C27.1697549,19.8137931 27.2624844,19.7241379 27.355214,19.7241379 L34.4953884,19.7241379 C34.4953884,19.7241379 34.588118,19.7241379 34.588118,19.8137931 C34.588118,19.9034483 33.568093,25.0137931 33.568093,25.0137931 C33.568093,25.1034483 33.568093,25.2827586 33.8462817,25.2827586 L42.4701288,25.2827586 C42.5628583,25.2827586 42.6555879,25.2827586 42.6555879,25.1034483 L47.4775239,1.07586207 C47.3847943,1.07586207 47.4775239,0.806896552 47.1993352,0.806896552 L47.1993352,0.806896552 Z M34.9590361,17.3034483 L29.3952638,17.3034483 C29.3952638,17.3034483 29.3952638,17.3034483 29.3025342,17.3034483 L29.3025342,17.2137931 L36.7208974,7.97931034 L36.8136269,7.88965517 C36.9063565,7.88965517 36.8136269,7.97931034 36.8136269,7.97931034 L34.9590361,17.3034483 C35.0517657,17.2137931 35.0517657,17.2137931 34.9590361,17.3034483 Z M0.185459077,22.2344827 C0.185459077,22.2344827 0.83456585,20.0827586 0.927295391,20.1724138 C0.927295391,19.8137931 1.11275447,19.7241379 1.29821354,19.9034483 C2.13277939,20.7103448 4.72920648,23.1310344 8.3456585,23.1310344 C12.3330287,23.1310344 12.05484,19.9931034 12.05484,19.5448276 C12.05484,18.2896552 10.3857084,12.1034483 9.92206063,10.4896552 C8.62384711,5.28965517 11.869381,0.537931034 19.5659327,0.537931034 C23.6460324,0.537931034 25.6860822,1.6137931 26.4279185,1.97241379 C26.8915663,2.24137931 26.7988367,2.6 26.7988367,2.6 C26.7988367,2.6 26.335189,4.48275862 26.335189,4.66206897 C26.2424595,4.84137931 26.0570004,4.84137931 25.8715413,4.66206897 C24.6660574,3.94482759 23.2751143,3.13793103 21.1423349,3.13793103 C18.6386373,3.13793103 17.3404238,4.93103448 17.9895305,7.53103448 C18.2677192,8.42758624 19.8441213,14.6137931 20.1223099,15.8689656 C21.2350644,20.3517241 18.0822601,25.7310344 9.55114248,25.7310344 C4.82193602,25.7310344 1.85459077,24.0275862 0.83456585,23.2206897 C0.278188616,22.7724138 0.0927295391,22.5034483 0.185459077,22.2344827 Z M45.5302036,22.3241379 C45.5302036,22.3241379 45.9938513,19.9931034 45.9938513,20.1724138 C46.0865808,19.9034483 46.3647695,19.8137931 46.5502285,19.9931034 C47.4775239,20.8 49.8884919,23.1310344 53.5049439,23.1310344 C57.4923141,23.1310344 57.2141255,19.9931034 57.2141255,19.5448276 C57.2141255,18.2896552 55.5449938,12.1034483 55.0813461,10.4896552 C53.7831325,5.28965517 57.0286664,0.537931034 64.7252181,0.537931034 C68.8053178,0.537931034 70.8453677,1.6137931 71.587204,1.97241379 C72.0508517,2.24137931 71.9581221,2.6 71.9581221,2.6 C71.9581221,2.6 71.4944745,4.48275862 71.4944745,4.66206897 C71.4017449,4.84137931 71.2162858,4.84137931 71.0308267,4.66206897 C69.8253427,3.94482759 68.4343997,3.13793103 66.3016203,3.13793103 C63.7979227,3.13793103 62.4997092,4.93103448 63.1488159,7.53103448 C63.4270046,8.42758624 65.0034068,14.6137931 65.2815953,15.8689656 C66.3943498,20.3517241 63.2415455,25.7310344 54.7104279,25.7310344 C49.9812215,25.7310344 47.1993352,24.1172414 46.1793104,23.3103448 C45.6229331,22.862069 45.437474,22.5931034 45.5302036,22.3241379 Z"),k(i,"class","svelte-1t852gc"),k(a,"class","logo"),k(a,"transform","translate(165 250) scale(3.6)"),k(e,"viewBox","0 0 556 376"),k(e,"class","sas svelte-1t852gc")},m(t,c){g(t,e,c),p(e,n),p(n,r),p(e,a),p(a,i)},d(t){t&&y(e)}}}function Df(t){var e,n,r,a,i;return{c(){e=_("svg"),n=_("g"),r=_("path"),a=_("g"),i=_("path"),k(r,"d","M557,0,412,376H0L45.9632,357.23952q3.03574-1.23912,5.97062-2.70642l40.54441-20.27222a47.159,47.159,0,0,0,4.87542-2.81329l27.48592-18.129a174.30662,174.30662,0,0,0,31.217-26.31882L411.15042,14.77942A46.73792,46.73792,0,0,1,445.25449,0Z"),k(r,"class","svelte-1t852gc"),k(n,"class","background"),k(i,"d","M38 19C38 8.474 29.526 0 19 0 8.512 0 0 8.474 0 19c0 10.488 8.512 19 19 19 10.526 0 19-8.512 19-19zm-1.368 0c0 9.69-7.904 17.632-17.632 17.632-9.69 0-17.632-7.941-17.632-17.632C1.368 9.272 9.31 1.368 19 1.368c9.728 0 17.632 7.904 17.632 17.632zm-10.906-1.14c-.418 0-.95 0-1.634.038l.494-.836h.798c2.85 0 4.978.152 6.916.494l.874-.836c-2.166-.38-4.788-.608-7.448-.608h-.646l.418-.798h.722c2.774 0 5.282.228 7.714.684l.912-.874c-2.736-.532-5.662-.797-8.816-.797a45.9 45.9 0 0 0-4.028.19c-1.52 3.267-3.952 5.168-6.688 5.13-1.064-.039-2.395-.494-4.104-1.407l-1.596-.912.494-.456 3.686 1.596.798-.608-7.448-3.382-1.14.874-2.66-1.102.038 1.102c3.572 1.634 5.054 2.546 8.816 5.244 4.902 3.496 9.272 5.396 15.352 6.612l1.596-1.52h-.38c-4.028 0-7.638-1.33-9.728-3.572 1.748-1.064 3.913-1.557 6.916-1.557.798 0 1.938.075 3.002.189l.912-.874a36.194 36.194 0 0 0-4.294-.266 35.23 35.23 0 0 0-2.888.114l.684-.836a43.437 43.437 0 0 1 2.432-.076c2.014 0 3.344.076 4.864.304l.874-.836c-1.596-.265-3.8-.418-5.814-.418z"),k(i,"class","svelte-1t852gc"),k(a,"class","logo"),k(a,"transform","translate(245 160) scale(5)"),k(e,"viewBox","0 0 556 376"),k(e,"class","lh svelte-1t852gc")},m(t,c){g(t,e,c),p(e,n),p(n,r),p(e,a),p(a,i)},d(t){t&&y(e)}}}function Ef(e){var n;function r(t){return t.company&&"LH"===t.company?Df:t.company&&"SK"===t.company?Sf:void 0}var a=r(e),i=a&&a(e);return{c(){i&&i.c(),n=M()},m(t,e){i&&i.m(t,e),g(t,n,e)},p(t,e){a!==(a=r(e))&&(i&&i.d(1),(i=a&&a(e))&&(i.c(),i.m(n.parentNode,n)))},i:t,o:t,d(t){i&&i.d(t),t&&y(n)}}}function Pf(t,e,n){let{company:r}=e;return t.$set=(t=>{"company"in t&&n("company",r=t.company)}),{company:r}}class zf extends ut{constructor(t){super(),st(this,t,Pf,Ef,o,["company"])}}function Uf(t){var e,n,r,a,i,c,o,f,s,u,l,d,h,b,v,_,M,A,C,$,N,S=t.data.flightId,D=t.timeFormatter(t.data.departure),E=t.timeFormatter(t.data.arrival),P=Math.round(t.data.endPrice),z=new zf({props:{company:t.data.company}});return{c(){e=m("div"),n=m("div"),(r=m("span")).textContent="Flight",a=w(S),i=m("br"),c=x(),(o=m("span")).textContent="Departure",f=w(D),s=m("br"),u=x(),(l=m("span")).textContent="Arrival",d=w(E),h=m("br"),b=x(),(v=m("span")).textContent="Final price",_=w(P),M=w(" €"),A=x(),C=m("div"),z.$$.fragment.c(),k(r,"class","svelte-1xjco0m"),k(o,"class","svelte-1xjco0m"),k(l,"class","svelte-1xjco0m"),k(v,"class","svelte-1xjco0m"),k(n,"class","info svelte-1xjco0m"),k(C,"class","fin svelte-1xjco0m"),k(e,"class","wrapper svelte-1xjco0m")},m(t,y){g(t,e,y),p(e,n),p(n,r),p(n,a),p(n,i),p(n,c),p(n,o),p(n,f),p(n,s),p(n,u),p(n,l),p(n,d),p(n,h),p(n,b),p(n,v),p(n,_),p(n,M),p(e,A),p(e,C),ct(z,C,null),N=!0},p(t,e){N&&!t.data||S===(S=e.data.flightId)||T(a,S),N&&!t.data||D===(D=e.timeFormatter(e.data.departure))||T(f,D),N&&!t.data||E===(E=e.timeFormatter(e.data.arrival))||T(d,E),N&&!t.data||P===(P=Math.round(e.data.endPrice))||T(_,P);var n={};t.data&&(n.company=e.data.company),z.$set(n)},i(t){N||(et(z.$$.fragment,t),X(()=>{$||($=rt(e,df,{duration:200},!0)),$.run(1)}),N=!0)},o(t){nt(z.$$.fragment,t),$||($=rt(e,df,{duration:200},!1)),$.run(0),N=!1},d(t){t&&y(e),ot(z),t&&$&&$.end()}}}function Yf(t){var e,n,r=t.data&&Uf(t);return{c(){r&&r.c(),e=M()},m(t,a){r&&r.m(t,a),g(t,e,a),n=!0},p(t,n){n.data?r?(r.p(t,n),et(r,1)):((r=Uf(n)).c(),et(r,1),r.m(e.parentNode,e)):r&&(K(),nt(r,1,1,()=>{r=null}),tt())},i(t){n||(et(r),n=!0)},o(t){nt(r),n=!1},d(t){r&&r.d(t),t&&y(e)}}}function Lf(t,e,n){let{data:r}=e;const a=Fi("%H:%M");return t.$set=(t=>{"data"in t&&n("data",r=t.data)}),{data:r,timeFormatter:a}}class Of extends ut{constructor(t){super(),st(this,t,Lf,Yf,o,["data"])}}function Rf(t,e,n){const r=Object.create(t);return r.departure=e[n].departure,r.show=e[n].show,r.id=e[n].id,r.i=n,r}function Ff(t){var e,n,r,a,i,c,o=[],f=new Map,s=t.ticks;const u=t=>t.id;for(var l=0;l<s.length;l+=1){let e=Rf(t,s,l),n=u(e);f.set(n,o[l]=Hf(n,e))}return{c(){for(e=_("svg"),n=_("g"),l=0;l<o.length;l+=1)o[l].c();a=_("g"),i=_("path"),k(n,"class","axis"),k(n,"transform",r="translate(0 "+(t.height*qf-t.padding.bottom)+")"),k(i,"class","end-price-line svelte-mr6ttt"),k(i,"stroke-width",c=Math.max(t.width,t.height*qf)/700),k(i,"d",t.path),k(a,"class","end-price svelte-mr6ttt"),k(a,"transform","translate(0 -10)"),k(e,"class","svelte-mr6ttt")},m(r,c){for(g(r,e,c),p(e,n),l=0;l<o.length;l+=1)o[l].m(n,null);p(e,a),p(a,i),t.svg_binding(e)},p(t,e){const a=e.ticks;o=function(t,e,n,r,a,i,c,o,f,s,u,l){let d=t.length,h=i.length,b=d;const p={};for(;b--;)p[t[b].key]=b;const g=[],y=new Map,v=new Map;for(b=h;b--;){const t=l(a,i,b),o=n(t);let f=c.get(o);f?r&&f.p(e,t):(f=s(o,t)).c(),y.set(o,g[b]=f),o in p&&v.set(o,Math.abs(b-p[o]))}const m=new Set,_=new Set;function w(t){et(t,1),t.m(o,u),c.set(t.key,t),u=t.first,h--}for(;d&&h;){const e=g[h-1],n=t[d-1],r=e.key,a=n.key;e===n?(u=e.first,d--,h--):y.has(a)?!c.has(r)||m.has(r)?w(e):_.has(a)?d--:v.get(r)>v.get(a)?(_.add(r),w(e)):(m.add(a),d--):(f(n,c),d--)}for(;d--;){const e=t[d];y.has(e.key)||f(e,c)}for(;h;)w(g[h-1]);return g}(o,t,u,1,e,a,f,n,it,Hf,null,Rf),t.height&&r!==(r="translate(0 "+(e.height*qf-e.padding.bottom)+")")&&k(n,"transform",r),(t.width||t.height)&&c!==(c=Math.max(e.width,e.height*qf)/700)&&k(i,"stroke-width",c),t.path&&k(i,"d",e.path)},d(n){for(n&&y(e),l=0;l<o.length;l+=1)o[l].d();t.svg_binding(null)}}}function If(t){var e,n,r,a,i,c=Fi("%b %d")(t.departure);return{c(){e=_("g"),n=_("circle"),r=_("text"),a=w(c),k(n,"cx",0),k(n,"cy",-12),k(n,"r","2"),k(n,"class","svelte-mr6ttt"),k(r,"class","svelte-mr6ttt"),k(e,"class","tick svelte-mr6ttt"),k(e,"transform",i="translate("+t.x(t.departure)+" 0)")},m(t,i){g(t,e,i),p(e,n),p(e,r),p(r,a)},p(t,n){t.ticks&&c!==(c=Fi("%b %d")(n.departure))&&T(a,c),(t.x||t.ticks)&&i!==(i="translate("+n.x(n.departure)+" 0)")&&k(e,"transform",i)},d(t){t&&y(e)}}}function Hf(t,e){var n,r,a=e.show&&If(e);return{key:t,first:null,c(){n=M(),a&&a.c(),r=M(),this.first=n},m(t,e){g(t,n,e),a&&a.m(t,e),g(t,r,e)},p(t,e){e.show?a?a.p(t,e):((a=If(e)).c(),a.m(r.parentNode,r)):a&&(a.d(1),a=null)},d(t){t&&y(n),a&&a.d(t),t&&y(r)}}}function jf(e){var n,r,a,c,o,f,s,u,l,d,h,b,v,_,w=e.path&&Ff(e);return{c(){n=m("div"),r=m("div"),(a=m("div")).textContent="Final prices per departure date in",c=x(),(o=m("div")).textContent="April",f=x(),(s=m("div")).textContent="May",u=x(),(l=m("div")).textContent="June",d=x(),(h=m("div")).textContent="2019",b=x(),w&&w.c(),k(a,"class","label svelte-mr6ttt"),k(o,"class","month-selector svelte-mr6ttt"),N(o,"active",3===e.selectedMonth),k(s,"class","month-selector svelte-mr6ttt"),N(s,"active",4===e.selectedMonth),k(l,"class","month-selector svelte-mr6ttt"),N(l,"active",5===e.selectedMonth),k(h,"class","label svelte-mr6ttt"),k(r,"class","top-line svelte-mr6ttt"),X(()=>e.div6_resize_handler.call(n)),k(n,"class","wrapper svelte-mr6ttt"),_=[A(o,"click",e.click_handler),A(s,"click",e.click_handler_1),A(l,"click",e.click_handler_2)]},m(t,i){g(t,n,i),p(n,r),p(r,a),p(r,c),p(r,o),p(r,f),p(r,s),p(r,u),p(r,l),p(r,d),p(r,h),p(n,b),w&&w.m(n,null),v=$(n,e.div6_resize_handler.bind(n))},p(t,e){t.selectedMonth&&(N(o,"active",3===e.selectedMonth),N(s,"active",4===e.selectedMonth),N(l,"active",5===e.selectedMonth)),e.path?w?w.p(t,e):((w=Ff(e)).c(),w.m(n,null)):w&&(w.d(1),w=null)},i:t,o:t,d(t){t&&y(n),w&&w.d(),v.cancel(),i(_)}}}const qf=.75;function Wf(t,e,n){let{data:r,colors:a}=e;const i=R(),c={top:20,bottom:10};let o,f,s,u,l,d,h,b,p,g,y,v=!0,m={3:[mf("2019-04-24T00:00:00Z"),mf("2019-04-25T00:00:00Z")],4:[mf("2019-05-24T00:00:00Z"),mf("2019-05-25T00:00:00Z")],5:[mf("2019-06-24T00:00:00Z"),mf("2019-06-25T00:00:00Z")]};function _(){if(!v&&!ce.sourceEvent||!ce.selection)return;v=!1;let t=ce.selection.map(l.invert),e=t.map(Mi.round);e[0]>=e[1]&&(e[0]=Mi.floor(t[0]),e[1]=Mi.offset(e[0])),e[1]>l.domain()[1]&&(e[1]=l.domain()[1]),e[1]=new Date(e[1]-100),"end"===ce.type&&pe(this).transition().call(ce.target.move,e.map(l)),m[y].toString()!==e.toString()&&(m[y]=[e[0],e[1]],i("timerangeselected",e))}return O(()=>{n("selectedMonth",y=3)}),t.$set=(t=>{"data"in t&&n("data",r=t.data),"colors"in t&&n("colors",a=t.colors)}),t.$$.update=((t={selectedMonth:1,dataMonth:1,width:1,height:1,data:1,x:1,y:1,line:1,ticks:1,svgElement:1})=>{if(t.selectedMonth&&function(t){t&&(v=!0,n("dataMonth",o=r.filter(e=>e.departure.getMonth()===t)),i("timerangeselected",m[y]))}(y),(t.dataMonth||t.width||t.height||t.data||t.x||t.y||t.line||t.ticks)&&o&&o.length>0&&f&&s){n("x",l=fo().domain(function(t,e){var n,r,a,i=t.length,c=-1;if(null==e){for(;++c<i;)if(null!=(n=t[c])&&n>=n)for(r=a=n;++c<i;)null!=(n=t[c])&&(r>n&&(r=n),a<n&&(a=n))}else for(;++c<i;)if(null!=(n=e(t[c],c,t))&&n>=n)for(r=a=n;++c<i;)null!=(n=e(t[c],c,t))&&(r>n&&(r=n),a<n&&(a=n));return[r,a]}(o,t=>t.departure)).range([0,f])),n("y",d=hi().domain([0,Mt(r,t=>t.endPrice)]).range([s*qf,c.top])),n("line",h=Lo().x(t=>l(t.departure)).y(t=>d(t.endPrice)).curve(Jo)),n("path",b=h(o));const t=3;let e=o[0].departure;n("ticks",p=o.map(({departure:n},r)=>{let a;return(n-e)/864e5>=t?(e=n,a=!0):a=!1,{id:r,departure:n,show:a}})),n("ticks",p=p.slice(3,-3))}(t.x||t.svgElement)&&l&&u&&(pe(u).selectAll("g.brush").remove(),g=Jr().extent([[0,0],[f,s*qf]]).on("brush end",_),pe(u).append("g").attr("class","brush").call(g).call(g.move,[l(m[y][0]),l(m[y][1])]))}),{data:r,colors:a,padding:c,width:f,height:s,svgElement:u,x:l,path:b,ticks:p,selectedMonth:y,click_handler:function(){const t=y=3;return n("selectedMonth",y),t},click_handler_1:function(){const t=y=4;return n("selectedMonth",y),t},click_handler_2:function(){const t=y=5;return n("selectedMonth",y),t},svg_binding:function(t){I[t?"unshift":"push"](()=>{n("svgElement",u=t)})},div6_resize_handler:function(){f=this.offsetWidth,s=this.offsetHeight,n("width",f),n("height",s)}}}class Zf extends ut{constructor(t){super(),st(this,t,Wf,jf,o,["data","colors"])}}function Xf(e){return{c:t,m:t,p:t,i:t,o:t,d:t}}function Vf(t){var e,n=new Nf({props:{data:t.data,timeRange:t.timeRange,colors:t.colors}});return n.$on("flightclick",t.flightclick_handler),{c(){n.$$.fragment.c()},m(t,r){ct(n,t,r),e=!0},p(t,e){var r={};t.data&&(r.data=e.data),t.timeRange&&(r.timeRange=e.timeRange),t.colors&&(r.colors=e.colors),n.$set(r)},i(t){e||(et(n.$$.fragment,t),e=!0)},o(t){nt(n.$$.fragment,t),e=!1},d(t){ot(n,t)}}}function Bf(e){return{c:t,m:t,p:t,i:t,o:t,d:t}}function Gf(e){return{c:t,m:t,p:t,i:t,o:t,d:t}}function Qf(t){var e,n=new Of({props:{data:t.data.find(t.func_2)}});return{c(){n.$$.fragment.c()},m(t,r){ct(n,t,r),e=!0},p(t,e){var r={};(t.data||t.highlightedFlightId)&&(r.data=e.data.find(e.func_2)),n.$set(r)},i(t){e||(et(n.$$.fragment,t),e=!0)},o(t){nt(n.$$.fragment,t),e=!1},d(t){ot(n,t)}}}function Jf(e){return{c:t,m:t,p:t,i:t,o:t,d:t}}function Kf(e){return{c:t,m:t,p:t,i:t,o:t,d:t}}function ts(t){var e,n=new Zf({props:{data:t.data,colors:t.colors}});return n.$on("timerangeselected",t.timerangeselected_handler),{c(){n.$$.fragment.c()},m(t,r){ct(n,t,r),e=!0},p(t,e){var r={};t.data&&(r.data=e.data),t.colors&&(r.colors=e.colors),n.$set(r)},i(t){e||(et(n.$$.fragment,t),e=!0)},o(t){nt(n.$$.fragment,t),e=!1},d(t){ot(n,t)}}}function es(e){return{c:t,m:t,p:t,i:t,o:t,d:t}}function ns(t){var e,r,a,i,c,o,f,s,u,l,d,h,b,v,_,w,M,T,C;X(t.onwindowresize);let $={ctx:t,current:null,token:null,pending:Bf,then:Vf,catch:Xf,value:"data",error:"null",blocks:[,,,]};at(f=t.data.find(rs).data,$);var N=new bt({});let S={ctx:t,current:null,token:null,pending:Jf,then:Qf,catch:Gf,value:"data",error:"null",blocks:[,,,]};at(b=t.data.find(as).data,S);let D={ctx:t,current:null,token:null,pending:es,then:ts,catch:Kf,value:"data",error:"null",blocks:[,,,]};return at(M=t.data.find(is).data,D),{c(){e=x(),r=m("div"),(a=m("div")).innerHTML='<h1 class="svelte-uydgqd">30 days to takeoff</h1> <h3 class="svelte-uydgqd">Following thousands of flight prices starting a month before departure.</h3>',i=x(),c=m("div"),o=m("div"),$.block.c(),s=x(),u=m("div"),l=m("div"),N.$$.fragment.c(),d=x(),h=m("div"),S.block.c(),v=x(),_=m("div"),w=m("div"),D.block.c(),k(a,"class","title-bar svelte-uydgqd"),k(o,"class","container radial-graph svelte-uydgqd"),k(c,"class","top-wrapper svelte-uydgqd"),k(l,"class","left legend svelte-uydgqd"),k(h,"class","right svelte-uydgqd"),k(u,"class","info-bar svelte-uydgqd"),k(w,"class","container time-brush svelte-uydgqd"),k(_,"class","time-bar svelte-uydgqd"),k(r,"class","outer-wrapper svelte-uydgqd"),C=A(window,"resize",t.onwindowresize)},m(t,n){g(t,e,n),g(t,r,n),p(r,a),p(r,i),p(r,c),p(c,o),$.block.m(o,$.anchor=null),$.mount=(()=>o),$.anchor=null,p(r,s),p(r,u),p(u,l),ct(N,l,null),p(u,d),p(u,h),S.block.m(h,S.anchor=null),S.mount=(()=>h),S.anchor=null,p(r,v),p(r,_),p(_,w),D.block.m(w,D.anchor=null),D.mount=(()=>w),D.anchor=null,T=!0},p(e,r){t=r,$.ctx=t,"data"in e&&f!==(f=t.data.find(rs).data)&&at(f,$)||$.block.p(e,n(n({},t),$.resolved)),S.ctx=t,"data"in e&&b!==(b=t.data.find(as).data)&&at(b,S)||S.block.p(e,n(n({},t),S.resolved)),D.ctx=t,"data"in e&&M!==(M=t.data.find(is).data)&&at(M,D)||D.block.p(e,n(n({},t),D.resolved))},i(t){T||(et($.block),et(N.$$.fragment,t),et(S.block),et(D.block),T=!0)},o(t){for(let t=0;t<3;t+=1){nt($.blocks[t])}nt(N.$$.fragment,t);for(let t=0;t<3;t+=1){nt(S.blocks[t])}for(let t=0;t<3;t+=1){nt(D.blocks[t])}T=!1},d(t){t&&(y(e),y(r)),$.block.d(),$.token=null,$=null,ot(N),S.block.d(),S.token=null,S=null,D.block.d(),D.token=null,D=null,C()}}}function rs(t){return"flights"===t.name}function as(t){return"flightInfo"===t.name}function is(t){return"flightInfo"===t.name}function cs(t,e,n){const r=[{name:"flightInfo",path:"data/flight_info.csv",callback:function(t){return{...t,arrival:mf(t.arrival),departure:mf(t.departure),departureRounded:mf(t.departureRounded),meanPrice:+t.meanPrice,medianPrice:+t.medianPrice,sumPrice:+t.sumPrice,sdPrice:+t.sdPrice,endPrice:isNaN(+t.endPrice)?0:+t.endPrice}}},{name:"flights",path:"data/flights_by_day_to_departure.csv",callback:function(t){return{...t,price:parseFloat(t.price),timeToDepartureDays:+t.timeToDepartureDays,departure:mf(t.departure)}}}];let a,i,c=r.map(t=>({name:t.name,data:[]})),o=[],f=null;return O(async function(){n("data",c=await Promise.all(r.map(t=>({name:t.name,data:Ta(t.path,t.callback)}))))}),{colors:{lowPrice:"#2274A5",endPrice:"#E3D8F1",highPrice:"#EF6461",lightGray:"#DDD"},width:a,height:i,data:c,timeRange:o,highlightedFlightId:f,onwindowresize:function(){a=window.innerWidth,n("width",a),i=window.innerHeight,n("height",i)},flightclick_handler:function(t){const e=f=t.detail;return n("highlightedFlightId",f),e},func_2:function(t){return t.flightIdUnique===f},timerangeselected_handler:function(t){const e=o=t.detail;return n("timeRange",o),e}}}return new class extends ut{constructor(t){super(),st(this,t,cs,ns,o,[])}}({target:document.body})}();
+
+(function(l, i, v, e) { v = l.createElement(i); v.async = 1; v.src = '//' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; e = l.getElementsByTagName(i)[0]; e.parentNode.insertBefore(v, e)})(document, 'script');
+var app = (function () {
+    'use strict';
+
+    function noop() { }
+    const identity = x => x;
+    function assign(tar, src) {
+        // @ts-ignore
+        for (const k in src)
+            tar[k] = src[k];
+        return tar;
+    }
+    function is_promise(value) {
+        return value && typeof value === 'object' && typeof value.then === 'function';
+    }
+    function add_location(element, file, line, column, char) {
+        element.__svelte_meta = {
+            loc: { file, line, column, char }
+        };
+    }
+    function run(fn) {
+        return fn();
+    }
+    function blank_object() {
+        return Object.create(null);
+    }
+    function run_all(fns) {
+        fns.forEach(run);
+    }
+    function is_function(thing) {
+        return typeof thing === 'function';
+    }
+    function safe_not_equal(a, b) {
+        return a != a ? b == b : a !== b || ((a && typeof a === 'object') || typeof a === 'function');
+    }
+
+    const is_client = typeof window !== 'undefined';
+    let now = is_client
+        ? () => window.performance.now()
+        : () => Date.now();
+    let raf = is_client ? cb => requestAnimationFrame(cb) : noop;
+
+    const tasks = new Set();
+    let running = false;
+    function run_tasks() {
+        tasks.forEach(task => {
+            if (!task[0](now())) {
+                tasks.delete(task);
+                task[1]();
+            }
+        });
+        running = tasks.size > 0;
+        if (running)
+            raf(run_tasks);
+    }
+    function loop(fn) {
+        let task;
+        if (!running) {
+            running = true;
+            raf(run_tasks);
+        }
+        return {
+            promise: new Promise(fulfil => {
+                tasks.add(task = [fn, fulfil]);
+            }),
+            abort() {
+                tasks.delete(task);
+            }
+        };
+    }
+
+    function append(target, node) {
+        target.appendChild(node);
+    }
+    function insert(target, node, anchor) {
+        target.insertBefore(node, anchor || null);
+    }
+    function detach(node) {
+        node.parentNode.removeChild(node);
+    }
+    function destroy_each(iterations, detaching) {
+        for (let i = 0; i < iterations.length; i += 1) {
+            if (iterations[i])
+                iterations[i].d(detaching);
+        }
+    }
+    function element(name) {
+        return document.createElement(name);
+    }
+    function svg_element(name) {
+        return document.createElementNS('http://www.w3.org/2000/svg', name);
+    }
+    function text(data) {
+        return document.createTextNode(data);
+    }
+    function space() {
+        return text(' ');
+    }
+    function empty() {
+        return text('');
+    }
+    function listen(node, event, handler, options) {
+        node.addEventListener(event, handler, options);
+        return () => node.removeEventListener(event, handler, options);
+    }
+    function stop_propagation(fn) {
+        return function (event) {
+            event.stopPropagation();
+            // @ts-ignore
+            return fn.call(this, event);
+        };
+    }
+    function attr(node, attribute, value) {
+        if (value == null)
+            node.removeAttribute(attribute);
+        else
+            node.setAttribute(attribute, value);
+    }
+    function children(element) {
+        return Array.from(element.childNodes);
+    }
+    function set_data(text, data) {
+        data = '' + data;
+        if (text.data !== data)
+            text.data = data;
+    }
+    function set_style(node, key, value) {
+        node.style.setProperty(key, value);
+    }
+    function add_resize_listener(element, fn) {
+        if (getComputedStyle(element).position === 'static') {
+            element.style.position = 'relative';
+        }
+        const object = document.createElement('object');
+        object.setAttribute('style', 'display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; pointer-events: none; z-index: -1;');
+        object.type = 'text/html';
+        object.tabIndex = -1;
+        let win;
+        object.onload = () => {
+            win = object.contentDocument.defaultView;
+            win.addEventListener('resize', fn);
+        };
+        if (/Trident/.test(navigator.userAgent)) {
+            element.appendChild(object);
+            object.data = 'about:blank';
+        }
+        else {
+            object.data = 'about:blank';
+            element.appendChild(object);
+        }
+        return {
+            cancel: () => {
+                win && win.removeEventListener && win.removeEventListener('resize', fn);
+                element.removeChild(object);
+            }
+        };
+    }
+    function toggle_class(element, name, toggle) {
+        element.classList[toggle ? 'add' : 'remove'](name);
+    }
+    function custom_event(type, detail) {
+        const e = document.createEvent('CustomEvent');
+        e.initCustomEvent(type, false, false, detail);
+        return e;
+    }
+    class HtmlTag {
+        constructor(html, anchor = null) {
+            this.e = element('div');
+            this.a = anchor;
+            this.u(html);
+        }
+        m(target, anchor = null) {
+            for (let i = 0; i < this.n.length; i += 1) {
+                insert(target, this.n[i], anchor);
+            }
+            this.t = target;
+        }
+        u(html) {
+            this.e.innerHTML = html;
+            this.n = Array.from(this.e.childNodes);
+        }
+        p(html) {
+            this.d();
+            this.u(html);
+            this.m(this.t, this.a);
+        }
+        d() {
+            this.n.forEach(detach);
+        }
+    }
+
+    let stylesheet;
+    let active = 0;
+    let current_rules = {};
+    // https://github.com/darkskyapp/string-hash/blob/master/index.js
+    function hash(str) {
+        let hash = 5381;
+        let i = str.length;
+        while (i--)
+            hash = ((hash << 5) - hash) ^ str.charCodeAt(i);
+        return hash >>> 0;
+    }
+    function create_rule(node, a, b, duration, delay, ease, fn, uid = 0) {
+        const step = 16.666 / duration;
+        let keyframes = '{\n';
+        for (let p = 0; p <= 1; p += step) {
+            const t = a + (b - a) * ease(p);
+            keyframes += p * 100 + `%{${fn(t, 1 - t)}}\n`;
+        }
+        const rule = keyframes + `100% {${fn(b, 1 - b)}}\n}`;
+        const name = `__svelte_${hash(rule)}_${uid}`;
+        if (!current_rules[name]) {
+            if (!stylesheet) {
+                const style = element('style');
+                document.head.appendChild(style);
+                stylesheet = style.sheet;
+            }
+            current_rules[name] = true;
+            stylesheet.insertRule(`@keyframes ${name} ${rule}`, stylesheet.cssRules.length);
+        }
+        const animation = node.style.animation || '';
+        node.style.animation = `${animation ? `${animation}, ` : ``}${name} ${duration}ms linear ${delay}ms 1 both`;
+        active += 1;
+        return name;
+    }
+    function delete_rule(node, name) {
+        node.style.animation = (node.style.animation || '')
+            .split(', ')
+            .filter(name
+            ? anim => anim.indexOf(name) < 0 // remove specific animation
+            : anim => anim.indexOf('__svelte') === -1 // remove all Svelte animations
+        )
+            .join(', ');
+        if (name && !--active)
+            clear_rules();
+    }
+    function clear_rules() {
+        raf(() => {
+            if (active)
+                return;
+            let i = stylesheet.cssRules.length;
+            while (i--)
+                stylesheet.deleteRule(i);
+            current_rules = {};
+        });
+    }
+
+    let current_component;
+    function set_current_component(component) {
+        current_component = component;
+    }
+    function get_current_component() {
+        if (!current_component)
+            throw new Error(`Function called outside component initialization`);
+        return current_component;
+    }
+    function onMount(fn) {
+        get_current_component().$$.on_mount.push(fn);
+    }
+    function createEventDispatcher() {
+        const component = current_component;
+        return (type, detail) => {
+            const callbacks = component.$$.callbacks[type];
+            if (callbacks) {
+                // TODO are there situations where events could be dispatched
+                // in a server (non-DOM) environment?
+                const event = custom_event(type, detail);
+                callbacks.slice().forEach(fn => {
+                    fn.call(component, event);
+                });
+            }
+        };
+    }
+    // TODO figure out if we still want to support
+    // shorthand events, or if we want to implement
+    // a real bubbling mechanism
+    function bubble(component, event) {
+        const callbacks = component.$$.callbacks[event.type];
+        if (callbacks) {
+            callbacks.slice().forEach(fn => fn(event));
+        }
+    }
+
+    const dirty_components = [];
+    const binding_callbacks = [];
+    const render_callbacks = [];
+    const flush_callbacks = [];
+    const resolved_promise = Promise.resolve();
+    let update_scheduled = false;
+    function schedule_update() {
+        if (!update_scheduled) {
+            update_scheduled = true;
+            resolved_promise.then(flush);
+        }
+    }
+    function add_render_callback(fn) {
+        render_callbacks.push(fn);
+    }
+    function flush() {
+        const seen_callbacks = new Set();
+        do {
+            // first, call beforeUpdate functions
+            // and update components
+            while (dirty_components.length) {
+                const component = dirty_components.shift();
+                set_current_component(component);
+                update(component.$$);
+            }
+            while (binding_callbacks.length)
+                binding_callbacks.pop()();
+            // then, once components are updated, call
+            // afterUpdate functions. This may cause
+            // subsequent updates...
+            for (let i = 0; i < render_callbacks.length; i += 1) {
+                const callback = render_callbacks[i];
+                if (!seen_callbacks.has(callback)) {
+                    callback();
+                    // ...so guard against infinite loops
+                    seen_callbacks.add(callback);
+                }
+            }
+            render_callbacks.length = 0;
+        } while (dirty_components.length);
+        while (flush_callbacks.length) {
+            flush_callbacks.pop()();
+        }
+        update_scheduled = false;
+    }
+    function update($$) {
+        if ($$.fragment) {
+            $$.update($$.dirty);
+            run_all($$.before_update);
+            $$.fragment.p($$.dirty, $$.ctx);
+            $$.dirty = null;
+            $$.after_update.forEach(add_render_callback);
+        }
+    }
+
+    let promise;
+    function wait() {
+        if (!promise) {
+            promise = Promise.resolve();
+            promise.then(() => {
+                promise = null;
+            });
+        }
+        return promise;
+    }
+    function dispatch(node, direction, kind) {
+        node.dispatchEvent(custom_event(`${direction ? 'intro' : 'outro'}${kind}`));
+    }
+    const outroing = new Set();
+    let outros;
+    function group_outros() {
+        outros = {
+            r: 0,
+            c: [],
+            p: outros // parent group
+        };
+    }
+    function check_outros() {
+        if (!outros.r) {
+            run_all(outros.c);
+        }
+        outros = outros.p;
+    }
+    function transition_in(block, local) {
+        if (block && block.i) {
+            outroing.delete(block);
+            block.i(local);
+        }
+    }
+    function transition_out(block, local, detach, callback) {
+        if (block && block.o) {
+            if (outroing.has(block))
+                return;
+            outroing.add(block);
+            outros.c.push(() => {
+                outroing.delete(block);
+                if (callback) {
+                    if (detach)
+                        block.d(1);
+                    callback();
+                }
+            });
+            block.o(local);
+        }
+    }
+    function create_bidirectional_transition(node, fn, params, intro) {
+        let config = fn(node, params);
+        let t = intro ? 0 : 1;
+        let running_program = null;
+        let pending_program = null;
+        let animation_name = null;
+        function clear_animation() {
+            if (animation_name)
+                delete_rule(node, animation_name);
+        }
+        function init(program, duration) {
+            const d = program.b - t;
+            duration *= Math.abs(d);
+            return {
+                a: t,
+                b: program.b,
+                d,
+                duration,
+                start: program.start,
+                end: program.start + duration,
+                group: program.group
+            };
+        }
+        function go(b) {
+            const { delay = 0, duration = 300, easing = identity, tick = noop, css } = config;
+            const program = {
+                start: now() + delay,
+                b
+            };
+            if (!b) {
+                // @ts-ignore todo: improve typings
+                program.group = outros;
+                outros.r += 1;
+            }
+            if (running_program) {
+                pending_program = program;
+            }
+            else {
+                // if this is an intro, and there's a delay, we need to do
+                // an initial tick and/or apply CSS animation immediately
+                if (css) {
+                    clear_animation();
+                    animation_name = create_rule(node, t, b, duration, delay, easing, css);
+                }
+                if (b)
+                    tick(0, 1);
+                running_program = init(program, duration);
+                add_render_callback(() => dispatch(node, b, 'start'));
+                loop(now => {
+                    if (pending_program && now > pending_program.start) {
+                        running_program = init(pending_program, duration);
+                        pending_program = null;
+                        dispatch(node, running_program.b, 'start');
+                        if (css) {
+                            clear_animation();
+                            animation_name = create_rule(node, t, running_program.b, running_program.duration, 0, easing, config.css);
+                        }
+                    }
+                    if (running_program) {
+                        if (now >= running_program.end) {
+                            tick(t = running_program.b, 1 - t);
+                            dispatch(node, running_program.b, 'end');
+                            if (!pending_program) {
+                                // we're done
+                                if (running_program.b) {
+                                    // intro — we can tidy up immediately
+                                    clear_animation();
+                                }
+                                else {
+                                    // outro — needs to be coordinated
+                                    if (!--running_program.group.r)
+                                        run_all(running_program.group.c);
+                                }
+                            }
+                            running_program = null;
+                        }
+                        else if (now >= running_program.start) {
+                            const p = now - running_program.start;
+                            t = running_program.a + running_program.d * easing(p / running_program.duration);
+                            tick(t, 1 - t);
+                        }
+                    }
+                    return !!(running_program || pending_program);
+                });
+            }
+        }
+        return {
+            run(b) {
+                if (is_function(config)) {
+                    wait().then(() => {
+                        // @ts-ignore
+                        config = config();
+                        go(b);
+                    });
+                }
+                else {
+                    go(b);
+                }
+            },
+            end() {
+                clear_animation();
+                running_program = pending_program = null;
+            }
+        };
+    }
+
+    function handle_promise(promise, info) {
+        const token = info.token = {};
+        function update(type, index, key, value) {
+            if (info.token !== token)
+                return;
+            info.resolved = key && { [key]: value };
+            const child_ctx = assign(assign({}, info.ctx), info.resolved);
+            const block = type && (info.current = type)(child_ctx);
+            if (info.block) {
+                if (info.blocks) {
+                    info.blocks.forEach((block, i) => {
+                        if (i !== index && block) {
+                            group_outros();
+                            transition_out(block, 1, 1, () => {
+                                info.blocks[i] = null;
+                            });
+                            check_outros();
+                        }
+                    });
+                }
+                else {
+                    info.block.d(1);
+                }
+                block.c();
+                transition_in(block, 1);
+                block.m(info.mount(), info.anchor);
+                flush();
+            }
+            info.block = block;
+            if (info.blocks)
+                info.blocks[index] = block;
+        }
+        if (is_promise(promise)) {
+            promise.then(value => {
+                update(info.then, 1, info.value, value);
+            }, error => {
+                update(info.catch, 2, info.error, error);
+            });
+            // if we previously had a then/catch block, destroy it
+            if (info.current !== info.pending) {
+                update(info.pending, 0);
+                return true;
+            }
+        }
+        else {
+            if (info.current !== info.then) {
+                update(info.then, 1, info.value, promise);
+                return true;
+            }
+            info.resolved = { [info.value]: promise };
+        }
+    }
+
+    const globals = (typeof window !== 'undefined' ? window : global);
+
+    function destroy_block(block, lookup) {
+        block.d(1);
+        lookup.delete(block.key);
+    }
+    function update_keyed_each(old_blocks, changed, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block, next, get_context) {
+        let o = old_blocks.length;
+        let n = list.length;
+        let i = o;
+        const old_indexes = {};
+        while (i--)
+            old_indexes[old_blocks[i].key] = i;
+        const new_blocks = [];
+        const new_lookup = new Map();
+        const deltas = new Map();
+        i = n;
+        while (i--) {
+            const child_ctx = get_context(ctx, list, i);
+            const key = get_key(child_ctx);
+            let block = lookup.get(key);
+            if (!block) {
+                block = create_each_block(key, child_ctx);
+                block.c();
+            }
+            else if (dynamic) {
+                block.p(changed, child_ctx);
+            }
+            new_lookup.set(key, new_blocks[i] = block);
+            if (key in old_indexes)
+                deltas.set(key, Math.abs(i - old_indexes[key]));
+        }
+        const will_move = new Set();
+        const did_move = new Set();
+        function insert(block) {
+            transition_in(block, 1);
+            block.m(node, next);
+            lookup.set(block.key, block);
+            next = block.first;
+            n--;
+        }
+        while (o && n) {
+            const new_block = new_blocks[n - 1];
+            const old_block = old_blocks[o - 1];
+            const new_key = new_block.key;
+            const old_key = old_block.key;
+            if (new_block === old_block) {
+                // do nothing
+                next = new_block.first;
+                o--;
+                n--;
+            }
+            else if (!new_lookup.has(old_key)) {
+                // remove old block
+                destroy(old_block, lookup);
+                o--;
+            }
+            else if (!lookup.has(new_key) || will_move.has(new_key)) {
+                insert(new_block);
+            }
+            else if (did_move.has(old_key)) {
+                o--;
+            }
+            else if (deltas.get(new_key) > deltas.get(old_key)) {
+                did_move.add(new_key);
+                insert(new_block);
+            }
+            else {
+                will_move.add(old_key);
+                o--;
+            }
+        }
+        while (o--) {
+            const old_block = old_blocks[o];
+            if (!new_lookup.has(old_block.key))
+                destroy(old_block, lookup);
+        }
+        while (n)
+            insert(new_blocks[n - 1]);
+        return new_blocks;
+    }
+    function mount_component(component, target, anchor) {
+        const { fragment, on_mount, on_destroy, after_update } = component.$$;
+        fragment.m(target, anchor);
+        // onMount happens before the initial afterUpdate
+        add_render_callback(() => {
+            const new_on_destroy = on_mount.map(run).filter(is_function);
+            if (on_destroy) {
+                on_destroy.push(...new_on_destroy);
+            }
+            else {
+                // Edge case - component was destroyed immediately,
+                // most likely as a result of a binding initialising
+                run_all(new_on_destroy);
+            }
+            component.$$.on_mount = [];
+        });
+        after_update.forEach(add_render_callback);
+    }
+    function destroy_component(component, detaching) {
+        if (component.$$.fragment) {
+            run_all(component.$$.on_destroy);
+            component.$$.fragment.d(detaching);
+            // TODO null out other refs, including component.$$ (but need to
+            // preserve final state?)
+            component.$$.on_destroy = component.$$.fragment = null;
+            component.$$.ctx = {};
+        }
+    }
+    function make_dirty(component, key) {
+        if (!component.$$.dirty) {
+            dirty_components.push(component);
+            schedule_update();
+            component.$$.dirty = blank_object();
+        }
+        component.$$.dirty[key] = true;
+    }
+    function init(component, options, instance, create_fragment, not_equal, prop_names) {
+        const parent_component = current_component;
+        set_current_component(component);
+        const props = options.props || {};
+        const $$ = component.$$ = {
+            fragment: null,
+            ctx: null,
+            // state
+            props: prop_names,
+            update: noop,
+            not_equal,
+            bound: blank_object(),
+            // lifecycle
+            on_mount: [],
+            on_destroy: [],
+            before_update: [],
+            after_update: [],
+            context: new Map(parent_component ? parent_component.$$.context : []),
+            // everything else
+            callbacks: blank_object(),
+            dirty: null
+        };
+        let ready = false;
+        $$.ctx = instance
+            ? instance(component, props, (key, value) => {
+                if ($$.ctx && not_equal($$.ctx[key], $$.ctx[key] = value)) {
+                    if ($$.bound[key])
+                        $$.bound[key](value);
+                    if (ready)
+                        make_dirty(component, key);
+                }
+            })
+            : props;
+        $$.update();
+        ready = true;
+        run_all($$.before_update);
+        $$.fragment = create_fragment($$.ctx);
+        if (options.target) {
+            if (options.hydrate) {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                $$.fragment.l(children(options.target));
+            }
+            else {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                $$.fragment.c();
+            }
+            if (options.intro)
+                transition_in(component.$$.fragment);
+            mount_component(component, options.target, options.anchor);
+            flush();
+        }
+        set_current_component(parent_component);
+    }
+    class SvelteComponent {
+        $destroy() {
+            destroy_component(this, 1);
+            this.$destroy = noop;
+        }
+        $on(type, callback) {
+            const callbacks = (this.$$.callbacks[type] || (this.$$.callbacks[type] = []));
+            callbacks.push(callback);
+            return () => {
+                const index = callbacks.indexOf(callback);
+                if (index !== -1)
+                    callbacks.splice(index, 1);
+            };
+        }
+        $set() {
+            // overridden by instance, if it has props
+        }
+    }
+    class SvelteComponentDev extends SvelteComponent {
+        constructor(options) {
+            if (!options || (!options.target && !options.$$inline)) {
+                throw new Error(`'target' is a required option`);
+            }
+            super();
+        }
+        $destroy() {
+            super.$destroy();
+            this.$destroy = () => {
+                console.warn(`Component was already destroyed`); // eslint-disable-line no-console
+            };
+        }
+    }
+
+    /* src/Legend/Legend.svelte generated by Svelte v3.7.0 */
+
+    const file = "src/Legend/Legend.svelte";
+
+    function create_fragment(ctx) {
+    	var div, h4, t1, p, div_resize_listener, t3, svg, g0, line0, text0, t4, text0_transform_value, g0_transform_value, g1, line1, text1, t5, text1_transform_value, g1_transform_value, g2, line2, text2, t6, text2_transform_value, g2_transform_value;
+
+    	return {
+    		c: function create() {
+    			div = element("div");
+    			h4 = element("h4");
+    			h4.textContent = "How to read this chart";
+    			t1 = space();
+    			p = element("p");
+    			p.textContent = "Each line is showing prices for a flight from Stockholm to Frankfurt for one passenger – collected from\n    30 days before departure until the day before takeoff.\n    The color at each time point tells whether the price is above or below the final price.";
+    			t3 = space();
+    			svg = svg_element("svg");
+    			g0 = svg_element("g");
+    			line0 = svg_element("line");
+    			text0 = svg_element("text");
+    			t4 = text("below");
+    			g1 = svg_element("g");
+    			line1 = svg_element("line");
+    			text1 = svg_element("text");
+    			t5 = text("above");
+    			g2 = svg_element("g");
+    			line2 = svg_element("line");
+    			text2 = svg_element("text");
+    			t6 = text("final price");
+    			attr(h4, "class", "svelte-cyhztp");
+    			add_location(h4, file, 11, 2, 294);
+    			attr(p, "class", "mt");
+    			add_location(p, file, 12, 2, 328);
+    			add_render_callback(() => ctx.div_resize_handler.call(div));
+    			attr(div, "class", "text svelte-cyhztp");
+    			add_location(div, file, 10, 0, 221);
+    			attr(line0, "class", "low svelte-cyhztp");
+    			attr(line0, "x1", "0");
+    			attr(line0, "y1", ctx.lineYOffset);
+    			attr(line0, "x2", ctx.lineWidth);
+    			attr(line0, "y2", ctx.lineYOffset);
+    			add_location(line0, file, 20, 4, 717);
+    			attr(text0, "transform", text0_transform_value = "translate(" + ctx.lineWidth / 2 + " " + ctx.textYOffset + ")");
+    			attr(text0, "class", "svelte-cyhztp");
+    			add_location(text0, file, 21, 4, 803);
+    			attr(g0, "class", "first");
+    			attr(g0, "transform", g0_transform_value = "translate(" + margin / 2 + " 0)");
+    			add_location(g0, file, 19, 2, 657);
+    			attr(line1, "class", "high svelte-cyhztp");
+    			attr(line1, "x1", "0");
+    			attr(line1, "y1", ctx.lineYOffset);
+    			attr(line1, "x2", ctx.lineWidth);
+    			attr(line1, "y2", ctx.lineYOffset);
+    			add_location(line1, file, 24, 4, 959);
+    			attr(text1, "transform", text1_transform_value = "translate(" + ctx.lineWidth / 2 + " " + ctx.textYOffset + ")");
+    			attr(text1, "class", "svelte-cyhztp");
+    			add_location(text1, file, 25, 4, 1046);
+    			attr(g1, "class", "second");
+    			attr(g1, "transform", g1_transform_value = "translate(" + (1.5 * margin + ctx.lineWidth) + " 0)");
+    			add_location(g1, file, 23, 2, 884);
+    			attr(line2, "class", "final svelte-cyhztp");
+    			attr(line2, "x1", "0");
+    			attr(line2, "y1", ctx.lineYOffset);
+    			attr(line2, "x2", ctx.lineWidth);
+    			attr(line2, "y2", ctx.lineYOffset);
+    			add_location(line2, file, 28, 4, 1205);
+    			attr(text2, "transform", text2_transform_value = "translate(" + ctx.lineWidth / 2 + " " + ctx.textYOffset + ")");
+    			attr(text2, "class", "svelte-cyhztp");
+    			add_location(text2, file, 29, 4, 1293);
+    			attr(g2, "class", "third");
+    			attr(g2, "transform", g2_transform_value = "translate(" + (2.5 * margin + 2 * ctx.lineWidth) + " 0)");
+    			add_location(g2, file, 27, 2, 1127);
+    			attr(svg, "width", ctx.width);
+    			attr(svg, "height", ctx.svgHeight);
+    			attr(svg, "class", "svelte-cyhztp");
+    			add_location(svg, file, 18, 0, 616);
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div, anchor);
+    			append(div, h4);
+    			append(div, t1);
+    			append(div, p);
+    			div_resize_listener = add_resize_listener(div, ctx.div_resize_handler.bind(div));
+    			insert(target, t3, anchor);
+    			insert(target, svg, anchor);
+    			append(svg, g0);
+    			append(g0, line0);
+    			append(g0, text0);
+    			append(text0, t4);
+    			append(svg, g1);
+    			append(g1, line1);
+    			append(g1, text1);
+    			append(text1, t5);
+    			append(svg, g2);
+    			append(g2, line2);
+    			append(g2, text2);
+    			append(text2, t6);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (changed.lineYOffset) {
+    				attr(line0, "y1", ctx.lineYOffset);
+    			}
+
+    			if (changed.lineWidth) {
+    				attr(line0, "x2", ctx.lineWidth);
+    			}
+
+    			if (changed.lineYOffset) {
+    				attr(line0, "y2", ctx.lineYOffset);
+    			}
+
+    			if ((changed.lineWidth || changed.textYOffset) && text0_transform_value !== (text0_transform_value = "translate(" + ctx.lineWidth / 2 + " " + ctx.textYOffset + ")")) {
+    				attr(text0, "transform", text0_transform_value);
+    			}
+
+    			if (changed.lineYOffset) {
+    				attr(line1, "y1", ctx.lineYOffset);
+    			}
+
+    			if (changed.lineWidth) {
+    				attr(line1, "x2", ctx.lineWidth);
+    			}
+
+    			if (changed.lineYOffset) {
+    				attr(line1, "y2", ctx.lineYOffset);
+    			}
+
+    			if ((changed.lineWidth || changed.textYOffset) && text1_transform_value !== (text1_transform_value = "translate(" + ctx.lineWidth / 2 + " " + ctx.textYOffset + ")")) {
+    				attr(text1, "transform", text1_transform_value);
+    			}
+
+    			if ((changed.lineWidth) && g1_transform_value !== (g1_transform_value = "translate(" + (1.5 * margin + ctx.lineWidth) + " 0)")) {
+    				attr(g1, "transform", g1_transform_value);
+    			}
+
+    			if (changed.lineYOffset) {
+    				attr(line2, "y1", ctx.lineYOffset);
+    			}
+
+    			if (changed.lineWidth) {
+    				attr(line2, "x2", ctx.lineWidth);
+    			}
+
+    			if (changed.lineYOffset) {
+    				attr(line2, "y2", ctx.lineYOffset);
+    			}
+
+    			if ((changed.lineWidth || changed.textYOffset) && text2_transform_value !== (text2_transform_value = "translate(" + ctx.lineWidth / 2 + " " + ctx.textYOffset + ")")) {
+    				attr(text2, "transform", text2_transform_value);
+    			}
+
+    			if ((changed.lineWidth) && g2_transform_value !== (g2_transform_value = "translate(" + (2.5 * margin + 2 * ctx.lineWidth) + " 0)")) {
+    				attr(g2, "transform", g2_transform_value);
+    			}
+
+    			if (changed.width) {
+    				attr(svg, "width", ctx.width);
+    			}
+
+    			if (changed.svgHeight) {
+    				attr(svg, "height", ctx.svgHeight);
+    			}
+    		},
+
+    		i: noop,
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div);
+    			}
+
+    			div_resize_listener.cancel();
+
+    			if (detaching) {
+    				detach(t3);
+    				detach(svg);
+    			}
+    		}
+    	};
+    }
+
+    const margin = 15;
+
+    function instance($$self, $$props, $$invalidate) {
+    	
+      let width, height;
+
+    	function div_resize_handler() {
+    		width = this.clientWidth;
+    		height = this.clientHeight;
+    		$$invalidate('width', width);
+    		$$invalidate('height', height);
+    	}
+
+    	let lineWidth, svgHeight, lineYOffset, textYOffset;
+
+    	$$self.$$.update = ($$dirty = { width: 1, height: 1, svgHeight: 1 }) => {
+    		if ($$dirty.width) { $$invalidate('lineWidth', lineWidth = ((width || 0) - margin * 3) / 3); }
+    		if ($$dirty.height) { $$invalidate('svgHeight', svgHeight = (height || 0) / 2); }
+    		if ($$dirty.svgHeight) { $$invalidate('lineYOffset', lineYOffset = svgHeight / 1.5); }
+    		if ($$dirty.svgHeight) { $$invalidate('textYOffset', textYOffset = svgHeight / 2.5); }
+    	};
+
+    	return {
+    		width,
+    		height,
+    		lineWidth,
+    		svgHeight,
+    		lineYOffset,
+    		textYOffset,
+    		div_resize_handler
+    	};
+    }
+
+    class Legend extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance, create_fragment, safe_not_equal, []);
+    	}
+    }
+
+    function ascending(a, b) {
+      return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
+    }
+
+    function bisector(compare) {
+      if (compare.length === 1) compare = ascendingComparator(compare);
+      return {
+        left: function(a, x, lo, hi) {
+          if (lo == null) lo = 0;
+          if (hi == null) hi = a.length;
+          while (lo < hi) {
+            var mid = lo + hi >>> 1;
+            if (compare(a[mid], x) < 0) lo = mid + 1;
+            else hi = mid;
+          }
+          return lo;
+        },
+        right: function(a, x, lo, hi) {
+          if (lo == null) lo = 0;
+          if (hi == null) hi = a.length;
+          while (lo < hi) {
+            var mid = lo + hi >>> 1;
+            if (compare(a[mid], x) > 0) hi = mid;
+            else lo = mid + 1;
+          }
+          return lo;
+        }
+      };
+    }
+
+    function ascendingComparator(f) {
+      return function(d, x) {
+        return ascending(f(d), x);
+      };
+    }
+
+    var ascendingBisect = bisector(ascending);
+    var bisectRight = ascendingBisect.right;
+
+    function extent(values, valueof) {
+      var n = values.length,
+          i = -1,
+          value,
+          min,
+          max;
+
+      if (valueof == null) {
+        while (++i < n) { // Find the first comparable value.
+          if ((value = values[i]) != null && value >= value) {
+            min = max = value;
+            while (++i < n) { // Compare the remaining values.
+              if ((value = values[i]) != null) {
+                if (min > value) min = value;
+                if (max < value) max = value;
+              }
+            }
+          }
+        }
+      }
+
+      else {
+        while (++i < n) { // Find the first comparable value.
+          if ((value = valueof(values[i], i, values)) != null && value >= value) {
+            min = max = value;
+            while (++i < n) { // Compare the remaining values.
+              if ((value = valueof(values[i], i, values)) != null) {
+                if (min > value) min = value;
+                if (max < value) max = value;
+              }
+            }
+          }
+        }
+      }
+
+      return [min, max];
+    }
+
+    function d3range(start, stop, step) {
+      start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
+
+      var i = -1,
+          n = Math.max(0, Math.ceil((stop - start) / step)) | 0,
+          range = new Array(n);
+
+      while (++i < n) {
+        range[i] = start + i * step;
+      }
+
+      return range;
+    }
+
+    var e10 = Math.sqrt(50),
+        e5 = Math.sqrt(10),
+        e2 = Math.sqrt(2);
+
+    function ticks(start, stop, count) {
+      var reverse,
+          i = -1,
+          n,
+          ticks,
+          step;
+
+      stop = +stop, start = +start, count = +count;
+      if (start === stop && count > 0) return [start];
+      if (reverse = stop < start) n = start, start = stop, stop = n;
+      if ((step = tickIncrement(start, stop, count)) === 0 || !isFinite(step)) return [];
+
+      if (step > 0) {
+        start = Math.ceil(start / step);
+        stop = Math.floor(stop / step);
+        ticks = new Array(n = Math.ceil(stop - start + 1));
+        while (++i < n) ticks[i] = (start + i) * step;
+      } else {
+        start = Math.floor(start * step);
+        stop = Math.ceil(stop * step);
+        ticks = new Array(n = Math.ceil(start - stop + 1));
+        while (++i < n) ticks[i] = (start - i) / step;
+      }
+
+      if (reverse) ticks.reverse();
+
+      return ticks;
+    }
+
+    function tickIncrement(start, stop, count) {
+      var step = (stop - start) / Math.max(0, count),
+          power = Math.floor(Math.log(step) / Math.LN10),
+          error = step / Math.pow(10, power);
+      return power >= 0
+          ? (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1) * Math.pow(10, power)
+          : -Math.pow(10, -power) / (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1);
+    }
+
+    function tickStep(start, stop, count) {
+      var step0 = Math.abs(stop - start) / Math.max(0, count),
+          step1 = Math.pow(10, Math.floor(Math.log(step0) / Math.LN10)),
+          error = step0 / step1;
+      if (error >= e10) step1 *= 10;
+      else if (error >= e5) step1 *= 5;
+      else if (error >= e2) step1 *= 2;
+      return stop < start ? -step1 : step1;
+    }
+
+    function d3max(values, valueof) {
+      var n = values.length,
+          i = -1,
+          value,
+          max;
+
+      if (valueof == null) {
+        while (++i < n) { // Find the first comparable value.
+          if ((value = values[i]) != null && value >= value) {
+            max = value;
+            while (++i < n) { // Compare the remaining values.
+              if ((value = values[i]) != null && value > max) {
+                max = value;
+              }
+            }
+          }
+        }
+      }
+
+      else {
+        while (++i < n) { // Find the first comparable value.
+          if ((value = valueof(values[i], i, values)) != null && value >= value) {
+            max = value;
+            while (++i < n) { // Compare the remaining values.
+              if ((value = valueof(values[i], i, values)) != null && value > max) {
+                max = value;
+              }
+            }
+          }
+        }
+      }
+
+      return max;
+    }
+
+    var noop$1 = {value: function() {}};
+
+    function dispatch$1() {
+      for (var i = 0, n = arguments.length, _ = {}, t; i < n; ++i) {
+        if (!(t = arguments[i] + "") || (t in _)) throw new Error("illegal type: " + t);
+        _[t] = [];
+      }
+      return new Dispatch(_);
+    }
+
+    function Dispatch(_) {
+      this._ = _;
+    }
+
+    function parseTypenames(typenames, types) {
+      return typenames.trim().split(/^|\s+/).map(function(t) {
+        var name = "", i = t.indexOf(".");
+        if (i >= 0) name = t.slice(i + 1), t = t.slice(0, i);
+        if (t && !types.hasOwnProperty(t)) throw new Error("unknown type: " + t);
+        return {type: t, name: name};
+      });
+    }
+
+    Dispatch.prototype = dispatch$1.prototype = {
+      constructor: Dispatch,
+      on: function(typename, callback) {
+        var _ = this._,
+            T = parseTypenames(typename + "", _),
+            t,
+            i = -1,
+            n = T.length;
+
+        // If no callback was specified, return the callback of the given type and name.
+        if (arguments.length < 2) {
+          while (++i < n) if ((t = (typename = T[i]).type) && (t = get(_[t], typename.name))) return t;
+          return;
+        }
+
+        // If a type was specified, set the callback for the given type and name.
+        // Otherwise, if a null callback was specified, remove callbacks of the given name.
+        if (callback != null && typeof callback !== "function") throw new Error("invalid callback: " + callback);
+        while (++i < n) {
+          if (t = (typename = T[i]).type) _[t] = set(_[t], typename.name, callback);
+          else if (callback == null) for (t in _) _[t] = set(_[t], typename.name, null);
+        }
+
+        return this;
+      },
+      copy: function() {
+        var copy = {}, _ = this._;
+        for (var t in _) copy[t] = _[t].slice();
+        return new Dispatch(copy);
+      },
+      call: function(type, that) {
+        if ((n = arguments.length - 2) > 0) for (var args = new Array(n), i = 0, n, t; i < n; ++i) args[i] = arguments[i + 2];
+        if (!this._.hasOwnProperty(type)) throw new Error("unknown type: " + type);
+        for (t = this._[type], i = 0, n = t.length; i < n; ++i) t[i].value.apply(that, args);
+      },
+      apply: function(type, that, args) {
+        if (!this._.hasOwnProperty(type)) throw new Error("unknown type: " + type);
+        for (var t = this._[type], i = 0, n = t.length; i < n; ++i) t[i].value.apply(that, args);
+      }
+    };
+
+    function get(type, name) {
+      for (var i = 0, n = type.length, c; i < n; ++i) {
+        if ((c = type[i]).name === name) {
+          return c.value;
+        }
+      }
+    }
+
+    function set(type, name, callback) {
+      for (var i = 0, n = type.length; i < n; ++i) {
+        if (type[i].name === name) {
+          type[i] = noop$1, type = type.slice(0, i).concat(type.slice(i + 1));
+          break;
+        }
+      }
+      if (callback != null) type.push({name: name, value: callback});
+      return type;
+    }
+
+    var xhtml = "http://www.w3.org/1999/xhtml";
+
+    var namespaces = {
+      svg: "http://www.w3.org/2000/svg",
+      xhtml: xhtml,
+      xlink: "http://www.w3.org/1999/xlink",
+      xml: "http://www.w3.org/XML/1998/namespace",
+      xmlns: "http://www.w3.org/2000/xmlns/"
+    };
+
+    function namespace(name) {
+      var prefix = name += "", i = prefix.indexOf(":");
+      if (i >= 0 && (prefix = name.slice(0, i)) !== "xmlns") name = name.slice(i + 1);
+      return namespaces.hasOwnProperty(prefix) ? {space: namespaces[prefix], local: name} : name;
+    }
+
+    function creatorInherit(name) {
+      return function() {
+        var document = this.ownerDocument,
+            uri = this.namespaceURI;
+        return uri === xhtml && document.documentElement.namespaceURI === xhtml
+            ? document.createElement(name)
+            : document.createElementNS(uri, name);
+      };
+    }
+
+    function creatorFixed(fullname) {
+      return function() {
+        return this.ownerDocument.createElementNS(fullname.space, fullname.local);
+      };
+    }
+
+    function creator(name) {
+      var fullname = namespace(name);
+      return (fullname.local
+          ? creatorFixed
+          : creatorInherit)(fullname);
+    }
+
+    function none() {}
+
+    function selector(selector) {
+      return selector == null ? none : function() {
+        return this.querySelector(selector);
+      };
+    }
+
+    function selection_select(select) {
+      if (typeof select !== "function") select = selector(select);
+
+      for (var groups = this._groups, m = groups.length, subgroups = new Array(m), j = 0; j < m; ++j) {
+        for (var group = groups[j], n = group.length, subgroup = subgroups[j] = new Array(n), node, subnode, i = 0; i < n; ++i) {
+          if ((node = group[i]) && (subnode = select.call(node, node.__data__, i, group))) {
+            if ("__data__" in node) subnode.__data__ = node.__data__;
+            subgroup[i] = subnode;
+          }
+        }
+      }
+
+      return new Selection(subgroups, this._parents);
+    }
+
+    function empty$1() {
+      return [];
+    }
+
+    function selectorAll(selector) {
+      return selector == null ? empty$1 : function() {
+        return this.querySelectorAll(selector);
+      };
+    }
+
+    function selection_selectAll(select) {
+      if (typeof select !== "function") select = selectorAll(select);
+
+      for (var groups = this._groups, m = groups.length, subgroups = [], parents = [], j = 0; j < m; ++j) {
+        for (var group = groups[j], n = group.length, node, i = 0; i < n; ++i) {
+          if (node = group[i]) {
+            subgroups.push(select.call(node, node.__data__, i, group));
+            parents.push(node);
+          }
+        }
+      }
+
+      return new Selection(subgroups, parents);
+    }
+
+    function matcher(selector) {
+      return function() {
+        return this.matches(selector);
+      };
+    }
+
+    function selection_filter(match) {
+      if (typeof match !== "function") match = matcher(match);
+
+      for (var groups = this._groups, m = groups.length, subgroups = new Array(m), j = 0; j < m; ++j) {
+        for (var group = groups[j], n = group.length, subgroup = subgroups[j] = [], node, i = 0; i < n; ++i) {
+          if ((node = group[i]) && match.call(node, node.__data__, i, group)) {
+            subgroup.push(node);
+          }
+        }
+      }
+
+      return new Selection(subgroups, this._parents);
+    }
+
+    function sparse(update) {
+      return new Array(update.length);
+    }
+
+    function selection_enter() {
+      return new Selection(this._enter || this._groups.map(sparse), this._parents);
+    }
+
+    function EnterNode(parent, datum) {
+      this.ownerDocument = parent.ownerDocument;
+      this.namespaceURI = parent.namespaceURI;
+      this._next = null;
+      this._parent = parent;
+      this.__data__ = datum;
+    }
+
+    EnterNode.prototype = {
+      constructor: EnterNode,
+      appendChild: function(child) { return this._parent.insertBefore(child, this._next); },
+      insertBefore: function(child, next) { return this._parent.insertBefore(child, next); },
+      querySelector: function(selector) { return this._parent.querySelector(selector); },
+      querySelectorAll: function(selector) { return this._parent.querySelectorAll(selector); }
+    };
+
+    function constant(x) {
+      return function() {
+        return x;
+      };
+    }
+
+    var keyPrefix = "$"; // Protect against keys like “__proto__”.
+
+    function bindIndex(parent, group, enter, update, exit, data) {
+      var i = 0,
+          node,
+          groupLength = group.length,
+          dataLength = data.length;
+
+      // Put any non-null nodes that fit into update.
+      // Put any null nodes into enter.
+      // Put any remaining data into enter.
+      for (; i < dataLength; ++i) {
+        if (node = group[i]) {
+          node.__data__ = data[i];
+          update[i] = node;
+        } else {
+          enter[i] = new EnterNode(parent, data[i]);
+        }
+      }
+
+      // Put any non-null nodes that don’t fit into exit.
+      for (; i < groupLength; ++i) {
+        if (node = group[i]) {
+          exit[i] = node;
+        }
+      }
+    }
+
+    function bindKey(parent, group, enter, update, exit, data, key) {
+      var i,
+          node,
+          nodeByKeyValue = {},
+          groupLength = group.length,
+          dataLength = data.length,
+          keyValues = new Array(groupLength),
+          keyValue;
+
+      // Compute the key for each node.
+      // If multiple nodes have the same key, the duplicates are added to exit.
+      for (i = 0; i < groupLength; ++i) {
+        if (node = group[i]) {
+          keyValues[i] = keyValue = keyPrefix + key.call(node, node.__data__, i, group);
+          if (keyValue in nodeByKeyValue) {
+            exit[i] = node;
+          } else {
+            nodeByKeyValue[keyValue] = node;
+          }
+        }
+      }
+
+      // Compute the key for each datum.
+      // If there a node associated with this key, join and add it to update.
+      // If there is not (or the key is a duplicate), add it to enter.
+      for (i = 0; i < dataLength; ++i) {
+        keyValue = keyPrefix + key.call(parent, data[i], i, data);
+        if (node = nodeByKeyValue[keyValue]) {
+          update[i] = node;
+          node.__data__ = data[i];
+          nodeByKeyValue[keyValue] = null;
+        } else {
+          enter[i] = new EnterNode(parent, data[i]);
+        }
+      }
+
+      // Add any remaining nodes that were not bound to data to exit.
+      for (i = 0; i < groupLength; ++i) {
+        if ((node = group[i]) && (nodeByKeyValue[keyValues[i]] === node)) {
+          exit[i] = node;
+        }
+      }
+    }
+
+    function selection_data(value, key) {
+      if (!value) {
+        data = new Array(this.size()), j = -1;
+        this.each(function(d) { data[++j] = d; });
+        return data;
+      }
+
+      var bind = key ? bindKey : bindIndex,
+          parents = this._parents,
+          groups = this._groups;
+
+      if (typeof value !== "function") value = constant(value);
+
+      for (var m = groups.length, update = new Array(m), enter = new Array(m), exit = new Array(m), j = 0; j < m; ++j) {
+        var parent = parents[j],
+            group = groups[j],
+            groupLength = group.length,
+            data = value.call(parent, parent && parent.__data__, j, parents),
+            dataLength = data.length,
+            enterGroup = enter[j] = new Array(dataLength),
+            updateGroup = update[j] = new Array(dataLength),
+            exitGroup = exit[j] = new Array(groupLength);
+
+        bind(parent, group, enterGroup, updateGroup, exitGroup, data, key);
+
+        // Now connect the enter nodes to their following update node, such that
+        // appendChild can insert the materialized enter node before this node,
+        // rather than at the end of the parent node.
+        for (var i0 = 0, i1 = 0, previous, next; i0 < dataLength; ++i0) {
+          if (previous = enterGroup[i0]) {
+            if (i0 >= i1) i1 = i0 + 1;
+            while (!(next = updateGroup[i1]) && ++i1 < dataLength);
+            previous._next = next || null;
+          }
+        }
+      }
+
+      update = new Selection(update, parents);
+      update._enter = enter;
+      update._exit = exit;
+      return update;
+    }
+
+    function selection_exit() {
+      return new Selection(this._exit || this._groups.map(sparse), this._parents);
+    }
+
+    function selection_join(onenter, onupdate, onexit) {
+      var enter = this.enter(), update = this, exit = this.exit();
+      enter = typeof onenter === "function" ? onenter(enter) : enter.append(onenter + "");
+      if (onupdate != null) update = onupdate(update);
+      if (onexit == null) exit.remove(); else onexit(exit);
+      return enter && update ? enter.merge(update).order() : update;
+    }
+
+    function selection_merge(selection) {
+
+      for (var groups0 = this._groups, groups1 = selection._groups, m0 = groups0.length, m1 = groups1.length, m = Math.min(m0, m1), merges = new Array(m0), j = 0; j < m; ++j) {
+        for (var group0 = groups0[j], group1 = groups1[j], n = group0.length, merge = merges[j] = new Array(n), node, i = 0; i < n; ++i) {
+          if (node = group0[i] || group1[i]) {
+            merge[i] = node;
+          }
+        }
+      }
+
+      for (; j < m0; ++j) {
+        merges[j] = groups0[j];
+      }
+
+      return new Selection(merges, this._parents);
+    }
+
+    function selection_order() {
+
+      for (var groups = this._groups, j = -1, m = groups.length; ++j < m;) {
+        for (var group = groups[j], i = group.length - 1, next = group[i], node; --i >= 0;) {
+          if (node = group[i]) {
+            if (next && node.compareDocumentPosition(next) ^ 4) next.parentNode.insertBefore(node, next);
+            next = node;
+          }
+        }
+      }
+
+      return this;
+    }
+
+    function selection_sort(compare) {
+      if (!compare) compare = ascending$1;
+
+      function compareNode(a, b) {
+        return a && b ? compare(a.__data__, b.__data__) : !a - !b;
+      }
+
+      for (var groups = this._groups, m = groups.length, sortgroups = new Array(m), j = 0; j < m; ++j) {
+        for (var group = groups[j], n = group.length, sortgroup = sortgroups[j] = new Array(n), node, i = 0; i < n; ++i) {
+          if (node = group[i]) {
+            sortgroup[i] = node;
+          }
+        }
+        sortgroup.sort(compareNode);
+      }
+
+      return new Selection(sortgroups, this._parents).order();
+    }
+
+    function ascending$1(a, b) {
+      return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
+    }
+
+    function selection_call() {
+      var callback = arguments[0];
+      arguments[0] = this;
+      callback.apply(null, arguments);
+      return this;
+    }
+
+    function selection_nodes() {
+      var nodes = new Array(this.size()), i = -1;
+      this.each(function() { nodes[++i] = this; });
+      return nodes;
+    }
+
+    function selection_node() {
+
+      for (var groups = this._groups, j = 0, m = groups.length; j < m; ++j) {
+        for (var group = groups[j], i = 0, n = group.length; i < n; ++i) {
+          var node = group[i];
+          if (node) return node;
+        }
+      }
+
+      return null;
+    }
+
+    function selection_size() {
+      var size = 0;
+      this.each(function() { ++size; });
+      return size;
+    }
+
+    function selection_empty() {
+      return !this.node();
+    }
+
+    function selection_each(callback) {
+
+      for (var groups = this._groups, j = 0, m = groups.length; j < m; ++j) {
+        for (var group = groups[j], i = 0, n = group.length, node; i < n; ++i) {
+          if (node = group[i]) callback.call(node, node.__data__, i, group);
+        }
+      }
+
+      return this;
+    }
+
+    function attrRemove(name) {
+      return function() {
+        this.removeAttribute(name);
+      };
+    }
+
+    function attrRemoveNS(fullname) {
+      return function() {
+        this.removeAttributeNS(fullname.space, fullname.local);
+      };
+    }
+
+    function attrConstant(name, value) {
+      return function() {
+        this.setAttribute(name, value);
+      };
+    }
+
+    function attrConstantNS(fullname, value) {
+      return function() {
+        this.setAttributeNS(fullname.space, fullname.local, value);
+      };
+    }
+
+    function attrFunction(name, value) {
+      return function() {
+        var v = value.apply(this, arguments);
+        if (v == null) this.removeAttribute(name);
+        else this.setAttribute(name, v);
+      };
+    }
+
+    function attrFunctionNS(fullname, value) {
+      return function() {
+        var v = value.apply(this, arguments);
+        if (v == null) this.removeAttributeNS(fullname.space, fullname.local);
+        else this.setAttributeNS(fullname.space, fullname.local, v);
+      };
+    }
+
+    function selection_attr(name, value) {
+      var fullname = namespace(name);
+
+      if (arguments.length < 2) {
+        var node = this.node();
+        return fullname.local
+            ? node.getAttributeNS(fullname.space, fullname.local)
+            : node.getAttribute(fullname);
+      }
+
+      return this.each((value == null
+          ? (fullname.local ? attrRemoveNS : attrRemove) : (typeof value === "function"
+          ? (fullname.local ? attrFunctionNS : attrFunction)
+          : (fullname.local ? attrConstantNS : attrConstant)))(fullname, value));
+    }
+
+    function defaultView(node) {
+      return (node.ownerDocument && node.ownerDocument.defaultView) // node is a Node
+          || (node.document && node) // node is a Window
+          || node.defaultView; // node is a Document
+    }
+
+    function styleRemove(name) {
+      return function() {
+        this.style.removeProperty(name);
+      };
+    }
+
+    function styleConstant(name, value, priority) {
+      return function() {
+        this.style.setProperty(name, value, priority);
+      };
+    }
+
+    function styleFunction(name, value, priority) {
+      return function() {
+        var v = value.apply(this, arguments);
+        if (v == null) this.style.removeProperty(name);
+        else this.style.setProperty(name, v, priority);
+      };
+    }
+
+    function selection_style(name, value, priority) {
+      return arguments.length > 1
+          ? this.each((value == null
+                ? styleRemove : typeof value === "function"
+                ? styleFunction
+                : styleConstant)(name, value, priority == null ? "" : priority))
+          : styleValue(this.node(), name);
+    }
+
+    function styleValue(node, name) {
+      return node.style.getPropertyValue(name)
+          || defaultView(node).getComputedStyle(node, null).getPropertyValue(name);
+    }
+
+    function propertyRemove(name) {
+      return function() {
+        delete this[name];
+      };
+    }
+
+    function propertyConstant(name, value) {
+      return function() {
+        this[name] = value;
+      };
+    }
+
+    function propertyFunction(name, value) {
+      return function() {
+        var v = value.apply(this, arguments);
+        if (v == null) delete this[name];
+        else this[name] = v;
+      };
+    }
+
+    function selection_property(name, value) {
+      return arguments.length > 1
+          ? this.each((value == null
+              ? propertyRemove : typeof value === "function"
+              ? propertyFunction
+              : propertyConstant)(name, value))
+          : this.node()[name];
+    }
+
+    function classArray(string) {
+      return string.trim().split(/^|\s+/);
+    }
+
+    function classList(node) {
+      return node.classList || new ClassList(node);
+    }
+
+    function ClassList(node) {
+      this._node = node;
+      this._names = classArray(node.getAttribute("class") || "");
+    }
+
+    ClassList.prototype = {
+      add: function(name) {
+        var i = this._names.indexOf(name);
+        if (i < 0) {
+          this._names.push(name);
+          this._node.setAttribute("class", this._names.join(" "));
+        }
+      },
+      remove: function(name) {
+        var i = this._names.indexOf(name);
+        if (i >= 0) {
+          this._names.splice(i, 1);
+          this._node.setAttribute("class", this._names.join(" "));
+        }
+      },
+      contains: function(name) {
+        return this._names.indexOf(name) >= 0;
+      }
+    };
+
+    function classedAdd(node, names) {
+      var list = classList(node), i = -1, n = names.length;
+      while (++i < n) list.add(names[i]);
+    }
+
+    function classedRemove(node, names) {
+      var list = classList(node), i = -1, n = names.length;
+      while (++i < n) list.remove(names[i]);
+    }
+
+    function classedTrue(names) {
+      return function() {
+        classedAdd(this, names);
+      };
+    }
+
+    function classedFalse(names) {
+      return function() {
+        classedRemove(this, names);
+      };
+    }
+
+    function classedFunction(names, value) {
+      return function() {
+        (value.apply(this, arguments) ? classedAdd : classedRemove)(this, names);
+      };
+    }
+
+    function selection_classed(name, value) {
+      var names = classArray(name + "");
+
+      if (arguments.length < 2) {
+        var list = classList(this.node()), i = -1, n = names.length;
+        while (++i < n) if (!list.contains(names[i])) return false;
+        return true;
+      }
+
+      return this.each((typeof value === "function"
+          ? classedFunction : value
+          ? classedTrue
+          : classedFalse)(names, value));
+    }
+
+    function textRemove() {
+      this.textContent = "";
+    }
+
+    function textConstant(value) {
+      return function() {
+        this.textContent = value;
+      };
+    }
+
+    function textFunction(value) {
+      return function() {
+        var v = value.apply(this, arguments);
+        this.textContent = v == null ? "" : v;
+      };
+    }
+
+    function selection_text(value) {
+      return arguments.length
+          ? this.each(value == null
+              ? textRemove : (typeof value === "function"
+              ? textFunction
+              : textConstant)(value))
+          : this.node().textContent;
+    }
+
+    function htmlRemove() {
+      this.innerHTML = "";
+    }
+
+    function htmlConstant(value) {
+      return function() {
+        this.innerHTML = value;
+      };
+    }
+
+    function htmlFunction(value) {
+      return function() {
+        var v = value.apply(this, arguments);
+        this.innerHTML = v == null ? "" : v;
+      };
+    }
+
+    function selection_html(value) {
+      return arguments.length
+          ? this.each(value == null
+              ? htmlRemove : (typeof value === "function"
+              ? htmlFunction
+              : htmlConstant)(value))
+          : this.node().innerHTML;
+    }
+
+    function raise() {
+      if (this.nextSibling) this.parentNode.appendChild(this);
+    }
+
+    function selection_raise() {
+      return this.each(raise);
+    }
+
+    function lower() {
+      if (this.previousSibling) this.parentNode.insertBefore(this, this.parentNode.firstChild);
+    }
+
+    function selection_lower() {
+      return this.each(lower);
+    }
+
+    function selection_append(name) {
+      var create = typeof name === "function" ? name : creator(name);
+      return this.select(function() {
+        return this.appendChild(create.apply(this, arguments));
+      });
+    }
+
+    function constantNull() {
+      return null;
+    }
+
+    function selection_insert(name, before) {
+      var create = typeof name === "function" ? name : creator(name),
+          select = before == null ? constantNull : typeof before === "function" ? before : selector(before);
+      return this.select(function() {
+        return this.insertBefore(create.apply(this, arguments), select.apply(this, arguments) || null);
+      });
+    }
+
+    function remove() {
+      var parent = this.parentNode;
+      if (parent) parent.removeChild(this);
+    }
+
+    function selection_remove() {
+      return this.each(remove);
+    }
+
+    function selection_cloneShallow() {
+      return this.parentNode.insertBefore(this.cloneNode(false), this.nextSibling);
+    }
+
+    function selection_cloneDeep() {
+      return this.parentNode.insertBefore(this.cloneNode(true), this.nextSibling);
+    }
+
+    function selection_clone(deep) {
+      return this.select(deep ? selection_cloneDeep : selection_cloneShallow);
+    }
+
+    function selection_datum(value) {
+      return arguments.length
+          ? this.property("__data__", value)
+          : this.node().__data__;
+    }
+
+    var filterEvents = {};
+
+    var event = null;
+
+    if (typeof document !== "undefined") {
+      var element$1 = document.documentElement;
+      if (!("onmouseenter" in element$1)) {
+        filterEvents = {mouseenter: "mouseover", mouseleave: "mouseout"};
+      }
+    }
+
+    function filterContextListener(listener, index, group) {
+      listener = contextListener(listener, index, group);
+      return function(event) {
+        var related = event.relatedTarget;
+        if (!related || (related !== this && !(related.compareDocumentPosition(this) & 8))) {
+          listener.call(this, event);
+        }
+      };
+    }
+
+    function contextListener(listener, index, group) {
+      return function(event1) {
+        var event0 = event; // Events can be reentrant (e.g., focus).
+        event = event1;
+        try {
+          listener.call(this, this.__data__, index, group);
+        } finally {
+          event = event0;
+        }
+      };
+    }
+
+    function parseTypenames$1(typenames) {
+      return typenames.trim().split(/^|\s+/).map(function(t) {
+        var name = "", i = t.indexOf(".");
+        if (i >= 0) name = t.slice(i + 1), t = t.slice(0, i);
+        return {type: t, name: name};
+      });
+    }
+
+    function onRemove(typename) {
+      return function() {
+        var on = this.__on;
+        if (!on) return;
+        for (var j = 0, i = -1, m = on.length, o; j < m; ++j) {
+          if (o = on[j], (!typename.type || o.type === typename.type) && o.name === typename.name) {
+            this.removeEventListener(o.type, o.listener, o.capture);
+          } else {
+            on[++i] = o;
+          }
+        }
+        if (++i) on.length = i;
+        else delete this.__on;
+      };
+    }
+
+    function onAdd(typename, value, capture) {
+      var wrap = filterEvents.hasOwnProperty(typename.type) ? filterContextListener : contextListener;
+      return function(d, i, group) {
+        var on = this.__on, o, listener = wrap(value, i, group);
+        if (on) for (var j = 0, m = on.length; j < m; ++j) {
+          if ((o = on[j]).type === typename.type && o.name === typename.name) {
+            this.removeEventListener(o.type, o.listener, o.capture);
+            this.addEventListener(o.type, o.listener = listener, o.capture = capture);
+            o.value = value;
+            return;
+          }
+        }
+        this.addEventListener(typename.type, listener, capture);
+        o = {type: typename.type, name: typename.name, value: value, listener: listener, capture: capture};
+        if (!on) this.__on = [o];
+        else on.push(o);
+      };
+    }
+
+    function selection_on(typename, value, capture) {
+      var typenames = parseTypenames$1(typename + ""), i, n = typenames.length, t;
+
+      if (arguments.length < 2) {
+        var on = this.node().__on;
+        if (on) for (var j = 0, m = on.length, o; j < m; ++j) {
+          for (i = 0, o = on[j]; i < n; ++i) {
+            if ((t = typenames[i]).type === o.type && t.name === o.name) {
+              return o.value;
+            }
+          }
+        }
+        return;
+      }
+
+      on = value ? onAdd : onRemove;
+      if (capture == null) capture = false;
+      for (i = 0; i < n; ++i) this.each(on(typenames[i], value, capture));
+      return this;
+    }
+
+    function customEvent(event1, listener, that, args) {
+      var event0 = event;
+      event1.sourceEvent = event;
+      event = event1;
+      try {
+        return listener.apply(that, args);
+      } finally {
+        event = event0;
+      }
+    }
+
+    function dispatchEvent(node, type, params) {
+      var window = defaultView(node),
+          event = window.CustomEvent;
+
+      if (typeof event === "function") {
+        event = new event(type, params);
+      } else {
+        event = window.document.createEvent("Event");
+        if (params) event.initEvent(type, params.bubbles, params.cancelable), event.detail = params.detail;
+        else event.initEvent(type, false, false);
+      }
+
+      node.dispatchEvent(event);
+    }
+
+    function dispatchConstant(type, params) {
+      return function() {
+        return dispatchEvent(this, type, params);
+      };
+    }
+
+    function dispatchFunction(type, params) {
+      return function() {
+        return dispatchEvent(this, type, params.apply(this, arguments));
+      };
+    }
+
+    function selection_dispatch(type, params) {
+      return this.each((typeof params === "function"
+          ? dispatchFunction
+          : dispatchConstant)(type, params));
+    }
+
+    var root = [null];
+
+    function Selection(groups, parents) {
+      this._groups = groups;
+      this._parents = parents;
+    }
+
+    function selection() {
+      return new Selection([[document.documentElement]], root);
+    }
+
+    Selection.prototype = selection.prototype = {
+      constructor: Selection,
+      select: selection_select,
+      selectAll: selection_selectAll,
+      filter: selection_filter,
+      data: selection_data,
+      enter: selection_enter,
+      exit: selection_exit,
+      join: selection_join,
+      merge: selection_merge,
+      order: selection_order,
+      sort: selection_sort,
+      call: selection_call,
+      nodes: selection_nodes,
+      node: selection_node,
+      size: selection_size,
+      empty: selection_empty,
+      each: selection_each,
+      attr: selection_attr,
+      style: selection_style,
+      property: selection_property,
+      classed: selection_classed,
+      text: selection_text,
+      html: selection_html,
+      raise: selection_raise,
+      lower: selection_lower,
+      append: selection_append,
+      insert: selection_insert,
+      remove: selection_remove,
+      clone: selection_clone,
+      datum: selection_datum,
+      on: selection_on,
+      dispatch: selection_dispatch
+    };
+
+    function d3select(selector) {
+      return typeof selector === "string"
+          ? new Selection([[document.querySelector(selector)]], [document.documentElement])
+          : new Selection([[selector]], root);
+    }
+
+    function sourceEvent() {
+      var current = event, source;
+      while (source = current.sourceEvent) current = source;
+      return current;
+    }
+
+    function point(node, event) {
+      var svg = node.ownerSVGElement || node;
+
+      if (svg.createSVGPoint) {
+        var point = svg.createSVGPoint();
+        point.x = event.clientX, point.y = event.clientY;
+        point = point.matrixTransform(node.getScreenCTM().inverse());
+        return [point.x, point.y];
+      }
+
+      var rect = node.getBoundingClientRect();
+      return [event.clientX - rect.left - node.clientLeft, event.clientY - rect.top - node.clientTop];
+    }
+
+    function mouse(node) {
+      var event = sourceEvent();
+      if (event.changedTouches) event = event.changedTouches[0];
+      return point(node, event);
+    }
+
+    function noevent() {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+
+    function dragDisable(view) {
+      var root = view.document.documentElement,
+          selection = d3select(view).on("dragstart.drag", noevent, true);
+      if ("onselectstart" in root) {
+        selection.on("selectstart.drag", noevent, true);
+      } else {
+        root.__noselect = root.style.MozUserSelect;
+        root.style.MozUserSelect = "none";
+      }
+    }
+
+    function yesdrag(view, noclick) {
+      var root = view.document.documentElement,
+          selection = d3select(view).on("dragstart.drag", null);
+      if (noclick) {
+        selection.on("click.drag", noevent, true);
+        setTimeout(function() { selection.on("click.drag", null); }, 0);
+      }
+      if ("onselectstart" in root) {
+        selection.on("selectstart.drag", null);
+      } else {
+        root.style.MozUserSelect = root.__noselect;
+        delete root.__noselect;
+      }
+    }
+
+    function define(constructor, factory, prototype) {
+      constructor.prototype = factory.prototype = prototype;
+      prototype.constructor = constructor;
+    }
+
+    function extend(parent, definition) {
+      var prototype = Object.create(parent.prototype);
+      for (var key in definition) prototype[key] = definition[key];
+      return prototype;
+    }
+
+    function Color() {}
+
+    var darker = 0.7;
+    var brighter = 1 / darker;
+
+    var reI = "\\s*([+-]?\\d+)\\s*",
+        reN = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)\\s*",
+        reP = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)%\\s*",
+        reHex3 = /^#([0-9a-f]{3})$/,
+        reHex6 = /^#([0-9a-f]{6})$/,
+        reRgbInteger = new RegExp("^rgb\\(" + [reI, reI, reI] + "\\)$"),
+        reRgbPercent = new RegExp("^rgb\\(" + [reP, reP, reP] + "\\)$"),
+        reRgbaInteger = new RegExp("^rgba\\(" + [reI, reI, reI, reN] + "\\)$"),
+        reRgbaPercent = new RegExp("^rgba\\(" + [reP, reP, reP, reN] + "\\)$"),
+        reHslPercent = new RegExp("^hsl\\(" + [reN, reP, reP] + "\\)$"),
+        reHslaPercent = new RegExp("^hsla\\(" + [reN, reP, reP, reN] + "\\)$");
+
+    var named = {
+      aliceblue: 0xf0f8ff,
+      antiquewhite: 0xfaebd7,
+      aqua: 0x00ffff,
+      aquamarine: 0x7fffd4,
+      azure: 0xf0ffff,
+      beige: 0xf5f5dc,
+      bisque: 0xffe4c4,
+      black: 0x000000,
+      blanchedalmond: 0xffebcd,
+      blue: 0x0000ff,
+      blueviolet: 0x8a2be2,
+      brown: 0xa52a2a,
+      burlywood: 0xdeb887,
+      cadetblue: 0x5f9ea0,
+      chartreuse: 0x7fff00,
+      chocolate: 0xd2691e,
+      coral: 0xff7f50,
+      cornflowerblue: 0x6495ed,
+      cornsilk: 0xfff8dc,
+      crimson: 0xdc143c,
+      cyan: 0x00ffff,
+      darkblue: 0x00008b,
+      darkcyan: 0x008b8b,
+      darkgoldenrod: 0xb8860b,
+      darkgray: 0xa9a9a9,
+      darkgreen: 0x006400,
+      darkgrey: 0xa9a9a9,
+      darkkhaki: 0xbdb76b,
+      darkmagenta: 0x8b008b,
+      darkolivegreen: 0x556b2f,
+      darkorange: 0xff8c00,
+      darkorchid: 0x9932cc,
+      darkred: 0x8b0000,
+      darksalmon: 0xe9967a,
+      darkseagreen: 0x8fbc8f,
+      darkslateblue: 0x483d8b,
+      darkslategray: 0x2f4f4f,
+      darkslategrey: 0x2f4f4f,
+      darkturquoise: 0x00ced1,
+      darkviolet: 0x9400d3,
+      deeppink: 0xff1493,
+      deepskyblue: 0x00bfff,
+      dimgray: 0x696969,
+      dimgrey: 0x696969,
+      dodgerblue: 0x1e90ff,
+      firebrick: 0xb22222,
+      floralwhite: 0xfffaf0,
+      forestgreen: 0x228b22,
+      fuchsia: 0xff00ff,
+      gainsboro: 0xdcdcdc,
+      ghostwhite: 0xf8f8ff,
+      gold: 0xffd700,
+      goldenrod: 0xdaa520,
+      gray: 0x808080,
+      green: 0x008000,
+      greenyellow: 0xadff2f,
+      grey: 0x808080,
+      honeydew: 0xf0fff0,
+      hotpink: 0xff69b4,
+      indianred: 0xcd5c5c,
+      indigo: 0x4b0082,
+      ivory: 0xfffff0,
+      khaki: 0xf0e68c,
+      lavender: 0xe6e6fa,
+      lavenderblush: 0xfff0f5,
+      lawngreen: 0x7cfc00,
+      lemonchiffon: 0xfffacd,
+      lightblue: 0xadd8e6,
+      lightcoral: 0xf08080,
+      lightcyan: 0xe0ffff,
+      lightgoldenrodyellow: 0xfafad2,
+      lightgray: 0xd3d3d3,
+      lightgreen: 0x90ee90,
+      lightgrey: 0xd3d3d3,
+      lightpink: 0xffb6c1,
+      lightsalmon: 0xffa07a,
+      lightseagreen: 0x20b2aa,
+      lightskyblue: 0x87cefa,
+      lightslategray: 0x778899,
+      lightslategrey: 0x778899,
+      lightsteelblue: 0xb0c4de,
+      lightyellow: 0xffffe0,
+      lime: 0x00ff00,
+      limegreen: 0x32cd32,
+      linen: 0xfaf0e6,
+      magenta: 0xff00ff,
+      maroon: 0x800000,
+      mediumaquamarine: 0x66cdaa,
+      mediumblue: 0x0000cd,
+      mediumorchid: 0xba55d3,
+      mediumpurple: 0x9370db,
+      mediumseagreen: 0x3cb371,
+      mediumslateblue: 0x7b68ee,
+      mediumspringgreen: 0x00fa9a,
+      mediumturquoise: 0x48d1cc,
+      mediumvioletred: 0xc71585,
+      midnightblue: 0x191970,
+      mintcream: 0xf5fffa,
+      mistyrose: 0xffe4e1,
+      moccasin: 0xffe4b5,
+      navajowhite: 0xffdead,
+      navy: 0x000080,
+      oldlace: 0xfdf5e6,
+      olive: 0x808000,
+      olivedrab: 0x6b8e23,
+      orange: 0xffa500,
+      orangered: 0xff4500,
+      orchid: 0xda70d6,
+      palegoldenrod: 0xeee8aa,
+      palegreen: 0x98fb98,
+      paleturquoise: 0xafeeee,
+      palevioletred: 0xdb7093,
+      papayawhip: 0xffefd5,
+      peachpuff: 0xffdab9,
+      peru: 0xcd853f,
+      pink: 0xffc0cb,
+      plum: 0xdda0dd,
+      powderblue: 0xb0e0e6,
+      purple: 0x800080,
+      rebeccapurple: 0x663399,
+      red: 0xff0000,
+      rosybrown: 0xbc8f8f,
+      royalblue: 0x4169e1,
+      saddlebrown: 0x8b4513,
+      salmon: 0xfa8072,
+      sandybrown: 0xf4a460,
+      seagreen: 0x2e8b57,
+      seashell: 0xfff5ee,
+      sienna: 0xa0522d,
+      silver: 0xc0c0c0,
+      skyblue: 0x87ceeb,
+      slateblue: 0x6a5acd,
+      slategray: 0x708090,
+      slategrey: 0x708090,
+      snow: 0xfffafa,
+      springgreen: 0x00ff7f,
+      steelblue: 0x4682b4,
+      tan: 0xd2b48c,
+      teal: 0x008080,
+      thistle: 0xd8bfd8,
+      tomato: 0xff6347,
+      turquoise: 0x40e0d0,
+      violet: 0xee82ee,
+      wheat: 0xf5deb3,
+      white: 0xffffff,
+      whitesmoke: 0xf5f5f5,
+      yellow: 0xffff00,
+      yellowgreen: 0x9acd32
+    };
+
+    define(Color, color, {
+      displayable: function() {
+        return this.rgb().displayable();
+      },
+      hex: function() {
+        return this.rgb().hex();
+      },
+      toString: function() {
+        return this.rgb() + "";
+      }
+    });
+
+    function color(format) {
+      var m;
+      format = (format + "").trim().toLowerCase();
+      return (m = reHex3.exec(format)) ? (m = parseInt(m[1], 16), new Rgb((m >> 8 & 0xf) | (m >> 4 & 0x0f0), (m >> 4 & 0xf) | (m & 0xf0), ((m & 0xf) << 4) | (m & 0xf), 1)) // #f00
+          : (m = reHex6.exec(format)) ? rgbn(parseInt(m[1], 16)) // #ff0000
+          : (m = reRgbInteger.exec(format)) ? new Rgb(m[1], m[2], m[3], 1) // rgb(255, 0, 0)
+          : (m = reRgbPercent.exec(format)) ? new Rgb(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, 1) // rgb(100%, 0%, 0%)
+          : (m = reRgbaInteger.exec(format)) ? rgba(m[1], m[2], m[3], m[4]) // rgba(255, 0, 0, 1)
+          : (m = reRgbaPercent.exec(format)) ? rgba(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, m[4]) // rgb(100%, 0%, 0%, 1)
+          : (m = reHslPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, 1) // hsl(120, 50%, 50%)
+          : (m = reHslaPercent.exec(format)) ? hsla(m[1], m[2] / 100, m[3] / 100, m[4]) // hsla(120, 50%, 50%, 1)
+          : named.hasOwnProperty(format) ? rgbn(named[format])
+          : format === "transparent" ? new Rgb(NaN, NaN, NaN, 0)
+          : null;
+    }
+
+    function rgbn(n) {
+      return new Rgb(n >> 16 & 0xff, n >> 8 & 0xff, n & 0xff, 1);
+    }
+
+    function rgba(r, g, b, a) {
+      if (a <= 0) r = g = b = NaN;
+      return new Rgb(r, g, b, a);
+    }
+
+    function rgbConvert(o) {
+      if (!(o instanceof Color)) o = color(o);
+      if (!o) return new Rgb;
+      o = o.rgb();
+      return new Rgb(o.r, o.g, o.b, o.opacity);
+    }
+
+    function rgb(r, g, b, opacity) {
+      return arguments.length === 1 ? rgbConvert(r) : new Rgb(r, g, b, opacity == null ? 1 : opacity);
+    }
+
+    function Rgb(r, g, b, opacity) {
+      this.r = +r;
+      this.g = +g;
+      this.b = +b;
+      this.opacity = +opacity;
+    }
+
+    define(Rgb, rgb, extend(Color, {
+      brighter: function(k) {
+        k = k == null ? brighter : Math.pow(brighter, k);
+        return new Rgb(this.r * k, this.g * k, this.b * k, this.opacity);
+      },
+      darker: function(k) {
+        k = k == null ? darker : Math.pow(darker, k);
+        return new Rgb(this.r * k, this.g * k, this.b * k, this.opacity);
+      },
+      rgb: function() {
+        return this;
+      },
+      displayable: function() {
+        return (-0.5 <= this.r && this.r < 255.5)
+            && (-0.5 <= this.g && this.g < 255.5)
+            && (-0.5 <= this.b && this.b < 255.5)
+            && (0 <= this.opacity && this.opacity <= 1);
+      },
+      hex: function() {
+        return "#" + hex(this.r) + hex(this.g) + hex(this.b);
+      },
+      toString: function() {
+        var a = this.opacity; a = isNaN(a) ? 1 : Math.max(0, Math.min(1, a));
+        return (a === 1 ? "rgb(" : "rgba(")
+            + Math.max(0, Math.min(255, Math.round(this.r) || 0)) + ", "
+            + Math.max(0, Math.min(255, Math.round(this.g) || 0)) + ", "
+            + Math.max(0, Math.min(255, Math.round(this.b) || 0))
+            + (a === 1 ? ")" : ", " + a + ")");
+      }
+    }));
+
+    function hex(value) {
+      value = Math.max(0, Math.min(255, Math.round(value) || 0));
+      return (value < 16 ? "0" : "") + value.toString(16);
+    }
+
+    function hsla(h, s, l, a) {
+      if (a <= 0) h = s = l = NaN;
+      else if (l <= 0 || l >= 1) h = s = NaN;
+      else if (s <= 0) h = NaN;
+      return new Hsl(h, s, l, a);
+    }
+
+    function hslConvert(o) {
+      if (o instanceof Hsl) return new Hsl(o.h, o.s, o.l, o.opacity);
+      if (!(o instanceof Color)) o = color(o);
+      if (!o) return new Hsl;
+      if (o instanceof Hsl) return o;
+      o = o.rgb();
+      var r = o.r / 255,
+          g = o.g / 255,
+          b = o.b / 255,
+          min = Math.min(r, g, b),
+          max = Math.max(r, g, b),
+          h = NaN,
+          s = max - min,
+          l = (max + min) / 2;
+      if (s) {
+        if (r === max) h = (g - b) / s + (g < b) * 6;
+        else if (g === max) h = (b - r) / s + 2;
+        else h = (r - g) / s + 4;
+        s /= l < 0.5 ? max + min : 2 - max - min;
+        h *= 60;
+      } else {
+        s = l > 0 && l < 1 ? 0 : h;
+      }
+      return new Hsl(h, s, l, o.opacity);
+    }
+
+    function hsl(h, s, l, opacity) {
+      return arguments.length === 1 ? hslConvert(h) : new Hsl(h, s, l, opacity == null ? 1 : opacity);
+    }
+
+    function Hsl(h, s, l, opacity) {
+      this.h = +h;
+      this.s = +s;
+      this.l = +l;
+      this.opacity = +opacity;
+    }
+
+    define(Hsl, hsl, extend(Color, {
+      brighter: function(k) {
+        k = k == null ? brighter : Math.pow(brighter, k);
+        return new Hsl(this.h, this.s, this.l * k, this.opacity);
+      },
+      darker: function(k) {
+        k = k == null ? darker : Math.pow(darker, k);
+        return new Hsl(this.h, this.s, this.l * k, this.opacity);
+      },
+      rgb: function() {
+        var h = this.h % 360 + (this.h < 0) * 360,
+            s = isNaN(h) || isNaN(this.s) ? 0 : this.s,
+            l = this.l,
+            m2 = l + (l < 0.5 ? l : 1 - l) * s,
+            m1 = 2 * l - m2;
+        return new Rgb(
+          hsl2rgb(h >= 240 ? h - 240 : h + 120, m1, m2),
+          hsl2rgb(h, m1, m2),
+          hsl2rgb(h < 120 ? h + 240 : h - 120, m1, m2),
+          this.opacity
+        );
+      },
+      displayable: function() {
+        return (0 <= this.s && this.s <= 1 || isNaN(this.s))
+            && (0 <= this.l && this.l <= 1)
+            && (0 <= this.opacity && this.opacity <= 1);
+      }
+    }));
+
+    /* From FvD 13.37, CSS Color Module Level 3 */
+    function hsl2rgb(h, m1, m2) {
+      return (h < 60 ? m1 + (m2 - m1) * h / 60
+          : h < 180 ? m2
+          : h < 240 ? m1 + (m2 - m1) * (240 - h) / 60
+          : m1) * 255;
+    }
+
+    var deg2rad = Math.PI / 180;
+    var rad2deg = 180 / Math.PI;
+
+    // https://observablehq.com/@mbostock/lab-and-rgb
+    var K = 18,
+        Xn = 0.96422,
+        Yn = 1,
+        Zn = 0.82521,
+        t0 = 4 / 29,
+        t1 = 6 / 29,
+        t2 = 3 * t1 * t1,
+        t3 = t1 * t1 * t1;
+
+    function labConvert(o) {
+      if (o instanceof Lab) return new Lab(o.l, o.a, o.b, o.opacity);
+      if (o instanceof Hcl) return hcl2lab(o);
+      if (!(o instanceof Rgb)) o = rgbConvert(o);
+      var r = rgb2lrgb(o.r),
+          g = rgb2lrgb(o.g),
+          b = rgb2lrgb(o.b),
+          y = xyz2lab((0.2225045 * r + 0.7168786 * g + 0.0606169 * b) / Yn), x, z;
+      if (r === g && g === b) x = z = y; else {
+        x = xyz2lab((0.4360747 * r + 0.3850649 * g + 0.1430804 * b) / Xn);
+        z = xyz2lab((0.0139322 * r + 0.0971045 * g + 0.7141733 * b) / Zn);
+      }
+      return new Lab(116 * y - 16, 500 * (x - y), 200 * (y - z), o.opacity);
+    }
+
+    function lab(l, a, b, opacity) {
+      return arguments.length === 1 ? labConvert(l) : new Lab(l, a, b, opacity == null ? 1 : opacity);
+    }
+
+    function Lab(l, a, b, opacity) {
+      this.l = +l;
+      this.a = +a;
+      this.b = +b;
+      this.opacity = +opacity;
+    }
+
+    define(Lab, lab, extend(Color, {
+      brighter: function(k) {
+        return new Lab(this.l + K * (k == null ? 1 : k), this.a, this.b, this.opacity);
+      },
+      darker: function(k) {
+        return new Lab(this.l - K * (k == null ? 1 : k), this.a, this.b, this.opacity);
+      },
+      rgb: function() {
+        var y = (this.l + 16) / 116,
+            x = isNaN(this.a) ? y : y + this.a / 500,
+            z = isNaN(this.b) ? y : y - this.b / 200;
+        x = Xn * lab2xyz(x);
+        y = Yn * lab2xyz(y);
+        z = Zn * lab2xyz(z);
+        return new Rgb(
+          lrgb2rgb( 3.1338561 * x - 1.6168667 * y - 0.4906146 * z),
+          lrgb2rgb(-0.9787684 * x + 1.9161415 * y + 0.0334540 * z),
+          lrgb2rgb( 0.0719453 * x - 0.2289914 * y + 1.4052427 * z),
+          this.opacity
+        );
+      }
+    }));
+
+    function xyz2lab(t) {
+      return t > t3 ? Math.pow(t, 1 / 3) : t / t2 + t0;
+    }
+
+    function lab2xyz(t) {
+      return t > t1 ? t * t * t : t2 * (t - t0);
+    }
+
+    function lrgb2rgb(x) {
+      return 255 * (x <= 0.0031308 ? 12.92 * x : 1.055 * Math.pow(x, 1 / 2.4) - 0.055);
+    }
+
+    function rgb2lrgb(x) {
+      return (x /= 255) <= 0.04045 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4);
+    }
+
+    function hclConvert(o) {
+      if (o instanceof Hcl) return new Hcl(o.h, o.c, o.l, o.opacity);
+      if (!(o instanceof Lab)) o = labConvert(o);
+      if (o.a === 0 && o.b === 0) return new Hcl(NaN, 0 < o.l && o.l < 100 ? 0 : NaN, o.l, o.opacity);
+      var h = Math.atan2(o.b, o.a) * rad2deg;
+      return new Hcl(h < 0 ? h + 360 : h, Math.sqrt(o.a * o.a + o.b * o.b), o.l, o.opacity);
+    }
+
+    function hcl(h, c, l, opacity) {
+      return arguments.length === 1 ? hclConvert(h) : new Hcl(h, c, l, opacity == null ? 1 : opacity);
+    }
+
+    function Hcl(h, c, l, opacity) {
+      this.h = +h;
+      this.c = +c;
+      this.l = +l;
+      this.opacity = +opacity;
+    }
+
+    function hcl2lab(o) {
+      if (isNaN(o.h)) return new Lab(o.l, 0, 0, o.opacity);
+      var h = o.h * deg2rad;
+      return new Lab(o.l, Math.cos(h) * o.c, Math.sin(h) * o.c, o.opacity);
+    }
+
+    define(Hcl, hcl, extend(Color, {
+      brighter: function(k) {
+        return new Hcl(this.h, this.c, this.l + K * (k == null ? 1 : k), this.opacity);
+      },
+      darker: function(k) {
+        return new Hcl(this.h, this.c, this.l - K * (k == null ? 1 : k), this.opacity);
+      },
+      rgb: function() {
+        return hcl2lab(this).rgb();
+      }
+    }));
+
+    var A = -0.14861,
+        B = +1.78277,
+        C = -0.29227,
+        D = -0.90649,
+        E = +1.97294,
+        ED = E * D,
+        EB = E * B,
+        BC_DA = B * C - D * A;
+
+    function cubehelixConvert(o) {
+      if (o instanceof Cubehelix) return new Cubehelix(o.h, o.s, o.l, o.opacity);
+      if (!(o instanceof Rgb)) o = rgbConvert(o);
+      var r = o.r / 255,
+          g = o.g / 255,
+          b = o.b / 255,
+          l = (BC_DA * b + ED * r - EB * g) / (BC_DA + ED - EB),
+          bl = b - l,
+          k = (E * (g - l) - C * bl) / D,
+          s = Math.sqrt(k * k + bl * bl) / (E * l * (1 - l)), // NaN if l=0 or l=1
+          h = s ? Math.atan2(k, bl) * rad2deg - 120 : NaN;
+      return new Cubehelix(h < 0 ? h + 360 : h, s, l, o.opacity);
+    }
+
+    function cubehelix(h, s, l, opacity) {
+      return arguments.length === 1 ? cubehelixConvert(h) : new Cubehelix(h, s, l, opacity == null ? 1 : opacity);
+    }
+
+    function Cubehelix(h, s, l, opacity) {
+      this.h = +h;
+      this.s = +s;
+      this.l = +l;
+      this.opacity = +opacity;
+    }
+
+    define(Cubehelix, cubehelix, extend(Color, {
+      brighter: function(k) {
+        k = k == null ? brighter : Math.pow(brighter, k);
+        return new Cubehelix(this.h, this.s, this.l * k, this.opacity);
+      },
+      darker: function(k) {
+        k = k == null ? darker : Math.pow(darker, k);
+        return new Cubehelix(this.h, this.s, this.l * k, this.opacity);
+      },
+      rgb: function() {
+        var h = isNaN(this.h) ? 0 : (this.h + 120) * deg2rad,
+            l = +this.l,
+            a = isNaN(this.s) ? 0 : this.s * l * (1 - l),
+            cosh = Math.cos(h),
+            sinh = Math.sin(h);
+        return new Rgb(
+          255 * (l + a * (A * cosh + B * sinh)),
+          255 * (l + a * (C * cosh + D * sinh)),
+          255 * (l + a * (E * cosh)),
+          this.opacity
+        );
+      }
+    }));
+
+    function basis(t1, v0, v1, v2, v3) {
+      var t2 = t1 * t1, t3 = t2 * t1;
+      return ((1 - 3 * t1 + 3 * t2 - t3) * v0
+          + (4 - 6 * t2 + 3 * t3) * v1
+          + (1 + 3 * t1 + 3 * t2 - 3 * t3) * v2
+          + t3 * v3) / 6;
+    }
+
+    function basis$1(values) {
+      var n = values.length - 1;
+      return function(t) {
+        var i = t <= 0 ? (t = 0) : t >= 1 ? (t = 1, n - 1) : Math.floor(t * n),
+            v1 = values[i],
+            v2 = values[i + 1],
+            v0 = i > 0 ? values[i - 1] : 2 * v1 - v2,
+            v3 = i < n - 1 ? values[i + 2] : 2 * v2 - v1;
+        return basis((t - i / n) * n, v0, v1, v2, v3);
+      };
+    }
+
+    function constant$1(x) {
+      return function() {
+        return x;
+      };
+    }
+
+    function linear(a, d) {
+      return function(t) {
+        return a + t * d;
+      };
+    }
+
+    function exponential(a, b, y) {
+      return a = Math.pow(a, y), b = Math.pow(b, y) - a, y = 1 / y, function(t) {
+        return Math.pow(a + t * b, y);
+      };
+    }
+
+    function hue(a, b) {
+      var d = b - a;
+      return d ? linear(a, d > 180 || d < -180 ? d - 360 * Math.round(d / 360) : d) : constant$1(isNaN(a) ? b : a);
+    }
+
+    function gamma(y) {
+      return (y = +y) === 1 ? nogamma : function(a, b) {
+        return b - a ? exponential(a, b, y) : constant$1(isNaN(a) ? b : a);
+      };
+    }
+
+    function nogamma(a, b) {
+      var d = b - a;
+      return d ? linear(a, d) : constant$1(isNaN(a) ? b : a);
+    }
+
+    var interpolateRgb = (function rgbGamma(y) {
+      var color = gamma(y);
+
+      function rgb$1(start, end) {
+        var r = color((start = rgb(start)).r, (end = rgb(end)).r),
+            g = color(start.g, end.g),
+            b = color(start.b, end.b),
+            opacity = nogamma(start.opacity, end.opacity);
+        return function(t) {
+          start.r = r(t);
+          start.g = g(t);
+          start.b = b(t);
+          start.opacity = opacity(t);
+          return start + "";
+        };
+      }
+
+      rgb$1.gamma = rgbGamma;
+
+      return rgb$1;
+    })(1);
+
+    function rgbSpline(spline) {
+      return function(colors) {
+        var n = colors.length,
+            r = new Array(n),
+            g = new Array(n),
+            b = new Array(n),
+            i, color;
+        for (i = 0; i < n; ++i) {
+          color = rgb(colors[i]);
+          r[i] = color.r || 0;
+          g[i] = color.g || 0;
+          b[i] = color.b || 0;
+        }
+        r = spline(r);
+        g = spline(g);
+        b = spline(b);
+        color.opacity = 1;
+        return function(t) {
+          color.r = r(t);
+          color.g = g(t);
+          color.b = b(t);
+          return color + "";
+        };
+      };
+    }
+
+    var rgbBasis = rgbSpline(basis$1);
+
+    function array(a, b) {
+      var nb = b ? b.length : 0,
+          na = a ? Math.min(nb, a.length) : 0,
+          x = new Array(na),
+          c = new Array(nb),
+          i;
+
+      for (i = 0; i < na; ++i) x[i] = interpolateValue(a[i], b[i]);
+      for (; i < nb; ++i) c[i] = b[i];
+
+      return function(t) {
+        for (i = 0; i < na; ++i) c[i] = x[i](t);
+        return c;
+      };
+    }
+
+    function date(a, b) {
+      var d = new Date;
+      return a = +a, b -= a, function(t) {
+        return d.setTime(a + b * t), d;
+      };
+    }
+
+    function interpolateNumber(a, b) {
+      return a = +a, b -= a, function(t) {
+        return a + b * t;
+      };
+    }
+
+    function object(a, b) {
+      var i = {},
+          c = {},
+          k;
+
+      if (a === null || typeof a !== "object") a = {};
+      if (b === null || typeof b !== "object") b = {};
+
+      for (k in b) {
+        if (k in a) {
+          i[k] = interpolateValue(a[k], b[k]);
+        } else {
+          c[k] = b[k];
+        }
+      }
+
+      return function(t) {
+        for (k in i) c[k] = i[k](t);
+        return c;
+      };
+    }
+
+    var reA = /[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g,
+        reB = new RegExp(reA.source, "g");
+
+    function zero(b) {
+      return function() {
+        return b;
+      };
+    }
+
+    function one(b) {
+      return function(t) {
+        return b(t) + "";
+      };
+    }
+
+    function interpolateString(a, b) {
+      var bi = reA.lastIndex = reB.lastIndex = 0, // scan index for next number in b
+          am, // current match in a
+          bm, // current match in b
+          bs, // string preceding current number in b, if any
+          i = -1, // index in s
+          s = [], // string constants and placeholders
+          q = []; // number interpolators
+
+      // Coerce inputs to strings.
+      a = a + "", b = b + "";
+
+      // Interpolate pairs of numbers in a & b.
+      while ((am = reA.exec(a))
+          && (bm = reB.exec(b))) {
+        if ((bs = bm.index) > bi) { // a string precedes the next number in b
+          bs = b.slice(bi, bs);
+          if (s[i]) s[i] += bs; // coalesce with previous string
+          else s[++i] = bs;
+        }
+        if ((am = am[0]) === (bm = bm[0])) { // numbers in a & b match
+          if (s[i]) s[i] += bm; // coalesce with previous string
+          else s[++i] = bm;
+        } else { // interpolate non-matching numbers
+          s[++i] = null;
+          q.push({i: i, x: interpolateNumber(am, bm)});
+        }
+        bi = reB.lastIndex;
+      }
+
+      // Add remains of b.
+      if (bi < b.length) {
+        bs = b.slice(bi);
+        if (s[i]) s[i] += bs; // coalesce with previous string
+        else s[++i] = bs;
+      }
+
+      // Special optimization for only a single match.
+      // Otherwise, interpolate each of the numbers and rejoin the string.
+      return s.length < 2 ? (q[0]
+          ? one(q[0].x)
+          : zero(b))
+          : (b = q.length, function(t) {
+              for (var i = 0, o; i < b; ++i) s[(o = q[i]).i] = o.x(t);
+              return s.join("");
+            });
+    }
+
+    function interpolateValue(a, b) {
+      var t = typeof b, c;
+      return b == null || t === "boolean" ? constant$1(b)
+          : (t === "number" ? interpolateNumber
+          : t === "string" ? ((c = color(b)) ? (b = c, interpolateRgb) : interpolateString)
+          : b instanceof color ? interpolateRgb
+          : b instanceof Date ? date
+          : Array.isArray(b) ? array
+          : typeof b.valueOf !== "function" && typeof b.toString !== "function" || isNaN(b) ? object
+          : interpolateNumber)(a, b);
+    }
+
+    function interpolateRound(a, b) {
+      return a = +a, b -= a, function(t) {
+        return Math.round(a + b * t);
+      };
+    }
+
+    var degrees = 180 / Math.PI;
+
+    var identity$1 = {
+      translateX: 0,
+      translateY: 0,
+      rotate: 0,
+      skewX: 0,
+      scaleX: 1,
+      scaleY: 1
+    };
+
+    function decompose(a, b, c, d, e, f) {
+      var scaleX, scaleY, skewX;
+      if (scaleX = Math.sqrt(a * a + b * b)) a /= scaleX, b /= scaleX;
+      if (skewX = a * c + b * d) c -= a * skewX, d -= b * skewX;
+      if (scaleY = Math.sqrt(c * c + d * d)) c /= scaleY, d /= scaleY, skewX /= scaleY;
+      if (a * d < b * c) a = -a, b = -b, skewX = -skewX, scaleX = -scaleX;
+      return {
+        translateX: e,
+        translateY: f,
+        rotate: Math.atan2(b, a) * degrees,
+        skewX: Math.atan(skewX) * degrees,
+        scaleX: scaleX,
+        scaleY: scaleY
+      };
+    }
+
+    var cssNode,
+        cssRoot,
+        cssView,
+        svgNode;
+
+    function parseCss(value) {
+      if (value === "none") return identity$1;
+      if (!cssNode) cssNode = document.createElement("DIV"), cssRoot = document.documentElement, cssView = document.defaultView;
+      cssNode.style.transform = value;
+      value = cssView.getComputedStyle(cssRoot.appendChild(cssNode), null).getPropertyValue("transform");
+      cssRoot.removeChild(cssNode);
+      value = value.slice(7, -1).split(",");
+      return decompose(+value[0], +value[1], +value[2], +value[3], +value[4], +value[5]);
+    }
+
+    function parseSvg(value) {
+      if (value == null) return identity$1;
+      if (!svgNode) svgNode = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      svgNode.setAttribute("transform", value);
+      if (!(value = svgNode.transform.baseVal.consolidate())) return identity$1;
+      value = value.matrix;
+      return decompose(value.a, value.b, value.c, value.d, value.e, value.f);
+    }
+
+    function interpolateTransform(parse, pxComma, pxParen, degParen) {
+
+      function pop(s) {
+        return s.length ? s.pop() + " " : "";
+      }
+
+      function translate(xa, ya, xb, yb, s, q) {
+        if (xa !== xb || ya !== yb) {
+          var i = s.push("translate(", null, pxComma, null, pxParen);
+          q.push({i: i - 4, x: interpolateNumber(xa, xb)}, {i: i - 2, x: interpolateNumber(ya, yb)});
+        } else if (xb || yb) {
+          s.push("translate(" + xb + pxComma + yb + pxParen);
+        }
+      }
+
+      function rotate(a, b, s, q) {
+        if (a !== b) {
+          if (a - b > 180) b += 360; else if (b - a > 180) a += 360; // shortest path
+          q.push({i: s.push(pop(s) + "rotate(", null, degParen) - 2, x: interpolateNumber(a, b)});
+        } else if (b) {
+          s.push(pop(s) + "rotate(" + b + degParen);
+        }
+      }
+
+      function skewX(a, b, s, q) {
+        if (a !== b) {
+          q.push({i: s.push(pop(s) + "skewX(", null, degParen) - 2, x: interpolateNumber(a, b)});
+        } else if (b) {
+          s.push(pop(s) + "skewX(" + b + degParen);
+        }
+      }
+
+      function scale(xa, ya, xb, yb, s, q) {
+        if (xa !== xb || ya !== yb) {
+          var i = s.push(pop(s) + "scale(", null, ",", null, ")");
+          q.push({i: i - 4, x: interpolateNumber(xa, xb)}, {i: i - 2, x: interpolateNumber(ya, yb)});
+        } else if (xb !== 1 || yb !== 1) {
+          s.push(pop(s) + "scale(" + xb + "," + yb + ")");
+        }
+      }
+
+      return function(a, b) {
+        var s = [], // string constants and placeholders
+            q = []; // number interpolators
+        a = parse(a), b = parse(b);
+        translate(a.translateX, a.translateY, b.translateX, b.translateY, s, q);
+        rotate(a.rotate, b.rotate, s, q);
+        skewX(a.skewX, b.skewX, s, q);
+        scale(a.scaleX, a.scaleY, b.scaleX, b.scaleY, s, q);
+        a = b = null; // gc
+        return function(t) {
+          var i = -1, n = q.length, o;
+          while (++i < n) s[(o = q[i]).i] = o.x(t);
+          return s.join("");
+        };
+      };
+    }
+
+    var interpolateTransformCss = interpolateTransform(parseCss, "px, ", "px)", "deg)");
+    var interpolateTransformSvg = interpolateTransform(parseSvg, ", ", ")", ")");
+
+    var rho = Math.SQRT2;
+
+    function cubehelix$1(hue) {
+      return (function cubehelixGamma(y) {
+        y = +y;
+
+        function cubehelix$1(start, end) {
+          var h = hue((start = cubehelix(start)).h, (end = cubehelix(end)).h),
+              s = nogamma(start.s, end.s),
+              l = nogamma(start.l, end.l),
+              opacity = nogamma(start.opacity, end.opacity);
+          return function(t) {
+            start.h = h(t);
+            start.s = s(t);
+            start.l = l(Math.pow(t, y));
+            start.opacity = opacity(t);
+            return start + "";
+          };
+        }
+
+        cubehelix$1.gamma = cubehelixGamma;
+
+        return cubehelix$1;
+      })(1);
+    }
+
+    cubehelix$1(hue);
+    var cubehelixLong = cubehelix$1(nogamma);
+
+    var frame = 0, // is an animation frame pending?
+        timeout = 0, // is a timeout pending?
+        interval = 0, // are any timers active?
+        pokeDelay = 1000, // how frequently we check for clock skew
+        taskHead,
+        taskTail,
+        clockLast = 0,
+        clockNow = 0,
+        clockSkew = 0,
+        clock = typeof performance === "object" && performance.now ? performance : Date,
+        setFrame = typeof window === "object" && window.requestAnimationFrame ? window.requestAnimationFrame.bind(window) : function(f) { setTimeout(f, 17); };
+
+    function now$1() {
+      return clockNow || (setFrame(clearNow), clockNow = clock.now() + clockSkew);
+    }
+
+    function clearNow() {
+      clockNow = 0;
+    }
+
+    function Timer() {
+      this._call =
+      this._time =
+      this._next = null;
+    }
+
+    Timer.prototype = timer.prototype = {
+      constructor: Timer,
+      restart: function(callback, delay, time) {
+        if (typeof callback !== "function") throw new TypeError("callback is not a function");
+        time = (time == null ? now$1() : +time) + (delay == null ? 0 : +delay);
+        if (!this._next && taskTail !== this) {
+          if (taskTail) taskTail._next = this;
+          else taskHead = this;
+          taskTail = this;
+        }
+        this._call = callback;
+        this._time = time;
+        sleep();
+      },
+      stop: function() {
+        if (this._call) {
+          this._call = null;
+          this._time = Infinity;
+          sleep();
+        }
+      }
+    };
+
+    function timer(callback, delay, time) {
+      var t = new Timer;
+      t.restart(callback, delay, time);
+      return t;
+    }
+
+    function timerFlush() {
+      now$1(); // Get the current time, if not already set.
+      ++frame; // Pretend we’ve set an alarm, if we haven’t already.
+      var t = taskHead, e;
+      while (t) {
+        if ((e = clockNow - t._time) >= 0) t._call.call(null, e);
+        t = t._next;
+      }
+      --frame;
+    }
+
+    function wake() {
+      clockNow = (clockLast = clock.now()) + clockSkew;
+      frame = timeout = 0;
+      try {
+        timerFlush();
+      } finally {
+        frame = 0;
+        nap();
+        clockNow = 0;
+      }
+    }
+
+    function poke() {
+      var now = clock.now(), delay = now - clockLast;
+      if (delay > pokeDelay) clockSkew -= delay, clockLast = now;
+    }
+
+    function nap() {
+      var t0, t1 = taskHead, t2, time = Infinity;
+      while (t1) {
+        if (t1._call) {
+          if (time > t1._time) time = t1._time;
+          t0 = t1, t1 = t1._next;
+        } else {
+          t2 = t1._next, t1._next = null;
+          t1 = t0 ? t0._next = t2 : taskHead = t2;
+        }
+      }
+      taskTail = t0;
+      sleep(time);
+    }
+
+    function sleep(time) {
+      if (frame) return; // Soonest alarm already set, or will be.
+      if (timeout) timeout = clearTimeout(timeout);
+      var delay = time - clockNow; // Strictly less than if we recomputed clockNow.
+      if (delay > 24) {
+        if (time < Infinity) timeout = setTimeout(wake, time - clock.now() - clockSkew);
+        if (interval) interval = clearInterval(interval);
+      } else {
+        if (!interval) clockLast = clock.now(), interval = setInterval(poke, pokeDelay);
+        frame = 1, setFrame(wake);
+      }
+    }
+
+    function timeout$1(callback, delay, time) {
+      var t = new Timer;
+      delay = delay == null ? 0 : +delay;
+      t.restart(function(elapsed) {
+        t.stop();
+        callback(elapsed + delay);
+      }, delay, time);
+      return t;
+    }
+
+    var emptyOn = dispatch$1("start", "end", "cancel", "interrupt");
+    var emptyTween = [];
+
+    var CREATED = 0;
+    var SCHEDULED = 1;
+    var STARTING = 2;
+    var STARTED = 3;
+    var RUNNING = 4;
+    var ENDING = 5;
+    var ENDED = 6;
+
+    function schedule(node, name, id, index, group, timing) {
+      var schedules = node.__transition;
+      if (!schedules) node.__transition = {};
+      else if (id in schedules) return;
+      create(node, id, {
+        name: name,
+        index: index, // For context during callback.
+        group: group, // For context during callback.
+        on: emptyOn,
+        tween: emptyTween,
+        time: timing.time,
+        delay: timing.delay,
+        duration: timing.duration,
+        ease: timing.ease,
+        timer: null,
+        state: CREATED
+      });
+    }
+
+    function init$1(node, id) {
+      var schedule = get$1(node, id);
+      if (schedule.state > CREATED) throw new Error("too late; already scheduled");
+      return schedule;
+    }
+
+    function set$1(node, id) {
+      var schedule = get$1(node, id);
+      if (schedule.state > STARTED) throw new Error("too late; already running");
+      return schedule;
+    }
+
+    function get$1(node, id) {
+      var schedule = node.__transition;
+      if (!schedule || !(schedule = schedule[id])) throw new Error("transition not found");
+      return schedule;
+    }
+
+    function create(node, id, self) {
+      var schedules = node.__transition,
+          tween;
+
+      // Initialize the self timer when the transition is created.
+      // Note the actual delay is not known until the first callback!
+      schedules[id] = self;
+      self.timer = timer(schedule, 0, self.time);
+
+      function schedule(elapsed) {
+        self.state = SCHEDULED;
+        self.timer.restart(start, self.delay, self.time);
+
+        // If the elapsed delay is less than our first sleep, start immediately.
+        if (self.delay <= elapsed) start(elapsed - self.delay);
+      }
+
+      function start(elapsed) {
+        var i, j, n, o;
+
+        // If the state is not SCHEDULED, then we previously errored on start.
+        if (self.state !== SCHEDULED) return stop();
+
+        for (i in schedules) {
+          o = schedules[i];
+          if (o.name !== self.name) continue;
+
+          // While this element already has a starting transition during this frame,
+          // defer starting an interrupting transition until that transition has a
+          // chance to tick (and possibly end); see d3/d3-transition#54!
+          if (o.state === STARTED) return timeout$1(start);
+
+          // Interrupt the active transition, if any.
+          if (o.state === RUNNING) {
+            o.state = ENDED;
+            o.timer.stop();
+            o.on.call("interrupt", node, node.__data__, o.index, o.group);
+            delete schedules[i];
+          }
+
+          // Cancel any pre-empted transitions.
+          else if (+i < id) {
+            o.state = ENDED;
+            o.timer.stop();
+            o.on.call("cancel", node, node.__data__, o.index, o.group);
+            delete schedules[i];
+          }
+        }
+
+        // Defer the first tick to end of the current frame; see d3/d3#1576.
+        // Note the transition may be canceled after start and before the first tick!
+        // Note this must be scheduled before the start event; see d3/d3-transition#16!
+        // Assuming this is successful, subsequent callbacks go straight to tick.
+        timeout$1(function() {
+          if (self.state === STARTED) {
+            self.state = RUNNING;
+            self.timer.restart(tick, self.delay, self.time);
+            tick(elapsed);
+          }
+        });
+
+        // Dispatch the start event.
+        // Note this must be done before the tween are initialized.
+        self.state = STARTING;
+        self.on.call("start", node, node.__data__, self.index, self.group);
+        if (self.state !== STARTING) return; // interrupted
+        self.state = STARTED;
+
+        // Initialize the tween, deleting null tween.
+        tween = new Array(n = self.tween.length);
+        for (i = 0, j = -1; i < n; ++i) {
+          if (o = self.tween[i].value.call(node, node.__data__, self.index, self.group)) {
+            tween[++j] = o;
+          }
+        }
+        tween.length = j + 1;
+      }
+
+      function tick(elapsed) {
+        var t = elapsed < self.duration ? self.ease.call(null, elapsed / self.duration) : (self.timer.restart(stop), self.state = ENDING, 1),
+            i = -1,
+            n = tween.length;
+
+        while (++i < n) {
+          tween[i].call(node, t);
+        }
+
+        // Dispatch the end event.
+        if (self.state === ENDING) {
+          self.on.call("end", node, node.__data__, self.index, self.group);
+          stop();
+        }
+      }
+
+      function stop() {
+        self.state = ENDED;
+        self.timer.stop();
+        delete schedules[id];
+        for (var i in schedules) return; // eslint-disable-line no-unused-vars
+        delete node.__transition;
+      }
+    }
+
+    function interrupt(node, name) {
+      var schedules = node.__transition,
+          schedule,
+          active,
+          empty = true,
+          i;
+
+      if (!schedules) return;
+
+      name = name == null ? null : name + "";
+
+      for (i in schedules) {
+        if ((schedule = schedules[i]).name !== name) { empty = false; continue; }
+        active = schedule.state > STARTING && schedule.state < ENDING;
+        schedule.state = ENDED;
+        schedule.timer.stop();
+        schedule.on.call(active ? "interrupt" : "cancel", node, node.__data__, schedule.index, schedule.group);
+        delete schedules[i];
+      }
+
+      if (empty) delete node.__transition;
+    }
+
+    function selection_interrupt(name) {
+      return this.each(function() {
+        interrupt(this, name);
+      });
+    }
+
+    function tweenRemove(id, name) {
+      var tween0, tween1;
+      return function() {
+        var schedule = set$1(this, id),
+            tween = schedule.tween;
+
+        // If this node shared tween with the previous node,
+        // just assign the updated shared tween and we’re done!
+        // Otherwise, copy-on-write.
+        if (tween !== tween0) {
+          tween1 = tween0 = tween;
+          for (var i = 0, n = tween1.length; i < n; ++i) {
+            if (tween1[i].name === name) {
+              tween1 = tween1.slice();
+              tween1.splice(i, 1);
+              break;
+            }
+          }
+        }
+
+        schedule.tween = tween1;
+      };
+    }
+
+    function tweenFunction(id, name, value) {
+      var tween0, tween1;
+      if (typeof value !== "function") throw new Error;
+      return function() {
+        var schedule = set$1(this, id),
+            tween = schedule.tween;
+
+        // If this node shared tween with the previous node,
+        // just assign the updated shared tween and we’re done!
+        // Otherwise, copy-on-write.
+        if (tween !== tween0) {
+          tween1 = (tween0 = tween).slice();
+          for (var t = {name: name, value: value}, i = 0, n = tween1.length; i < n; ++i) {
+            if (tween1[i].name === name) {
+              tween1[i] = t;
+              break;
+            }
+          }
+          if (i === n) tween1.push(t);
+        }
+
+        schedule.tween = tween1;
+      };
+    }
+
+    function transition_tween(name, value) {
+      var id = this._id;
+
+      name += "";
+
+      if (arguments.length < 2) {
+        var tween = get$1(this.node(), id).tween;
+        for (var i = 0, n = tween.length, t; i < n; ++i) {
+          if ((t = tween[i]).name === name) {
+            return t.value;
+          }
+        }
+        return null;
+      }
+
+      return this.each((value == null ? tweenRemove : tweenFunction)(id, name, value));
+    }
+
+    function tweenValue(transition, name, value) {
+      var id = transition._id;
+
+      transition.each(function() {
+        var schedule = set$1(this, id);
+        (schedule.value || (schedule.value = {}))[name] = value.apply(this, arguments);
+      });
+
+      return function(node) {
+        return get$1(node, id).value[name];
+      };
+    }
+
+    function interpolate(a, b) {
+      var c;
+      return (typeof b === "number" ? interpolateNumber
+          : b instanceof color ? interpolateRgb
+          : (c = color(b)) ? (b = c, interpolateRgb)
+          : interpolateString)(a, b);
+    }
+
+    function attrRemove$1(name) {
+      return function() {
+        this.removeAttribute(name);
+      };
+    }
+
+    function attrRemoveNS$1(fullname) {
+      return function() {
+        this.removeAttributeNS(fullname.space, fullname.local);
+      };
+    }
+
+    function attrConstant$1(name, interpolate, value1) {
+      var string00,
+          string1 = value1 + "",
+          interpolate0;
+      return function() {
+        var string0 = this.getAttribute(name);
+        return string0 === string1 ? null
+            : string0 === string00 ? interpolate0
+            : interpolate0 = interpolate(string00 = string0, value1);
+      };
+    }
+
+    function attrConstantNS$1(fullname, interpolate, value1) {
+      var string00,
+          string1 = value1 + "",
+          interpolate0;
+      return function() {
+        var string0 = this.getAttributeNS(fullname.space, fullname.local);
+        return string0 === string1 ? null
+            : string0 === string00 ? interpolate0
+            : interpolate0 = interpolate(string00 = string0, value1);
+      };
+    }
+
+    function attrFunction$1(name, interpolate, value) {
+      var string00,
+          string10,
+          interpolate0;
+      return function() {
+        var string0, value1 = value(this), string1;
+        if (value1 == null) return void this.removeAttribute(name);
+        string0 = this.getAttribute(name);
+        string1 = value1 + "";
+        return string0 === string1 ? null
+            : string0 === string00 && string1 === string10 ? interpolate0
+            : (string10 = string1, interpolate0 = interpolate(string00 = string0, value1));
+      };
+    }
+
+    function attrFunctionNS$1(fullname, interpolate, value) {
+      var string00,
+          string10,
+          interpolate0;
+      return function() {
+        var string0, value1 = value(this), string1;
+        if (value1 == null) return void this.removeAttributeNS(fullname.space, fullname.local);
+        string0 = this.getAttributeNS(fullname.space, fullname.local);
+        string1 = value1 + "";
+        return string0 === string1 ? null
+            : string0 === string00 && string1 === string10 ? interpolate0
+            : (string10 = string1, interpolate0 = interpolate(string00 = string0, value1));
+      };
+    }
+
+    function transition_attr(name, value) {
+      var fullname = namespace(name), i = fullname === "transform" ? interpolateTransformSvg : interpolate;
+      return this.attrTween(name, typeof value === "function"
+          ? (fullname.local ? attrFunctionNS$1 : attrFunction$1)(fullname, i, tweenValue(this, "attr." + name, value))
+          : value == null ? (fullname.local ? attrRemoveNS$1 : attrRemove$1)(fullname)
+          : (fullname.local ? attrConstantNS$1 : attrConstant$1)(fullname, i, value));
+    }
+
+    function attrInterpolate(name, i) {
+      return function(t) {
+        this.setAttribute(name, i(t));
+      };
+    }
+
+    function attrInterpolateNS(fullname, i) {
+      return function(t) {
+        this.setAttributeNS(fullname.space, fullname.local, i(t));
+      };
+    }
+
+    function attrTweenNS(fullname, value) {
+      var t0, i0;
+      function tween() {
+        var i = value.apply(this, arguments);
+        if (i !== i0) t0 = (i0 = i) && attrInterpolateNS(fullname, i);
+        return t0;
+      }
+      tween._value = value;
+      return tween;
+    }
+
+    function attrTween(name, value) {
+      var t0, i0;
+      function tween() {
+        var i = value.apply(this, arguments);
+        if (i !== i0) t0 = (i0 = i) && attrInterpolate(name, i);
+        return t0;
+      }
+      tween._value = value;
+      return tween;
+    }
+
+    function transition_attrTween(name, value) {
+      var key = "attr." + name;
+      if (arguments.length < 2) return (key = this.tween(key)) && key._value;
+      if (value == null) return this.tween(key, null);
+      if (typeof value !== "function") throw new Error;
+      var fullname = namespace(name);
+      return this.tween(key, (fullname.local ? attrTweenNS : attrTween)(fullname, value));
+    }
+
+    function delayFunction(id, value) {
+      return function() {
+        init$1(this, id).delay = +value.apply(this, arguments);
+      };
+    }
+
+    function delayConstant(id, value) {
+      return value = +value, function() {
+        init$1(this, id).delay = value;
+      };
+    }
+
+    function transition_delay(value) {
+      var id = this._id;
+
+      return arguments.length
+          ? this.each((typeof value === "function"
+              ? delayFunction
+              : delayConstant)(id, value))
+          : get$1(this.node(), id).delay;
+    }
+
+    function durationFunction(id, value) {
+      return function() {
+        set$1(this, id).duration = +value.apply(this, arguments);
+      };
+    }
+
+    function durationConstant(id, value) {
+      return value = +value, function() {
+        set$1(this, id).duration = value;
+      };
+    }
+
+    function transition_duration(value) {
+      var id = this._id;
+
+      return arguments.length
+          ? this.each((typeof value === "function"
+              ? durationFunction
+              : durationConstant)(id, value))
+          : get$1(this.node(), id).duration;
+    }
+
+    function easeConstant(id, value) {
+      if (typeof value !== "function") throw new Error;
+      return function() {
+        set$1(this, id).ease = value;
+      };
+    }
+
+    function transition_ease(value) {
+      var id = this._id;
+
+      return arguments.length
+          ? this.each(easeConstant(id, value))
+          : get$1(this.node(), id).ease;
+    }
+
+    function transition_filter(match) {
+      if (typeof match !== "function") match = matcher(match);
+
+      for (var groups = this._groups, m = groups.length, subgroups = new Array(m), j = 0; j < m; ++j) {
+        for (var group = groups[j], n = group.length, subgroup = subgroups[j] = [], node, i = 0; i < n; ++i) {
+          if ((node = group[i]) && match.call(node, node.__data__, i, group)) {
+            subgroup.push(node);
+          }
+        }
+      }
+
+      return new Transition(subgroups, this._parents, this._name, this._id);
+    }
+
+    function transition_merge(transition) {
+      if (transition._id !== this._id) throw new Error;
+
+      for (var groups0 = this._groups, groups1 = transition._groups, m0 = groups0.length, m1 = groups1.length, m = Math.min(m0, m1), merges = new Array(m0), j = 0; j < m; ++j) {
+        for (var group0 = groups0[j], group1 = groups1[j], n = group0.length, merge = merges[j] = new Array(n), node, i = 0; i < n; ++i) {
+          if (node = group0[i] || group1[i]) {
+            merge[i] = node;
+          }
+        }
+      }
+
+      for (; j < m0; ++j) {
+        merges[j] = groups0[j];
+      }
+
+      return new Transition(merges, this._parents, this._name, this._id);
+    }
+
+    function start(name) {
+      return (name + "").trim().split(/^|\s+/).every(function(t) {
+        var i = t.indexOf(".");
+        if (i >= 0) t = t.slice(0, i);
+        return !t || t === "start";
+      });
+    }
+
+    function onFunction(id, name, listener) {
+      var on0, on1, sit = start(name) ? init$1 : set$1;
+      return function() {
+        var schedule = sit(this, id),
+            on = schedule.on;
+
+        // If this node shared a dispatch with the previous node,
+        // just assign the updated shared dispatch and we’re done!
+        // Otherwise, copy-on-write.
+        if (on !== on0) (on1 = (on0 = on).copy()).on(name, listener);
+
+        schedule.on = on1;
+      };
+    }
+
+    function transition_on(name, listener) {
+      var id = this._id;
+
+      return arguments.length < 2
+          ? get$1(this.node(), id).on.on(name)
+          : this.each(onFunction(id, name, listener));
+    }
+
+    function removeFunction(id) {
+      return function() {
+        var parent = this.parentNode;
+        for (var i in this.__transition) if (+i !== id) return;
+        if (parent) parent.removeChild(this);
+      };
+    }
+
+    function transition_remove() {
+      return this.on("end.remove", removeFunction(this._id));
+    }
+
+    function transition_select(select) {
+      var name = this._name,
+          id = this._id;
+
+      if (typeof select !== "function") select = selector(select);
+
+      for (var groups = this._groups, m = groups.length, subgroups = new Array(m), j = 0; j < m; ++j) {
+        for (var group = groups[j], n = group.length, subgroup = subgroups[j] = new Array(n), node, subnode, i = 0; i < n; ++i) {
+          if ((node = group[i]) && (subnode = select.call(node, node.__data__, i, group))) {
+            if ("__data__" in node) subnode.__data__ = node.__data__;
+            subgroup[i] = subnode;
+            schedule(subgroup[i], name, id, i, subgroup, get$1(node, id));
+          }
+        }
+      }
+
+      return new Transition(subgroups, this._parents, name, id);
+    }
+
+    function transition_selectAll(select) {
+      var name = this._name,
+          id = this._id;
+
+      if (typeof select !== "function") select = selectorAll(select);
+
+      for (var groups = this._groups, m = groups.length, subgroups = [], parents = [], j = 0; j < m; ++j) {
+        for (var group = groups[j], n = group.length, node, i = 0; i < n; ++i) {
+          if (node = group[i]) {
+            for (var children = select.call(node, node.__data__, i, group), child, inherit = get$1(node, id), k = 0, l = children.length; k < l; ++k) {
+              if (child = children[k]) {
+                schedule(child, name, id, k, children, inherit);
+              }
+            }
+            subgroups.push(children);
+            parents.push(node);
+          }
+        }
+      }
+
+      return new Transition(subgroups, parents, name, id);
+    }
+
+    var Selection$1 = selection.prototype.constructor;
+
+    function transition_selection() {
+      return new Selection$1(this._groups, this._parents);
+    }
+
+    function styleNull(name, interpolate) {
+      var string00,
+          string10,
+          interpolate0;
+      return function() {
+        var string0 = styleValue(this, name),
+            string1 = (this.style.removeProperty(name), styleValue(this, name));
+        return string0 === string1 ? null
+            : string0 === string00 && string1 === string10 ? interpolate0
+            : interpolate0 = interpolate(string00 = string0, string10 = string1);
+      };
+    }
+
+    function styleRemove$1(name) {
+      return function() {
+        this.style.removeProperty(name);
+      };
+    }
+
+    function styleConstant$1(name, interpolate, value1) {
+      var string00,
+          string1 = value1 + "",
+          interpolate0;
+      return function() {
+        var string0 = styleValue(this, name);
+        return string0 === string1 ? null
+            : string0 === string00 ? interpolate0
+            : interpolate0 = interpolate(string00 = string0, value1);
+      };
+    }
+
+    function styleFunction$1(name, interpolate, value) {
+      var string00,
+          string10,
+          interpolate0;
+      return function() {
+        var string0 = styleValue(this, name),
+            value1 = value(this),
+            string1 = value1 + "";
+        if (value1 == null) string1 = value1 = (this.style.removeProperty(name), styleValue(this, name));
+        return string0 === string1 ? null
+            : string0 === string00 && string1 === string10 ? interpolate0
+            : (string10 = string1, interpolate0 = interpolate(string00 = string0, value1));
+      };
+    }
+
+    function styleMaybeRemove(id, name) {
+      var on0, on1, listener0, key = "style." + name, event = "end." + key, remove;
+      return function() {
+        var schedule = set$1(this, id),
+            on = schedule.on,
+            listener = schedule.value[key] == null ? remove || (remove = styleRemove$1(name)) : undefined;
+
+        // If this node shared a dispatch with the previous node,
+        // just assign the updated shared dispatch and we’re done!
+        // Otherwise, copy-on-write.
+        if (on !== on0 || listener0 !== listener) (on1 = (on0 = on).copy()).on(event, listener0 = listener);
+
+        schedule.on = on1;
+      };
+    }
+
+    function transition_style(name, value, priority) {
+      var i = (name += "") === "transform" ? interpolateTransformCss : interpolate;
+      return value == null ? this
+          .styleTween(name, styleNull(name, i))
+          .on("end.style." + name, styleRemove$1(name))
+        : typeof value === "function" ? this
+          .styleTween(name, styleFunction$1(name, i, tweenValue(this, "style." + name, value)))
+          .each(styleMaybeRemove(this._id, name))
+        : this
+          .styleTween(name, styleConstant$1(name, i, value), priority)
+          .on("end.style." + name, null);
+    }
+
+    function styleInterpolate(name, i, priority) {
+      return function(t) {
+        this.style.setProperty(name, i(t), priority);
+      };
+    }
+
+    function styleTween(name, value, priority) {
+      var t, i0;
+      function tween() {
+        var i = value.apply(this, arguments);
+        if (i !== i0) t = (i0 = i) && styleInterpolate(name, i, priority);
+        return t;
+      }
+      tween._value = value;
+      return tween;
+    }
+
+    function transition_styleTween(name, value, priority) {
+      var key = "style." + (name += "");
+      if (arguments.length < 2) return (key = this.tween(key)) && key._value;
+      if (value == null) return this.tween(key, null);
+      if (typeof value !== "function") throw new Error;
+      return this.tween(key, styleTween(name, value, priority == null ? "" : priority));
+    }
+
+    function textConstant$1(value) {
+      return function() {
+        this.textContent = value;
+      };
+    }
+
+    function textFunction$1(value) {
+      return function() {
+        var value1 = value(this);
+        this.textContent = value1 == null ? "" : value1;
+      };
+    }
+
+    function transition_text(value) {
+      return this.tween("text", typeof value === "function"
+          ? textFunction$1(tweenValue(this, "text", value))
+          : textConstant$1(value == null ? "" : value + ""));
+    }
+
+    function transition_transition() {
+      var name = this._name,
+          id0 = this._id,
+          id1 = newId();
+
+      for (var groups = this._groups, m = groups.length, j = 0; j < m; ++j) {
+        for (var group = groups[j], n = group.length, node, i = 0; i < n; ++i) {
+          if (node = group[i]) {
+            var inherit = get$1(node, id0);
+            schedule(node, name, id1, i, group, {
+              time: inherit.time + inherit.delay + inherit.duration,
+              delay: 0,
+              duration: inherit.duration,
+              ease: inherit.ease
+            });
+          }
+        }
+      }
+
+      return new Transition(groups, this._parents, name, id1);
+    }
+
+    function transition_end() {
+      var on0, on1, that = this, id = that._id, size = that.size();
+      return new Promise(function(resolve, reject) {
+        var cancel = {value: reject},
+            end = {value: function() { if (--size === 0) resolve(); }};
+
+        that.each(function() {
+          var schedule = set$1(this, id),
+              on = schedule.on;
+
+          // If this node shared a dispatch with the previous node,
+          // just assign the updated shared dispatch and we’re done!
+          // Otherwise, copy-on-write.
+          if (on !== on0) {
+            on1 = (on0 = on).copy();
+            on1._.cancel.push(cancel);
+            on1._.interrupt.push(cancel);
+            on1._.end.push(end);
+          }
+
+          schedule.on = on1;
+        });
+      });
+    }
+
+    var id = 0;
+
+    function Transition(groups, parents, name, id) {
+      this._groups = groups;
+      this._parents = parents;
+      this._name = name;
+      this._id = id;
+    }
+
+    function transition(name) {
+      return selection().transition(name);
+    }
+
+    function newId() {
+      return ++id;
+    }
+
+    var selection_prototype = selection.prototype;
+
+    Transition.prototype = transition.prototype = {
+      constructor: Transition,
+      select: transition_select,
+      selectAll: transition_selectAll,
+      filter: transition_filter,
+      merge: transition_merge,
+      selection: transition_selection,
+      transition: transition_transition,
+      call: selection_prototype.call,
+      nodes: selection_prototype.nodes,
+      node: selection_prototype.node,
+      size: selection_prototype.size,
+      empty: selection_prototype.empty,
+      each: selection_prototype.each,
+      on: transition_on,
+      attr: transition_attr,
+      attrTween: transition_attrTween,
+      style: transition_style,
+      styleTween: transition_styleTween,
+      text: transition_text,
+      remove: transition_remove,
+      tween: transition_tween,
+      delay: transition_delay,
+      duration: transition_duration,
+      ease: transition_ease,
+      end: transition_end
+    };
+
+    function cubicInOut(t) {
+      return ((t *= 2) <= 1 ? t * t * t : (t -= 2) * t * t + 2) / 2;
+    }
+
+    var pi = Math.PI;
+
+    var tau = 2 * Math.PI;
+
+    var defaultTiming = {
+      time: null, // Set on use.
+      delay: 0,
+      duration: 250,
+      ease: cubicInOut
+    };
+
+    function inherit(node, id) {
+      var timing;
+      while (!(timing = node.__transition) || !(timing = timing[id])) {
+        if (!(node = node.parentNode)) {
+          return defaultTiming.time = now$1(), defaultTiming;
+        }
+      }
+      return timing;
+    }
+
+    function selection_transition(name) {
+      var id,
+          timing;
+
+      if (name instanceof Transition) {
+        id = name._id, name = name._name;
+      } else {
+        id = newId(), (timing = defaultTiming).time = now$1(), name = name == null ? null : name + "";
+      }
+
+      for (var groups = this._groups, m = groups.length, j = 0; j < m; ++j) {
+        for (var group = groups[j], n = group.length, node, i = 0; i < n; ++i) {
+          if (node = group[i]) {
+            schedule(node, name, id, i, group, timing || inherit(node, id));
+          }
+        }
+      }
+
+      return new Transition(groups, this._parents, name, id);
+    }
+
+    selection.prototype.interrupt = selection_interrupt;
+    selection.prototype.transition = selection_transition;
+
+    function constant$2(x) {
+      return function() {
+        return x;
+      };
+    }
+
+    function BrushEvent(target, type, selection) {
+      this.target = target;
+      this.type = type;
+      this.selection = selection;
+    }
+
+    function nopropagation() {
+      event.stopImmediatePropagation();
+    }
+
+    function noevent$1() {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+
+    var MODE_DRAG = {name: "drag"},
+        MODE_SPACE = {name: "space"},
+        MODE_HANDLE = {name: "handle"},
+        MODE_CENTER = {name: "center"};
+
+    var X = {
+      name: "x",
+      handles: ["e", "w"].map(type),
+      input: function(x, e) { return x && [[x[0], e[0][1]], [x[1], e[1][1]]]; },
+      output: function(xy) { return xy && [xy[0][0], xy[1][0]]; }
+    };
+
+    var Y = {
+      name: "y",
+      handles: ["n", "s"].map(type),
+      input: function(y, e) { return y && [[e[0][0], y[0]], [e[1][0], y[1]]]; },
+      output: function(xy) { return xy && [xy[0][1], xy[1][1]]; }
+    };
+
+    var cursors = {
+      overlay: "crosshair",
+      selection: "move",
+      n: "ns-resize",
+      e: "ew-resize",
+      s: "ns-resize",
+      w: "ew-resize",
+      nw: "nwse-resize",
+      ne: "nesw-resize",
+      se: "nwse-resize",
+      sw: "nesw-resize"
+    };
+
+    var flipX = {
+      e: "w",
+      w: "e",
+      nw: "ne",
+      ne: "nw",
+      se: "sw",
+      sw: "se"
+    };
+
+    var flipY = {
+      n: "s",
+      s: "n",
+      nw: "sw",
+      ne: "se",
+      se: "ne",
+      sw: "nw"
+    };
+
+    var signsX = {
+      overlay: +1,
+      selection: +1,
+      n: null,
+      e: +1,
+      s: null,
+      w: -1,
+      nw: -1,
+      ne: +1,
+      se: +1,
+      sw: -1
+    };
+
+    var signsY = {
+      overlay: +1,
+      selection: +1,
+      n: -1,
+      e: null,
+      s: +1,
+      w: null,
+      nw: -1,
+      ne: -1,
+      se: +1,
+      sw: +1
+    };
+
+    function type(t) {
+      return {type: t};
+    }
+
+    // Ignore right-click, since that should open the context menu.
+    function defaultFilter() {
+      return !event.button;
+    }
+
+    function defaultExtent() {
+      var svg = this.ownerSVGElement || this;
+      return [[0, 0], [svg.width.baseVal.value, svg.height.baseVal.value]];
+    }
+
+    // Like d3.local, but with the name “__brush” rather than auto-generated.
+    function local(node) {
+      while (!node.__brush) if (!(node = node.parentNode)) return;
+      return node.__brush;
+    }
+
+    function empty$2(extent) {
+      return extent[0][0] === extent[1][0]
+          || extent[0][1] === extent[1][1];
+    }
+
+    function brushX() {
+      return brush(X);
+    }
+
+    function brush(dim) {
+      var extent = defaultExtent,
+          filter = defaultFilter,
+          listeners = dispatch$1(brush, "start", "brush", "end"),
+          handleSize = 6,
+          touchending;
+
+      function brush(group) {
+        var overlay = group
+            .property("__brush", initialize)
+          .selectAll(".overlay")
+          .data([type("overlay")]);
+
+        overlay.enter().append("rect")
+            .attr("class", "overlay")
+            .attr("pointer-events", "all")
+            .attr("cursor", cursors.overlay)
+          .merge(overlay)
+            .each(function() {
+              var extent = local(this).extent;
+              d3select(this)
+                  .attr("x", extent[0][0])
+                  .attr("y", extent[0][1])
+                  .attr("width", extent[1][0] - extent[0][0])
+                  .attr("height", extent[1][1] - extent[0][1]);
+            });
+
+        group.selectAll(".selection")
+          .data([type("selection")])
+          .enter().append("rect")
+            .attr("class", "selection")
+            .attr("cursor", cursors.selection)
+            .attr("fill", "#777")
+            .attr("fill-opacity", 0.3)
+            .attr("stroke", "#fff")
+            .attr("shape-rendering", "crispEdges");
+
+        var handle = group.selectAll(".handle")
+          .data(dim.handles, function(d) { return d.type; });
+
+        handle.exit().remove();
+
+        handle.enter().append("rect")
+            .attr("class", function(d) { return "handle handle--" + d.type; })
+            .attr("cursor", function(d) { return cursors[d.type]; });
+
+        group
+            .each(redraw)
+            .attr("fill", "none")
+            .attr("pointer-events", "all")
+            .style("-webkit-tap-highlight-color", "rgba(0,0,0,0)")
+            .on("mousedown.brush touchstart.brush", started);
+      }
+
+      brush.move = function(group, selection) {
+        if (group.selection) {
+          group
+              .on("start.brush", function() { emitter(this, arguments).beforestart().start(); })
+              .on("interrupt.brush end.brush", function() { emitter(this, arguments).end(); })
+              .tween("brush", function() {
+                var that = this,
+                    state = that.__brush,
+                    emit = emitter(that, arguments),
+                    selection0 = state.selection,
+                    selection1 = dim.input(typeof selection === "function" ? selection.apply(this, arguments) : selection, state.extent),
+                    i = interpolateValue(selection0, selection1);
+
+                function tween(t) {
+                  state.selection = t === 1 && empty$2(selection1) ? null : i(t);
+                  redraw.call(that);
+                  emit.brush();
+                }
+
+                return selection0 && selection1 ? tween : tween(1);
+              });
+        } else {
+          group
+              .each(function() {
+                var that = this,
+                    args = arguments,
+                    state = that.__brush,
+                    selection1 = dim.input(typeof selection === "function" ? selection.apply(that, args) : selection, state.extent),
+                    emit = emitter(that, args).beforestart();
+
+                interrupt(that);
+                state.selection = selection1 == null || empty$2(selection1) ? null : selection1;
+                redraw.call(that);
+                emit.start().brush().end();
+              });
+        }
+      };
+
+      function redraw() {
+        var group = d3select(this),
+            selection = local(this).selection;
+
+        if (selection) {
+          group.selectAll(".selection")
+              .style("display", null)
+              .attr("x", selection[0][0])
+              .attr("y", selection[0][1])
+              .attr("width", selection[1][0] - selection[0][0])
+              .attr("height", selection[1][1] - selection[0][1]);
+
+          group.selectAll(".handle")
+              .style("display", null)
+              .attr("x", function(d) { return d.type[d.type.length - 1] === "e" ? selection[1][0] - handleSize / 2 : selection[0][0] - handleSize / 2; })
+              .attr("y", function(d) { return d.type[0] === "s" ? selection[1][1] - handleSize / 2 : selection[0][1] - handleSize / 2; })
+              .attr("width", function(d) { return d.type === "n" || d.type === "s" ? selection[1][0] - selection[0][0] + handleSize : handleSize; })
+              .attr("height", function(d) { return d.type === "e" || d.type === "w" ? selection[1][1] - selection[0][1] + handleSize : handleSize; });
+        }
+
+        else {
+          group.selectAll(".selection,.handle")
+              .style("display", "none")
+              .attr("x", null)
+              .attr("y", null)
+              .attr("width", null)
+              .attr("height", null);
+        }
+      }
+
+      function emitter(that, args) {
+        return that.__brush.emitter || new Emitter(that, args);
+      }
+
+      function Emitter(that, args) {
+        this.that = that;
+        this.args = args;
+        this.state = that.__brush;
+        this.active = 0;
+      }
+
+      Emitter.prototype = {
+        beforestart: function() {
+          if (++this.active === 1) this.state.emitter = this, this.starting = true;
+          return this;
+        },
+        start: function() {
+          if (this.starting) this.starting = false, this.emit("start");
+          return this;
+        },
+        brush: function() {
+          this.emit("brush");
+          return this;
+        },
+        end: function() {
+          if (--this.active === 0) delete this.state.emitter, this.emit("end");
+          return this;
+        },
+        emit: function(type) {
+          customEvent(new BrushEvent(brush, type, dim.output(this.state.selection)), listeners.apply, listeners, [type, this.that, this.args]);
+        }
+      };
+
+      function started() {
+        if (event.touches) { if (event.changedTouches.length < event.touches.length) return noevent$1(); }
+        else if (touchending) return;
+        if (!filter.apply(this, arguments)) return;
+
+        var that = this,
+            type = event.target.__data__.type,
+            mode = (event.metaKey ? type = "overlay" : type) === "selection" ? MODE_DRAG : (event.altKey ? MODE_CENTER : MODE_HANDLE),
+            signX = dim === Y ? null : signsX[type],
+            signY = dim === X ? null : signsY[type],
+            state = local(that),
+            extent = state.extent,
+            selection = state.selection,
+            W = extent[0][0], w0, w1,
+            N = extent[0][1], n0, n1,
+            E = extent[1][0], e0, e1,
+            S = extent[1][1], s0, s1,
+            dx,
+            dy,
+            moving,
+            shifting = signX && signY && event.shiftKey,
+            lockX,
+            lockY,
+            point0 = mouse(that),
+            point = point0,
+            emit = emitter(that, arguments).beforestart();
+
+        if (type === "overlay") {
+          state.selection = selection = [
+            [w0 = dim === Y ? W : point0[0], n0 = dim === X ? N : point0[1]],
+            [e0 = dim === Y ? E : w0, s0 = dim === X ? S : n0]
+          ];
+        } else {
+          w0 = selection[0][0];
+          n0 = selection[0][1];
+          e0 = selection[1][0];
+          s0 = selection[1][1];
+        }
+
+        w1 = w0;
+        n1 = n0;
+        e1 = e0;
+        s1 = s0;
+
+        var group = d3select(that)
+            .attr("pointer-events", "none");
+
+        var overlay = group.selectAll(".overlay")
+            .attr("cursor", cursors[type]);
+
+        if (event.touches) {
+          group
+              .on("touchmove.brush", moved, true)
+              .on("touchend.brush touchcancel.brush", ended, true);
+        } else {
+          var view = d3select(event.view)
+              .on("keydown.brush", keydowned, true)
+              .on("keyup.brush", keyupped, true)
+              .on("mousemove.brush", moved, true)
+              .on("mouseup.brush", ended, true);
+
+          dragDisable(event.view);
+        }
+
+        nopropagation();
+        interrupt(that);
+        redraw.call(that);
+        emit.start();
+
+        function moved() {
+          var point1 = mouse(that);
+          if (shifting && !lockX && !lockY) {
+            if (Math.abs(point1[0] - point[0]) > Math.abs(point1[1] - point[1])) lockY = true;
+            else lockX = true;
+          }
+          point = point1;
+          moving = true;
+          noevent$1();
+          move();
+        }
+
+        function move() {
+          var t;
+
+          dx = point[0] - point0[0];
+          dy = point[1] - point0[1];
+
+          switch (mode) {
+            case MODE_SPACE:
+            case MODE_DRAG: {
+              if (signX) dx = Math.max(W - w0, Math.min(E - e0, dx)), w1 = w0 + dx, e1 = e0 + dx;
+              if (signY) dy = Math.max(N - n0, Math.min(S - s0, dy)), n1 = n0 + dy, s1 = s0 + dy;
+              break;
+            }
+            case MODE_HANDLE: {
+              if (signX < 0) dx = Math.max(W - w0, Math.min(E - w0, dx)), w1 = w0 + dx, e1 = e0;
+              else if (signX > 0) dx = Math.max(W - e0, Math.min(E - e0, dx)), w1 = w0, e1 = e0 + dx;
+              if (signY < 0) dy = Math.max(N - n0, Math.min(S - n0, dy)), n1 = n0 + dy, s1 = s0;
+              else if (signY > 0) dy = Math.max(N - s0, Math.min(S - s0, dy)), n1 = n0, s1 = s0 + dy;
+              break;
+            }
+            case MODE_CENTER: {
+              if (signX) w1 = Math.max(W, Math.min(E, w0 - dx * signX)), e1 = Math.max(W, Math.min(E, e0 + dx * signX));
+              if (signY) n1 = Math.max(N, Math.min(S, n0 - dy * signY)), s1 = Math.max(N, Math.min(S, s0 + dy * signY));
+              break;
+            }
+          }
+
+          if (e1 < w1) {
+            signX *= -1;
+            t = w0, w0 = e0, e0 = t;
+            t = w1, w1 = e1, e1 = t;
+            if (type in flipX) overlay.attr("cursor", cursors[type = flipX[type]]);
+          }
+
+          if (s1 < n1) {
+            signY *= -1;
+            t = n0, n0 = s0, s0 = t;
+            t = n1, n1 = s1, s1 = t;
+            if (type in flipY) overlay.attr("cursor", cursors[type = flipY[type]]);
+          }
+
+          if (state.selection) selection = state.selection; // May be set by brush.move!
+          if (lockX) w1 = selection[0][0], e1 = selection[1][0];
+          if (lockY) n1 = selection[0][1], s1 = selection[1][1];
+
+          if (selection[0][0] !== w1
+              || selection[0][1] !== n1
+              || selection[1][0] !== e1
+              || selection[1][1] !== s1) {
+            state.selection = [[w1, n1], [e1, s1]];
+            redraw.call(that);
+            emit.brush();
+          }
+        }
+
+        function ended() {
+          nopropagation();
+          if (event.touches) {
+            if (event.touches.length) return;
+            if (touchending) clearTimeout(touchending);
+            touchending = setTimeout(function() { touchending = null; }, 500); // Ghost clicks are delayed!
+            group.on("touchmove.brush touchend.brush touchcancel.brush", null);
+          } else {
+            yesdrag(event.view, moving);
+            view.on("keydown.brush keyup.brush mousemove.brush mouseup.brush", null);
+          }
+          group.attr("pointer-events", "all");
+          overlay.attr("cursor", cursors.overlay);
+          if (state.selection) selection = state.selection; // May be set by brush.move (on start)!
+          if (empty$2(selection)) state.selection = null, redraw.call(that);
+          emit.end();
+        }
+
+        function keydowned() {
+          switch (event.keyCode) {
+            case 16: { // SHIFT
+              shifting = signX && signY;
+              break;
+            }
+            case 18: { // ALT
+              if (mode === MODE_HANDLE) {
+                if (signX) e0 = e1 - dx * signX, w0 = w1 + dx * signX;
+                if (signY) s0 = s1 - dy * signY, n0 = n1 + dy * signY;
+                mode = MODE_CENTER;
+                move();
+              }
+              break;
+            }
+            case 32: { // SPACE; takes priority over ALT
+              if (mode === MODE_HANDLE || mode === MODE_CENTER) {
+                if (signX < 0) e0 = e1 - dx; else if (signX > 0) w0 = w1 - dx;
+                if (signY < 0) s0 = s1 - dy; else if (signY > 0) n0 = n1 - dy;
+                mode = MODE_SPACE;
+                overlay.attr("cursor", cursors.selection);
+                move();
+              }
+              break;
+            }
+            default: return;
+          }
+          noevent$1();
+        }
+
+        function keyupped() {
+          switch (event.keyCode) {
+            case 16: { // SHIFT
+              if (shifting) {
+                lockX = lockY = shifting = false;
+                move();
+              }
+              break;
+            }
+            case 18: { // ALT
+              if (mode === MODE_CENTER) {
+                if (signX < 0) e0 = e1; else if (signX > 0) w0 = w1;
+                if (signY < 0) s0 = s1; else if (signY > 0) n0 = n1;
+                mode = MODE_HANDLE;
+                move();
+              }
+              break;
+            }
+            case 32: { // SPACE
+              if (mode === MODE_SPACE) {
+                if (event.altKey) {
+                  if (signX) e0 = e1 - dx * signX, w0 = w1 + dx * signX;
+                  if (signY) s0 = s1 - dy * signY, n0 = n1 + dy * signY;
+                  mode = MODE_CENTER;
+                } else {
+                  if (signX < 0) e0 = e1; else if (signX > 0) w0 = w1;
+                  if (signY < 0) s0 = s1; else if (signY > 0) n0 = n1;
+                  mode = MODE_HANDLE;
+                }
+                overlay.attr("cursor", cursors[type]);
+                move();
+              }
+              break;
+            }
+            default: return;
+          }
+          noevent$1();
+        }
+      }
+
+      function initialize() {
+        var state = this.__brush || {selection: null};
+        state.extent = extent.apply(this, arguments);
+        state.dim = dim;
+        return state;
+      }
+
+      brush.extent = function(_) {
+        return arguments.length ? (extent = typeof _ === "function" ? _ : constant$2([[+_[0][0], +_[0][1]], [+_[1][0], +_[1][1]]]), brush) : extent;
+      };
+
+      brush.filter = function(_) {
+        return arguments.length ? (filter = typeof _ === "function" ? _ : constant$2(!!_), brush) : filter;
+      };
+
+      brush.handleSize = function(_) {
+        return arguments.length ? (handleSize = +_, brush) : handleSize;
+      };
+
+      brush.on = function() {
+        var value = listeners.on.apply(listeners, arguments);
+        return value === listeners ? brush : value;
+      };
+
+      return brush;
+    }
+
+    var pi$1 = Math.PI;
+
+    var pi$2 = Math.PI,
+        tau$1 = 2 * pi$2,
+        epsilon = 1e-6,
+        tauEpsilon = tau$1 - epsilon;
+
+    function Path() {
+      this._x0 = this._y0 = // start of current subpath
+      this._x1 = this._y1 = null; // end of current subpath
+      this._ = "";
+    }
+
+    function path() {
+      return new Path;
+    }
+
+    Path.prototype = path.prototype = {
+      constructor: Path,
+      moveTo: function(x, y) {
+        this._ += "M" + (this._x0 = this._x1 = +x) + "," + (this._y0 = this._y1 = +y);
+      },
+      closePath: function() {
+        if (this._x1 !== null) {
+          this._x1 = this._x0, this._y1 = this._y0;
+          this._ += "Z";
+        }
+      },
+      lineTo: function(x, y) {
+        this._ += "L" + (this._x1 = +x) + "," + (this._y1 = +y);
+      },
+      quadraticCurveTo: function(x1, y1, x, y) {
+        this._ += "Q" + (+x1) + "," + (+y1) + "," + (this._x1 = +x) + "," + (this._y1 = +y);
+      },
+      bezierCurveTo: function(x1, y1, x2, y2, x, y) {
+        this._ += "C" + (+x1) + "," + (+y1) + "," + (+x2) + "," + (+y2) + "," + (this._x1 = +x) + "," + (this._y1 = +y);
+      },
+      arcTo: function(x1, y1, x2, y2, r) {
+        x1 = +x1, y1 = +y1, x2 = +x2, y2 = +y2, r = +r;
+        var x0 = this._x1,
+            y0 = this._y1,
+            x21 = x2 - x1,
+            y21 = y2 - y1,
+            x01 = x0 - x1,
+            y01 = y0 - y1,
+            l01_2 = x01 * x01 + y01 * y01;
+
+        // Is the radius negative? Error.
+        if (r < 0) throw new Error("negative radius: " + r);
+
+        // Is this path empty? Move to (x1,y1).
+        if (this._x1 === null) {
+          this._ += "M" + (this._x1 = x1) + "," + (this._y1 = y1);
+        }
+
+        // Or, is (x1,y1) coincident with (x0,y0)? Do nothing.
+        else if (!(l01_2 > epsilon));
+
+        // Or, are (x0,y0), (x1,y1) and (x2,y2) collinear?
+        // Equivalently, is (x1,y1) coincident with (x2,y2)?
+        // Or, is the radius zero? Line to (x1,y1).
+        else if (!(Math.abs(y01 * x21 - y21 * x01) > epsilon) || !r) {
+          this._ += "L" + (this._x1 = x1) + "," + (this._y1 = y1);
+        }
+
+        // Otherwise, draw an arc!
+        else {
+          var x20 = x2 - x0,
+              y20 = y2 - y0,
+              l21_2 = x21 * x21 + y21 * y21,
+              l20_2 = x20 * x20 + y20 * y20,
+              l21 = Math.sqrt(l21_2),
+              l01 = Math.sqrt(l01_2),
+              l = r * Math.tan((pi$2 - Math.acos((l21_2 + l01_2 - l20_2) / (2 * l21 * l01))) / 2),
+              t01 = l / l01,
+              t21 = l / l21;
+
+          // If the start tangent is not coincident with (x0,y0), line to.
+          if (Math.abs(t01 - 1) > epsilon) {
+            this._ += "L" + (x1 + t01 * x01) + "," + (y1 + t01 * y01);
+          }
+
+          this._ += "A" + r + "," + r + ",0,0," + (+(y01 * x20 > x01 * y20)) + "," + (this._x1 = x1 + t21 * x21) + "," + (this._y1 = y1 + t21 * y21);
+        }
+      },
+      arc: function(x, y, r, a0, a1, ccw) {
+        x = +x, y = +y, r = +r;
+        var dx = r * Math.cos(a0),
+            dy = r * Math.sin(a0),
+            x0 = x + dx,
+            y0 = y + dy,
+            cw = 1 ^ ccw,
+            da = ccw ? a0 - a1 : a1 - a0;
+
+        // Is the radius negative? Error.
+        if (r < 0) throw new Error("negative radius: " + r);
+
+        // Is this path empty? Move to (x0,y0).
+        if (this._x1 === null) {
+          this._ += "M" + x0 + "," + y0;
+        }
+
+        // Or, is (x0,y0) not coincident with the previous point? Line to (x0,y0).
+        else if (Math.abs(this._x1 - x0) > epsilon || Math.abs(this._y1 - y0) > epsilon) {
+          this._ += "L" + x0 + "," + y0;
+        }
+
+        // Is this arc empty? We’re done.
+        if (!r) return;
+
+        // Does the angle go the wrong way? Flip the direction.
+        if (da < 0) da = da % tau$1 + tau$1;
+
+        // Is this a complete circle? Draw two arcs to complete the circle.
+        if (da > tauEpsilon) {
+          this._ += "A" + r + "," + r + ",0,1," + cw + "," + (x - dx) + "," + (y - dy) + "A" + r + "," + r + ",0,1," + cw + "," + (this._x1 = x0) + "," + (this._y1 = y0);
+        }
+
+        // Is this arc non-empty? Draw an arc!
+        else if (da > epsilon) {
+          this._ += "A" + r + "," + r + ",0," + (+(da >= pi$2)) + "," + cw + "," + (this._x1 = x + r * Math.cos(a1)) + "," + (this._y1 = y + r * Math.sin(a1));
+        }
+      },
+      rect: function(x, y, w, h) {
+        this._ += "M" + (this._x0 = this._x1 = +x) + "," + (this._y0 = this._y1 = +y) + "h" + (+w) + "v" + (+h) + "h" + (-w) + "Z";
+      },
+      toString: function() {
+        return this._;
+      }
+    };
+
+    var prefix = "$";
+
+    function Map$1() {}
+
+    Map$1.prototype = map.prototype = {
+      constructor: Map$1,
+      has: function(key) {
+        return (prefix + key) in this;
+      },
+      get: function(key) {
+        return this[prefix + key];
+      },
+      set: function(key, value) {
+        this[prefix + key] = value;
+        return this;
+      },
+      remove: function(key) {
+        var property = prefix + key;
+        return property in this && delete this[property];
+      },
+      clear: function() {
+        for (var property in this) if (property[0] === prefix) delete this[property];
+      },
+      keys: function() {
+        var keys = [];
+        for (var property in this) if (property[0] === prefix) keys.push(property.slice(1));
+        return keys;
+      },
+      values: function() {
+        var values = [];
+        for (var property in this) if (property[0] === prefix) values.push(this[property]);
+        return values;
+      },
+      entries: function() {
+        var entries = [];
+        for (var property in this) if (property[0] === prefix) entries.push({key: property.slice(1), value: this[property]});
+        return entries;
+      },
+      size: function() {
+        var size = 0;
+        for (var property in this) if (property[0] === prefix) ++size;
+        return size;
+      },
+      empty: function() {
+        for (var property in this) if (property[0] === prefix) return false;
+        return true;
+      },
+      each: function(f) {
+        for (var property in this) if (property[0] === prefix) f(this[property], property.slice(1), this);
+      }
+    };
+
+    function map(object, f) {
+      var map = new Map$1;
+
+      // Copy constructor.
+      if (object instanceof Map$1) object.each(function(value, key) { map.set(key, value); });
+
+      // Index array by numeric index or specified key function.
+      else if (Array.isArray(object)) {
+        var i = -1,
+            n = object.length,
+            o;
+
+        if (f == null) while (++i < n) map.set(i, object[i]);
+        else while (++i < n) map.set(f(o = object[i], i, object), o);
+      }
+
+      // Convert object to map.
+      else if (object) for (var key in object) map.set(key, object[key]);
+
+      return map;
+    }
+
+    function nest() {
+      var keys = [],
+          sortKeys = [],
+          sortValues,
+          rollup,
+          nest;
+
+      function apply(array, depth, createResult, setResult) {
+        if (depth >= keys.length) {
+          if (sortValues != null) array.sort(sortValues);
+          return rollup != null ? rollup(array) : array;
+        }
+
+        var i = -1,
+            n = array.length,
+            key = keys[depth++],
+            keyValue,
+            value,
+            valuesByKey = map(),
+            values,
+            result = createResult();
+
+        while (++i < n) {
+          if (values = valuesByKey.get(keyValue = key(value = array[i]) + "")) {
+            values.push(value);
+          } else {
+            valuesByKey.set(keyValue, [value]);
+          }
+        }
+
+        valuesByKey.each(function(values, key) {
+          setResult(result, key, apply(values, depth, createResult, setResult));
+        });
+
+        return result;
+      }
+
+      function entries(map, depth) {
+        if (++depth > keys.length) return map;
+        var array, sortKey = sortKeys[depth - 1];
+        if (rollup != null && depth >= keys.length) array = map.entries();
+        else array = [], map.each(function(v, k) { array.push({key: k, values: entries(v, depth)}); });
+        return sortKey != null ? array.sort(function(a, b) { return sortKey(a.key, b.key); }) : array;
+      }
+
+      return nest = {
+        object: function(array) { return apply(array, 0, createObject, setObject); },
+        map: function(array) { return apply(array, 0, createMap, setMap); },
+        entries: function(array) { return entries(apply(array, 0, createMap, setMap), 0); },
+        key: function(d) { keys.push(d); return nest; },
+        sortKeys: function(order) { sortKeys[keys.length - 1] = order; return nest; },
+        sortValues: function(order) { sortValues = order; return nest; },
+        rollup: function(f) { rollup = f; return nest; }
+      };
+    }
+
+    function createObject() {
+      return {};
+    }
+
+    function setObject(object, key, value) {
+      object[key] = value;
+    }
+
+    function createMap() {
+      return map();
+    }
+
+    function setMap(map, key, value) {
+      map.set(key, value);
+    }
+
+    function Set$1() {}
+
+    var proto = map.prototype;
+
+    Set$1.prototype = set$2.prototype = {
+      constructor: Set$1,
+      has: proto.has,
+      add: function(value) {
+        value += "";
+        this[prefix + value] = value;
+        return this;
+      },
+      remove: proto.remove,
+      clear: proto.clear,
+      values: proto.keys,
+      size: proto.size,
+      empty: proto.empty,
+      each: proto.each
+    };
+
+    function set$2(object, f) {
+      var set = new Set$1;
+
+      // Copy constructor.
+      if (object instanceof Set$1) object.each(function(value) { set.add(value); });
+
+      // Otherwise, assume it’s an array.
+      else if (object) {
+        var i = -1, n = object.length;
+        if (f == null) while (++i < n) set.add(object[i]);
+        else while (++i < n) set.add(f(object[i], i, object));
+      }
+
+      return set;
+    }
+
+    var EOL = {},
+        EOF = {},
+        QUOTE = 34,
+        NEWLINE = 10,
+        RETURN = 13;
+
+    function objectConverter(columns) {
+      return new Function("d", "return {" + columns.map(function(name, i) {
+        return JSON.stringify(name) + ": d[" + i + "]";
+      }).join(",") + "}");
+    }
+
+    function customConverter(columns, f) {
+      var object = objectConverter(columns);
+      return function(row, i) {
+        return f(object(row), i, columns);
+      };
+    }
+
+    // Compute unique columns in order of discovery.
+    function inferColumns(rows) {
+      var columnSet = Object.create(null),
+          columns = [];
+
+      rows.forEach(function(row) {
+        for (var column in row) {
+          if (!(column in columnSet)) {
+            columns.push(columnSet[column] = column);
+          }
+        }
+      });
+
+      return columns;
+    }
+
+    function pad(value, width) {
+      var s = value + "", length = s.length;
+      return length < width ? new Array(width - length + 1).join(0) + s : s;
+    }
+
+    function formatYear(year) {
+      return year < 0 ? "-" + pad(-year, 6)
+        : year > 9999 ? "+" + pad(year, 6)
+        : pad(year, 4);
+    }
+
+    function formatDate(date) {
+      var hours = date.getUTCHours(),
+          minutes = date.getUTCMinutes(),
+          seconds = date.getUTCSeconds(),
+          milliseconds = date.getUTCMilliseconds();
+      return isNaN(date) ? "Invalid Date"
+          : formatYear(date.getUTCFullYear()) + "-" + pad(date.getUTCMonth() + 1, 2) + "-" + pad(date.getUTCDate(), 2)
+          + (milliseconds ? "T" + pad(hours, 2) + ":" + pad(minutes, 2) + ":" + pad(seconds, 2) + "." + pad(milliseconds, 3) + "Z"
+          : seconds ? "T" + pad(hours, 2) + ":" + pad(minutes, 2) + ":" + pad(seconds, 2) + "Z"
+          : minutes || hours ? "T" + pad(hours, 2) + ":" + pad(minutes, 2) + "Z"
+          : "");
+    }
+
+    function dsvFormat(delimiter) {
+      var reFormat = new RegExp("[\"" + delimiter + "\n\r]"),
+          DELIMITER = delimiter.charCodeAt(0);
+
+      function parse(text, f) {
+        var convert, columns, rows = parseRows(text, function(row, i) {
+          if (convert) return convert(row, i - 1);
+          columns = row, convert = f ? customConverter(row, f) : objectConverter(row);
+        });
+        rows.columns = columns || [];
+        return rows;
+      }
+
+      function parseRows(text, f) {
+        var rows = [], // output rows
+            N = text.length,
+            I = 0, // current character index
+            n = 0, // current line number
+            t, // current token
+            eof = N <= 0, // current token followed by EOF?
+            eol = false; // current token followed by EOL?
+
+        // Strip the trailing newline.
+        if (text.charCodeAt(N - 1) === NEWLINE) --N;
+        if (text.charCodeAt(N - 1) === RETURN) --N;
+
+        function token() {
+          if (eof) return EOF;
+          if (eol) return eol = false, EOL;
+
+          // Unescape quotes.
+          var i, j = I, c;
+          if (text.charCodeAt(j) === QUOTE) {
+            while (I++ < N && text.charCodeAt(I) !== QUOTE || text.charCodeAt(++I) === QUOTE);
+            if ((i = I) >= N) eof = true;
+            else if ((c = text.charCodeAt(I++)) === NEWLINE) eol = true;
+            else if (c === RETURN) { eol = true; if (text.charCodeAt(I) === NEWLINE) ++I; }
+            return text.slice(j + 1, i - 1).replace(/""/g, "\"");
+          }
+
+          // Find next delimiter or newline.
+          while (I < N) {
+            if ((c = text.charCodeAt(i = I++)) === NEWLINE) eol = true;
+            else if (c === RETURN) { eol = true; if (text.charCodeAt(I) === NEWLINE) ++I; }
+            else if (c !== DELIMITER) continue;
+            return text.slice(j, i);
+          }
+
+          // Return last token before EOF.
+          return eof = true, text.slice(j, N);
+        }
+
+        while ((t = token()) !== EOF) {
+          var row = [];
+          while (t !== EOL && t !== EOF) row.push(t), t = token();
+          if (f && (row = f(row, n++)) == null) continue;
+          rows.push(row);
+        }
+
+        return rows;
+      }
+
+      function preformatBody(rows, columns) {
+        return rows.map(function(row) {
+          return columns.map(function(column) {
+            return formatValue(row[column]);
+          }).join(delimiter);
+        });
+      }
+
+      function format(rows, columns) {
+        if (columns == null) columns = inferColumns(rows);
+        return [columns.map(formatValue).join(delimiter)].concat(preformatBody(rows, columns)).join("\n");
+      }
+
+      function formatBody(rows, columns) {
+        if (columns == null) columns = inferColumns(rows);
+        return preformatBody(rows, columns).join("\n");
+      }
+
+      function formatRows(rows) {
+        return rows.map(formatRow).join("\n");
+      }
+
+      function formatRow(row) {
+        return row.map(formatValue).join(delimiter);
+      }
+
+      function formatValue(value) {
+        return value == null ? ""
+            : value instanceof Date ? formatDate(value)
+            : reFormat.test(value += "") ? "\"" + value.replace(/"/g, "\"\"") + "\""
+            : value;
+      }
+
+      return {
+        parse: parse,
+        parseRows: parseRows,
+        format: format,
+        formatBody: formatBody,
+        formatRows: formatRows
+      };
+    }
+
+    var csv = dsvFormat(",");
+
+    var csvParse = csv.parse;
+
+    var tsv = dsvFormat("\t");
+
+    function responseText(response) {
+      if (!response.ok) throw new Error(response.status + " " + response.statusText);
+      return response.text();
+    }
+
+    function text$1(input, init) {
+      return fetch(input, init).then(responseText);
+    }
+
+    function dsvParse(parse) {
+      return function(input, init, row) {
+        if (arguments.length === 2 && typeof init === "function") row = init, init = undefined;
+        return text$1(input, init).then(function(response) {
+          return parse(response, row);
+        });
+      };
+    }
+
+    var csv$1 = dsvParse(csvParse);
+
+    function tree_add(d) {
+      var x = +this._x.call(null, d),
+          y = +this._y.call(null, d);
+      return add(this.cover(x, y), x, y, d);
+    }
+
+    function add(tree, x, y, d) {
+      if (isNaN(x) || isNaN(y)) return tree; // ignore invalid points
+
+      var parent,
+          node = tree._root,
+          leaf = {data: d},
+          x0 = tree._x0,
+          y0 = tree._y0,
+          x1 = tree._x1,
+          y1 = tree._y1,
+          xm,
+          ym,
+          xp,
+          yp,
+          right,
+          bottom,
+          i,
+          j;
+
+      // If the tree is empty, initialize the root as a leaf.
+      if (!node) return tree._root = leaf, tree;
+
+      // Find the existing leaf for the new point, or add it.
+      while (node.length) {
+        if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
+        if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
+        if (parent = node, !(node = node[i = bottom << 1 | right])) return parent[i] = leaf, tree;
+      }
+
+      // Is the new point is exactly coincident with the existing point?
+      xp = +tree._x.call(null, node.data);
+      yp = +tree._y.call(null, node.data);
+      if (x === xp && y === yp) return leaf.next = node, parent ? parent[i] = leaf : tree._root = leaf, tree;
+
+      // Otherwise, split the leaf node until the old and new point are separated.
+      do {
+        parent = parent ? parent[i] = new Array(4) : tree._root = new Array(4);
+        if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
+        if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
+      } while ((i = bottom << 1 | right) === (j = (yp >= ym) << 1 | (xp >= xm)));
+      return parent[j] = node, parent[i] = leaf, tree;
+    }
+
+    function addAll(data) {
+      var d, i, n = data.length,
+          x,
+          y,
+          xz = new Array(n),
+          yz = new Array(n),
+          x0 = Infinity,
+          y0 = Infinity,
+          x1 = -Infinity,
+          y1 = -Infinity;
+
+      // Compute the points and their extent.
+      for (i = 0; i < n; ++i) {
+        if (isNaN(x = +this._x.call(null, d = data[i])) || isNaN(y = +this._y.call(null, d))) continue;
+        xz[i] = x;
+        yz[i] = y;
+        if (x < x0) x0 = x;
+        if (x > x1) x1 = x;
+        if (y < y0) y0 = y;
+        if (y > y1) y1 = y;
+      }
+
+      // If there were no (valid) points, abort.
+      if (x0 > x1 || y0 > y1) return this;
+
+      // Expand the tree to cover the new points.
+      this.cover(x0, y0).cover(x1, y1);
+
+      // Add the new points.
+      for (i = 0; i < n; ++i) {
+        add(this, xz[i], yz[i], data[i]);
+      }
+
+      return this;
+    }
+
+    function tree_cover(x, y) {
+      if (isNaN(x = +x) || isNaN(y = +y)) return this; // ignore invalid points
+
+      var x0 = this._x0,
+          y0 = this._y0,
+          x1 = this._x1,
+          y1 = this._y1;
+
+      // If the quadtree has no extent, initialize them.
+      // Integer extent are necessary so that if we later double the extent,
+      // the existing quadrant boundaries don’t change due to floating point error!
+      if (isNaN(x0)) {
+        x1 = (x0 = Math.floor(x)) + 1;
+        y1 = (y0 = Math.floor(y)) + 1;
+      }
+
+      // Otherwise, double repeatedly to cover.
+      else {
+        var z = x1 - x0,
+            node = this._root,
+            parent,
+            i;
+
+        while (x0 > x || x >= x1 || y0 > y || y >= y1) {
+          i = (y < y0) << 1 | (x < x0);
+          parent = new Array(4), parent[i] = node, node = parent, z *= 2;
+          switch (i) {
+            case 0: x1 = x0 + z, y1 = y0 + z; break;
+            case 1: x0 = x1 - z, y1 = y0 + z; break;
+            case 2: x1 = x0 + z, y0 = y1 - z; break;
+            case 3: x0 = x1 - z, y0 = y1 - z; break;
+          }
+        }
+
+        if (this._root && this._root.length) this._root = node;
+      }
+
+      this._x0 = x0;
+      this._y0 = y0;
+      this._x1 = x1;
+      this._y1 = y1;
+      return this;
+    }
+
+    function tree_data() {
+      var data = [];
+      this.visit(function(node) {
+        if (!node.length) do data.push(node.data); while (node = node.next)
+      });
+      return data;
+    }
+
+    function tree_extent(_) {
+      return arguments.length
+          ? this.cover(+_[0][0], +_[0][1]).cover(+_[1][0], +_[1][1])
+          : isNaN(this._x0) ? undefined : [[this._x0, this._y0], [this._x1, this._y1]];
+    }
+
+    function Quad(node, x0, y0, x1, y1) {
+      this.node = node;
+      this.x0 = x0;
+      this.y0 = y0;
+      this.x1 = x1;
+      this.y1 = y1;
+    }
+
+    function tree_find(x, y, radius) {
+      var data,
+          x0 = this._x0,
+          y0 = this._y0,
+          x1,
+          y1,
+          x2,
+          y2,
+          x3 = this._x1,
+          y3 = this._y1,
+          quads = [],
+          node = this._root,
+          q,
+          i;
+
+      if (node) quads.push(new Quad(node, x0, y0, x3, y3));
+      if (radius == null) radius = Infinity;
+      else {
+        x0 = x - radius, y0 = y - radius;
+        x3 = x + radius, y3 = y + radius;
+        radius *= radius;
+      }
+
+      while (q = quads.pop()) {
+
+        // Stop searching if this quadrant can’t contain a closer node.
+        if (!(node = q.node)
+            || (x1 = q.x0) > x3
+            || (y1 = q.y0) > y3
+            || (x2 = q.x1) < x0
+            || (y2 = q.y1) < y0) continue;
+
+        // Bisect the current quadrant.
+        if (node.length) {
+          var xm = (x1 + x2) / 2,
+              ym = (y1 + y2) / 2;
+
+          quads.push(
+            new Quad(node[3], xm, ym, x2, y2),
+            new Quad(node[2], x1, ym, xm, y2),
+            new Quad(node[1], xm, y1, x2, ym),
+            new Quad(node[0], x1, y1, xm, ym)
+          );
+
+          // Visit the closest quadrant first.
+          if (i = (y >= ym) << 1 | (x >= xm)) {
+            q = quads[quads.length - 1];
+            quads[quads.length - 1] = quads[quads.length - 1 - i];
+            quads[quads.length - 1 - i] = q;
+          }
+        }
+
+        // Visit this point. (Visiting coincident points isn’t necessary!)
+        else {
+          var dx = x - +this._x.call(null, node.data),
+              dy = y - +this._y.call(null, node.data),
+              d2 = dx * dx + dy * dy;
+          if (d2 < radius) {
+            var d = Math.sqrt(radius = d2);
+            x0 = x - d, y0 = y - d;
+            x3 = x + d, y3 = y + d;
+            data = node.data;
+          }
+        }
+      }
+
+      return data;
+    }
+
+    function tree_remove(d) {
+      if (isNaN(x = +this._x.call(null, d)) || isNaN(y = +this._y.call(null, d))) return this; // ignore invalid points
+
+      var parent,
+          node = this._root,
+          retainer,
+          previous,
+          next,
+          x0 = this._x0,
+          y0 = this._y0,
+          x1 = this._x1,
+          y1 = this._y1,
+          x,
+          y,
+          xm,
+          ym,
+          right,
+          bottom,
+          i,
+          j;
+
+      // If the tree is empty, initialize the root as a leaf.
+      if (!node) return this;
+
+      // Find the leaf node for the point.
+      // While descending, also retain the deepest parent with a non-removed sibling.
+      if (node.length) while (true) {
+        if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm; else x1 = xm;
+        if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym; else y1 = ym;
+        if (!(parent = node, node = node[i = bottom << 1 | right])) return this;
+        if (!node.length) break;
+        if (parent[(i + 1) & 3] || parent[(i + 2) & 3] || parent[(i + 3) & 3]) retainer = parent, j = i;
+      }
+
+      // Find the point to remove.
+      while (node.data !== d) if (!(previous = node, node = node.next)) return this;
+      if (next = node.next) delete node.next;
+
+      // If there are multiple coincident points, remove just the point.
+      if (previous) return (next ? previous.next = next : delete previous.next), this;
+
+      // If this is the root point, remove it.
+      if (!parent) return this._root = next, this;
+
+      // Remove this leaf.
+      next ? parent[i] = next : delete parent[i];
+
+      // If the parent now contains exactly one leaf, collapse superfluous parents.
+      if ((node = parent[0] || parent[1] || parent[2] || parent[3])
+          && node === (parent[3] || parent[2] || parent[1] || parent[0])
+          && !node.length) {
+        if (retainer) retainer[j] = node;
+        else this._root = node;
+      }
+
+      return this;
+    }
+
+    function removeAll(data) {
+      for (var i = 0, n = data.length; i < n; ++i) this.remove(data[i]);
+      return this;
+    }
+
+    function tree_root() {
+      return this._root;
+    }
+
+    function tree_size() {
+      var size = 0;
+      this.visit(function(node) {
+        if (!node.length) do ++size; while (node = node.next)
+      });
+      return size;
+    }
+
+    function tree_visit(callback) {
+      var quads = [], q, node = this._root, child, x0, y0, x1, y1;
+      if (node) quads.push(new Quad(node, this._x0, this._y0, this._x1, this._y1));
+      while (q = quads.pop()) {
+        if (!callback(node = q.node, x0 = q.x0, y0 = q.y0, x1 = q.x1, y1 = q.y1) && node.length) {
+          var xm = (x0 + x1) / 2, ym = (y0 + y1) / 2;
+          if (child = node[3]) quads.push(new Quad(child, xm, ym, x1, y1));
+          if (child = node[2]) quads.push(new Quad(child, x0, ym, xm, y1));
+          if (child = node[1]) quads.push(new Quad(child, xm, y0, x1, ym));
+          if (child = node[0]) quads.push(new Quad(child, x0, y0, xm, ym));
+        }
+      }
+      return this;
+    }
+
+    function tree_visitAfter(callback) {
+      var quads = [], next = [], q;
+      if (this._root) quads.push(new Quad(this._root, this._x0, this._y0, this._x1, this._y1));
+      while (q = quads.pop()) {
+        var node = q.node;
+        if (node.length) {
+          var child, x0 = q.x0, y0 = q.y0, x1 = q.x1, y1 = q.y1, xm = (x0 + x1) / 2, ym = (y0 + y1) / 2;
+          if (child = node[0]) quads.push(new Quad(child, x0, y0, xm, ym));
+          if (child = node[1]) quads.push(new Quad(child, xm, y0, x1, ym));
+          if (child = node[2]) quads.push(new Quad(child, x0, ym, xm, y1));
+          if (child = node[3]) quads.push(new Quad(child, xm, ym, x1, y1));
+        }
+        next.push(q);
+      }
+      while (q = next.pop()) {
+        callback(q.node, q.x0, q.y0, q.x1, q.y1);
+      }
+      return this;
+    }
+
+    function defaultX(d) {
+      return d[0];
+    }
+
+    function tree_x(_) {
+      return arguments.length ? (this._x = _, this) : this._x;
+    }
+
+    function defaultY(d) {
+      return d[1];
+    }
+
+    function tree_y(_) {
+      return arguments.length ? (this._y = _, this) : this._y;
+    }
+
+    function quadtree(nodes, x, y) {
+      var tree = new Quadtree(x == null ? defaultX : x, y == null ? defaultY : y, NaN, NaN, NaN, NaN);
+      return nodes == null ? tree : tree.addAll(nodes);
+    }
+
+    function Quadtree(x, y, x0, y0, x1, y1) {
+      this._x = x;
+      this._y = y;
+      this._x0 = x0;
+      this._y0 = y0;
+      this._x1 = x1;
+      this._y1 = y1;
+      this._root = undefined;
+    }
+
+    function leaf_copy(leaf) {
+      var copy = {data: leaf.data}, next = copy;
+      while (leaf = leaf.next) next = next.next = {data: leaf.data};
+      return copy;
+    }
+
+    var treeProto = quadtree.prototype = Quadtree.prototype;
+
+    treeProto.copy = function() {
+      var copy = new Quadtree(this._x, this._y, this._x0, this._y0, this._x1, this._y1),
+          node = this._root,
+          nodes,
+          child;
+
+      if (!node) return copy;
+
+      if (!node.length) return copy._root = leaf_copy(node), copy;
+
+      nodes = [{source: node, target: copy._root = new Array(4)}];
+      while (node = nodes.pop()) {
+        for (var i = 0; i < 4; ++i) {
+          if (child = node.source[i]) {
+            if (child.length) nodes.push({source: child, target: node.target[i] = new Array(4)});
+            else node.target[i] = leaf_copy(child);
+          }
+        }
+      }
+
+      return copy;
+    };
+
+    treeProto.add = tree_add;
+    treeProto.addAll = addAll;
+    treeProto.cover = tree_cover;
+    treeProto.data = tree_data;
+    treeProto.extent = tree_extent;
+    treeProto.find = tree_find;
+    treeProto.remove = tree_remove;
+    treeProto.removeAll = removeAll;
+    treeProto.root = tree_root;
+    treeProto.size = tree_size;
+    treeProto.visit = tree_visit;
+    treeProto.visitAfter = tree_visitAfter;
+    treeProto.x = tree_x;
+    treeProto.y = tree_y;
+
+    var initialAngle = Math.PI * (3 - Math.sqrt(5));
+
+    // Computes the decimal coefficient and exponent of the specified number x with
+    // significant digits p, where x is positive and p is in [1, 21] or undefined.
+    // For example, formatDecimal(1.23) returns ["123", 0].
+    function formatDecimal(x, p) {
+      if ((i = (x = p ? x.toExponential(p - 1) : x.toExponential()).indexOf("e")) < 0) return null; // NaN, ±Infinity
+      var i, coefficient = x.slice(0, i);
+
+      // The string returned by toExponential either has the form \d\.\d+e[-+]\d+
+      // (e.g., 1.2e+3) or the form \de[-+]\d+ (e.g., 1e+3).
+      return [
+        coefficient.length > 1 ? coefficient[0] + coefficient.slice(2) : coefficient,
+        +x.slice(i + 1)
+      ];
+    }
+
+    function exponent(x) {
+      return x = formatDecimal(Math.abs(x)), x ? x[1] : NaN;
+    }
+
+    function formatGroup(grouping, thousands) {
+      return function(value, width) {
+        var i = value.length,
+            t = [],
+            j = 0,
+            g = grouping[0],
+            length = 0;
+
+        while (i > 0 && g > 0) {
+          if (length + g + 1 > width) g = Math.max(1, width - length);
+          t.push(value.substring(i -= g, i + g));
+          if ((length += g + 1) > width) break;
+          g = grouping[j = (j + 1) % grouping.length];
+        }
+
+        return t.reverse().join(thousands);
+      };
+    }
+
+    function formatNumerals(numerals) {
+      return function(value) {
+        return value.replace(/[0-9]/g, function(i) {
+          return numerals[+i];
+        });
+      };
+    }
+
+    // [[fill]align][sign][symbol][0][width][,][.precision][~][type]
+    var re = /^(?:(.)?([<>=^]))?([+\-( ])?([$#])?(0)?(\d+)?(,)?(\.\d+)?(~)?([a-z%])?$/i;
+
+    function formatSpecifier(specifier) {
+      return new FormatSpecifier(specifier);
+    }
+
+    formatSpecifier.prototype = FormatSpecifier.prototype; // instanceof
+
+    function FormatSpecifier(specifier) {
+      if (!(match = re.exec(specifier))) throw new Error("invalid format: " + specifier);
+      var match;
+      this.fill = match[1] || " ";
+      this.align = match[2] || ">";
+      this.sign = match[3] || "-";
+      this.symbol = match[4] || "";
+      this.zero = !!match[5];
+      this.width = match[6] && +match[6];
+      this.comma = !!match[7];
+      this.precision = match[8] && +match[8].slice(1);
+      this.trim = !!match[9];
+      this.type = match[10] || "";
+    }
+
+    FormatSpecifier.prototype.toString = function() {
+      return this.fill
+          + this.align
+          + this.sign
+          + this.symbol
+          + (this.zero ? "0" : "")
+          + (this.width == null ? "" : Math.max(1, this.width | 0))
+          + (this.comma ? "," : "")
+          + (this.precision == null ? "" : "." + Math.max(0, this.precision | 0))
+          + (this.trim ? "~" : "")
+          + this.type;
+    };
+
+    // Trims insignificant zeros, e.g., replaces 1.2000k with 1.2k.
+    function formatTrim(s) {
+      out: for (var n = s.length, i = 1, i0 = -1, i1; i < n; ++i) {
+        switch (s[i]) {
+          case ".": i0 = i1 = i; break;
+          case "0": if (i0 === 0) i0 = i; i1 = i; break;
+          default: if (i0 > 0) { if (!+s[i]) break out; i0 = 0; } break;
+        }
+      }
+      return i0 > 0 ? s.slice(0, i0) + s.slice(i1 + 1) : s;
+    }
+
+    var prefixExponent;
+
+    function formatPrefixAuto(x, p) {
+      var d = formatDecimal(x, p);
+      if (!d) return x + "";
+      var coefficient = d[0],
+          exponent = d[1],
+          i = exponent - (prefixExponent = Math.max(-8, Math.min(8, Math.floor(exponent / 3))) * 3) + 1,
+          n = coefficient.length;
+      return i === n ? coefficient
+          : i > n ? coefficient + new Array(i - n + 1).join("0")
+          : i > 0 ? coefficient.slice(0, i) + "." + coefficient.slice(i)
+          : "0." + new Array(1 - i).join("0") + formatDecimal(x, Math.max(0, p + i - 1))[0]; // less than 1y!
+    }
+
+    function formatRounded(x, p) {
+      var d = formatDecimal(x, p);
+      if (!d) return x + "";
+      var coefficient = d[0],
+          exponent = d[1];
+      return exponent < 0 ? "0." + new Array(-exponent).join("0") + coefficient
+          : coefficient.length > exponent + 1 ? coefficient.slice(0, exponent + 1) + "." + coefficient.slice(exponent + 1)
+          : coefficient + new Array(exponent - coefficient.length + 2).join("0");
+    }
+
+    var formatTypes = {
+      "%": function(x, p) { return (x * 100).toFixed(p); },
+      "b": function(x) { return Math.round(x).toString(2); },
+      "c": function(x) { return x + ""; },
+      "d": function(x) { return Math.round(x).toString(10); },
+      "e": function(x, p) { return x.toExponential(p); },
+      "f": function(x, p) { return x.toFixed(p); },
+      "g": function(x, p) { return x.toPrecision(p); },
+      "o": function(x) { return Math.round(x).toString(8); },
+      "p": function(x, p) { return formatRounded(x * 100, p); },
+      "r": formatRounded,
+      "s": formatPrefixAuto,
+      "X": function(x) { return Math.round(x).toString(16).toUpperCase(); },
+      "x": function(x) { return Math.round(x).toString(16); }
+    };
+
+    function identity$2(x) {
+      return x;
+    }
+
+    var prefixes = ["y","z","a","f","p","n","µ","m","","k","M","G","T","P","E","Z","Y"];
+
+    function formatLocale(locale) {
+      var group = locale.grouping && locale.thousands ? formatGroup(locale.grouping, locale.thousands) : identity$2,
+          currency = locale.currency,
+          decimal = locale.decimal,
+          numerals = locale.numerals ? formatNumerals(locale.numerals) : identity$2,
+          percent = locale.percent || "%";
+
+      function newFormat(specifier) {
+        specifier = formatSpecifier(specifier);
+
+        var fill = specifier.fill,
+            align = specifier.align,
+            sign = specifier.sign,
+            symbol = specifier.symbol,
+            zero = specifier.zero,
+            width = specifier.width,
+            comma = specifier.comma,
+            precision = specifier.precision,
+            trim = specifier.trim,
+            type = specifier.type;
+
+        // The "n" type is an alias for ",g".
+        if (type === "n") comma = true, type = "g";
+
+        // The "" type, and any invalid type, is an alias for ".12~g".
+        else if (!formatTypes[type]) precision == null && (precision = 12), trim = true, type = "g";
+
+        // If zero fill is specified, padding goes after sign and before digits.
+        if (zero || (fill === "0" && align === "=")) zero = true, fill = "0", align = "=";
+
+        // Compute the prefix and suffix.
+        // For SI-prefix, the suffix is lazily computed.
+        var prefix = symbol === "$" ? currency[0] : symbol === "#" && /[boxX]/.test(type) ? "0" + type.toLowerCase() : "",
+            suffix = symbol === "$" ? currency[1] : /[%p]/.test(type) ? percent : "";
+
+        // What format function should we use?
+        // Is this an integer type?
+        // Can this type generate exponential notation?
+        var formatType = formatTypes[type],
+            maybeSuffix = /[defgprs%]/.test(type);
+
+        // Set the default precision if not specified,
+        // or clamp the specified precision to the supported range.
+        // For significant precision, it must be in [1, 21].
+        // For fixed precision, it must be in [0, 20].
+        precision = precision == null ? 6
+            : /[gprs]/.test(type) ? Math.max(1, Math.min(21, precision))
+            : Math.max(0, Math.min(20, precision));
+
+        function format(value) {
+          var valuePrefix = prefix,
+              valueSuffix = suffix,
+              i, n, c;
+
+          if (type === "c") {
+            valueSuffix = formatType(value) + valueSuffix;
+            value = "";
+          } else {
+            value = +value;
+
+            // Perform the initial formatting.
+            var valueNegative = value < 0;
+            value = formatType(Math.abs(value), precision);
+
+            // Trim insignificant zeros.
+            if (trim) value = formatTrim(value);
+
+            // If a negative value rounds to zero during formatting, treat as positive.
+            if (valueNegative && +value === 0) valueNegative = false;
+
+            // Compute the prefix and suffix.
+            valuePrefix = (valueNegative ? (sign === "(" ? sign : "-") : sign === "-" || sign === "(" ? "" : sign) + valuePrefix;
+            valueSuffix = (type === "s" ? prefixes[8 + prefixExponent / 3] : "") + valueSuffix + (valueNegative && sign === "(" ? ")" : "");
+
+            // Break the formatted value into the integer “value” part that can be
+            // grouped, and fractional or exponential “suffix” part that is not.
+            if (maybeSuffix) {
+              i = -1, n = value.length;
+              while (++i < n) {
+                if (c = value.charCodeAt(i), 48 > c || c > 57) {
+                  valueSuffix = (c === 46 ? decimal + value.slice(i + 1) : value.slice(i)) + valueSuffix;
+                  value = value.slice(0, i);
+                  break;
+                }
+              }
+            }
+          }
+
+          // If the fill character is not "0", grouping is applied before padding.
+          if (comma && !zero) value = group(value, Infinity);
+
+          // Compute the padding.
+          var length = valuePrefix.length + value.length + valueSuffix.length,
+              padding = length < width ? new Array(width - length + 1).join(fill) : "";
+
+          // If the fill character is "0", grouping is applied after padding.
+          if (comma && zero) value = group(padding + value, padding.length ? width - valueSuffix.length : Infinity), padding = "";
+
+          // Reconstruct the final output based on the desired alignment.
+          switch (align) {
+            case "<": value = valuePrefix + value + valueSuffix + padding; break;
+            case "=": value = valuePrefix + padding + value + valueSuffix; break;
+            case "^": value = padding.slice(0, length = padding.length >> 1) + valuePrefix + value + valueSuffix + padding.slice(length); break;
+            default: value = padding + valuePrefix + value + valueSuffix; break;
+          }
+
+          return numerals(value);
+        }
+
+        format.toString = function() {
+          return specifier + "";
+        };
+
+        return format;
+      }
+
+      function formatPrefix(specifier, value) {
+        var f = newFormat((specifier = formatSpecifier(specifier), specifier.type = "f", specifier)),
+            e = Math.max(-8, Math.min(8, Math.floor(exponent(value) / 3))) * 3,
+            k = Math.pow(10, -e),
+            prefix = prefixes[8 + e / 3];
+        return function(value) {
+          return f(k * value) + prefix;
+        };
+      }
+
+      return {
+        format: newFormat,
+        formatPrefix: formatPrefix
+      };
+    }
+
+    var locale;
+    var format;
+    var formatPrefix;
+
+    defaultLocale({
+      decimal: ".",
+      thousands: ",",
+      grouping: [3],
+      currency: ["$", ""]
+    });
+
+    function defaultLocale(definition) {
+      locale = formatLocale(definition);
+      format = locale.format;
+      formatPrefix = locale.formatPrefix;
+      return locale;
+    }
+
+    function precisionFixed(step) {
+      return Math.max(0, -exponent(Math.abs(step)));
+    }
+
+    function precisionPrefix(step, value) {
+      return Math.max(0, Math.max(-8, Math.min(8, Math.floor(exponent(value) / 3))) * 3 - exponent(Math.abs(step)));
+    }
+
+    function precisionRound(step, max) {
+      step = Math.abs(step), max = Math.abs(max) - step;
+      return Math.max(0, exponent(max) - exponent(step)) + 1;
+    }
+
+    // Adds floating point numbers with twice the normal precision.
+    // Reference: J. R. Shewchuk, Adaptive Precision Floating-Point Arithmetic and
+    // Fast Robust Geometric Predicates, Discrete & Computational Geometry 18(3)
+    // 305–363 (1997).
+    // Code adapted from GeographicLib by Charles F. F. Karney,
+    // http://geographiclib.sourceforge.net/
+
+    function adder() {
+      return new Adder;
+    }
+
+    function Adder() {
+      this.reset();
+    }
+
+    Adder.prototype = {
+      constructor: Adder,
+      reset: function() {
+        this.s = // rounded value
+        this.t = 0; // exact error
+      },
+      add: function(y) {
+        add$1(temp, y, this.t);
+        add$1(this, temp.s, this.s);
+        if (this.s) this.t += temp.t;
+        else this.s = temp.t;
+      },
+      valueOf: function() {
+        return this.s;
+      }
+    };
+
+    var temp = new Adder;
+
+    function add$1(adder, a, b) {
+      var x = adder.s = a + b,
+          bv = x - a,
+          av = x - bv;
+      adder.t = (a - av) + (b - bv);
+    }
+
+    var pi$3 = Math.PI;
+
+    var areaRingSum = adder();
+
+    var areaSum = adder();
+
+    var deltaSum = adder();
+
+    var sum = adder();
+
+    var lengthSum = adder();
+
+    var areaSum$1 = adder(),
+        areaRingSum$1 = adder();
+
+    var lengthSum$1 = adder();
+
+    function initRange(domain, range) {
+      switch (arguments.length) {
+        case 0: break;
+        case 1: this.range(domain); break;
+        default: this.range(range).domain(domain); break;
+      }
+      return this;
+    }
+
+    var array$1 = Array.prototype;
+
+    var map$1 = array$1.map;
+    var slice = array$1.slice;
+
+    function constant$3(x) {
+      return function() {
+        return x;
+      };
+    }
+
+    function number(x) {
+      return +x;
+    }
+
+    var unit = [0, 1];
+
+    function identity$3(x) {
+      return x;
+    }
+
+    function normalize(a, b) {
+      return (b -= (a = +a))
+          ? function(x) { return (x - a) / b; }
+          : constant$3(isNaN(b) ? NaN : 0.5);
+    }
+
+    function clamper(domain) {
+      var a = domain[0], b = domain[domain.length - 1], t;
+      if (a > b) t = a, a = b, b = t;
+      return function(x) { return Math.max(a, Math.min(b, x)); };
+    }
+
+    // normalize(a, b)(x) takes a domain value x in [a,b] and returns the corresponding parameter t in [0,1].
+    // interpolate(a, b)(t) takes a parameter t in [0,1] and returns the corresponding range value x in [a,b].
+    function bimap(domain, range, interpolate) {
+      var d0 = domain[0], d1 = domain[1], r0 = range[0], r1 = range[1];
+      if (d1 < d0) d0 = normalize(d1, d0), r0 = interpolate(r1, r0);
+      else d0 = normalize(d0, d1), r0 = interpolate(r0, r1);
+      return function(x) { return r0(d0(x)); };
+    }
+
+    function polymap(domain, range, interpolate) {
+      var j = Math.min(domain.length, range.length) - 1,
+          d = new Array(j),
+          r = new Array(j),
+          i = -1;
+
+      // Reverse descending domains.
+      if (domain[j] < domain[0]) {
+        domain = domain.slice().reverse();
+        range = range.slice().reverse();
+      }
+
+      while (++i < j) {
+        d[i] = normalize(domain[i], domain[i + 1]);
+        r[i] = interpolate(range[i], range[i + 1]);
+      }
+
+      return function(x) {
+        var i = bisectRight(domain, x, 1, j) - 1;
+        return r[i](d[i](x));
+      };
+    }
+
+    function copy(source, target) {
+      return target
+          .domain(source.domain())
+          .range(source.range())
+          .interpolate(source.interpolate())
+          .clamp(source.clamp())
+          .unknown(source.unknown());
+    }
+
+    function transformer() {
+      var domain = unit,
+          range = unit,
+          interpolate = interpolateValue,
+          transform,
+          untransform,
+          unknown,
+          clamp = identity$3,
+          piecewise,
+          output,
+          input;
+
+      function rescale() {
+        piecewise = Math.min(domain.length, range.length) > 2 ? polymap : bimap;
+        output = input = null;
+        return scale;
+      }
+
+      function scale(x) {
+        return isNaN(x = +x) ? unknown : (output || (output = piecewise(domain.map(transform), range, interpolate)))(transform(clamp(x)));
+      }
+
+      scale.invert = function(y) {
+        return clamp(untransform((input || (input = piecewise(range, domain.map(transform), interpolateNumber)))(y)));
+      };
+
+      scale.domain = function(_) {
+        return arguments.length ? (domain = map$1.call(_, number), clamp === identity$3 || (clamp = clamper(domain)), rescale()) : domain.slice();
+      };
+
+      scale.range = function(_) {
+        return arguments.length ? (range = slice.call(_), rescale()) : range.slice();
+      };
+
+      scale.rangeRound = function(_) {
+        return range = slice.call(_), interpolate = interpolateRound, rescale();
+      };
+
+      scale.clamp = function(_) {
+        return arguments.length ? (clamp = _ ? clamper(domain) : identity$3, scale) : clamp !== identity$3;
+      };
+
+      scale.interpolate = function(_) {
+        return arguments.length ? (interpolate = _, rescale()) : interpolate;
+      };
+
+      scale.unknown = function(_) {
+        return arguments.length ? (unknown = _, scale) : unknown;
+      };
+
+      return function(t, u) {
+        transform = t, untransform = u;
+        return rescale();
+      };
+    }
+
+    function continuous(transform, untransform) {
+      return transformer()(transform, untransform);
+    }
+
+    function tickFormat(start, stop, count, specifier) {
+      var step = tickStep(start, stop, count),
+          precision;
+      specifier = formatSpecifier(specifier == null ? ",f" : specifier);
+      switch (specifier.type) {
+        case "s": {
+          var value = Math.max(Math.abs(start), Math.abs(stop));
+          if (specifier.precision == null && !isNaN(precision = precisionPrefix(step, value))) specifier.precision = precision;
+          return formatPrefix(specifier, value);
+        }
+        case "":
+        case "e":
+        case "g":
+        case "p":
+        case "r": {
+          if (specifier.precision == null && !isNaN(precision = precisionRound(step, Math.max(Math.abs(start), Math.abs(stop))))) specifier.precision = precision - (specifier.type === "e");
+          break;
+        }
+        case "f":
+        case "%": {
+          if (specifier.precision == null && !isNaN(precision = precisionFixed(step))) specifier.precision = precision - (specifier.type === "%") * 2;
+          break;
+        }
+      }
+      return format(specifier);
+    }
+
+    function linearish(scale) {
+      var domain = scale.domain;
+
+      scale.ticks = function(count) {
+        var d = domain();
+        return ticks(d[0], d[d.length - 1], count == null ? 10 : count);
+      };
+
+      scale.tickFormat = function(count, specifier) {
+        var d = domain();
+        return tickFormat(d[0], d[d.length - 1], count == null ? 10 : count, specifier);
+      };
+
+      scale.nice = function(count) {
+        if (count == null) count = 10;
+
+        var d = domain(),
+            i0 = 0,
+            i1 = d.length - 1,
+            start = d[i0],
+            stop = d[i1],
+            step;
+
+        if (stop < start) {
+          step = start, start = stop, stop = step;
+          step = i0, i0 = i1, i1 = step;
+        }
+
+        step = tickIncrement(start, stop, count);
+
+        if (step > 0) {
+          start = Math.floor(start / step) * step;
+          stop = Math.ceil(stop / step) * step;
+          step = tickIncrement(start, stop, count);
+        } else if (step < 0) {
+          start = Math.ceil(start * step) / step;
+          stop = Math.floor(stop * step) / step;
+          step = tickIncrement(start, stop, count);
+        }
+
+        if (step > 0) {
+          d[i0] = Math.floor(start / step) * step;
+          d[i1] = Math.ceil(stop / step) * step;
+          domain(d);
+        } else if (step < 0) {
+          d[i0] = Math.ceil(start * step) / step;
+          d[i1] = Math.floor(stop * step) / step;
+          domain(d);
+        }
+
+        return scale;
+      };
+
+      return scale;
+    }
+
+    function linear$1() {
+      var scale = continuous(identity$3, identity$3);
+
+      scale.copy = function() {
+        return copy(scale, linear$1());
+      };
+
+      initRange.apply(scale, arguments);
+
+      return linearish(scale);
+    }
+
+    function nice(domain, interval) {
+      domain = domain.slice();
+
+      var i0 = 0,
+          i1 = domain.length - 1,
+          x0 = domain[i0],
+          x1 = domain[i1],
+          t;
+
+      if (x1 < x0) {
+        t = i0, i0 = i1, i1 = t;
+        t = x0, x0 = x1, x1 = t;
+      }
+
+      domain[i0] = interval.floor(x0);
+      domain[i1] = interval.ceil(x1);
+      return domain;
+    }
+
+    var t0$1 = new Date,
+        t1$1 = new Date;
+
+    function newInterval(floori, offseti, count, field) {
+
+      function interval(date) {
+        return floori(date = new Date(+date)), date;
+      }
+
+      interval.floor = interval;
+
+      interval.ceil = function(date) {
+        return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
+      };
+
+      interval.round = function(date) {
+        var d0 = interval(date),
+            d1 = interval.ceil(date);
+        return date - d0 < d1 - date ? d0 : d1;
+      };
+
+      interval.offset = function(date, step) {
+        return offseti(date = new Date(+date), step == null ? 1 : Math.floor(step)), date;
+      };
+
+      interval.range = function(start, stop, step) {
+        var range = [], previous;
+        start = interval.ceil(start);
+        step = step == null ? 1 : Math.floor(step);
+        if (!(start < stop) || !(step > 0)) return range; // also handles Invalid Date
+        do range.push(previous = new Date(+start)), offseti(start, step), floori(start);
+        while (previous < start && start < stop);
+        return range;
+      };
+
+      interval.filter = function(test) {
+        return newInterval(function(date) {
+          if (date >= date) while (floori(date), !test(date)) date.setTime(date - 1);
+        }, function(date, step) {
+          if (date >= date) {
+            if (step < 0) while (++step <= 0) {
+              while (offseti(date, -1), !test(date)) {} // eslint-disable-line no-empty
+            } else while (--step >= 0) {
+              while (offseti(date, +1), !test(date)) {} // eslint-disable-line no-empty
+            }
+          }
+        });
+      };
+
+      if (count) {
+        interval.count = function(start, end) {
+          t0$1.setTime(+start), t1$1.setTime(+end);
+          floori(t0$1), floori(t1$1);
+          return Math.floor(count(t0$1, t1$1));
+        };
+
+        interval.every = function(step) {
+          step = Math.floor(step);
+          return !isFinite(step) || !(step > 0) ? null
+              : !(step > 1) ? interval
+              : interval.filter(field
+                  ? function(d) { return field(d) % step === 0; }
+                  : function(d) { return interval.count(0, d) % step === 0; });
+        };
+      }
+
+      return interval;
+    }
+
+    var millisecond = newInterval(function() {
+      // noop
+    }, function(date, step) {
+      date.setTime(+date + step);
+    }, function(start, end) {
+      return end - start;
+    });
+
+    // An optimized implementation for this simple case.
+    millisecond.every = function(k) {
+      k = Math.floor(k);
+      if (!isFinite(k) || !(k > 0)) return null;
+      if (!(k > 1)) return millisecond;
+      return newInterval(function(date) {
+        date.setTime(Math.floor(date / k) * k);
+      }, function(date, step) {
+        date.setTime(+date + step * k);
+      }, function(start, end) {
+        return (end - start) / k;
+      });
+    };
+
+    var durationSecond = 1e3;
+    var durationMinute = 6e4;
+    var durationHour = 36e5;
+    var durationDay = 864e5;
+    var durationWeek = 6048e5;
+
+    var second = newInterval(function(date) {
+      date.setTime(date - date.getMilliseconds());
+    }, function(date, step) {
+      date.setTime(+date + step * durationSecond);
+    }, function(start, end) {
+      return (end - start) / durationSecond;
+    }, function(date) {
+      return date.getUTCSeconds();
+    });
+
+    var minute = newInterval(function(date) {
+      date.setTime(date - date.getMilliseconds() - date.getSeconds() * durationSecond);
+    }, function(date, step) {
+      date.setTime(+date + step * durationMinute);
+    }, function(start, end) {
+      return (end - start) / durationMinute;
+    }, function(date) {
+      return date.getMinutes();
+    });
+
+    var hour = newInterval(function(date) {
+      date.setTime(date - date.getMilliseconds() - date.getSeconds() * durationSecond - date.getMinutes() * durationMinute);
+    }, function(date, step) {
+      date.setTime(+date + step * durationHour);
+    }, function(start, end) {
+      return (end - start) / durationHour;
+    }, function(date) {
+      return date.getHours();
+    });
+
+    var day = newInterval(function(date) {
+      date.setHours(0, 0, 0, 0);
+    }, function(date, step) {
+      date.setDate(date.getDate() + step);
+    }, function(start, end) {
+      return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * durationMinute) / durationDay;
+    }, function(date) {
+      return date.getDate() - 1;
+    });
+
+    function weekday(i) {
+      return newInterval(function(date) {
+        date.setDate(date.getDate() - (date.getDay() + 7 - i) % 7);
+        date.setHours(0, 0, 0, 0);
+      }, function(date, step) {
+        date.setDate(date.getDate() + step * 7);
+      }, function(start, end) {
+        return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * durationMinute) / durationWeek;
+      });
+    }
+
+    var sunday = weekday(0);
+    var monday = weekday(1);
+    var tuesday = weekday(2);
+    var wednesday = weekday(3);
+    var thursday = weekday(4);
+    var friday = weekday(5);
+    var saturday = weekday(6);
+
+    var month = newInterval(function(date) {
+      date.setDate(1);
+      date.setHours(0, 0, 0, 0);
+    }, function(date, step) {
+      date.setMonth(date.getMonth() + step);
+    }, function(start, end) {
+      return end.getMonth() - start.getMonth() + (end.getFullYear() - start.getFullYear()) * 12;
+    }, function(date) {
+      return date.getMonth();
+    });
+
+    var year = newInterval(function(date) {
+      date.setMonth(0, 1);
+      date.setHours(0, 0, 0, 0);
+    }, function(date, step) {
+      date.setFullYear(date.getFullYear() + step);
+    }, function(start, end) {
+      return end.getFullYear() - start.getFullYear();
+    }, function(date) {
+      return date.getFullYear();
+    });
+
+    // An optimized implementation for this simple case.
+    year.every = function(k) {
+      return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function(date) {
+        date.setFullYear(Math.floor(date.getFullYear() / k) * k);
+        date.setMonth(0, 1);
+        date.setHours(0, 0, 0, 0);
+      }, function(date, step) {
+        date.setFullYear(date.getFullYear() + step * k);
+      });
+    };
+
+    var utcMinute = newInterval(function(date) {
+      date.setUTCSeconds(0, 0);
+    }, function(date, step) {
+      date.setTime(+date + step * durationMinute);
+    }, function(start, end) {
+      return (end - start) / durationMinute;
+    }, function(date) {
+      return date.getUTCMinutes();
+    });
+
+    var utcHour = newInterval(function(date) {
+      date.setUTCMinutes(0, 0, 0);
+    }, function(date, step) {
+      date.setTime(+date + step * durationHour);
+    }, function(start, end) {
+      return (end - start) / durationHour;
+    }, function(date) {
+      return date.getUTCHours();
+    });
+
+    var utcDay = newInterval(function(date) {
+      date.setUTCHours(0, 0, 0, 0);
+    }, function(date, step) {
+      date.setUTCDate(date.getUTCDate() + step);
+    }, function(start, end) {
+      return (end - start) / durationDay;
+    }, function(date) {
+      return date.getUTCDate() - 1;
+    });
+
+    function utcWeekday(i) {
+      return newInterval(function(date) {
+        date.setUTCDate(date.getUTCDate() - (date.getUTCDay() + 7 - i) % 7);
+        date.setUTCHours(0, 0, 0, 0);
+      }, function(date, step) {
+        date.setUTCDate(date.getUTCDate() + step * 7);
+      }, function(start, end) {
+        return (end - start) / durationWeek;
+      });
+    }
+
+    var utcSunday = utcWeekday(0);
+    var utcMonday = utcWeekday(1);
+    var utcTuesday = utcWeekday(2);
+    var utcWednesday = utcWeekday(3);
+    var utcThursday = utcWeekday(4);
+    var utcFriday = utcWeekday(5);
+    var utcSaturday = utcWeekday(6);
+
+    var utcMonth = newInterval(function(date) {
+      date.setUTCDate(1);
+      date.setUTCHours(0, 0, 0, 0);
+    }, function(date, step) {
+      date.setUTCMonth(date.getUTCMonth() + step);
+    }, function(start, end) {
+      return end.getUTCMonth() - start.getUTCMonth() + (end.getUTCFullYear() - start.getUTCFullYear()) * 12;
+    }, function(date) {
+      return date.getUTCMonth();
+    });
+
+    var utcYear = newInterval(function(date) {
+      date.setUTCMonth(0, 1);
+      date.setUTCHours(0, 0, 0, 0);
+    }, function(date, step) {
+      date.setUTCFullYear(date.getUTCFullYear() + step);
+    }, function(start, end) {
+      return end.getUTCFullYear() - start.getUTCFullYear();
+    }, function(date) {
+      return date.getUTCFullYear();
+    });
+
+    // An optimized implementation for this simple case.
+    utcYear.every = function(k) {
+      return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : newInterval(function(date) {
+        date.setUTCFullYear(Math.floor(date.getUTCFullYear() / k) * k);
+        date.setUTCMonth(0, 1);
+        date.setUTCHours(0, 0, 0, 0);
+      }, function(date, step) {
+        date.setUTCFullYear(date.getUTCFullYear() + step * k);
+      });
+    };
+
+    function localDate(d) {
+      if (0 <= d.y && d.y < 100) {
+        var date = new Date(-1, d.m, d.d, d.H, d.M, d.S, d.L);
+        date.setFullYear(d.y);
+        return date;
+      }
+      return new Date(d.y, d.m, d.d, d.H, d.M, d.S, d.L);
+    }
+
+    function utcDate(d) {
+      if (0 <= d.y && d.y < 100) {
+        var date = new Date(Date.UTC(-1, d.m, d.d, d.H, d.M, d.S, d.L));
+        date.setUTCFullYear(d.y);
+        return date;
+      }
+      return new Date(Date.UTC(d.y, d.m, d.d, d.H, d.M, d.S, d.L));
+    }
+
+    function newYear(y) {
+      return {y: y, m: 0, d: 1, H: 0, M: 0, S: 0, L: 0};
+    }
+
+    function formatLocale$1(locale) {
+      var locale_dateTime = locale.dateTime,
+          locale_date = locale.date,
+          locale_time = locale.time,
+          locale_periods = locale.periods,
+          locale_weekdays = locale.days,
+          locale_shortWeekdays = locale.shortDays,
+          locale_months = locale.months,
+          locale_shortMonths = locale.shortMonths;
+
+      var periodRe = formatRe(locale_periods),
+          periodLookup = formatLookup(locale_periods),
+          weekdayRe = formatRe(locale_weekdays),
+          weekdayLookup = formatLookup(locale_weekdays),
+          shortWeekdayRe = formatRe(locale_shortWeekdays),
+          shortWeekdayLookup = formatLookup(locale_shortWeekdays),
+          monthRe = formatRe(locale_months),
+          monthLookup = formatLookup(locale_months),
+          shortMonthRe = formatRe(locale_shortMonths),
+          shortMonthLookup = formatLookup(locale_shortMonths);
+
+      var formats = {
+        "a": formatShortWeekday,
+        "A": formatWeekday,
+        "b": formatShortMonth,
+        "B": formatMonth,
+        "c": null,
+        "d": formatDayOfMonth,
+        "e": formatDayOfMonth,
+        "f": formatMicroseconds,
+        "H": formatHour24,
+        "I": formatHour12,
+        "j": formatDayOfYear,
+        "L": formatMilliseconds,
+        "m": formatMonthNumber,
+        "M": formatMinutes,
+        "p": formatPeriod,
+        "Q": formatUnixTimestamp,
+        "s": formatUnixTimestampSeconds,
+        "S": formatSeconds,
+        "u": formatWeekdayNumberMonday,
+        "U": formatWeekNumberSunday,
+        "V": formatWeekNumberISO,
+        "w": formatWeekdayNumberSunday,
+        "W": formatWeekNumberMonday,
+        "x": null,
+        "X": null,
+        "y": formatYear$1,
+        "Y": formatFullYear,
+        "Z": formatZone,
+        "%": formatLiteralPercent
+      };
+
+      var utcFormats = {
+        "a": formatUTCShortWeekday,
+        "A": formatUTCWeekday,
+        "b": formatUTCShortMonth,
+        "B": formatUTCMonth,
+        "c": null,
+        "d": formatUTCDayOfMonth,
+        "e": formatUTCDayOfMonth,
+        "f": formatUTCMicroseconds,
+        "H": formatUTCHour24,
+        "I": formatUTCHour12,
+        "j": formatUTCDayOfYear,
+        "L": formatUTCMilliseconds,
+        "m": formatUTCMonthNumber,
+        "M": formatUTCMinutes,
+        "p": formatUTCPeriod,
+        "Q": formatUnixTimestamp,
+        "s": formatUnixTimestampSeconds,
+        "S": formatUTCSeconds,
+        "u": formatUTCWeekdayNumberMonday,
+        "U": formatUTCWeekNumberSunday,
+        "V": formatUTCWeekNumberISO,
+        "w": formatUTCWeekdayNumberSunday,
+        "W": formatUTCWeekNumberMonday,
+        "x": null,
+        "X": null,
+        "y": formatUTCYear,
+        "Y": formatUTCFullYear,
+        "Z": formatUTCZone,
+        "%": formatLiteralPercent
+      };
+
+      var parses = {
+        "a": parseShortWeekday,
+        "A": parseWeekday,
+        "b": parseShortMonth,
+        "B": parseMonth,
+        "c": parseLocaleDateTime,
+        "d": parseDayOfMonth,
+        "e": parseDayOfMonth,
+        "f": parseMicroseconds,
+        "H": parseHour24,
+        "I": parseHour24,
+        "j": parseDayOfYear,
+        "L": parseMilliseconds,
+        "m": parseMonthNumber,
+        "M": parseMinutes,
+        "p": parsePeriod,
+        "Q": parseUnixTimestamp,
+        "s": parseUnixTimestampSeconds,
+        "S": parseSeconds,
+        "u": parseWeekdayNumberMonday,
+        "U": parseWeekNumberSunday,
+        "V": parseWeekNumberISO,
+        "w": parseWeekdayNumberSunday,
+        "W": parseWeekNumberMonday,
+        "x": parseLocaleDate,
+        "X": parseLocaleTime,
+        "y": parseYear,
+        "Y": parseFullYear,
+        "Z": parseZone,
+        "%": parseLiteralPercent
+      };
+
+      // These recursive directive definitions must be deferred.
+      formats.x = newFormat(locale_date, formats);
+      formats.X = newFormat(locale_time, formats);
+      formats.c = newFormat(locale_dateTime, formats);
+      utcFormats.x = newFormat(locale_date, utcFormats);
+      utcFormats.X = newFormat(locale_time, utcFormats);
+      utcFormats.c = newFormat(locale_dateTime, utcFormats);
+
+      function newFormat(specifier, formats) {
+        return function(date) {
+          var string = [],
+              i = -1,
+              j = 0,
+              n = specifier.length,
+              c,
+              pad,
+              format;
+
+          if (!(date instanceof Date)) date = new Date(+date);
+
+          while (++i < n) {
+            if (specifier.charCodeAt(i) === 37) {
+              string.push(specifier.slice(j, i));
+              if ((pad = pads[c = specifier.charAt(++i)]) != null) c = specifier.charAt(++i);
+              else pad = c === "e" ? " " : "0";
+              if (format = formats[c]) c = format(date, pad);
+              string.push(c);
+              j = i + 1;
+            }
+          }
+
+          string.push(specifier.slice(j, i));
+          return string.join("");
+        };
+      }
+
+      function newParse(specifier, newDate) {
+        return function(string) {
+          var d = newYear(1900),
+              i = parseSpecifier(d, specifier, string += "", 0),
+              week, day$1;
+          if (i != string.length) return null;
+
+          // If a UNIX timestamp is specified, return it.
+          if ("Q" in d) return new Date(d.Q);
+
+          // The am-pm flag is 0 for AM, and 1 for PM.
+          if ("p" in d) d.H = d.H % 12 + d.p * 12;
+
+          // Convert day-of-week and week-of-year to day-of-year.
+          if ("V" in d) {
+            if (d.V < 1 || d.V > 53) return null;
+            if (!("w" in d)) d.w = 1;
+            if ("Z" in d) {
+              week = utcDate(newYear(d.y)), day$1 = week.getUTCDay();
+              week = day$1 > 4 || day$1 === 0 ? utcMonday.ceil(week) : utcMonday(week);
+              week = utcDay.offset(week, (d.V - 1) * 7);
+              d.y = week.getUTCFullYear();
+              d.m = week.getUTCMonth();
+              d.d = week.getUTCDate() + (d.w + 6) % 7;
+            } else {
+              week = newDate(newYear(d.y)), day$1 = week.getDay();
+              week = day$1 > 4 || day$1 === 0 ? monday.ceil(week) : monday(week);
+              week = day.offset(week, (d.V - 1) * 7);
+              d.y = week.getFullYear();
+              d.m = week.getMonth();
+              d.d = week.getDate() + (d.w + 6) % 7;
+            }
+          } else if ("W" in d || "U" in d) {
+            if (!("w" in d)) d.w = "u" in d ? d.u % 7 : "W" in d ? 1 : 0;
+            day$1 = "Z" in d ? utcDate(newYear(d.y)).getUTCDay() : newDate(newYear(d.y)).getDay();
+            d.m = 0;
+            d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day$1 + 5) % 7 : d.w + d.U * 7 - (day$1 + 6) % 7;
+          }
+
+          // If a time zone is specified, all fields are interpreted as UTC and then
+          // offset according to the specified time zone.
+          if ("Z" in d) {
+            d.H += d.Z / 100 | 0;
+            d.M += d.Z % 100;
+            return utcDate(d);
+          }
+
+          // Otherwise, all fields are in local time.
+          return newDate(d);
+        };
+      }
+
+      function parseSpecifier(d, specifier, string, j) {
+        var i = 0,
+            n = specifier.length,
+            m = string.length,
+            c,
+            parse;
+
+        while (i < n) {
+          if (j >= m) return -1;
+          c = specifier.charCodeAt(i++);
+          if (c === 37) {
+            c = specifier.charAt(i++);
+            parse = parses[c in pads ? specifier.charAt(i++) : c];
+            if (!parse || ((j = parse(d, string, j)) < 0)) return -1;
+          } else if (c != string.charCodeAt(j++)) {
+            return -1;
+          }
+        }
+
+        return j;
+      }
+
+      function parsePeriod(d, string, i) {
+        var n = periodRe.exec(string.slice(i));
+        return n ? (d.p = periodLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+      }
+
+      function parseShortWeekday(d, string, i) {
+        var n = shortWeekdayRe.exec(string.slice(i));
+        return n ? (d.w = shortWeekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+      }
+
+      function parseWeekday(d, string, i) {
+        var n = weekdayRe.exec(string.slice(i));
+        return n ? (d.w = weekdayLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+      }
+
+      function parseShortMonth(d, string, i) {
+        var n = shortMonthRe.exec(string.slice(i));
+        return n ? (d.m = shortMonthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+      }
+
+      function parseMonth(d, string, i) {
+        var n = monthRe.exec(string.slice(i));
+        return n ? (d.m = monthLookup[n[0].toLowerCase()], i + n[0].length) : -1;
+      }
+
+      function parseLocaleDateTime(d, string, i) {
+        return parseSpecifier(d, locale_dateTime, string, i);
+      }
+
+      function parseLocaleDate(d, string, i) {
+        return parseSpecifier(d, locale_date, string, i);
+      }
+
+      function parseLocaleTime(d, string, i) {
+        return parseSpecifier(d, locale_time, string, i);
+      }
+
+      function formatShortWeekday(d) {
+        return locale_shortWeekdays[d.getDay()];
+      }
+
+      function formatWeekday(d) {
+        return locale_weekdays[d.getDay()];
+      }
+
+      function formatShortMonth(d) {
+        return locale_shortMonths[d.getMonth()];
+      }
+
+      function formatMonth(d) {
+        return locale_months[d.getMonth()];
+      }
+
+      function formatPeriod(d) {
+        return locale_periods[+(d.getHours() >= 12)];
+      }
+
+      function formatUTCShortWeekday(d) {
+        return locale_shortWeekdays[d.getUTCDay()];
+      }
+
+      function formatUTCWeekday(d) {
+        return locale_weekdays[d.getUTCDay()];
+      }
+
+      function formatUTCShortMonth(d) {
+        return locale_shortMonths[d.getUTCMonth()];
+      }
+
+      function formatUTCMonth(d) {
+        return locale_months[d.getUTCMonth()];
+      }
+
+      function formatUTCPeriod(d) {
+        return locale_periods[+(d.getUTCHours() >= 12)];
+      }
+
+      return {
+        format: function(specifier) {
+          var f = newFormat(specifier += "", formats);
+          f.toString = function() { return specifier; };
+          return f;
+        },
+        parse: function(specifier) {
+          var p = newParse(specifier += "", localDate);
+          p.toString = function() { return specifier; };
+          return p;
+        },
+        utcFormat: function(specifier) {
+          var f = newFormat(specifier += "", utcFormats);
+          f.toString = function() { return specifier; };
+          return f;
+        },
+        utcParse: function(specifier) {
+          var p = newParse(specifier, utcDate);
+          p.toString = function() { return specifier; };
+          return p;
+        }
+      };
+    }
+
+    var pads = {"-": "", "_": " ", "0": "0"},
+        numberRe = /^\s*\d+/, // note: ignores next directive
+        percentRe = /^%/,
+        requoteRe = /[\\^$*+?|[\]().{}]/g;
+
+    function pad$1(value, fill, width) {
+      var sign = value < 0 ? "-" : "",
+          string = (sign ? -value : value) + "",
+          length = string.length;
+      return sign + (length < width ? new Array(width - length + 1).join(fill) + string : string);
+    }
+
+    function requote(s) {
+      return s.replace(requoteRe, "\\$&");
+    }
+
+    function formatRe(names) {
+      return new RegExp("^(?:" + names.map(requote).join("|") + ")", "i");
+    }
+
+    function formatLookup(names) {
+      var map = {}, i = -1, n = names.length;
+      while (++i < n) map[names[i].toLowerCase()] = i;
+      return map;
+    }
+
+    function parseWeekdayNumberSunday(d, string, i) {
+      var n = numberRe.exec(string.slice(i, i + 1));
+      return n ? (d.w = +n[0], i + n[0].length) : -1;
+    }
+
+    function parseWeekdayNumberMonday(d, string, i) {
+      var n = numberRe.exec(string.slice(i, i + 1));
+      return n ? (d.u = +n[0], i + n[0].length) : -1;
+    }
+
+    function parseWeekNumberSunday(d, string, i) {
+      var n = numberRe.exec(string.slice(i, i + 2));
+      return n ? (d.U = +n[0], i + n[0].length) : -1;
+    }
+
+    function parseWeekNumberISO(d, string, i) {
+      var n = numberRe.exec(string.slice(i, i + 2));
+      return n ? (d.V = +n[0], i + n[0].length) : -1;
+    }
+
+    function parseWeekNumberMonday(d, string, i) {
+      var n = numberRe.exec(string.slice(i, i + 2));
+      return n ? (d.W = +n[0], i + n[0].length) : -1;
+    }
+
+    function parseFullYear(d, string, i) {
+      var n = numberRe.exec(string.slice(i, i + 4));
+      return n ? (d.y = +n[0], i + n[0].length) : -1;
+    }
+
+    function parseYear(d, string, i) {
+      var n = numberRe.exec(string.slice(i, i + 2));
+      return n ? (d.y = +n[0] + (+n[0] > 68 ? 1900 : 2000), i + n[0].length) : -1;
+    }
+
+    function parseZone(d, string, i) {
+      var n = /^(Z)|([+-]\d\d)(?::?(\d\d))?/.exec(string.slice(i, i + 6));
+      return n ? (d.Z = n[1] ? 0 : -(n[2] + (n[3] || "00")), i + n[0].length) : -1;
+    }
+
+    function parseMonthNumber(d, string, i) {
+      var n = numberRe.exec(string.slice(i, i + 2));
+      return n ? (d.m = n[0] - 1, i + n[0].length) : -1;
+    }
+
+    function parseDayOfMonth(d, string, i) {
+      var n = numberRe.exec(string.slice(i, i + 2));
+      return n ? (d.d = +n[0], i + n[0].length) : -1;
+    }
+
+    function parseDayOfYear(d, string, i) {
+      var n = numberRe.exec(string.slice(i, i + 3));
+      return n ? (d.m = 0, d.d = +n[0], i + n[0].length) : -1;
+    }
+
+    function parseHour24(d, string, i) {
+      var n = numberRe.exec(string.slice(i, i + 2));
+      return n ? (d.H = +n[0], i + n[0].length) : -1;
+    }
+
+    function parseMinutes(d, string, i) {
+      var n = numberRe.exec(string.slice(i, i + 2));
+      return n ? (d.M = +n[0], i + n[0].length) : -1;
+    }
+
+    function parseSeconds(d, string, i) {
+      var n = numberRe.exec(string.slice(i, i + 2));
+      return n ? (d.S = +n[0], i + n[0].length) : -1;
+    }
+
+    function parseMilliseconds(d, string, i) {
+      var n = numberRe.exec(string.slice(i, i + 3));
+      return n ? (d.L = +n[0], i + n[0].length) : -1;
+    }
+
+    function parseMicroseconds(d, string, i) {
+      var n = numberRe.exec(string.slice(i, i + 6));
+      return n ? (d.L = Math.floor(n[0] / 1000), i + n[0].length) : -1;
+    }
+
+    function parseLiteralPercent(d, string, i) {
+      var n = percentRe.exec(string.slice(i, i + 1));
+      return n ? i + n[0].length : -1;
+    }
+
+    function parseUnixTimestamp(d, string, i) {
+      var n = numberRe.exec(string.slice(i));
+      return n ? (d.Q = +n[0], i + n[0].length) : -1;
+    }
+
+    function parseUnixTimestampSeconds(d, string, i) {
+      var n = numberRe.exec(string.slice(i));
+      return n ? (d.Q = (+n[0]) * 1000, i + n[0].length) : -1;
+    }
+
+    function formatDayOfMonth(d, p) {
+      return pad$1(d.getDate(), p, 2);
+    }
+
+    function formatHour24(d, p) {
+      return pad$1(d.getHours(), p, 2);
+    }
+
+    function formatHour12(d, p) {
+      return pad$1(d.getHours() % 12 || 12, p, 2);
+    }
+
+    function formatDayOfYear(d, p) {
+      return pad$1(1 + day.count(year(d), d), p, 3);
+    }
+
+    function formatMilliseconds(d, p) {
+      return pad$1(d.getMilliseconds(), p, 3);
+    }
+
+    function formatMicroseconds(d, p) {
+      return formatMilliseconds(d, p) + "000";
+    }
+
+    function formatMonthNumber(d, p) {
+      return pad$1(d.getMonth() + 1, p, 2);
+    }
+
+    function formatMinutes(d, p) {
+      return pad$1(d.getMinutes(), p, 2);
+    }
+
+    function formatSeconds(d, p) {
+      return pad$1(d.getSeconds(), p, 2);
+    }
+
+    function formatWeekdayNumberMonday(d) {
+      var day = d.getDay();
+      return day === 0 ? 7 : day;
+    }
+
+    function formatWeekNumberSunday(d, p) {
+      return pad$1(sunday.count(year(d), d), p, 2);
+    }
+
+    function formatWeekNumberISO(d, p) {
+      var day = d.getDay();
+      d = (day >= 4 || day === 0) ? thursday(d) : thursday.ceil(d);
+      return pad$1(thursday.count(year(d), d) + (year(d).getDay() === 4), p, 2);
+    }
+
+    function formatWeekdayNumberSunday(d) {
+      return d.getDay();
+    }
+
+    function formatWeekNumberMonday(d, p) {
+      return pad$1(monday.count(year(d), d), p, 2);
+    }
+
+    function formatYear$1(d, p) {
+      return pad$1(d.getFullYear() % 100, p, 2);
+    }
+
+    function formatFullYear(d, p) {
+      return pad$1(d.getFullYear() % 10000, p, 4);
+    }
+
+    function formatZone(d) {
+      var z = d.getTimezoneOffset();
+      return (z > 0 ? "-" : (z *= -1, "+"))
+          + pad$1(z / 60 | 0, "0", 2)
+          + pad$1(z % 60, "0", 2);
+    }
+
+    function formatUTCDayOfMonth(d, p) {
+      return pad$1(d.getUTCDate(), p, 2);
+    }
+
+    function formatUTCHour24(d, p) {
+      return pad$1(d.getUTCHours(), p, 2);
+    }
+
+    function formatUTCHour12(d, p) {
+      return pad$1(d.getUTCHours() % 12 || 12, p, 2);
+    }
+
+    function formatUTCDayOfYear(d, p) {
+      return pad$1(1 + utcDay.count(utcYear(d), d), p, 3);
+    }
+
+    function formatUTCMilliseconds(d, p) {
+      return pad$1(d.getUTCMilliseconds(), p, 3);
+    }
+
+    function formatUTCMicroseconds(d, p) {
+      return formatUTCMilliseconds(d, p) + "000";
+    }
+
+    function formatUTCMonthNumber(d, p) {
+      return pad$1(d.getUTCMonth() + 1, p, 2);
+    }
+
+    function formatUTCMinutes(d, p) {
+      return pad$1(d.getUTCMinutes(), p, 2);
+    }
+
+    function formatUTCSeconds(d, p) {
+      return pad$1(d.getUTCSeconds(), p, 2);
+    }
+
+    function formatUTCWeekdayNumberMonday(d) {
+      var dow = d.getUTCDay();
+      return dow === 0 ? 7 : dow;
+    }
+
+    function formatUTCWeekNumberSunday(d, p) {
+      return pad$1(utcSunday.count(utcYear(d), d), p, 2);
+    }
+
+    function formatUTCWeekNumberISO(d, p) {
+      var day = d.getUTCDay();
+      d = (day >= 4 || day === 0) ? utcThursday(d) : utcThursday.ceil(d);
+      return pad$1(utcThursday.count(utcYear(d), d) + (utcYear(d).getUTCDay() === 4), p, 2);
+    }
+
+    function formatUTCWeekdayNumberSunday(d) {
+      return d.getUTCDay();
+    }
+
+    function formatUTCWeekNumberMonday(d, p) {
+      return pad$1(utcMonday.count(utcYear(d), d), p, 2);
+    }
+
+    function formatUTCYear(d, p) {
+      return pad$1(d.getUTCFullYear() % 100, p, 2);
+    }
+
+    function formatUTCFullYear(d, p) {
+      return pad$1(d.getUTCFullYear() % 10000, p, 4);
+    }
+
+    function formatUTCZone() {
+      return "+0000";
+    }
+
+    function formatLiteralPercent() {
+      return "%";
+    }
+
+    function formatUnixTimestamp(d) {
+      return +d;
+    }
+
+    function formatUnixTimestampSeconds(d) {
+      return Math.floor(+d / 1000);
+    }
+
+    var locale$1;
+    var timeFormat;
+    var timeParse;
+    var utcFormat;
+    var utcParse;
+
+    defaultLocale$1({
+      dateTime: "%x, %X",
+      date: "%-m/%-d/%Y",
+      time: "%-I:%M:%S %p",
+      periods: ["AM", "PM"],
+      days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      shortDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+      shortMonths: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    });
+
+    function defaultLocale$1(definition) {
+      locale$1 = formatLocale$1(definition);
+      timeFormat = locale$1.format;
+      timeParse = locale$1.parse;
+      utcFormat = locale$1.utcFormat;
+      utcParse = locale$1.utcParse;
+      return locale$1;
+    }
+
+    var isoSpecifier = "%Y-%m-%dT%H:%M:%S.%LZ";
+
+    function formatIsoNative(date) {
+      return date.toISOString();
+    }
+
+    var formatIso = Date.prototype.toISOString
+        ? formatIsoNative
+        : utcFormat(isoSpecifier);
+
+    function parseIsoNative(string) {
+      var date = new Date(string);
+      return isNaN(date) ? null : date;
+    }
+
+    var parseIso = +new Date("2000-01-01T00:00:00.000Z")
+        ? parseIsoNative
+        : utcParse(isoSpecifier);
+
+    var durationSecond$1 = 1000,
+        durationMinute$1 = durationSecond$1 * 60,
+        durationHour$1 = durationMinute$1 * 60,
+        durationDay$1 = durationHour$1 * 24,
+        durationWeek$1 = durationDay$1 * 7,
+        durationMonth = durationDay$1 * 30,
+        durationYear = durationDay$1 * 365;
+
+    function date$1(t) {
+      return new Date(t);
+    }
+
+    function number$1(t) {
+      return t instanceof Date ? +t : +new Date(+t);
+    }
+
+    function calendar(year, month, week, day, hour, minute, second, millisecond, format) {
+      var scale = continuous(identity$3, identity$3),
+          invert = scale.invert,
+          domain = scale.domain;
+
+      var formatMillisecond = format(".%L"),
+          formatSecond = format(":%S"),
+          formatMinute = format("%I:%M"),
+          formatHour = format("%I %p"),
+          formatDay = format("%a %d"),
+          formatWeek = format("%b %d"),
+          formatMonth = format("%B"),
+          formatYear = format("%Y");
+
+      var tickIntervals = [
+        [second,  1,      durationSecond$1],
+        [second,  5,  5 * durationSecond$1],
+        [second, 15, 15 * durationSecond$1],
+        [second, 30, 30 * durationSecond$1],
+        [minute,  1,      durationMinute$1],
+        [minute,  5,  5 * durationMinute$1],
+        [minute, 15, 15 * durationMinute$1],
+        [minute, 30, 30 * durationMinute$1],
+        [  hour,  1,      durationHour$1  ],
+        [  hour,  3,  3 * durationHour$1  ],
+        [  hour,  6,  6 * durationHour$1  ],
+        [  hour, 12, 12 * durationHour$1  ],
+        [   day,  1,      durationDay$1   ],
+        [   day,  2,  2 * durationDay$1   ],
+        [  week,  1,      durationWeek$1  ],
+        [ month,  1,      durationMonth ],
+        [ month,  3,  3 * durationMonth ],
+        [  year,  1,      durationYear  ]
+      ];
+
+      function tickFormat(date) {
+        return (second(date) < date ? formatMillisecond
+            : minute(date) < date ? formatSecond
+            : hour(date) < date ? formatMinute
+            : day(date) < date ? formatHour
+            : month(date) < date ? (week(date) < date ? formatDay : formatWeek)
+            : year(date) < date ? formatMonth
+            : formatYear)(date);
+      }
+
+      function tickInterval(interval, start, stop, step) {
+        if (interval == null) interval = 10;
+
+        // If a desired tick count is specified, pick a reasonable tick interval
+        // based on the extent of the domain and a rough estimate of tick size.
+        // Otherwise, assume interval is already a time interval and use it.
+        if (typeof interval === "number") {
+          var target = Math.abs(stop - start) / interval,
+              i = bisector(function(i) { return i[2]; }).right(tickIntervals, target);
+          if (i === tickIntervals.length) {
+            step = tickStep(start / durationYear, stop / durationYear, interval);
+            interval = year;
+          } else if (i) {
+            i = tickIntervals[target / tickIntervals[i - 1][2] < tickIntervals[i][2] / target ? i - 1 : i];
+            step = i[1];
+            interval = i[0];
+          } else {
+            step = Math.max(tickStep(start, stop, interval), 1);
+            interval = millisecond;
+          }
+        }
+
+        return step == null ? interval : interval.every(step);
+      }
+
+      scale.invert = function(y) {
+        return new Date(invert(y));
+      };
+
+      scale.domain = function(_) {
+        return arguments.length ? domain(map$1.call(_, number$1)) : domain().map(date$1);
+      };
+
+      scale.ticks = function(interval, step) {
+        var d = domain(),
+            t0 = d[0],
+            t1 = d[d.length - 1],
+            r = t1 < t0,
+            t;
+        if (r) t = t0, t0 = t1, t1 = t;
+        t = tickInterval(interval, t0, t1, step);
+        t = t ? t.range(t0, t1 + 1) : []; // inclusive stop
+        return r ? t.reverse() : t;
+      };
+
+      scale.tickFormat = function(count, specifier) {
+        return specifier == null ? tickFormat : format(specifier);
+      };
+
+      scale.nice = function(interval, step) {
+        var d = domain();
+        return (interval = tickInterval(interval, d[0], d[d.length - 1], step))
+            ? domain(nice(d, interval))
+            : scale;
+      };
+
+      scale.copy = function() {
+        return copy(scale, calendar(year, month, week, day, hour, minute, second, millisecond, format));
+      };
+
+      return scale;
+    }
+
+    function scaleTime() {
+      return initRange.apply(calendar(year, month, sunday, day, hour, minute, second, millisecond, timeFormat).domain([new Date(2000, 0, 1), new Date(2000, 0, 2)]), arguments);
+    }
+
+    function colors(specifier) {
+      var n = specifier.length / 6 | 0, colors = new Array(n), i = 0;
+      while (i < n) colors[i] = "#" + specifier.slice(i * 6, ++i * 6);
+      return colors;
+    }
+
+    colors("1f77b4ff7f0e2ca02cd627289467bd8c564be377c27f7f7fbcbd2217becf");
+
+    colors("7fc97fbeaed4fdc086ffff99386cb0f0027fbf5b17666666");
+
+    colors("1b9e77d95f027570b3e7298a66a61ee6ab02a6761d666666");
+
+    colors("a6cee31f78b4b2df8a33a02cfb9a99e31a1cfdbf6fff7f00cab2d66a3d9affff99b15928");
+
+    colors("fbb4aeb3cde3ccebc5decbe4fed9a6ffffcce5d8bdfddaecf2f2f2");
+
+    colors("b3e2cdfdcdaccbd5e8f4cae4e6f5c9fff2aef1e2cccccccc");
+
+    colors("e41a1c377eb84daf4a984ea3ff7f00ffff33a65628f781bf999999");
+
+    colors("66c2a5fc8d628da0cbe78ac3a6d854ffd92fe5c494b3b3b3");
+
+    colors("8dd3c7ffffb3bebadafb807280b1d3fdb462b3de69fccde5d9d9d9bc80bdccebc5ffed6f");
+
+    function ramp(scheme) {
+      return rgbBasis(scheme[scheme.length - 1]);
+    }
+
+    var scheme = new Array(3).concat(
+      "d8b365f5f5f55ab4ac",
+      "a6611adfc27d80cdc1018571",
+      "a6611adfc27df5f5f580cdc1018571",
+      "8c510ad8b365f6e8c3c7eae55ab4ac01665e",
+      "8c510ad8b365f6e8c3f5f5f5c7eae55ab4ac01665e",
+      "8c510abf812ddfc27df6e8c3c7eae580cdc135978f01665e",
+      "8c510abf812ddfc27df6e8c3f5f5f5c7eae580cdc135978f01665e",
+      "5430058c510abf812ddfc27df6e8c3c7eae580cdc135978f01665e003c30",
+      "5430058c510abf812ddfc27df6e8c3f5f5f5c7eae580cdc135978f01665e003c30"
+    ).map(colors);
+
+    ramp(scheme);
+
+    var scheme$1 = new Array(3).concat(
+      "af8dc3f7f7f77fbf7b",
+      "7b3294c2a5cfa6dba0008837",
+      "7b3294c2a5cff7f7f7a6dba0008837",
+      "762a83af8dc3e7d4e8d9f0d37fbf7b1b7837",
+      "762a83af8dc3e7d4e8f7f7f7d9f0d37fbf7b1b7837",
+      "762a839970abc2a5cfe7d4e8d9f0d3a6dba05aae611b7837",
+      "762a839970abc2a5cfe7d4e8f7f7f7d9f0d3a6dba05aae611b7837",
+      "40004b762a839970abc2a5cfe7d4e8d9f0d3a6dba05aae611b783700441b",
+      "40004b762a839970abc2a5cfe7d4e8f7f7f7d9f0d3a6dba05aae611b783700441b"
+    ).map(colors);
+
+    ramp(scheme$1);
+
+    var scheme$2 = new Array(3).concat(
+      "e9a3c9f7f7f7a1d76a",
+      "d01c8bf1b6dab8e1864dac26",
+      "d01c8bf1b6daf7f7f7b8e1864dac26",
+      "c51b7de9a3c9fde0efe6f5d0a1d76a4d9221",
+      "c51b7de9a3c9fde0eff7f7f7e6f5d0a1d76a4d9221",
+      "c51b7dde77aef1b6dafde0efe6f5d0b8e1867fbc414d9221",
+      "c51b7dde77aef1b6dafde0eff7f7f7e6f5d0b8e1867fbc414d9221",
+      "8e0152c51b7dde77aef1b6dafde0efe6f5d0b8e1867fbc414d9221276419",
+      "8e0152c51b7dde77aef1b6dafde0eff7f7f7e6f5d0b8e1867fbc414d9221276419"
+    ).map(colors);
+
+    ramp(scheme$2);
+
+    var scheme$3 = new Array(3).concat(
+      "998ec3f7f7f7f1a340",
+      "5e3c99b2abd2fdb863e66101",
+      "5e3c99b2abd2f7f7f7fdb863e66101",
+      "542788998ec3d8daebfee0b6f1a340b35806",
+      "542788998ec3d8daebf7f7f7fee0b6f1a340b35806",
+      "5427888073acb2abd2d8daebfee0b6fdb863e08214b35806",
+      "5427888073acb2abd2d8daebf7f7f7fee0b6fdb863e08214b35806",
+      "2d004b5427888073acb2abd2d8daebfee0b6fdb863e08214b358067f3b08",
+      "2d004b5427888073acb2abd2d8daebf7f7f7fee0b6fdb863e08214b358067f3b08"
+    ).map(colors);
+
+    ramp(scheme$3);
+
+    var scheme$4 = new Array(3).concat(
+      "ef8a62f7f7f767a9cf",
+      "ca0020f4a58292c5de0571b0",
+      "ca0020f4a582f7f7f792c5de0571b0",
+      "b2182bef8a62fddbc7d1e5f067a9cf2166ac",
+      "b2182bef8a62fddbc7f7f7f7d1e5f067a9cf2166ac",
+      "b2182bd6604df4a582fddbc7d1e5f092c5de4393c32166ac",
+      "b2182bd6604df4a582fddbc7f7f7f7d1e5f092c5de4393c32166ac",
+      "67001fb2182bd6604df4a582fddbc7d1e5f092c5de4393c32166ac053061",
+      "67001fb2182bd6604df4a582fddbc7f7f7f7d1e5f092c5de4393c32166ac053061"
+    ).map(colors);
+
+    ramp(scheme$4);
+
+    var scheme$5 = new Array(3).concat(
+      "ef8a62ffffff999999",
+      "ca0020f4a582bababa404040",
+      "ca0020f4a582ffffffbababa404040",
+      "b2182bef8a62fddbc7e0e0e09999994d4d4d",
+      "b2182bef8a62fddbc7ffffffe0e0e09999994d4d4d",
+      "b2182bd6604df4a582fddbc7e0e0e0bababa8787874d4d4d",
+      "b2182bd6604df4a582fddbc7ffffffe0e0e0bababa8787874d4d4d",
+      "67001fb2182bd6604df4a582fddbc7e0e0e0bababa8787874d4d4d1a1a1a",
+      "67001fb2182bd6604df4a582fddbc7ffffffe0e0e0bababa8787874d4d4d1a1a1a"
+    ).map(colors);
+
+    ramp(scheme$5);
+
+    var scheme$6 = new Array(3).concat(
+      "fc8d59ffffbf91bfdb",
+      "d7191cfdae61abd9e92c7bb6",
+      "d7191cfdae61ffffbfabd9e92c7bb6",
+      "d73027fc8d59fee090e0f3f891bfdb4575b4",
+      "d73027fc8d59fee090ffffbfe0f3f891bfdb4575b4",
+      "d73027f46d43fdae61fee090e0f3f8abd9e974add14575b4",
+      "d73027f46d43fdae61fee090ffffbfe0f3f8abd9e974add14575b4",
+      "a50026d73027f46d43fdae61fee090e0f3f8abd9e974add14575b4313695",
+      "a50026d73027f46d43fdae61fee090ffffbfe0f3f8abd9e974add14575b4313695"
+    ).map(colors);
+
+    ramp(scheme$6);
+
+    var scheme$7 = new Array(3).concat(
+      "fc8d59ffffbf91cf60",
+      "d7191cfdae61a6d96a1a9641",
+      "d7191cfdae61ffffbfa6d96a1a9641",
+      "d73027fc8d59fee08bd9ef8b91cf601a9850",
+      "d73027fc8d59fee08bffffbfd9ef8b91cf601a9850",
+      "d73027f46d43fdae61fee08bd9ef8ba6d96a66bd631a9850",
+      "d73027f46d43fdae61fee08bffffbfd9ef8ba6d96a66bd631a9850",
+      "a50026d73027f46d43fdae61fee08bd9ef8ba6d96a66bd631a9850006837",
+      "a50026d73027f46d43fdae61fee08bffffbfd9ef8ba6d96a66bd631a9850006837"
+    ).map(colors);
+
+    ramp(scheme$7);
+
+    var scheme$8 = new Array(3).concat(
+      "fc8d59ffffbf99d594",
+      "d7191cfdae61abdda42b83ba",
+      "d7191cfdae61ffffbfabdda42b83ba",
+      "d53e4ffc8d59fee08be6f59899d5943288bd",
+      "d53e4ffc8d59fee08bffffbfe6f59899d5943288bd",
+      "d53e4ff46d43fdae61fee08be6f598abdda466c2a53288bd",
+      "d53e4ff46d43fdae61fee08bffffbfe6f598abdda466c2a53288bd",
+      "9e0142d53e4ff46d43fdae61fee08be6f598abdda466c2a53288bd5e4fa2",
+      "9e0142d53e4ff46d43fdae61fee08bffffbfe6f598abdda466c2a53288bd5e4fa2"
+    ).map(colors);
+
+    ramp(scheme$8);
+
+    var scheme$9 = new Array(3).concat(
+      "e5f5f999d8c92ca25f",
+      "edf8fbb2e2e266c2a4238b45",
+      "edf8fbb2e2e266c2a42ca25f006d2c",
+      "edf8fbccece699d8c966c2a42ca25f006d2c",
+      "edf8fbccece699d8c966c2a441ae76238b45005824",
+      "f7fcfde5f5f9ccece699d8c966c2a441ae76238b45005824",
+      "f7fcfde5f5f9ccece699d8c966c2a441ae76238b45006d2c00441b"
+    ).map(colors);
+
+    ramp(scheme$9);
+
+    var scheme$a = new Array(3).concat(
+      "e0ecf49ebcda8856a7",
+      "edf8fbb3cde38c96c688419d",
+      "edf8fbb3cde38c96c68856a7810f7c",
+      "edf8fbbfd3e69ebcda8c96c68856a7810f7c",
+      "edf8fbbfd3e69ebcda8c96c68c6bb188419d6e016b",
+      "f7fcfde0ecf4bfd3e69ebcda8c96c68c6bb188419d6e016b",
+      "f7fcfde0ecf4bfd3e69ebcda8c96c68c6bb188419d810f7c4d004b"
+    ).map(colors);
+
+    ramp(scheme$a);
+
+    var scheme$b = new Array(3).concat(
+      "e0f3dba8ddb543a2ca",
+      "f0f9e8bae4bc7bccc42b8cbe",
+      "f0f9e8bae4bc7bccc443a2ca0868ac",
+      "f0f9e8ccebc5a8ddb57bccc443a2ca0868ac",
+      "f0f9e8ccebc5a8ddb57bccc44eb3d32b8cbe08589e",
+      "f7fcf0e0f3dbccebc5a8ddb57bccc44eb3d32b8cbe08589e",
+      "f7fcf0e0f3dbccebc5a8ddb57bccc44eb3d32b8cbe0868ac084081"
+    ).map(colors);
+
+    ramp(scheme$b);
+
+    var scheme$c = new Array(3).concat(
+      "fee8c8fdbb84e34a33",
+      "fef0d9fdcc8afc8d59d7301f",
+      "fef0d9fdcc8afc8d59e34a33b30000",
+      "fef0d9fdd49efdbb84fc8d59e34a33b30000",
+      "fef0d9fdd49efdbb84fc8d59ef6548d7301f990000",
+      "fff7ecfee8c8fdd49efdbb84fc8d59ef6548d7301f990000",
+      "fff7ecfee8c8fdd49efdbb84fc8d59ef6548d7301fb300007f0000"
+    ).map(colors);
+
+    ramp(scheme$c);
+
+    var scheme$d = new Array(3).concat(
+      "ece2f0a6bddb1c9099",
+      "f6eff7bdc9e167a9cf02818a",
+      "f6eff7bdc9e167a9cf1c9099016c59",
+      "f6eff7d0d1e6a6bddb67a9cf1c9099016c59",
+      "f6eff7d0d1e6a6bddb67a9cf3690c002818a016450",
+      "fff7fbece2f0d0d1e6a6bddb67a9cf3690c002818a016450",
+      "fff7fbece2f0d0d1e6a6bddb67a9cf3690c002818a016c59014636"
+    ).map(colors);
+
+    ramp(scheme$d);
+
+    var scheme$e = new Array(3).concat(
+      "ece7f2a6bddb2b8cbe",
+      "f1eef6bdc9e174a9cf0570b0",
+      "f1eef6bdc9e174a9cf2b8cbe045a8d",
+      "f1eef6d0d1e6a6bddb74a9cf2b8cbe045a8d",
+      "f1eef6d0d1e6a6bddb74a9cf3690c00570b0034e7b",
+      "fff7fbece7f2d0d1e6a6bddb74a9cf3690c00570b0034e7b",
+      "fff7fbece7f2d0d1e6a6bddb74a9cf3690c00570b0045a8d023858"
+    ).map(colors);
+
+    ramp(scheme$e);
+
+    var scheme$f = new Array(3).concat(
+      "e7e1efc994c7dd1c77",
+      "f1eef6d7b5d8df65b0ce1256",
+      "f1eef6d7b5d8df65b0dd1c77980043",
+      "f1eef6d4b9dac994c7df65b0dd1c77980043",
+      "f1eef6d4b9dac994c7df65b0e7298ace125691003f",
+      "f7f4f9e7e1efd4b9dac994c7df65b0e7298ace125691003f",
+      "f7f4f9e7e1efd4b9dac994c7df65b0e7298ace125698004367001f"
+    ).map(colors);
+
+    ramp(scheme$f);
+
+    var scheme$g = new Array(3).concat(
+      "fde0ddfa9fb5c51b8a",
+      "feebe2fbb4b9f768a1ae017e",
+      "feebe2fbb4b9f768a1c51b8a7a0177",
+      "feebe2fcc5c0fa9fb5f768a1c51b8a7a0177",
+      "feebe2fcc5c0fa9fb5f768a1dd3497ae017e7a0177",
+      "fff7f3fde0ddfcc5c0fa9fb5f768a1dd3497ae017e7a0177",
+      "fff7f3fde0ddfcc5c0fa9fb5f768a1dd3497ae017e7a017749006a"
+    ).map(colors);
+
+    ramp(scheme$g);
+
+    var scheme$h = new Array(3).concat(
+      "edf8b17fcdbb2c7fb8",
+      "ffffcca1dab441b6c4225ea8",
+      "ffffcca1dab441b6c42c7fb8253494",
+      "ffffccc7e9b47fcdbb41b6c42c7fb8253494",
+      "ffffccc7e9b47fcdbb41b6c41d91c0225ea80c2c84",
+      "ffffd9edf8b1c7e9b47fcdbb41b6c41d91c0225ea80c2c84",
+      "ffffd9edf8b1c7e9b47fcdbb41b6c41d91c0225ea8253494081d58"
+    ).map(colors);
+
+    ramp(scheme$h);
+
+    var scheme$i = new Array(3).concat(
+      "f7fcb9addd8e31a354",
+      "ffffccc2e69978c679238443",
+      "ffffccc2e69978c67931a354006837",
+      "ffffccd9f0a3addd8e78c67931a354006837",
+      "ffffccd9f0a3addd8e78c67941ab5d238443005a32",
+      "ffffe5f7fcb9d9f0a3addd8e78c67941ab5d238443005a32",
+      "ffffe5f7fcb9d9f0a3addd8e78c67941ab5d238443006837004529"
+    ).map(colors);
+
+    ramp(scheme$i);
+
+    var scheme$j = new Array(3).concat(
+      "fff7bcfec44fd95f0e",
+      "ffffd4fed98efe9929cc4c02",
+      "ffffd4fed98efe9929d95f0e993404",
+      "ffffd4fee391fec44ffe9929d95f0e993404",
+      "ffffd4fee391fec44ffe9929ec7014cc4c028c2d04",
+      "ffffe5fff7bcfee391fec44ffe9929ec7014cc4c028c2d04",
+      "ffffe5fff7bcfee391fec44ffe9929ec7014cc4c02993404662506"
+    ).map(colors);
+
+    ramp(scheme$j);
+
+    var scheme$k = new Array(3).concat(
+      "ffeda0feb24cf03b20",
+      "ffffb2fecc5cfd8d3ce31a1c",
+      "ffffb2fecc5cfd8d3cf03b20bd0026",
+      "ffffb2fed976feb24cfd8d3cf03b20bd0026",
+      "ffffb2fed976feb24cfd8d3cfc4e2ae31a1cb10026",
+      "ffffccffeda0fed976feb24cfd8d3cfc4e2ae31a1cb10026",
+      "ffffccffeda0fed976feb24cfd8d3cfc4e2ae31a1cbd0026800026"
+    ).map(colors);
+
+    ramp(scheme$k);
+
+    var scheme$l = new Array(3).concat(
+      "deebf79ecae13182bd",
+      "eff3ffbdd7e76baed62171b5",
+      "eff3ffbdd7e76baed63182bd08519c",
+      "eff3ffc6dbef9ecae16baed63182bd08519c",
+      "eff3ffc6dbef9ecae16baed64292c62171b5084594",
+      "f7fbffdeebf7c6dbef9ecae16baed64292c62171b5084594",
+      "f7fbffdeebf7c6dbef9ecae16baed64292c62171b508519c08306b"
+    ).map(colors);
+
+    ramp(scheme$l);
+
+    var scheme$m = new Array(3).concat(
+      "e5f5e0a1d99b31a354",
+      "edf8e9bae4b374c476238b45",
+      "edf8e9bae4b374c47631a354006d2c",
+      "edf8e9c7e9c0a1d99b74c47631a354006d2c",
+      "edf8e9c7e9c0a1d99b74c47641ab5d238b45005a32",
+      "f7fcf5e5f5e0c7e9c0a1d99b74c47641ab5d238b45005a32",
+      "f7fcf5e5f5e0c7e9c0a1d99b74c47641ab5d238b45006d2c00441b"
+    ).map(colors);
+
+    ramp(scheme$m);
+
+    var scheme$n = new Array(3).concat(
+      "f0f0f0bdbdbd636363",
+      "f7f7f7cccccc969696525252",
+      "f7f7f7cccccc969696636363252525",
+      "f7f7f7d9d9d9bdbdbd969696636363252525",
+      "f7f7f7d9d9d9bdbdbd969696737373525252252525",
+      "fffffff0f0f0d9d9d9bdbdbd969696737373525252252525",
+      "fffffff0f0f0d9d9d9bdbdbd969696737373525252252525000000"
+    ).map(colors);
+
+    ramp(scheme$n);
+
+    var scheme$o = new Array(3).concat(
+      "efedf5bcbddc756bb1",
+      "f2f0f7cbc9e29e9ac86a51a3",
+      "f2f0f7cbc9e29e9ac8756bb154278f",
+      "f2f0f7dadaebbcbddc9e9ac8756bb154278f",
+      "f2f0f7dadaebbcbddc9e9ac8807dba6a51a34a1486",
+      "fcfbfdefedf5dadaebbcbddc9e9ac8807dba6a51a34a1486",
+      "fcfbfdefedf5dadaebbcbddc9e9ac8807dba6a51a354278f3f007d"
+    ).map(colors);
+
+    ramp(scheme$o);
+
+    var scheme$p = new Array(3).concat(
+      "fee0d2fc9272de2d26",
+      "fee5d9fcae91fb6a4acb181d",
+      "fee5d9fcae91fb6a4ade2d26a50f15",
+      "fee5d9fcbba1fc9272fb6a4ade2d26a50f15",
+      "fee5d9fcbba1fc9272fb6a4aef3b2ccb181d99000d",
+      "fff5f0fee0d2fcbba1fc9272fb6a4aef3b2ccb181d99000d",
+      "fff5f0fee0d2fcbba1fc9272fb6a4aef3b2ccb181da50f1567000d"
+    ).map(colors);
+
+    ramp(scheme$p);
+
+    var scheme$q = new Array(3).concat(
+      "fee6cefdae6be6550d",
+      "feeddefdbe85fd8d3cd94701",
+      "feeddefdbe85fd8d3ce6550da63603",
+      "feeddefdd0a2fdae6bfd8d3ce6550da63603",
+      "feeddefdd0a2fdae6bfd8d3cf16913d948018c2d04",
+      "fff5ebfee6cefdd0a2fdae6bfd8d3cf16913d948018c2d04",
+      "fff5ebfee6cefdd0a2fdae6bfd8d3cf16913d94801a636037f2704"
+    ).map(colors);
+
+    ramp(scheme$q);
+
+    cubehelixLong(cubehelix(300, 0.5, 0.0), cubehelix(-240, 0.5, 1.0));
+
+    var warm = cubehelixLong(cubehelix(-100, 0.75, 0.35), cubehelix(80, 1.50, 0.8));
+
+    var cool = cubehelixLong(cubehelix(260, 0.75, 0.35), cubehelix(80, 1.50, 0.8));
+
+    var c = cubehelix();
+
+    var c$1 = rgb(),
+        pi_1_3 = Math.PI / 3,
+        pi_2_3 = Math.PI * 2 / 3;
+
+    function ramp$1(range) {
+      var n = range.length;
+      return function(t) {
+        return range[Math.max(0, Math.min(n - 1, Math.floor(t * n)))];
+      };
+    }
+
+    ramp$1(colors("44015444025645045745055946075a46085c460a5d460b5e470d60470e6147106347116447136548146748166848176948186a481a6c481b6d481c6e481d6f481f70482071482173482374482475482576482677482878482979472a7a472c7a472d7b472e7c472f7d46307e46327e46337f463480453581453781453882443983443a83443b84433d84433e85423f854240864241864142874144874045884046883f47883f48893e49893e4a893e4c8a3d4d8a3d4e8a3c4f8a3c508b3b518b3b528b3a538b3a548c39558c39568c38588c38598c375a8c375b8d365c8d365d8d355e8d355f8d34608d34618d33628d33638d32648e32658e31668e31678e31688e30698e306a8e2f6b8e2f6c8e2e6d8e2e6e8e2e6f8e2d708e2d718e2c718e2c728e2c738e2b748e2b758e2a768e2a778e2a788e29798e297a8e297b8e287c8e287d8e277e8e277f8e27808e26818e26828e26828e25838e25848e25858e24868e24878e23888e23898e238a8d228b8d228c8d228d8d218e8d218f8d21908d21918c20928c20928c20938c1f948c1f958b1f968b1f978b1f988b1f998a1f9a8a1e9b8a1e9c891e9d891f9e891f9f881fa0881fa1881fa1871fa28720a38620a48621a58521a68522a78522a88423a98324aa8325ab8225ac8226ad8127ad8128ae8029af7f2ab07f2cb17e2db27d2eb37c2fb47c31b57b32b67a34b67935b77937b87838b9773aba763bbb753dbc743fbc7340bd7242be7144bf7046c06f48c16e4ac16d4cc26c4ec36b50c46a52c56954c56856c66758c7655ac8645cc8635ec96260ca6063cb5f65cb5e67cc5c69cd5b6ccd5a6ece5870cf5773d05675d05477d1537ad1517cd2507fd34e81d34d84d44b86d54989d5488bd6468ed64590d74393d74195d84098d83e9bd93c9dd93ba0da39a2da37a5db36a8db34aadc32addc30b0dd2fb2dd2db5de2bb8de29bade28bddf26c0df25c2df23c5e021c8e020cae11fcde11dd0e11cd2e21bd5e21ad8e219dae319dde318dfe318e2e418e5e419e7e419eae51aece51befe51cf1e51df4e61ef6e620f8e621fbe723fde725"));
+
+    var magma = ramp$1(colors("00000401000501010601010802010902020b02020d03030f03031204041405041606051806051a07061c08071e0907200a08220b09240c09260d0a290e0b2b100b2d110c2f120d31130d34140e36150e38160f3b180f3d19103f1a10421c10441d11471e114920114b21114e22115024125325125527125829115a2a115c2c115f2d11612f116331116533106734106936106b38106c390f6e3b0f703d0f713f0f72400f74420f75440f764510774710784910784a10794c117a4e117b4f127b51127c52137c54137d56147d57157e59157e5a167e5c167f5d177f5f187f601880621980641a80651a80671b80681c816a1c816b1d816d1d816e1e81701f81721f817320817521817621817822817922827b23827c23827e24828025828125818326818426818627818827818928818b29818c29818e2a81902a81912b81932b80942c80962c80982d80992d809b2e7f9c2e7f9e2f7fa02f7fa1307ea3307ea5317ea6317da8327daa337dab337cad347cae347bb0357bb2357bb3367ab5367ab73779b83779ba3878bc3978bd3977bf3a77c03a76c23b75c43c75c53c74c73d73c83e73ca3e72cc3f71cd4071cf4070d0416fd2426fd3436ed5446dd6456cd8456cd9466bdb476adc4869de4968df4a68e04c67e24d66e34e65e44f64e55064e75263e85362e95462ea5661eb5760ec5860ed5a5fee5b5eef5d5ef05f5ef1605df2625df2645cf3655cf4675cf4695cf56b5cf66c5cf66e5cf7705cf7725cf8745cf8765cf9785df9795df97b5dfa7d5efa7f5efa815ffb835ffb8560fb8761fc8961fc8a62fc8c63fc8e64fc9065fd9266fd9467fd9668fd9869fd9a6afd9b6bfe9d6cfe9f6dfea16efea36ffea571fea772fea973feaa74feac76feae77feb078feb27afeb47bfeb67cfeb77efeb97ffebb81febd82febf84fec185fec287fec488fec68afec88cfeca8dfecc8ffecd90fecf92fed194fed395fed597fed799fed89afdda9cfddc9efddea0fde0a1fde2a3fde3a5fde5a7fde7a9fde9aafdebacfcecaefceeb0fcf0b2fcf2b4fcf4b6fcf6b8fcf7b9fcf9bbfcfbbdfcfdbf"));
+
+    var inferno = ramp$1(colors("00000401000501010601010802010a02020c02020e03021004031204031405041706041907051b08051d09061f0a07220b07240c08260d08290e092b10092d110a30120a32140b34150b37160b39180c3c190c3e1b0c411c0c431e0c451f0c48210c4a230c4c240c4f260c51280b53290b552b0b572d0b592f0a5b310a5c320a5e340a5f3609613809623909633b09643d09653e0966400a67420a68440a68450a69470b6a490b6a4a0c6b4c0c6b4d0d6c4f0d6c510e6c520e6d540f6d550f6d57106e59106e5a116e5c126e5d126e5f136e61136e62146e64156e65156e67166e69166e6a176e6c186e6d186e6f196e71196e721a6e741a6e751b6e771c6d781c6d7a1d6d7c1d6d7d1e6d7f1e6c801f6c82206c84206b85216b87216b88226a8a226a8c23698d23698f24699025689225689326679526679727669827669a28659b29649d29649f2a63a02a63a22b62a32c61a52c60a62d60a82e5fa92e5eab2f5ead305dae305cb0315bb1325ab3325ab43359b63458b73557b93556ba3655bc3754bd3853bf3952c03a51c13a50c33b4fc43c4ec63d4dc73e4cc83f4bca404acb4149cc4248ce4347cf4446d04545d24644d34743d44842d54a41d74b3fd84c3ed94d3dda4e3cdb503bdd513ade5238df5337e05536e15635e25734e35933e45a31e55c30e65d2fe75e2ee8602de9612bea632aeb6429eb6628ec6726ed6925ee6a24ef6c23ef6e21f06f20f1711ff1731df2741cf3761bf37819f47918f57b17f57d15f67e14f68013f78212f78410f8850ff8870ef8890cf98b0bf98c0af98e09fa9008fa9207fa9407fb9606fb9706fb9906fb9b06fb9d07fc9f07fca108fca309fca50afca60cfca80dfcaa0ffcac11fcae12fcb014fcb216fcb418fbb61afbb81dfbba1ffbbc21fbbe23fac026fac228fac42afac62df9c72ff9c932f9cb35f8cd37f8cf3af7d13df7d340f6d543f6d746f5d949f5db4cf4dd4ff4df53f4e156f3e35af3e55df2e661f2e865f2ea69f1ec6df1ed71f1ef75f1f179f2f27df2f482f3f586f3f68af4f88ef5f992f6fa96f8fb9af9fc9dfafda1fcffa4"));
+
+    var plasma = ramp$1(colors("0d088710078813078916078a19068c1b068d1d068e20068f2206902406912605912805922a05932c05942e05952f059631059733059735049837049938049a3a049a3c049b3e049c3f049c41049d43039e44039e46039f48039f4903a04b03a14c02a14e02a25002a25102a35302a35502a45601a45801a45901a55b01a55c01a65e01a66001a66100a76300a76400a76600a76700a86900a86a00a86c00a86e00a86f00a87100a87201a87401a87501a87701a87801a87a02a87b02a87d03a87e03a88004a88104a78305a78405a78606a68707a68808a68a09a58b0aa58d0ba58e0ca48f0da4910ea3920fa39410a29511a19613a19814a099159f9a169f9c179e9d189d9e199da01a9ca11b9ba21d9aa31e9aa51f99a62098a72197a82296aa2395ab2494ac2694ad2793ae2892b02991b12a90b22b8fb32c8eb42e8db52f8cb6308bb7318ab83289ba3388bb3488bc3587bd3786be3885bf3984c03a83c13b82c23c81c33d80c43e7fc5407ec6417dc7427cc8437bc9447aca457acb4679cc4778cc4977cd4a76ce4b75cf4c74d04d73d14e72d24f71d35171d45270d5536fd5546ed6556dd7566cd8576bd9586ada5a6ada5b69db5c68dc5d67dd5e66de5f65de6164df6263e06363e16462e26561e26660e3685fe4695ee56a5de56b5de66c5ce76e5be76f5ae87059e97158e97257ea7457eb7556eb7655ec7754ed7953ed7a52ee7b51ef7c51ef7e50f07f4ff0804ef1814df1834cf2844bf3854bf3874af48849f48948f58b47f58c46f68d45f68f44f79044f79143f79342f89441f89540f9973ff9983ef99a3efa9b3dfa9c3cfa9e3bfb9f3afba139fba238fca338fca537fca636fca835fca934fdab33fdac33fdae32fdaf31fdb130fdb22ffdb42ffdb52efeb72dfeb82cfeba2cfebb2bfebd2afebe2afec029fdc229fdc328fdc527fdc627fdc827fdca26fdcb26fccd25fcce25fcd025fcd225fbd324fbd524fbd724fad824fada24f9dc24f9dd25f8df25f8e125f7e225f7e425f6e626f6e826f5e926f5eb27f4ed27f3ee27f3f027f2f227f1f426f1f525f0f724f0f921"));
+
+    function constant$4(x) {
+      return function constant() {
+        return x;
+      };
+    }
+
+    var abs = Math.abs;
+    var atan2 = Math.atan2;
+    var cos = Math.cos;
+    var max = Math.max;
+    var min = Math.min;
+    var sin = Math.sin;
+    var sqrt = Math.sqrt;
+
+    var epsilon$1 = 1e-12;
+    var pi$4 = Math.PI;
+    var halfPi = pi$4 / 2;
+    var tau$2 = 2 * pi$4;
+
+    function acos(x) {
+      return x > 1 ? 0 : x < -1 ? pi$4 : Math.acos(x);
+    }
+
+    function asin(x) {
+      return x >= 1 ? halfPi : x <= -1 ? -halfPi : Math.asin(x);
+    }
+
+    function arcInnerRadius(d) {
+      return d.innerRadius;
+    }
+
+    function arcOuterRadius(d) {
+      return d.outerRadius;
+    }
+
+    function arcStartAngle(d) {
+      return d.startAngle;
+    }
+
+    function arcEndAngle(d) {
+      return d.endAngle;
+    }
+
+    function arcPadAngle(d) {
+      return d && d.padAngle; // Note: optional!
+    }
+
+    function intersect(x0, y0, x1, y1, x2, y2, x3, y3) {
+      var x10 = x1 - x0, y10 = y1 - y0,
+          x32 = x3 - x2, y32 = y3 - y2,
+          t = y32 * x10 - x32 * y10;
+      if (t * t < epsilon$1) return;
+      t = (x32 * (y0 - y2) - y32 * (x0 - x2)) / t;
+      return [x0 + t * x10, y0 + t * y10];
+    }
+
+    // Compute perpendicular offset line of length rc.
+    // http://mathworld.wolfram.com/Circle-LineIntersection.html
+    function cornerTangents(x0, y0, x1, y1, r1, rc, cw) {
+      var x01 = x0 - x1,
+          y01 = y0 - y1,
+          lo = (cw ? rc : -rc) / sqrt(x01 * x01 + y01 * y01),
+          ox = lo * y01,
+          oy = -lo * x01,
+          x11 = x0 + ox,
+          y11 = y0 + oy,
+          x10 = x1 + ox,
+          y10 = y1 + oy,
+          x00 = (x11 + x10) / 2,
+          y00 = (y11 + y10) / 2,
+          dx = x10 - x11,
+          dy = y10 - y11,
+          d2 = dx * dx + dy * dy,
+          r = r1 - rc,
+          D = x11 * y10 - x10 * y11,
+          d = (dy < 0 ? -1 : 1) * sqrt(max(0, r * r * d2 - D * D)),
+          cx0 = (D * dy - dx * d) / d2,
+          cy0 = (-D * dx - dy * d) / d2,
+          cx1 = (D * dy + dx * d) / d2,
+          cy1 = (-D * dx + dy * d) / d2,
+          dx0 = cx0 - x00,
+          dy0 = cy0 - y00,
+          dx1 = cx1 - x00,
+          dy1 = cy1 - y00;
+
+      // Pick the closer of the two intersection points.
+      // TODO Is there a faster way to determine which intersection to use?
+      if (dx0 * dx0 + dy0 * dy0 > dx1 * dx1 + dy1 * dy1) cx0 = cx1, cy0 = cy1;
+
+      return {
+        cx: cx0,
+        cy: cy0,
+        x01: -ox,
+        y01: -oy,
+        x11: cx0 * (r1 / r - 1),
+        y11: cy0 * (r1 / r - 1)
+      };
+    }
+
+    function d3arc() {
+      var innerRadius = arcInnerRadius,
+          outerRadius = arcOuterRadius,
+          cornerRadius = constant$4(0),
+          padRadius = null,
+          startAngle = arcStartAngle,
+          endAngle = arcEndAngle,
+          padAngle = arcPadAngle,
+          context = null;
+
+      function arc() {
+        var buffer,
+            r,
+            r0 = +innerRadius.apply(this, arguments),
+            r1 = +outerRadius.apply(this, arguments),
+            a0 = startAngle.apply(this, arguments) - halfPi,
+            a1 = endAngle.apply(this, arguments) - halfPi,
+            da = abs(a1 - a0),
+            cw = a1 > a0;
+
+        if (!context) context = buffer = path();
+
+        // Ensure that the outer radius is always larger than the inner radius.
+        if (r1 < r0) r = r1, r1 = r0, r0 = r;
+
+        // Is it a point?
+        if (!(r1 > epsilon$1)) context.moveTo(0, 0);
+
+        // Or is it a circle or annulus?
+        else if (da > tau$2 - epsilon$1) {
+          context.moveTo(r1 * cos(a0), r1 * sin(a0));
+          context.arc(0, 0, r1, a0, a1, !cw);
+          if (r0 > epsilon$1) {
+            context.moveTo(r0 * cos(a1), r0 * sin(a1));
+            context.arc(0, 0, r0, a1, a0, cw);
+          }
+        }
+
+        // Or is it a circular or annular sector?
+        else {
+          var a01 = a0,
+              a11 = a1,
+              a00 = a0,
+              a10 = a1,
+              da0 = da,
+              da1 = da,
+              ap = padAngle.apply(this, arguments) / 2,
+              rp = (ap > epsilon$1) && (padRadius ? +padRadius.apply(this, arguments) : sqrt(r0 * r0 + r1 * r1)),
+              rc = min(abs(r1 - r0) / 2, +cornerRadius.apply(this, arguments)),
+              rc0 = rc,
+              rc1 = rc,
+              t0,
+              t1;
+
+          // Apply padding? Note that since r1 ≥ r0, da1 ≥ da0.
+          if (rp > epsilon$1) {
+            var p0 = asin(rp / r0 * sin(ap)),
+                p1 = asin(rp / r1 * sin(ap));
+            if ((da0 -= p0 * 2) > epsilon$1) p0 *= (cw ? 1 : -1), a00 += p0, a10 -= p0;
+            else da0 = 0, a00 = a10 = (a0 + a1) / 2;
+            if ((da1 -= p1 * 2) > epsilon$1) p1 *= (cw ? 1 : -1), a01 += p1, a11 -= p1;
+            else da1 = 0, a01 = a11 = (a0 + a1) / 2;
+          }
+
+          var x01 = r1 * cos(a01),
+              y01 = r1 * sin(a01),
+              x10 = r0 * cos(a10),
+              y10 = r0 * sin(a10);
+
+          // Apply rounded corners?
+          if (rc > epsilon$1) {
+            var x11 = r1 * cos(a11),
+                y11 = r1 * sin(a11),
+                x00 = r0 * cos(a00),
+                y00 = r0 * sin(a00),
+                oc;
+
+            // Restrict the corner radius according to the sector angle.
+            if (da < pi$4 && (oc = intersect(x01, y01, x00, y00, x11, y11, x10, y10))) {
+              var ax = x01 - oc[0],
+                  ay = y01 - oc[1],
+                  bx = x11 - oc[0],
+                  by = y11 - oc[1],
+                  kc = 1 / sin(acos((ax * bx + ay * by) / (sqrt(ax * ax + ay * ay) * sqrt(bx * bx + by * by))) / 2),
+                  lc = sqrt(oc[0] * oc[0] + oc[1] * oc[1]);
+              rc0 = min(rc, (r0 - lc) / (kc - 1));
+              rc1 = min(rc, (r1 - lc) / (kc + 1));
+            }
+          }
+
+          // Is the sector collapsed to a line?
+          if (!(da1 > epsilon$1)) context.moveTo(x01, y01);
+
+          // Does the sector’s outer ring have rounded corners?
+          else if (rc1 > epsilon$1) {
+            t0 = cornerTangents(x00, y00, x01, y01, r1, rc1, cw);
+            t1 = cornerTangents(x11, y11, x10, y10, r1, rc1, cw);
+
+            context.moveTo(t0.cx + t0.x01, t0.cy + t0.y01);
+
+            // Have the corners merged?
+            if (rc1 < rc) context.arc(t0.cx, t0.cy, rc1, atan2(t0.y01, t0.x01), atan2(t1.y01, t1.x01), !cw);
+
+            // Otherwise, draw the two corners and the ring.
+            else {
+              context.arc(t0.cx, t0.cy, rc1, atan2(t0.y01, t0.x01), atan2(t0.y11, t0.x11), !cw);
+              context.arc(0, 0, r1, atan2(t0.cy + t0.y11, t0.cx + t0.x11), atan2(t1.cy + t1.y11, t1.cx + t1.x11), !cw);
+              context.arc(t1.cx, t1.cy, rc1, atan2(t1.y11, t1.x11), atan2(t1.y01, t1.x01), !cw);
+            }
+          }
+
+          // Or is the outer ring just a circular arc?
+          else context.moveTo(x01, y01), context.arc(0, 0, r1, a01, a11, !cw);
+
+          // Is there no inner ring, and it’s a circular sector?
+          // Or perhaps it’s an annular sector collapsed due to padding?
+          if (!(r0 > epsilon$1) || !(da0 > epsilon$1)) context.lineTo(x10, y10);
+
+          // Does the sector’s inner ring (or point) have rounded corners?
+          else if (rc0 > epsilon$1) {
+            t0 = cornerTangents(x10, y10, x11, y11, r0, -rc0, cw);
+            t1 = cornerTangents(x01, y01, x00, y00, r0, -rc0, cw);
+
+            context.lineTo(t0.cx + t0.x01, t0.cy + t0.y01);
+
+            // Have the corners merged?
+            if (rc0 < rc) context.arc(t0.cx, t0.cy, rc0, atan2(t0.y01, t0.x01), atan2(t1.y01, t1.x01), !cw);
+
+            // Otherwise, draw the two corners and the ring.
+            else {
+              context.arc(t0.cx, t0.cy, rc0, atan2(t0.y01, t0.x01), atan2(t0.y11, t0.x11), !cw);
+              context.arc(0, 0, r0, atan2(t0.cy + t0.y11, t0.cx + t0.x11), atan2(t1.cy + t1.y11, t1.cx + t1.x11), cw);
+              context.arc(t1.cx, t1.cy, rc0, atan2(t1.y11, t1.x11), atan2(t1.y01, t1.x01), !cw);
+            }
+          }
+
+          // Or is the inner ring just a circular arc?
+          else context.arc(0, 0, r0, a10, a00, cw);
+        }
+
+        context.closePath();
+
+        if (buffer) return context = null, buffer + "" || null;
+      }
+
+      arc.centroid = function() {
+        var r = (+innerRadius.apply(this, arguments) + +outerRadius.apply(this, arguments)) / 2,
+            a = (+startAngle.apply(this, arguments) + +endAngle.apply(this, arguments)) / 2 - pi$4 / 2;
+        return [cos(a) * r, sin(a) * r];
+      };
+
+      arc.innerRadius = function(_) {
+        return arguments.length ? (innerRadius = typeof _ === "function" ? _ : constant$4(+_), arc) : innerRadius;
+      };
+
+      arc.outerRadius = function(_) {
+        return arguments.length ? (outerRadius = typeof _ === "function" ? _ : constant$4(+_), arc) : outerRadius;
+      };
+
+      arc.cornerRadius = function(_) {
+        return arguments.length ? (cornerRadius = typeof _ === "function" ? _ : constant$4(+_), arc) : cornerRadius;
+      };
+
+      arc.padRadius = function(_) {
+        return arguments.length ? (padRadius = _ == null ? null : typeof _ === "function" ? _ : constant$4(+_), arc) : padRadius;
+      };
+
+      arc.startAngle = function(_) {
+        return arguments.length ? (startAngle = typeof _ === "function" ? _ : constant$4(+_), arc) : startAngle;
+      };
+
+      arc.endAngle = function(_) {
+        return arguments.length ? (endAngle = typeof _ === "function" ? _ : constant$4(+_), arc) : endAngle;
+      };
+
+      arc.padAngle = function(_) {
+        return arguments.length ? (padAngle = typeof _ === "function" ? _ : constant$4(+_), arc) : padAngle;
+      };
+
+      arc.context = function(_) {
+        return arguments.length ? ((context = _ == null ? null : _), arc) : context;
+      };
+
+      return arc;
+    }
+
+    function Linear(context) {
+      this._context = context;
+    }
+
+    Linear.prototype = {
+      areaStart: function() {
+        this._line = 0;
+      },
+      areaEnd: function() {
+        this._line = NaN;
+      },
+      lineStart: function() {
+        this._point = 0;
+      },
+      lineEnd: function() {
+        if (this._line || (this._line !== 0 && this._point === 1)) this._context.closePath();
+        this._line = 1 - this._line;
+      },
+      point: function(x, y) {
+        x = +x, y = +y;
+        switch (this._point) {
+          case 0: this._point = 1; this._line ? this._context.lineTo(x, y) : this._context.moveTo(x, y); break;
+          case 1: this._point = 2; // proceed
+          default: this._context.lineTo(x, y); break;
+        }
+      }
+    };
+
+    function curveLinear(context) {
+      return new Linear(context);
+    }
+
+    function x(p) {
+      return p[0];
+    }
+
+    function y(p) {
+      return p[1];
+    }
+
+    function d3line() {
+      var x$1 = x,
+          y$1 = y,
+          defined = constant$4(true),
+          context = null,
+          curve = curveLinear,
+          output = null;
+
+      function line(data) {
+        var i,
+            n = data.length,
+            d,
+            defined0 = false,
+            buffer;
+
+        if (context == null) output = curve(buffer = path());
+
+        for (i = 0; i <= n; ++i) {
+          if (!(i < n && defined(d = data[i], i, data)) === defined0) {
+            if (defined0 = !defined0) output.lineStart();
+            else output.lineEnd();
+          }
+          if (defined0) output.point(+x$1(d, i, data), +y$1(d, i, data));
+        }
+
+        if (buffer) return output = null, buffer + "" || null;
+      }
+
+      line.x = function(_) {
+        return arguments.length ? (x$1 = typeof _ === "function" ? _ : constant$4(+_), line) : x$1;
+      };
+
+      line.y = function(_) {
+        return arguments.length ? (y$1 = typeof _ === "function" ? _ : constant$4(+_), line) : y$1;
+      };
+
+      line.defined = function(_) {
+        return arguments.length ? (defined = typeof _ === "function" ? _ : constant$4(!!_), line) : defined;
+      };
+
+      line.curve = function(_) {
+        return arguments.length ? (curve = _, context != null && (output = curve(context)), line) : curve;
+      };
+
+      line.context = function(_) {
+        return arguments.length ? (_ == null ? context = output = null : output = curve(context = _), line) : context;
+      };
+
+      return line;
+    }
+
+    var curveRadialLinear = curveRadial(curveLinear);
+
+    function Radial(curve) {
+      this._curve = curve;
+    }
+
+    Radial.prototype = {
+      areaStart: function() {
+        this._curve.areaStart();
+      },
+      areaEnd: function() {
+        this._curve.areaEnd();
+      },
+      lineStart: function() {
+        this._curve.lineStart();
+      },
+      lineEnd: function() {
+        this._curve.lineEnd();
+      },
+      point: function(a, r) {
+        this._curve.point(r * Math.sin(a), r * -Math.cos(a));
+      }
+    };
+
+    function curveRadial(curve) {
+
+      function radial(context) {
+        return new Radial(curve(context));
+      }
+
+      radial._curve = curve;
+
+      return radial;
+    }
+
+    function lineRadial(l) {
+      var c = l.curve;
+
+      l.angle = l.x, delete l.x;
+      l.radius = l.y, delete l.y;
+
+      l.curve = function(_) {
+        return arguments.length ? c(curveRadial(_)) : c()._curve;
+      };
+
+      return l;
+    }
+
+    function lineRadial$1() {
+      return lineRadial(d3line().curve(curveRadialLinear));
+    }
+
+    function point$1(that, x, y) {
+      that._context.bezierCurveTo(
+        that._x1 + that._k * (that._x2 - that._x0),
+        that._y1 + that._k * (that._y2 - that._y0),
+        that._x2 + that._k * (that._x1 - x),
+        that._y2 + that._k * (that._y1 - y),
+        that._x2,
+        that._y2
+      );
+    }
+
+    function Cardinal(context, tension) {
+      this._context = context;
+      this._k = (1 - tension) / 6;
+    }
+
+    Cardinal.prototype = {
+      areaStart: function() {
+        this._line = 0;
+      },
+      areaEnd: function() {
+        this._line = NaN;
+      },
+      lineStart: function() {
+        this._x0 = this._x1 = this._x2 =
+        this._y0 = this._y1 = this._y2 = NaN;
+        this._point = 0;
+      },
+      lineEnd: function() {
+        switch (this._point) {
+          case 2: this._context.lineTo(this._x2, this._y2); break;
+          case 3: point$1(this, this._x1, this._y1); break;
+        }
+        if (this._line || (this._line !== 0 && this._point === 1)) this._context.closePath();
+        this._line = 1 - this._line;
+      },
+      point: function(x, y) {
+        x = +x, y = +y;
+        switch (this._point) {
+          case 0: this._point = 1; this._line ? this._context.lineTo(x, y) : this._context.moveTo(x, y); break;
+          case 1: this._point = 2; this._x1 = x, this._y1 = y; break;
+          case 2: this._point = 3; // proceed
+          default: point$1(this, x, y); break;
+        }
+        this._x0 = this._x1, this._x1 = this._x2, this._x2 = x;
+        this._y0 = this._y1, this._y1 = this._y2, this._y2 = y;
+      }
+    };
+
+    function point$2(that, x, y) {
+      var x1 = that._x1,
+          y1 = that._y1,
+          x2 = that._x2,
+          y2 = that._y2;
+
+      if (that._l01_a > epsilon$1) {
+        var a = 2 * that._l01_2a + 3 * that._l01_a * that._l12_a + that._l12_2a,
+            n = 3 * that._l01_a * (that._l01_a + that._l12_a);
+        x1 = (x1 * a - that._x0 * that._l12_2a + that._x2 * that._l01_2a) / n;
+        y1 = (y1 * a - that._y0 * that._l12_2a + that._y2 * that._l01_2a) / n;
+      }
+
+      if (that._l23_a > epsilon$1) {
+        var b = 2 * that._l23_2a + 3 * that._l23_a * that._l12_a + that._l12_2a,
+            m = 3 * that._l23_a * (that._l23_a + that._l12_a);
+        x2 = (x2 * b + that._x1 * that._l23_2a - x * that._l12_2a) / m;
+        y2 = (y2 * b + that._y1 * that._l23_2a - y * that._l12_2a) / m;
+      }
+
+      that._context.bezierCurveTo(x1, y1, x2, y2, that._x2, that._y2);
+    }
+
+    function CatmullRom(context, alpha) {
+      this._context = context;
+      this._alpha = alpha;
+    }
+
+    CatmullRom.prototype = {
+      areaStart: function() {
+        this._line = 0;
+      },
+      areaEnd: function() {
+        this._line = NaN;
+      },
+      lineStart: function() {
+        this._x0 = this._x1 = this._x2 =
+        this._y0 = this._y1 = this._y2 = NaN;
+        this._l01_a = this._l12_a = this._l23_a =
+        this._l01_2a = this._l12_2a = this._l23_2a =
+        this._point = 0;
+      },
+      lineEnd: function() {
+        switch (this._point) {
+          case 2: this._context.lineTo(this._x2, this._y2); break;
+          case 3: this.point(this._x2, this._y2); break;
+        }
+        if (this._line || (this._line !== 0 && this._point === 1)) this._context.closePath();
+        this._line = 1 - this._line;
+      },
+      point: function(x, y) {
+        x = +x, y = +y;
+
+        if (this._point) {
+          var x23 = this._x2 - x,
+              y23 = this._y2 - y;
+          this._l23_a = Math.sqrt(this._l23_2a = Math.pow(x23 * x23 + y23 * y23, this._alpha));
+        }
+
+        switch (this._point) {
+          case 0: this._point = 1; this._line ? this._context.lineTo(x, y) : this._context.moveTo(x, y); break;
+          case 1: this._point = 2; break;
+          case 2: this._point = 3; // proceed
+          default: point$2(this, x, y); break;
+        }
+
+        this._l01_a = this._l12_a, this._l12_a = this._l23_a;
+        this._l01_2a = this._l12_2a, this._l12_2a = this._l23_2a;
+        this._x0 = this._x1, this._x1 = this._x2, this._x2 = x;
+        this._y0 = this._y1, this._y1 = this._y2, this._y2 = y;
+      }
+    };
+
+    var curveCatmullRom = (function custom(alpha) {
+
+      function catmullRom(context) {
+        return alpha ? new CatmullRom(context, alpha) : new Cardinal(context, 0);
+      }
+
+      catmullRom.alpha = function(alpha) {
+        return custom(+alpha);
+      };
+
+      return catmullRom;
+    })(0.5);
+
+    function sign(x) {
+      return x < 0 ? -1 : 1;
+    }
+
+    // Calculate the slopes of the tangents (Hermite-type interpolation) based on
+    // the following paper: Steffen, M. 1990. A Simple Method for Monotonic
+    // Interpolation in One Dimension. Astronomy and Astrophysics, Vol. 239, NO.
+    // NOV(II), P. 443, 1990.
+    function slope3(that, x2, y2) {
+      var h0 = that._x1 - that._x0,
+          h1 = x2 - that._x1,
+          s0 = (that._y1 - that._y0) / (h0 || h1 < 0 && -0),
+          s1 = (y2 - that._y1) / (h1 || h0 < 0 && -0),
+          p = (s0 * h1 + s1 * h0) / (h0 + h1);
+      return (sign(s0) + sign(s1)) * Math.min(Math.abs(s0), Math.abs(s1), 0.5 * Math.abs(p)) || 0;
+    }
+
+    // Calculate a one-sided slope.
+    function slope2(that, t) {
+      var h = that._x1 - that._x0;
+      return h ? (3 * (that._y1 - that._y0) / h - t) / 2 : t;
+    }
+
+    // According to https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Representations
+    // "you can express cubic Hermite interpolation in terms of cubic Bézier curves
+    // with respect to the four values p0, p0 + m0 / 3, p1 - m1 / 3, p1".
+    function point$3(that, t0, t1) {
+      var x0 = that._x0,
+          y0 = that._y0,
+          x1 = that._x1,
+          y1 = that._y1,
+          dx = (x1 - x0) / 3;
+      that._context.bezierCurveTo(x0 + dx, y0 + dx * t0, x1 - dx, y1 - dx * t1, x1, y1);
+    }
+
+    function MonotoneX(context) {
+      this._context = context;
+    }
+
+    MonotoneX.prototype = {
+      areaStart: function() {
+        this._line = 0;
+      },
+      areaEnd: function() {
+        this._line = NaN;
+      },
+      lineStart: function() {
+        this._x0 = this._x1 =
+        this._y0 = this._y1 =
+        this._t0 = NaN;
+        this._point = 0;
+      },
+      lineEnd: function() {
+        switch (this._point) {
+          case 2: this._context.lineTo(this._x1, this._y1); break;
+          case 3: point$3(this, this._t0, slope2(this, this._t0)); break;
+        }
+        if (this._line || (this._line !== 0 && this._point === 1)) this._context.closePath();
+        this._line = 1 - this._line;
+      },
+      point: function(x, y) {
+        var t1 = NaN;
+
+        x = +x, y = +y;
+        if (x === this._x1 && y === this._y1) return; // Ignore coincident points.
+        switch (this._point) {
+          case 0: this._point = 1; this._line ? this._context.lineTo(x, y) : this._context.moveTo(x, y); break;
+          case 1: this._point = 2; break;
+          case 2: this._point = 3; point$3(this, slope2(this, t1 = slope3(this, x, y)), t1); break;
+          default: point$3(this, this._t0, t1 = slope3(this, x, y)); break;
+        }
+
+        this._x0 = this._x1, this._x1 = x;
+        this._y0 = this._y1, this._y1 = y;
+        this._t0 = t1;
+      }
+    };
+
+    function MonotoneY(context) {
+      this._context = new ReflectContext(context);
+    }
+
+    (MonotoneY.prototype = Object.create(MonotoneX.prototype)).point = function(x, y) {
+      MonotoneX.prototype.point.call(this, y, x);
+    };
+
+    function ReflectContext(context) {
+      this._context = context;
+    }
+
+    ReflectContext.prototype = {
+      moveTo: function(x, y) { this._context.moveTo(y, x); },
+      closePath: function() { this._context.closePath(); },
+      lineTo: function(x, y) { this._context.lineTo(y, x); },
+      bezierCurveTo: function(x1, y1, x2, y2, x, y) { this._context.bezierCurveTo(y1, x1, y2, x2, y, x); }
+    };
+
+    function monotoneX(context) {
+      return new MonotoneX(context);
+    }
+
+    /* src/RadialGraph/Coordinates.svelte generated by Svelte v3.7.0 */
+
+    const file$1 = "src/RadialGraph/Coordinates.svelte";
+
+    function get_each_context(ctx, list, i) {
+    	const child_ctx = Object.create(ctx);
+    	child_ctx.a = list[i];
+    	child_ctx.i = i;
+    	return child_ctx;
+    }
+
+    function get_each_context_1(ctx, list, i) {
+    	const child_ctx = Object.create(ctx);
+    	child_ctx.label = list[i].label;
+    	child_ctx.radius = list[i].radius;
+    	child_ctx.startAngle = list[i].startAngle;
+    	child_ctx.endAngle = list[i].endAngle;
+    	child_ctx.i = i;
+    	return child_ctx;
+    }
+
+    // (70:2) {#if priceCoords}
+    function create_if_block_2(ctx) {
+    	var g, g_transform_value;
+
+    	var each_value_1 = ctx.priceCoords;
+
+    	var each_blocks = [];
+
+    	for (var i = 0; i < each_value_1.length; i += 1) {
+    		each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+    	}
+
+    	return {
+    		c: function create() {
+    			g = svg_element("g");
+
+    			for (var i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+    			attr(g, "class", "price-coords");
+    			attr(g, "transform", g_transform_value = "translate(" + ctx.width / 2 + " " + ctx.height / 2 + ")");
+    			add_location(g, file$1, 70, 4, 1702);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, g, anchor);
+
+    			for (var i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(g, null);
+    			}
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (changed.priceCoords || changed.arc || changed.pi2) {
+    				each_value_1 = ctx.priceCoords;
+
+    				for (var i = 0; i < each_value_1.length; i += 1) {
+    					const child_ctx = get_each_context_1(ctx, each_value_1, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(changed, child_ctx);
+    					} else {
+    						each_blocks[i] = create_each_block_1(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(g, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+    				each_blocks.length = each_value_1.length;
+    			}
+
+    			if ((changed.width || changed.height) && g_transform_value !== (g_transform_value = "translate(" + ctx.width / 2 + " " + ctx.height / 2 + ")")) {
+    				attr(g, "transform", g_transform_value);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(g);
+    			}
+
+    			destroy_each(each_blocks, detaching);
+    		}
+    	};
+    }
+
+    // (72:6) {#each priceCoords as { label, radius, startAngle, endAngle }
+    function create_each_block_1(ctx) {
+    	var g1, path, path_d_value, g0, text_1, t_value = ctx.label, t, g0_transform_value;
+
+    	return {
+    		c: function create() {
+    			g1 = svg_element("g");
+    			path = svg_element("path");
+    			g0 = svg_element("g");
+    			text_1 = svg_element("text");
+    			t = text(t_value);
+    			attr(path, "class", "price-circle svelte-1h5tbk9");
+    			attr(path, "d", path_d_value = ctx.arc({radius: ctx.radius, startAngle: 0, endAngle: ctx.pi2}));
+    			add_location(path, file$1, 73, 10, 1889);
+    			attr(text_1, "class", "svelte-1h5tbk9");
+    			add_location(text_1, file$1, 75, 12, 2058);
+    			attr(g0, "class", "price-label svelte-1h5tbk9");
+    			attr(g0, "transform", g0_transform_value = "translate(0 " + (- ctx.radius - 6) + ")");
+    			add_location(g0, file$1, 74, 10, 1982);
+    			attr(g1, "class", "price-coord svelte-1h5tbk9");
+    			add_location(g1, file$1, 72, 8, 1855);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, g1, anchor);
+    			append(g1, path);
+    			append(g1, g0);
+    			append(g0, text_1);
+    			append(text_1, t);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if ((changed.priceCoords) && path_d_value !== (path_d_value = ctx.arc({radius: ctx.radius, startAngle: 0, endAngle: ctx.pi2}))) {
+    				attr(path, "d", path_d_value);
+    			}
+
+    			if ((changed.priceCoords) && t_value !== (t_value = ctx.label)) {
+    				set_data(t, t_value);
+    			}
+
+    			if ((changed.priceCoords) && g0_transform_value !== (g0_transform_value = "translate(0 " + (- ctx.radius - 6) + ")")) {
+    				attr(g0, "transform", g0_transform_value);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(g1);
+    			}
+    		}
+    	};
+    }
+
+    // (84:2) {#if dayArcs}
+    function create_if_block_1(ctx) {
+    	var g, g_transform_value;
+
+    	var each_value = ctx.dayArcs;
+
+    	var each_blocks = [];
+
+    	for (var i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    	}
+
+    	return {
+    		c: function create() {
+    			g = svg_element("g");
+
+    			for (var i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+    			attr(g, "class", "day-arcs svelte-1h5tbk9");
+    			attr(g, "transform", g_transform_value = "translate(" + ctx.width / 2 + " " + ctx.height / 2 + ")");
+    			add_location(g, file$1, 84, 4, 2186);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, g, anchor);
+
+    			for (var i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(g, null);
+    			}
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (changed.arcDays || changed.dayArcs) {
+    				each_value = ctx.dayArcs;
+
+    				for (var i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(changed, child_ctx);
+    					} else {
+    						each_blocks[i] = create_each_block(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(g, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+    				each_blocks.length = each_value.length;
+    			}
+
+    			if ((changed.width || changed.height) && g_transform_value !== (g_transform_value = "translate(" + ctx.width / 2 + " " + ctx.height / 2 + ")")) {
+    				attr(g, "transform", g_transform_value);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(g);
+    			}
+
+    			destroy_each(each_blocks, detaching);
+    		}
+    	};
+    }
+
+    // (86:6) {#each dayArcs as a, i}
+    function create_each_block(ctx) {
+    	var path, path_d_value;
+
+    	return {
+    		c: function create() {
+    			path = svg_element("path");
+    			attr(path, "d", path_d_value = ctx.arcDays(ctx.a));
+    			attr(path, "class", "" + (ctx.i % 2 === 0 ? 'even' : 'odd') + " svelte-1h5tbk9");
+    			add_location(path, file$1, 86, 8, 2293);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, path, anchor);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if ((changed.dayArcs) && path_d_value !== (path_d_value = ctx.arcDays(ctx.a))) {
+    				attr(path, "d", path_d_value);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(path);
+    			}
+    		}
+    	};
+    }
+
+    // (91:2) {#if priceScale}
+    function create_if_block(ctx) {
+    	var g, path0, path0_d_value, path1, path1_d_value, text0, textPath0, t0, t1_value = maxDays - 1, t1, t2, path2, path2_d_value, text1, textPath1, t3, g_transform_value;
+
+    	return {
+    		c: function create() {
+    			g = svg_element("g");
+    			path0 = svg_element("path");
+    			path1 = svg_element("path");
+    			text0 = svg_element("text");
+    			textPath0 = svg_element("textPath");
+    			t0 = text("-");
+    			t1 = text(t1_value);
+    			t2 = text(" days");
+    			path2 = svg_element("path");
+    			text1 = svg_element("text");
+    			textPath1 = svg_element("textPath");
+    			t3 = text("takeoff");
+    			attr(path0, "class", "direction-arrow svelte-1h5tbk9");
+    			attr(path0, "d", path0_d_value = ctx.arc({radius: ctx.priceScale(590), startAngle: ctx.dayToAngle(maxDays - 4.5), endAngle: ctx.dayToAngle(maxDays - 1)}).replace('Z', ''));
+    			attr(path0, "marker-end", "url(#arrow)");
+    			add_location(path0, file$1, 92, 6, 2496);
+    			attr(path1, "id", "text-path-start");
+    			attr(path1, "class", "text-path svelte-1h5tbk9");
+    			attr(path1, "d", path1_d_value = ctx.arc({radius: ctx.priceScale(525), startAngle: ctx.dayToAngle(maxDays + 1.1), endAngle: ctx.dayToAngle(maxDays - 0.9)}).replace('Z', ''));
+    			add_location(path1, file$1, 94, 6, 2705);
+    			attr(textPath0, "href", "#text-path-start");
+    			attr(textPath0, "startOffset", "27%");
+    			add_location(textPath0, file$1, 96, 8, 2909);
+    			attr(text0, "class", "svelte-1h5tbk9");
+    			add_location(text0, file$1, 95, 6, 2894);
+    			attr(path2, "id", "text-path-end");
+    			attr(path2, "class", "text-path svelte-1h5tbk9");
+    			attr(path2, "d", path2_d_value = ctx.arc({radius: ctx.priceScale(525), startAngle: ctx.dayToAngle(2.2), endAngle: ctx.dayToAngle(-0.4)}).replace('Z', ''));
+    			add_location(path2, file$1, 98, 6, 3012);
+    			attr(textPath1, "href", "#text-path-end");
+    			attr(textPath1, "startOffset", "38%");
+    			add_location(textPath1, file$1, 100, 8, 3195);
+    			attr(text1, "class", "svelte-1h5tbk9");
+    			add_location(text1, file$1, 99, 6, 3180);
+    			attr(g, "class", "day-arcs-label svelte-1h5tbk9");
+    			attr(g, "transform", g_transform_value = "translate(" + ctx.width / 2 + " " + ctx.height / 2 + ")");
+    			add_location(g, file$1, 91, 4, 2415);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, g, anchor);
+    			append(g, path0);
+    			append(g, path1);
+    			append(g, text0);
+    			append(text0, textPath0);
+    			append(textPath0, t0);
+    			append(textPath0, t1);
+    			append(textPath0, t2);
+    			append(g, path2);
+    			append(g, text1);
+    			append(text1, textPath1);
+    			append(textPath1, t3);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if ((changed.priceScale || changed.dayToAngle) && path0_d_value !== (path0_d_value = ctx.arc({radius: ctx.priceScale(590), startAngle: ctx.dayToAngle(maxDays - 4.5), endAngle: ctx.dayToAngle(maxDays - 1)}).replace('Z', ''))) {
+    				attr(path0, "d", path0_d_value);
+    			}
+
+    			if ((changed.priceScale || changed.dayToAngle) && path1_d_value !== (path1_d_value = ctx.arc({radius: ctx.priceScale(525), startAngle: ctx.dayToAngle(maxDays + 1.1), endAngle: ctx.dayToAngle(maxDays - 0.9)}).replace('Z', ''))) {
+    				attr(path1, "d", path1_d_value);
+    			}
+
+    			if ((changed.priceScale || changed.dayToAngle) && path2_d_value !== (path2_d_value = ctx.arc({radius: ctx.priceScale(525), startAngle: ctx.dayToAngle(2.2), endAngle: ctx.dayToAngle(-0.4)}).replace('Z', ''))) {
+    				attr(path2, "d", path2_d_value);
+    			}
+
+    			if ((changed.width || changed.height) && g_transform_value !== (g_transform_value = "translate(" + ctx.width / 2 + " " + ctx.height / 2 + ")")) {
+    				attr(g, "transform", g_transform_value);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(g);
+    			}
+    		}
+    	};
+    }
+
+    function create_fragment$1(ctx) {
+    	var svg, defs, marker, path, if_block0_anchor, if_block1_anchor, svg_width_value, svg_height_value;
+
+    	var if_block0 = (ctx.priceCoords) && create_if_block_2(ctx);
+
+    	var if_block1 = (ctx.dayArcs) && create_if_block_1(ctx);
+
+    	var if_block2 = (ctx.priceScale) && create_if_block(ctx);
+
+    	return {
+    		c: function create() {
+    			svg = svg_element("svg");
+    			defs = svg_element("defs");
+    			marker = svg_element("marker");
+    			path = svg_element("path");
+    			if (if_block0) if_block0.c();
+    			if_block0_anchor = empty();
+    			if (if_block1) if_block1.c();
+    			if_block1_anchor = empty();
+    			if (if_block2) if_block2.c();
+    			attr(path, "d", "M0,-5L10,0L0,5");
+    			attr(path, "class", "arrow-head svelte-1h5tbk9");
+    			add_location(path, file$1, 66, 6, 1602);
+    			attr(marker, "id", "arrow");
+    			attr(marker, "viewBox", "0 -5 10 10");
+    			attr(marker, "refX", "5");
+    			attr(marker, "refY", "0");
+    			attr(marker, "markerWidth", "4");
+    			attr(marker, "markerHeight", "4");
+    			attr(marker, "orient", "auto");
+    			attr(marker, "class", "svelte-1h5tbk9");
+    			add_location(marker, file$1, 59, 4, 1438);
+    			add_location(defs, file$1, 58, 2, 1427);
+    			attr(svg, "width", svg_width_value = ctx.width || 0);
+    			attr(svg, "height", svg_height_value = ctx.height || 0);
+    			attr(svg, "class", "svelte-1h5tbk9");
+    			add_location(svg, file$1, 57, 0, 1379);
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, svg, anchor);
+    			append(svg, defs);
+    			append(defs, marker);
+    			append(marker, path);
+    			if (if_block0) if_block0.m(svg, null);
+    			append(svg, if_block0_anchor);
+    			if (if_block1) if_block1.m(svg, null);
+    			append(svg, if_block1_anchor);
+    			if (if_block2) if_block2.m(svg, null);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (ctx.priceCoords) {
+    				if (if_block0) {
+    					if_block0.p(changed, ctx);
+    				} else {
+    					if_block0 = create_if_block_2(ctx);
+    					if_block0.c();
+    					if_block0.m(svg, if_block0_anchor);
+    				}
+    			} else if (if_block0) {
+    				if_block0.d(1);
+    				if_block0 = null;
+    			}
+
+    			if (ctx.dayArcs) {
+    				if (if_block1) {
+    					if_block1.p(changed, ctx);
+    				} else {
+    					if_block1 = create_if_block_1(ctx);
+    					if_block1.c();
+    					if_block1.m(svg, if_block1_anchor);
+    				}
+    			} else if (if_block1) {
+    				if_block1.d(1);
+    				if_block1 = null;
+    			}
+
+    			if (ctx.priceScale) {
+    				if (if_block2) {
+    					if_block2.p(changed, ctx);
+    				} else {
+    					if_block2 = create_if_block(ctx);
+    					if_block2.c();
+    					if_block2.m(svg, null);
+    				}
+    			} else if (if_block2) {
+    				if_block2.d(1);
+    				if_block2 = null;
+    			}
+
+    			if ((changed.width) && svg_width_value !== (svg_width_value = ctx.width || 0)) {
+    				attr(svg, "width", svg_width_value);
+    			}
+
+    			if ((changed.height) && svg_height_value !== (svg_height_value = ctx.height || 0)) {
+    				attr(svg, "height", svg_height_value);
+    			}
+    		},
+
+    		i: noop,
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(svg);
+    			}
+
+    			if (if_block0) if_block0.d();
+    			if (if_block1) if_block1.d();
+    			if (if_block2) if_block2.d();
+    		}
+    	};
+    }
+
+    const maxDays = 31;
+
+    function addNumberCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+
+    function instance$1($$self, $$props, $$invalidate) {
+    	let { priceScale, dayToAngle, priceLabels = [100, 300, 500], width = 0, height = 0, colors } = $$props;
+
+      const pi2 = Math.PI * 2;
+      const arc = d3arc()
+        .innerRadius(d => d.radius)
+        .outerRadius(d => d.radius)
+        .startAngle(d => d.startAngle)
+        .endAngle(d => d.endAngle);
+      const arcDays = d3arc()
+        .innerRadius(d => d.innerRadius)
+        .outerRadius(d => d.outerRadius)
+        .startAngle(d => d.startAngle)
+        .endAngle(d => d.endAngle)
+        .cornerRadius(3);
+
+      let priceCoords, dayArcs, dayArcsLabel;
+
+    	const writable_props = ['priceScale', 'dayToAngle', 'priceLabels', 'width', 'height', 'colors'];
+    	Object.keys($$props).forEach(key => {
+    		if (!writable_props.includes(key) && !key.startsWith('$$')) console.warn(`<Coordinates> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$set = $$props => {
+    		if ('priceScale' in $$props) $$invalidate('priceScale', priceScale = $$props.priceScale);
+    		if ('dayToAngle' in $$props) $$invalidate('dayToAngle', dayToAngle = $$props.dayToAngle);
+    		if ('priceLabels' in $$props) $$invalidate('priceLabels', priceLabels = $$props.priceLabels);
+    		if ('width' in $$props) $$invalidate('width', width = $$props.width);
+    		if ('height' in $$props) $$invalidate('height', height = $$props.height);
+    		if ('colors' in $$props) $$invalidate('colors', colors = $$props.colors);
+    	};
+
+    	$$self.$$.update = ($$dirty = { priceScale: 1, priceLabels: 1, dayToAngle: 1 }) => {
+    		if ($$dirty.priceScale || $$dirty.priceLabels || $$dirty.dayToAngle) { if (priceScale) {
+            $$invalidate('priceCoords', priceCoords = priceLabels.map(price => ({
+              label: `${addNumberCommas(price)} €`,
+              radius: priceScale(price)
+            })));
+        
+            $$invalidate('dayArcs', dayArcs = d3range(1, maxDays - 1, 1).map(day => {
+              return {
+                innerRadius: priceScale(525),
+                outerRadius: priceScale(550),
+                startAngle: dayToAngle(day),
+                endAngle: dayToAngle(day + 1)
+              };
+            }));
+        
+            dayArcsLabel = {
+              innerRadius: priceScale(570),
+              outerRadius: priceScale(575),
+              startAngle: dayToAngle(maxDays - 1),
+              endAngle: dayToAngle(maxDays - 4.5)
+            };
+          } }
+    	};
+
+    	return {
+    		priceScale,
+    		dayToAngle,
+    		priceLabels,
+    		width,
+    		height,
+    		colors,
+    		pi2,
+    		arc,
+    		arcDays,
+    		priceCoords,
+    		dayArcs
+    	};
+    }
+
+    class Coordinates extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$1, create_fragment$1, safe_not_equal, ["priceScale", "dayToAngle", "priceLabels", "width", "height", "colors"]);
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+    		if (ctx.priceScale === undefined && !('priceScale' in props)) {
+    			console.warn("<Coordinates> was created without expected prop 'priceScale'");
+    		}
+    		if (ctx.dayToAngle === undefined && !('dayToAngle' in props)) {
+    			console.warn("<Coordinates> was created without expected prop 'dayToAngle'");
+    		}
+    		if (ctx.colors === undefined && !('colors' in props)) {
+    			console.warn("<Coordinates> was created without expected prop 'colors'");
+    		}
+    	}
+
+    	get priceScale() {
+    		throw new Error("<Coordinates>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set priceScale(value) {
+    		throw new Error("<Coordinates>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get dayToAngle() {
+    		throw new Error("<Coordinates>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set dayToAngle(value) {
+    		throw new Error("<Coordinates>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get priceLabels() {
+    		throw new Error("<Coordinates>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set priceLabels(value) {
+    		throw new Error("<Coordinates>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get width() {
+    		throw new Error("<Coordinates>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set width(value) {
+    		throw new Error("<Coordinates>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get height() {
+    		throw new Error("<Coordinates>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set height(value) {
+    		throw new Error("<Coordinates>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get colors() {
+    		throw new Error("<Coordinates>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set colors(value) {
+    		throw new Error("<Coordinates>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    function fade(node, { delay = 0, duration = 400 }) {
+        const o = +getComputedStyle(node).opacity;
+        return {
+            delay,
+            duration,
+            css: t => `opacity: ${t * o}`
+        };
+    }
+
+    /* src/RadialGraph/RadialCanvas.svelte generated by Svelte v3.7.0 */
+
+    const file$2 = "src/RadialGraph/RadialCanvas.svelte";
+
+    // (201:4) {#if tooltip}
+    function create_if_block$1(ctx) {
+    	var g, rect, rect_width_value, rect_height_value, text0, t0_value = ctx.tooltip.textPrice, t0, text0_transform_value, text1, t1_value = ctx.tooltip.textDays, t1, text1_transform_value, g_transform_value, g_transition, current;
+
+    	return {
+    		c: function create() {
+    			g = svg_element("g");
+    			rect = svg_element("rect");
+    			text0 = svg_element("text");
+    			t0 = text(t0_value);
+    			text1 = svg_element("text");
+    			t1 = text(t1_value);
+    			attr(rect, "x", "0");
+    			attr(rect, "y", "0");
+    			attr(rect, "width", rect_width_value = ctx.tooltip.width);
+    			attr(rect, "height", rect_height_value = ctx.tooltip.height);
+    			attr(rect, "rx", "6");
+    			attr(rect, "ry", "6");
+    			attr(rect, "class", "svelte-1loplal");
+    			add_location(rect, file$2, 202, 8, 6159);
+    			attr(text0, "class", "price svelte-1loplal");
+    			attr(text0, "transform", text0_transform_value = "translate(" + ctx.tooltip.width / 2 + " " + ctx.tooltip.height * 0.4 + ")");
+    			add_location(text0, file$2, 203, 8, 6253);
+    			attr(text1, "class", "days svelte-1loplal");
+    			attr(text1, "transform", text1_transform_value = "translate(" + ctx.tooltip.width / 2 + " " + ctx.tooltip.height * 0.75 + ")");
+    			add_location(text1, file$2, 204, 8, 6374);
+    			attr(g, "class", "tooltip svelte-1loplal");
+    			attr(g, "transform", g_transform_value = "translate(" + ctx.tooltip.x + " " + ctx.tooltip.y + ")");
+    			add_location(g, file$2, 201, 6, 6068);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, g, anchor);
+    			append(g, rect);
+    			append(g, text0);
+    			append(text0, t0);
+    			append(g, text1);
+    			append(text1, t1);
+    			current = true;
+    		},
+
+    		p: function update(changed, ctx) {
+    			if ((!current || changed.tooltip) && rect_width_value !== (rect_width_value = ctx.tooltip.width)) {
+    				attr(rect, "width", rect_width_value);
+    			}
+
+    			if ((!current || changed.tooltip) && rect_height_value !== (rect_height_value = ctx.tooltip.height)) {
+    				attr(rect, "height", rect_height_value);
+    			}
+
+    			if ((!current || changed.tooltip) && t0_value !== (t0_value = ctx.tooltip.textPrice)) {
+    				set_data(t0, t0_value);
+    			}
+
+    			if ((!current || changed.tooltip) && text0_transform_value !== (text0_transform_value = "translate(" + ctx.tooltip.width / 2 + " " + ctx.tooltip.height * 0.4 + ")")) {
+    				attr(text0, "transform", text0_transform_value);
+    			}
+
+    			if ((!current || changed.tooltip) && t1_value !== (t1_value = ctx.tooltip.textDays)) {
+    				set_data(t1, t1_value);
+    			}
+
+    			if ((!current || changed.tooltip) && text1_transform_value !== (text1_transform_value = "translate(" + ctx.tooltip.width / 2 + " " + ctx.tooltip.height * 0.75 + ")")) {
+    				attr(text1, "transform", text1_transform_value);
+    			}
+
+    			if ((!current || changed.tooltip) && g_transform_value !== (g_transform_value = "translate(" + ctx.tooltip.x + " " + ctx.tooltip.y + ")")) {
+    				attr(g, "transform", g_transform_value);
+    			}
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			add_render_callback(() => {
+    				if (!g_transition) g_transition = create_bidirectional_transition(g, fade, {}, true);
+    				g_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			if (!g_transition) g_transition = create_bidirectional_transition(g, fade, {}, false);
+    			g_transition.run(0);
+
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(g);
+    				if (g_transition) g_transition.end();
+    			}
+    		}
+    	};
+    }
+
+    function create_fragment$2(ctx) {
+    	var svg, g1, g0, g1_transform_value, t0, canvas0, t1, canvas1, current, dispose;
+
+    	var if_block = (ctx.tooltip) && create_if_block$1(ctx);
+
+    	return {
+    		c: function create() {
+    			svg = svg_element("svg");
+    			g1 = svg_element("g");
+    			g0 = svg_element("g");
+    			if (if_block) if_block.c();
+    			t0 = space();
+    			canvas0 = element("canvas");
+    			t1 = space();
+    			canvas1 = element("canvas");
+    			add_location(g0, file$2, 199, 4, 6018);
+    			attr(g1, "class", "circle-origin");
+    			attr(g1, "transform", g1_transform_value = "translate(" + ctx.width / 2 + " " + ctx.height / 2 + ")");
+    			add_location(g1, file$2, 198, 2, 5940);
+    			attr(svg, "width", ctx.width);
+    			attr(svg, "height", ctx.height);
+    			attr(svg, "class", "svelte-1loplal");
+    			add_location(svg, file$2, 197, 0, 5853);
+    			attr(canvas0, "class", "visible svelte-1loplal");
+    			add_location(canvas0, file$2, 209, 0, 6521);
+    			attr(canvas1, "class", "hidden svelte-1loplal");
+    			add_location(canvas1, file$2, 210, 0, 6581);
+
+    			dispose = [
+    				listen(window, "click", ctx.click_handler),
+    				listen(svg, "click", stop_propagation(ctx.click_handler_1))
+    			];
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, svg, anchor);
+    			append(svg, g1);
+    			append(g1, g0);
+    			ctx.g0_binding(g0);
+    			if (if_block) if_block.m(g1, null);
+    			insert(target, t0, anchor);
+    			insert(target, canvas0, anchor);
+    			ctx.canvas0_binding(canvas0);
+    			insert(target, t1, anchor);
+    			insert(target, canvas1, anchor);
+    			ctx.canvas1_binding(canvas1);
+    			current = true;
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (ctx.tooltip) {
+    				if (if_block) {
+    					if_block.p(changed, ctx);
+    					transition_in(if_block, 1);
+    				} else {
+    					if_block = create_if_block$1(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(g1, null);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+    				check_outros();
+    			}
+
+    			if ((!current || changed.width || changed.height) && g1_transform_value !== (g1_transform_value = "translate(" + ctx.width / 2 + " " + ctx.height / 2 + ")")) {
+    				attr(g1, "transform", g1_transform_value);
+    			}
+
+    			if (!current || changed.width) {
+    				attr(svg, "width", ctx.width);
+    			}
+
+    			if (!current || changed.height) {
+    				attr(svg, "height", ctx.height);
+    			}
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(svg);
+    			}
+
+    			ctx.g0_binding(null);
+    			if (if_block) if_block.d();
+
+    			if (detaching) {
+    				detach(t0);
+    				detach(canvas0);
+    			}
+
+    			ctx.canvas0_binding(null);
+
+    			if (detaching) {
+    				detach(t1);
+    				detach(canvas1);
+    			}
+
+    			ctx.canvas1_binding(null);
+    			run_all(dispose);
+    		}
+    	};
+    }
+
+    const sf = 2;
+
+    const globalAlpha = 1.0;
+
+    function instance$2($$self, $$props, $$invalidate) {
+    	
+
+      let { data, width, height, colors } = $$props;
+
+      const dispatch = createEventDispatcher();
+      const dashSwitch = [[], [1, 7]];
+
+      let canvasElement, hiddenCanvasElement, canvas, ctx, hiddenCanvas, hiddenCtx;
+      let canvasData;
+      let lineWidth = 2;
+
+      let dotsG;
+
+      let highlightId = null;
+      let highlightedPoints = 60;
+
+      let tooltip;
+
+      function setupCanvas() {
+        lineWidth = 2.7 * Math.min(width, height) / 450;
+
+        function init(canvas, ctx) {
+          canvas
+            .attr('width', sf * width)
+            .attr('height', sf * height)
+            .style('width', `${width}px`)
+            .style('height', `${height}px`);
+          ctx.scale(sf, sf);
+          ctx.translate(width / 2, height / 2);
+          ctx.lineWidth = ctx.canvas.classList[0] === 'hidden' ? 2 * lineWidth : lineWidth;
+          return [canvas, ctx];
+        }
+
+        [canvas, ctx] = init(canvas, ctx);    [hiddenCanvas, hiddenCtx] = init(hiddenCanvas, hiddenCtx);  }
+
+      function renderColorGradients() {
+        return data.map(d => {
+          let color = ctx.createRadialGradient(0, 0, d.minRadius, 0, 0, d.maxRadius);
+          
+          color.addColorStop(0, (d.middleStop < 0.01) ? colors.endPrice : colors.lowPrice);
+          color.addColorStop(d.middleStop, colors.endPrice);
+          color.addColorStop(1, (d.middleStop > 0.99) ? colors.endPrice : colors.highPrice);
+
+          return {
+            ...d,
+            color
+          };
+        });
+      }
+
+      function drawCanvas(mode, highlightId = null) {
+        const context = (mode === 'hidden') ? hiddenCtx : ctx;
+
+        context.clearRect(- width / 2, - height / 2, width, height);
+
+        canvasData.forEach(({ id, path, color, colorId }) => {
+          context.globalAlpha = (!highlightId) ? globalAlpha : ((highlightId === id) ? 1.0 : 0.1);
+          context.lineCap = 'round';
+          context.setLineDash(dashSwitch[0]);
+          context.strokeStyle = mode === 'hidden' ? colorId : color;
+          context.beginPath();
+          path.forEach((point, i , arr) => {
+            if (arr[i - 1] && point.gap !== arr[i - 1].gap) {
+              context.setLineDash(dashSwitch[Number(arr[i - 1].gap)]);
+              context.stroke();
+              context.beginPath();
+              context.moveTo(...arr[i - 1].d.slice(-2));
+            }
+
+            if (point.type === 'M') {
+              context.moveTo(...point.d);
+            } else if (point.type === 'C') {
+              context.bezierCurveTo(...point.d);
+            }
+          });
+          context.setLineDash(dashSwitch[Number(path[path.length - 1].gap)]);
+          context.stroke();
+        });
+      }
+
+      function highlightFlight(highlightId) {
+        if (!data) return;
+
+        const highlightedFlight = data.find(elem => elem.id === highlightId);
+
+        let dots = [];
+        if (highlightedFlight) {
+          dots = highlightedFlight.path.map((point, i) => {
+            return {
+              id: i,
+              cx: point.d[4] || point.d[0],
+              cy: point.d[5] || point.d[1],
+              price: point.price,
+              timeToDepartureDays: point.timeToDepartureDays
+            };
+          });
+          highlightedPoints = dots.length;
+          drawCanvas('visible', highlightId);
+        } else {
+          drawCanvas('visible');
+        }
+
+        const t = d3select(dotsG).transition().duration(300);
+
+        d3select(dotsG).selectAll('.dot')
+          .data(dots, (d) => d.id)
+          .join(
+            enter => enter.append('circle')
+                      .call(enter => enter.transition(t).delay((d) => d.id * 7)
+                        .attr('cx', (d) => +d.cx)
+                        .attr('cy', (d) => +d.cy)),
+            update => update
+                        .call(enter => enter.transition(t)
+                          .attr('cx', (d) => +d.cx)
+                          .attr('cy', (d) => +d.cy)),
+            exit => exit
+                      .call(enter => enter.transition(t).delay((d) => (highlightedPoints - d.id) * 7)
+                        .attr('cx', 0)
+                        .attr('cy', 0)
+                        .remove())
+          )
+          .attr('class', 'dot')
+          .attr('fill', '#321321')
+          .attr('fill-opacity', 0.6)
+          .attr('r', lineWidth * 1.1)
+          .on('mouseover', (d) => setTooltip(d.price, d.timeToDepartureDays, d.cx, d.cy))
+          .on('mouseout', (d) => setTooltip(null));
+
+          dispatch('flightclick', highlightId);
+      }
+
+      function handleClick(e) {
+        const col = hiddenCtx.getImageData(e.layerX * sf, e.layerY * sf, 1, 1).data;
+        const colorId = `rgb(${col[0]},${col[1]},${col[2]})`;
+        const flight = canvasData.find(elem => elem.colorId === colorId);
+        if (flight) {
+          $$invalidate('highlightId', highlightId = flight.id);
+        } else {
+          $$invalidate('highlightId', highlightId = null);
+        }
+      }
+
+      function setTooltip(price, timeToDepartureDays = 0, x = 0, y = 0) {
+        if (price === null) {
+          $$invalidate('tooltip', tooltip = null);
+          return;
+        }
+
+        const tooltipWidth = 150;
+        const tooltipHeight = 50;
+        $$invalidate('tooltip', tooltip = {
+          textDays: `${timeToDepartureDays === 1 ? 'final price' : timeToDepartureDays + ' days to departure.'}`,
+          textPrice: `${Math.round(price)} €`,
+          x: Number(x) - tooltipWidth / 2,
+          y: Number(y) + 10,
+          width: tooltipWidth,
+          height: tooltipHeight
+        });
+      }
+
+      onMount(() => {
+        canvas = d3select(canvasElement);
+        ctx = canvas.node().getContext('2d');
+        hiddenCanvas = d3select(hiddenCanvasElement);
+        hiddenCtx = hiddenCanvas.node().getContext('2d');
+      });
+
+    	const writable_props = ['data', 'width', 'height', 'colors'];
+    	Object.keys($$props).forEach(key => {
+    		if (!writable_props.includes(key) && !key.startsWith('$$')) console.warn(`<RadialCanvas> was created with unknown prop '${key}'`);
+    	});
+
+    	function click_handler() {if (highlightId !== null) { highlightId = null; $$invalidate('highlightId', highlightId), $$invalidate('data', data), $$invalidate('canvasData', canvasData); }}
+
+    	function g0_binding($$value) {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+    			$$invalidate('dotsG', dotsG = $$value);
+    		});
+    	}
+
+    	function click_handler_1(e) {
+    		return handleClick(e);
+    	}
+
+    	function canvas0_binding($$value) {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+    			$$invalidate('canvasElement', canvasElement = $$value);
+    		});
+    	}
+
+    	function canvas1_binding($$value) {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+    			$$invalidate('hiddenCanvasElement', hiddenCanvasElement = $$value);
+    		});
+    	}
+
+    	$$self.$set = $$props => {
+    		if ('data' in $$props) $$invalidate('data', data = $$props.data);
+    		if ('width' in $$props) $$invalidate('width', width = $$props.width);
+    		if ('height' in $$props) $$invalidate('height', height = $$props.height);
+    		if ('colors' in $$props) $$invalidate('colors', colors = $$props.colors);
+    	};
+
+    	$$self.$$.update = ($$dirty = { width: 1, height: 1, data: 1, highlightId: 1, canvasData: 1 }) => {
+    		if ($$dirty.width) { $$invalidate('width', width = width || 0); }
+    		if ($$dirty.height) { $$invalidate('height', height = height || 0); }
+    		if ($$dirty.width || $$dirty.height) { if (width && height) setupCanvas(); }
+    		if ($$dirty.data || $$dirty.highlightId || $$dirty.canvasData) { if (data && data.length > 0) {
+            $$invalidate('canvasData', canvasData = renderColorGradients());
+            drawCanvas('visible', highlightId);
+            drawCanvas('hidden');
+            if (!canvasData.map(elem => elem.id).includes(highlightId)) $$invalidate('highlightId', highlightId = null);
+          } }
+    		if ($$dirty.highlightId) { highlightFlight(highlightId); }
+    	};
+
+    	return {
+    		data,
+    		width,
+    		height,
+    		colors,
+    		canvasElement,
+    		hiddenCanvasElement,
+    		dotsG,
+    		highlightId,
+    		tooltip,
+    		handleClick,
+    		click_handler,
+    		g0_binding,
+    		click_handler_1,
+    		canvas0_binding,
+    		canvas1_binding
+    	};
+    }
+
+    class RadialCanvas extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$2, create_fragment$2, safe_not_equal, ["data", "width", "height", "colors"]);
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+    		if (ctx.data === undefined && !('data' in props)) {
+    			console.warn("<RadialCanvas> was created without expected prop 'data'");
+    		}
+    		if (ctx.width === undefined && !('width' in props)) {
+    			console.warn("<RadialCanvas> was created without expected prop 'width'");
+    		}
+    		if (ctx.height === undefined && !('height' in props)) {
+    			console.warn("<RadialCanvas> was created without expected prop 'height'");
+    		}
+    		if (ctx.colors === undefined && !('colors' in props)) {
+    			console.warn("<RadialCanvas> was created without expected prop 'colors'");
+    		}
+    	}
+
+    	get data() {
+    		throw new Error("<RadialCanvas>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set data(value) {
+    		throw new Error("<RadialCanvas>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get width() {
+    		throw new Error("<RadialCanvas>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set width(value) {
+    		throw new Error("<RadialCanvas>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get height() {
+    		throw new Error("<RadialCanvas>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set height(value) {
+    		throw new Error("<RadialCanvas>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get colors() {
+    		throw new Error("<RadialCanvas>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set colors(value) {
+    		throw new Error("<RadialCanvas>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    const timeParser = (datetime) => utcParse('%Y-%m-%dT%I:%M:%SZ')(datetime);
+
+    const formatTime = timeFormat('%Y-%m-%d');
+
+    /* src/RadialGraph/RadialGraph.svelte generated by Svelte v3.7.0 */
+    const { Object: Object_1 } = globals;
+
+    const file$3 = "src/RadialGraph/RadialGraph.svelte";
+
+    // (179:2) {#if priceScale && timeRange}
+    function create_if_block$2(ctx) {
+    	var div, span, t_1, html_tag, raw_value = formatCenterTimeRange(ctx.timeRange);
+
+    	return {
+    		c: function create() {
+    			div = element("div");
+    			span = element("span");
+    			span.textContent = "Departure";
+    			t_1 = space();
+    			attr(span, "class", "pre-string svelte-lijv0r");
+    			add_location(span, file$3, 181, 6, 5367);
+    			html_tag = new HtmlTag(raw_value, null);
+    			attr(div, "class", "selected-time-range svelte-lijv0r");
+    			set_style(div, "width", "" + ctx.priceScale(300) + "px");
+    			add_location(div, file$3, 179, 4, 5282);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div, anchor);
+    			append(div, span);
+    			append(div, t_1);
+    			html_tag.m(div);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if ((changed.timeRange) && raw_value !== (raw_value = formatCenterTimeRange(ctx.timeRange))) {
+    				html_tag.p(raw_value);
+    			}
+
+    			if (changed.priceScale) {
+    				set_style(div, "width", "" + ctx.priceScale(300) + "px");
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div);
+    			}
+    		}
+    	};
+    }
+
+    function create_fragment$3(ctx) {
+    	var div, t0, t1, div_resize_listener, current;
+
+    	var coordinates = new Coordinates({
+    		props: {
+    		priceScale: ctx.priceScale,
+    		dayToAngle: ctx.dayToAngle,
+    		width: ctx.width - sizeOffset,
+    		height: ctx.height - sizeOffset,
+    		colors: ctx.colors
+    	},
+    		$$inline: true
+    	});
+
+    	var radialcanvas = new RadialCanvas({
+    		props: {
+    		data: ctx.slicedData,
+    		width: ctx.width - sizeOffset,
+    		height: ctx.height - sizeOffset,
+    		colors: ctx.colors
+    	},
+    		$$inline: true
+    	});
+    	radialcanvas.$on("flightclick", ctx.flightclick_handler);
+
+    	var if_block = (ctx.priceScale && ctx.timeRange) && create_if_block$2(ctx);
+
+    	return {
+    		c: function create() {
+    			div = element("div");
+    			coordinates.$$.fragment.c();
+    			t0 = space();
+    			radialcanvas.$$.fragment.c();
+    			t1 = space();
+    			if (if_block) if_block.c();
+    			add_render_callback(() => ctx.div_resize_handler.call(div));
+    			attr(div, "class", "wrapper svelte-lijv0r");
+    			add_location(div, file$3, 167, 0, 4786);
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div, anchor);
+    			mount_component(coordinates, div, null);
+    			append(div, t0);
+    			mount_component(radialcanvas, div, null);
+    			append(div, t1);
+    			if (if_block) if_block.m(div, null);
+    			div_resize_listener = add_resize_listener(div, ctx.div_resize_handler.bind(div));
+    			current = true;
+    		},
+
+    		p: function update(changed, ctx) {
+    			var coordinates_changes = {};
+    			if (changed.priceScale) coordinates_changes.priceScale = ctx.priceScale;
+    			if (changed.dayToAngle) coordinates_changes.dayToAngle = ctx.dayToAngle;
+    			if (changed.width || changed.sizeOffset) coordinates_changes.width = ctx.width - sizeOffset;
+    			if (changed.height || changed.sizeOffset) coordinates_changes.height = ctx.height - sizeOffset;
+    			if (changed.colors) coordinates_changes.colors = ctx.colors;
+    			coordinates.$set(coordinates_changes);
+
+    			var radialcanvas_changes = {};
+    			if (changed.slicedData) radialcanvas_changes.data = ctx.slicedData;
+    			if (changed.width || changed.sizeOffset) radialcanvas_changes.width = ctx.width - sizeOffset;
+    			if (changed.height || changed.sizeOffset) radialcanvas_changes.height = ctx.height - sizeOffset;
+    			if (changed.colors) radialcanvas_changes.colors = ctx.colors;
+    			radialcanvas.$set(radialcanvas_changes);
+
+    			if (ctx.priceScale && ctx.timeRange) {
+    				if (if_block) {
+    					if_block.p(changed, ctx);
+    				} else {
+    					if_block = create_if_block$2(ctx);
+    					if_block.c();
+    					if_block.m(div, null);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(coordinates.$$.fragment, local);
+
+    			transition_in(radialcanvas.$$.fragment, local);
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			transition_out(coordinates.$$.fragment, local);
+    			transition_out(radialcanvas.$$.fragment, local);
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div);
+    			}
+
+    			destroy_component(coordinates);
+
+    			destroy_component(radialcanvas);
+
+    			if (if_block) if_block.d();
+    			div_resize_listener.cancel();
+    		}
+    	};
+    }
+
+    const sizeOffset = 10;
+
+    const days = 30;
+
+    const timeStep = 0.5;
+
+    const daysOnCircle = 35;
+
+    function formatCenterTimeRange(timeRange) {
+      const weekday = timeFormat('%a')(timeRange[0]);
+      const time1 = timeFormat('%b %d')(timeRange[0]).replace(' ', '&nbsp;');
+      const time2 = timeFormat('%d')(timeRange[1]).replace(' ', '&nbsp;');
+      return (time1 === timeFormat('%b %d')(timeRange[1]).replace(' ', '&nbsp;')) ? `${weekday}, ${time1}` : `${time1} - ${time2}`;
+    }
+
+    function instance$3($$self, $$props, $$invalidate) {
+    	
+
+      let { data, timeRange = [], colors } = $$props;
+      const pi2 = 2 * Math.PI;
+      const dayOffset = -2;
+
+      const line = lineRadial$1()
+        .angle(d => d.angle)
+        .radius(d => d.radius)
+        .curve(curveCatmullRom.alpha(0.5));
+
+      let width, height;
+      let maxPrice = 0;
+      let priceScale;
+      let dataPreCalc;
+      let radialDataIndex;
+      let slicedData;
+
+      let nextCol = 1;
+
+      function generateColor(){
+        let ret = [];
+        if(nextCol < 16777215) {
+          ret.push(nextCol & 0xff); // R
+          ret.push((nextCol & 0xff00) >> 8); // G 
+          ret.push((nextCol & 0xff0000) >> 16); // B
+
+          nextCol += 1;
+        }
+        const col = `rgb(${ret.join(',')})`;
+        return col;
+      }
+
+      function dayToAngle(day) {
+        return -pi2 * day / daysOnCircle + pi2 * dayOffset / daysOnCircle;
+      }
+
+      function preCalculateGeometry(dataNested) {
+        return dataNested.map(priceLine => {
+          let priceLineData = [];
+          let endRadius = -100;
+          let gapArr = [];
+          let previousDay = days;
+
+          priceLine.values.forEach(d => {
+            const radius = priceScale(d.price);
+            const angle = dayToAngle(d.timeToDepartureDays);
+
+            if (d.timeToDepartureDays === 1) endRadius = radius;
+
+            const point = {
+              radius,
+              angle,
+              price: d.price,
+              timeToDepartureDays: d.timeToDepartureDays
+            };
+            priceLineData.push(point);
+
+            // Keep track of data gaps
+            gapArr.push(previousDay - d.timeToDepartureDays > timeStep);
+            previousDay = d.timeToDepartureDays;
+          });
+          
+          const minRadius = Math.min(...priceLineData.map(elem => elem.radius));
+          const maxRadius = Math.max(...priceLineData.map(elem => elem.radius));
+          const middleStop = Math.min((endRadius - minRadius) / (maxRadius - minRadius), 1.0) || 0;
+
+          // Calculate the path for the whole line
+          const path = line(priceLineData);
+          const objectPath = path.split('C').map((elem, i) =>{
+            return {
+              type: elem[0] === 'M' ? 'M' : 'C', 
+              gap: gapArr[i] || false,
+              d: elem.replace('M', '').split(','),
+              price: priceLineData[i].price,
+              timeToDepartureDays: priceLineData[i].timeToDepartureDays
+            };
+          });
+
+          return {
+            id: priceLine.key,
+            path: objectPath,
+            minRadius,
+            maxRadius,
+            endRadius,
+            middleStop,
+            departure: priceLine.values[0].departure,
+            colorId: generateColor()
+          };
+        });
+      }
+
+      function prepareData() {
+        maxPrice = d3max(data, d => d.price);
+        
+        // Define the price scale, i.e. radii
+        $$invalidate('priceScale', priceScale = linear$1()
+          .domain([0, maxPrice])
+          .range([Math.min(width, height) / 11, Math.min(width, height) * 0.5]));
+
+        // Nest the data by unique flights
+        const dataNested = nest()
+          .key(d => d.flightIdUnique)
+          .entries(data);
+
+        // Precalculate geometrical parameters for the whole dataset
+        $$invalidate('dataPreCalc', dataPreCalc = preCalculateGeometry(dataNested));
+
+        // build a departure index
+        if (dataPreCalc.length > 0) {
+          radialDataIndex = {};
+          dataPreCalc.forEach((d, index) => {
+            const departure = formatTime(d.departure);
+            if (!Object.keys(radialDataIndex).includes(departure)) {
+              radialDataIndex[departure] = [index];        } else {
+              radialDataIndex[departure] = [radialDataIndex[departure][0], index];        }
+          });
+        }
+      }
+
+      function sliceData(timeRange) {
+        if (radialDataIndex && timeRange.length === 2) {
+          if (timeRange.reduce((a, c) => Math.abs(a - c)) / (1000 * 60 * 60) <= 24) {
+            timeRange = [timeRange[0], timeRange[0]];
+          }
+          const tr = timeRange.map(formatTime);
+          const start = radialDataIndex[tr[0]][0];
+          const stop = radialDataIndex[tr[1]][1] || radialDataIndex[tr[1]][0];
+          $$invalidate('slicedData', slicedData = dataPreCalc.slice(start, stop + 1));
+        } else {
+          $$invalidate('slicedData', slicedData = dataPreCalc);
+        }
+      }
+
+    	const writable_props = ['data', 'timeRange', 'colors'];
+    	Object_1.keys($$props).forEach(key => {
+    		if (!writable_props.includes(key) && !key.startsWith('$$')) console.warn(`<RadialGraph> was created with unknown prop '${key}'`);
+    	});
+
+    	function flightclick_handler(event) {
+    		bubble($$self, event);
+    	}
+
+    	function div_resize_handler() {
+    		width = this.offsetWidth;
+    		height = this.offsetHeight;
+    		$$invalidate('width', width);
+    		$$invalidate('height', height);
+    	}
+
+    	$$self.$set = $$props => {
+    		if ('data' in $$props) $$invalidate('data', data = $$props.data);
+    		if ('timeRange' in $$props) $$invalidate('timeRange', timeRange = $$props.timeRange);
+    		if ('colors' in $$props) $$invalidate('colors', colors = $$props.colors);
+    	};
+
+    	$$self.$$.update = ($$dirty = { width: 1, height: 1, data: 1, dataPreCalc: 1, timeRange: 1 }) => {
+    		if ($$dirty.width || $$dirty.height || $$dirty.data) { if (width && height && data && data.length > 0) prepareData(); }
+    		if ($$dirty.dataPreCalc || $$dirty.timeRange) { if (dataPreCalc) sliceData(timeRange); }
+    	};
+
+    	return {
+    		data,
+    		timeRange,
+    		colors,
+    		width,
+    		height,
+    		priceScale,
+    		slicedData,
+    		dayToAngle,
+    		flightclick_handler,
+    		div_resize_handler
+    	};
+    }
+
+    class RadialGraph extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$3, create_fragment$3, safe_not_equal, ["data", "timeRange", "colors"]);
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+    		if (ctx.data === undefined && !('data' in props)) {
+    			console.warn("<RadialGraph> was created without expected prop 'data'");
+    		}
+    		if (ctx.colors === undefined && !('colors' in props)) {
+    			console.warn("<RadialGraph> was created without expected prop 'colors'");
+    		}
+    	}
+
+    	get data() {
+    		throw new Error("<RadialGraph>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set data(value) {
+    		throw new Error("<RadialGraph>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get timeRange() {
+    		throw new Error("<RadialGraph>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set timeRange(value) {
+    		throw new Error("<RadialGraph>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get colors() {
+    		throw new Error("<RadialGraph>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set colors(value) {
+    		throw new Error("<RadialGraph>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/FlightCard/Fin.svelte generated by Svelte v3.7.0 */
+
+    const file$4 = "src/FlightCard/Fin.svelte";
+
+    // (14:40) 
+    function create_if_block_1$1(ctx) {
+    	var svg, g0, path0, g1, path1;
+
+    	return {
+    		c: function create() {
+    			svg = svg_element("svg");
+    			g0 = svg_element("g");
+    			path0 = svg_element("path");
+    			g1 = svg_element("g");
+    			path1 = svg_element("path");
+    			attr(path0, "d", "M557,0,412,376H0L45.9632,357.23952q3.03574-1.23912,5.97062-2.70642l40.54441-20.27222a47.159,47.159,0,0,0,4.87542-2.81329l27.48592-18.129a174.30662,174.30662,0,0,0,31.217-26.31882L411.15042,14.77942A46.73792,46.73792,0,0,1,445.25449,0Z");
+    			attr(path0, "class", "svelte-1t852gc");
+    			add_location(path0, file$4, 16, 6, 1625);
+    			attr(g0, "class", "background");
+    			add_location(g0, file$4, 15, 4, 1596);
+    			attr(path1, "d", "M47.1993352,0.806896552 L39.9664312,0.806896552 C39.5955131,0.806896552 39.410054,0.986206897 39.410054,0.986206897 L19.4732032,25.0137931 C19.3804736,25.1931034 19.3804736,25.2827586 19.5659327,25.2827586 L22.533278,25.2827586 C22.8114665,25.2827586 22.9041961,25.1931034 22.9041961,25.1034483 L27.1697549,19.8137931 C27.1697549,19.8137931 27.2624844,19.7241379 27.355214,19.7241379 L34.4953884,19.7241379 C34.4953884,19.7241379 34.588118,19.7241379 34.588118,19.8137931 C34.588118,19.9034483 33.568093,25.0137931 33.568093,25.0137931 C33.568093,25.1034483 33.568093,25.2827586 33.8462817,25.2827586 L42.4701288,25.2827586 C42.5628583,25.2827586 42.6555879,25.2827586 42.6555879,25.1034483 L47.4775239,1.07586207 C47.3847943,1.07586207 47.4775239,0.806896552 47.1993352,0.806896552 L47.1993352,0.806896552 Z M34.9590361,17.3034483 L29.3952638,17.3034483 C29.3952638,17.3034483 29.3952638,17.3034483 29.3025342,17.3034483 L29.3025342,17.2137931 L36.7208974,7.97931034 L36.8136269,7.88965517 C36.9063565,7.88965517 36.8136269,7.97931034 36.8136269,7.97931034 L34.9590361,17.3034483 C35.0517657,17.2137931 35.0517657,17.2137931 34.9590361,17.3034483 Z M0.185459077,22.2344827 C0.185459077,22.2344827 0.83456585,20.0827586 0.927295391,20.1724138 C0.927295391,19.8137931 1.11275447,19.7241379 1.29821354,19.9034483 C2.13277939,20.7103448 4.72920648,23.1310344 8.3456585,23.1310344 C12.3330287,23.1310344 12.05484,19.9931034 12.05484,19.5448276 C12.05484,18.2896552 10.3857084,12.1034483 9.92206063,10.4896552 C8.62384711,5.28965517 11.869381,0.537931034 19.5659327,0.537931034 C23.6460324,0.537931034 25.6860822,1.6137931 26.4279185,1.97241379 C26.8915663,2.24137931 26.7988367,2.6 26.7988367,2.6 C26.7988367,2.6 26.335189,4.48275862 26.335189,4.66206897 C26.2424595,4.84137931 26.0570004,4.84137931 25.8715413,4.66206897 C24.6660574,3.94482759 23.2751143,3.13793103 21.1423349,3.13793103 C18.6386373,3.13793103 17.3404238,4.93103448 17.9895305,7.53103448 C18.2677192,8.42758624 19.8441213,14.6137931 20.1223099,15.8689656 C21.2350644,20.3517241 18.0822601,25.7310344 9.55114248,25.7310344 C4.82193602,25.7310344 1.85459077,24.0275862 0.83456585,23.2206897 C0.278188616,22.7724138 0.0927295391,22.5034483 0.185459077,22.2344827 Z M45.5302036,22.3241379 C45.5302036,22.3241379 45.9938513,19.9931034 45.9938513,20.1724138 C46.0865808,19.9034483 46.3647695,19.8137931 46.5502285,19.9931034 C47.4775239,20.8 49.8884919,23.1310344 53.5049439,23.1310344 C57.4923141,23.1310344 57.2141255,19.9931034 57.2141255,19.5448276 C57.2141255,18.2896552 55.5449938,12.1034483 55.0813461,10.4896552 C53.7831325,5.28965517 57.0286664,0.537931034 64.7252181,0.537931034 C68.8053178,0.537931034 70.8453677,1.6137931 71.587204,1.97241379 C72.0508517,2.24137931 71.9581221,2.6 71.9581221,2.6 C71.9581221,2.6 71.4944745,4.48275862 71.4944745,4.66206897 C71.4017449,4.84137931 71.2162858,4.84137931 71.0308267,4.66206897 C69.8253427,3.94482759 68.4343997,3.13793103 66.3016203,3.13793103 C63.7979227,3.13793103 62.4997092,4.93103448 63.1488159,7.53103448 C63.4270046,8.42758624 65.0034068,14.6137931 65.2815953,15.8689656 C66.3943498,20.3517241 63.2415455,25.7310344 54.7104279,25.7310344 C49.9812215,25.7310344 47.1993352,24.1172414 46.1793104,23.3103448 C45.6229331,22.862069 45.437474,22.5931034 45.5302036,22.3241379 Z");
+    			attr(path1, "class", "svelte-1t852gc");
+    			add_location(path1, file$4, 19, 6, 1951);
+    			attr(g1, "class", "logo");
+    			attr(g1, "transform", "translate(165 250) scale(3.6)");
+    			add_location(g1, file$4, 18, 4, 1886);
+    			attr(svg, "viewBox", "0 0 556 376");
+    			attr(svg, "class", "sas svelte-1t852gc");
+    			add_location(svg, file$4, 14, 2, 1552);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, svg, anchor);
+    			append(svg, g0);
+    			append(g0, path0);
+    			append(svg, g1);
+    			append(g1, path1);
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(svg);
+    			}
+    		}
+    	};
+    }
+
+    // (5:0) {#if (company && company === 'LH')}
+    function create_if_block$3(ctx) {
+    	var svg, g0, path0, g1, path1;
+
+    	return {
+    		c: function create() {
+    			svg = svg_element("svg");
+    			g0 = svg_element("g");
+    			path0 = svg_element("path");
+    			g1 = svg_element("g");
+    			path1 = svg_element("path");
+    			attr(path0, "d", "M557,0,412,376H0L45.9632,357.23952q3.03574-1.23912,5.97062-2.70642l40.54441-20.27222a47.159,47.159,0,0,0,4.87542-2.81329l27.48592-18.129a174.30662,174.30662,0,0,0,31.217-26.31882L411.15042,14.77942A46.73792,46.73792,0,0,1,445.25449,0Z");
+    			attr(path0, "class", "svelte-1t852gc");
+    			add_location(path0, file$4, 7, 6, 152);
+    			attr(g0, "class", "background");
+    			add_location(g0, file$4, 6, 4, 123);
+    			attr(path1, "d", "M38 19C38 8.474 29.526 0 19 0 8.512 0 0 8.474 0 19c0 10.488 8.512 19 19 19 10.526 0 19-8.512 19-19zm-1.368 0c0 9.69-7.904 17.632-17.632 17.632-9.69 0-17.632-7.941-17.632-17.632C1.368 9.272 9.31 1.368 19 1.368c9.728 0 17.632 7.904 17.632 17.632zm-10.906-1.14c-.418 0-.95 0-1.634.038l.494-.836h.798c2.85 0 4.978.152 6.916.494l.874-.836c-2.166-.38-4.788-.608-7.448-.608h-.646l.418-.798h.722c2.774 0 5.282.228 7.714.684l.912-.874c-2.736-.532-5.662-.797-8.816-.797a45.9 45.9 0 0 0-4.028.19c-1.52 3.267-3.952 5.168-6.688 5.13-1.064-.039-2.395-.494-4.104-1.407l-1.596-.912.494-.456 3.686 1.596.798-.608-7.448-3.382-1.14.874-2.66-1.102.038 1.102c3.572 1.634 5.054 2.546 8.816 5.244 4.902 3.496 9.272 5.396 15.352 6.612l1.596-1.52h-.38c-4.028 0-7.638-1.33-9.728-3.572 1.748-1.064 3.913-1.557 6.916-1.557.798 0 1.938.075 3.002.189l.912-.874a36.194 36.194 0 0 0-4.294-.266 35.23 35.23 0 0 0-2.888.114l.684-.836a43.437 43.437 0 0 1 2.432-.076c2.014 0 3.344.076 4.864.304l.874-.836c-1.596-.265-3.8-.418-5.814-.418z");
+    			attr(path1, "class", "svelte-1t852gc");
+    			add_location(path1, file$4, 10, 6, 476);
+    			attr(g1, "class", "logo");
+    			attr(g1, "transform", "translate(245 160) scale(5)");
+    			add_location(g1, file$4, 9, 4, 413);
+    			attr(svg, "viewBox", "0 0 556 376");
+    			attr(svg, "class", "lh svelte-1t852gc");
+    			add_location(svg, file$4, 5, 2, 80);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, svg, anchor);
+    			append(svg, g0);
+    			append(g0, path0);
+    			append(svg, g1);
+    			append(g1, path1);
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(svg);
+    			}
+    		}
+    	};
+    }
+
+    function create_fragment$4(ctx) {
+    	var if_block_anchor;
+
+    	function select_block_type(ctx) {
+    		if ((ctx.company && ctx.company === 'LH')) return create_if_block$3;
+    		if ((ctx.company && ctx.company === 'SK')) return create_if_block_1$1;
+    	}
+
+    	var current_block_type = select_block_type(ctx);
+    	var if_block = current_block_type && current_block_type(ctx);
+
+    	return {
+    		c: function create() {
+    			if (if_block) if_block.c();
+    			if_block_anchor = empty();
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			if (if_block) if_block.m(target, anchor);
+    			insert(target, if_block_anchor, anchor);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (current_block_type !== (current_block_type = select_block_type(ctx))) {
+    				if (if_block) if_block.d(1);
+    				if_block = current_block_type && current_block_type(ctx);
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			}
+    		},
+
+    		i: noop,
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if (if_block) if_block.d(detaching);
+
+    			if (detaching) {
+    				detach(if_block_anchor);
+    			}
+    		}
+    	};
+    }
+
+    function instance$4($$self, $$props, $$invalidate) {
+    	let { company } = $$props;
+
+    	const writable_props = ['company'];
+    	Object.keys($$props).forEach(key => {
+    		if (!writable_props.includes(key) && !key.startsWith('$$')) console.warn(`<Fin> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$set = $$props => {
+    		if ('company' in $$props) $$invalidate('company', company = $$props.company);
+    	};
+
+    	return { company };
+    }
+
+    class Fin extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$4, create_fragment$4, safe_not_equal, ["company"]);
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+    		if (ctx.company === undefined && !('company' in props)) {
+    			console.warn("<Fin> was created without expected prop 'company'");
+    		}
+    	}
+
+    	get company() {
+    		throw new Error("<Fin>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set company(value) {
+    		throw new Error("<Fin>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/FlightCard/FlightCard.svelte generated by Svelte v3.7.0 */
+
+    const file$5 = "src/FlightCard/FlightCard.svelte";
+
+    // (13:0) {#if data}
+    function create_if_block$4(ctx) {
+    	var div2, div0, span0, t1_value = ctx.data.flightId, t1, br0, t2, span1, t4_value = ctx.timeFormatter(ctx.data.departure), t4, br1, t5, span2, t7_value = ctx.timeFormatter(ctx.data.arrival), t7, br2, t8, span3, t10_value = Math.round(ctx.data.endPrice), t10, t11, t12, div1, div2_transition, current;
+
+    	var fin = new Fin({
+    		props: { company: ctx.data.company },
+    		$$inline: true
+    	});
+
+    	return {
+    		c: function create() {
+    			div2 = element("div");
+    			div0 = element("div");
+    			span0 = element("span");
+    			span0.textContent = "Flight";
+    			t1 = text(t1_value);
+    			br0 = element("br");
+    			t2 = space();
+    			span1 = element("span");
+    			span1.textContent = "Departure";
+    			t4 = text(t4_value);
+    			br1 = element("br");
+    			t5 = space();
+    			span2 = element("span");
+    			span2.textContent = "Arrival";
+    			t7 = text(t7_value);
+    			br2 = element("br");
+    			t8 = space();
+    			span3 = element("span");
+    			span3.textContent = "Final price";
+    			t10 = text(t10_value);
+    			t11 = text(" €");
+    			t12 = space();
+    			div1 = element("div");
+    			fin.$$.fragment.c();
+    			attr(span0, "class", "svelte-1xjco0m");
+    			add_location(span0, file$5, 15, 6, 304);
+    			add_location(br0, file$5, 15, 40, 338);
+    			attr(span1, "class", "svelte-1xjco0m");
+    			add_location(span1, file$5, 16, 6, 351);
+    			add_location(br1, file$5, 16, 59, 404);
+    			attr(span2, "class", "svelte-1xjco0m");
+    			add_location(span2, file$5, 17, 6, 417);
+    			add_location(br2, file$5, 17, 55, 466);
+    			attr(span3, "class", "svelte-1xjco0m");
+    			add_location(span3, file$5, 18, 6, 479);
+    			attr(div0, "class", "info svelte-1xjco0m");
+    			add_location(div0, file$5, 14, 4, 279);
+    			attr(div1, "class", "fin svelte-1xjco0m");
+    			add_location(div1, file$5, 20, 4, 548);
+    			attr(div2, "class", "wrapper svelte-1xjco0m");
+    			add_location(div2, file$5, 13, 2, 216);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div2, anchor);
+    			append(div2, div0);
+    			append(div0, span0);
+    			append(div0, t1);
+    			append(div0, br0);
+    			append(div0, t2);
+    			append(div0, span1);
+    			append(div0, t4);
+    			append(div0, br1);
+    			append(div0, t5);
+    			append(div0, span2);
+    			append(div0, t7);
+    			append(div0, br2);
+    			append(div0, t8);
+    			append(div0, span3);
+    			append(div0, t10);
+    			append(div0, t11);
+    			append(div2, t12);
+    			append(div2, div1);
+    			mount_component(fin, div1, null);
+    			current = true;
+    		},
+
+    		p: function update(changed, ctx) {
+    			if ((!current || changed.data) && t1_value !== (t1_value = ctx.data.flightId)) {
+    				set_data(t1, t1_value);
+    			}
+
+    			if ((!current || changed.data) && t4_value !== (t4_value = ctx.timeFormatter(ctx.data.departure))) {
+    				set_data(t4, t4_value);
+    			}
+
+    			if ((!current || changed.data) && t7_value !== (t7_value = ctx.timeFormatter(ctx.data.arrival))) {
+    				set_data(t7, t7_value);
+    			}
+
+    			if ((!current || changed.data) && t10_value !== (t10_value = Math.round(ctx.data.endPrice))) {
+    				set_data(t10, t10_value);
+    			}
+
+    			var fin_changes = {};
+    			if (changed.data) fin_changes.company = ctx.data.company;
+    			fin.$set(fin_changes);
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(fin.$$.fragment, local);
+
+    			add_render_callback(() => {
+    				if (!div2_transition) div2_transition = create_bidirectional_transition(div2, fade, { duration: 200}, true);
+    				div2_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			transition_out(fin.$$.fragment, local);
+
+    			if (!div2_transition) div2_transition = create_bidirectional_transition(div2, fade, { duration: 200}, false);
+    			div2_transition.run(0);
+
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div2);
+    			}
+
+    			destroy_component(fin);
+
+    			if (detaching) {
+    				if (div2_transition) div2_transition.end();
+    			}
+    		}
+    	};
+    }
+
+    function create_fragment$5(ctx) {
+    	var if_block_anchor, current;
+
+    	var if_block = (ctx.data) && create_if_block$4(ctx);
+
+    	return {
+    		c: function create() {
+    			if (if_block) if_block.c();
+    			if_block_anchor = empty();
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			if (if_block) if_block.m(target, anchor);
+    			insert(target, if_block_anchor, anchor);
+    			current = true;
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (ctx.data) {
+    				if (if_block) {
+    					if_block.p(changed, ctx);
+    					transition_in(if_block, 1);
+    				} else {
+    					if_block = create_if_block$4(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+    				check_outros();
+    			}
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (if_block) if_block.d(detaching);
+
+    			if (detaching) {
+    				detach(if_block_anchor);
+    			}
+    		}
+    	};
+    }
+
+    function instance$5($$self, $$props, $$invalidate) {
+    	
+
+      let { data } = $$props;
+      
+      const timeFormatter = timeFormat('%H:%M');
+
+    	const writable_props = ['data'];
+    	Object.keys($$props).forEach(key => {
+    		if (!writable_props.includes(key) && !key.startsWith('$$')) console.warn(`<FlightCard> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$set = $$props => {
+    		if ('data' in $$props) $$invalidate('data', data = $$props.data);
+    	};
+
+    	return { data, timeFormatter };
+    }
+
+    class FlightCard extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$5, create_fragment$5, safe_not_equal, ["data"]);
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+    		if (ctx.data === undefined && !('data' in props)) {
+    			console.warn("<FlightCard> was created without expected prop 'data'");
+    		}
+    	}
+
+    	get data() {
+    		throw new Error("<FlightCard>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set data(value) {
+    		throw new Error("<FlightCard>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/TimeBrush/TimeBrush.svelte generated by Svelte v3.7.0 */
+
+    const file$6 = "src/TimeBrush/TimeBrush.svelte";
+
+    function get_each_context$1(ctx, list, i) {
+    	const child_ctx = Object.create(ctx);
+    	child_ctx.departure = list[i].departure;
+    	child_ctx.show = list[i].show;
+    	child_ctx.id = list[i].id;
+    	child_ctx.i = i;
+    	return child_ctx;
+    }
+
+    // (150:2) {#if path}
+    function create_if_block$5(ctx) {
+    	var svg, g0, each_blocks = [], each_1_lookup = new Map(), g0_transform_value, g1, path_1, path_1_stroke_width_value;
+
+    	var each_value = ctx.ticks;
+
+    	const get_key = ctx => ctx.id;
+
+    	for (var i = 0; i < each_value.length; i += 1) {
+    		let child_ctx = get_each_context$1(ctx, each_value, i);
+    		let key = get_key(child_ctx);
+    		each_1_lookup.set(key, each_blocks[i] = create_each_block$1(key, child_ctx));
+    	}
+
+    	return {
+    		c: function create() {
+    			svg = svg_element("svg");
+    			g0 = svg_element("g");
+
+    			for (i = 0; i < each_blocks.length; i += 1) each_blocks[i].c();
+
+    			g1 = svg_element("g");
+    			path_1 = svg_element("path");
+    			attr(g0, "class", "axis");
+    			attr(g0, "transform", g0_transform_value = "translate(0 " + (ctx.height * shrinkingFactor - ctx.padding.bottom) + ")");
+    			add_location(g0, file$6, 151, 6, 4267);
+    			attr(path_1, "class", "end-price-line svelte-mr6ttt");
+    			attr(path_1, "stroke-width", path_1_stroke_width_value = Math.max(ctx.width, ctx.height * shrinkingFactor) / 700);
+    			attr(path_1, "d", ctx.path);
+    			add_location(path_1, file$6, 162, 8, 4737);
+    			attr(g1, "class", "end-price svelte-mr6ttt");
+    			attr(g1, "transform", "translate(0 -10)");
+    			add_location(g1, file$6, 161, 6, 4678);
+    			attr(svg, "class", "svelte-mr6ttt");
+    			add_location(svg, file$6, 150, 4, 4232);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, svg, anchor);
+    			append(svg, g0);
+
+    			for (i = 0; i < each_blocks.length; i += 1) each_blocks[i].m(g0, null);
+
+    			append(svg, g1);
+    			append(g1, path_1);
+    			ctx.svg_binding(svg);
+    		},
+
+    		p: function update(changed, ctx) {
+    			const each_value = ctx.ticks;
+    			each_blocks = update_keyed_each(each_blocks, changed, get_key, 1, ctx, each_value, each_1_lookup, g0, destroy_block, create_each_block$1, null, get_each_context$1);
+
+    			if ((changed.height) && g0_transform_value !== (g0_transform_value = "translate(0 " + (ctx.height * shrinkingFactor - ctx.padding.bottom) + ")")) {
+    				attr(g0, "transform", g0_transform_value);
+    			}
+
+    			if ((changed.width || changed.height) && path_1_stroke_width_value !== (path_1_stroke_width_value = Math.max(ctx.width, ctx.height * shrinkingFactor) / 700)) {
+    				attr(path_1, "stroke-width", path_1_stroke_width_value);
+    			}
+
+    			if (changed.path) {
+    				attr(path_1, "d", ctx.path);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(svg);
+    			}
+
+    			for (i = 0; i < each_blocks.length; i += 1) each_blocks[i].d();
+
+    			ctx.svg_binding(null);
+    		}
+    	};
+    }
+
+    // (154:10) {#if show}
+    function create_if_block_1$2(ctx) {
+    	var g, circle, text_1, t_value = timeFormat('%b %d')(ctx.departure), t, g_transform_value;
+
+    	return {
+    		c: function create() {
+    			g = svg_element("g");
+    			circle = svg_element("circle");
+    			text_1 = svg_element("text");
+    			t = text(t_value);
+    			attr(circle, "cx", 0);
+    			attr(circle, "cy", -12);
+    			attr(circle, "r", "2");
+    			attr(circle, "class", "svelte-mr6ttt");
+    			add_location(circle, file$6, 155, 14, 4512);
+    			attr(text_1, "class", "svelte-mr6ttt");
+    			add_location(text_1, file$6, 156, 14, 4566);
+    			attr(g, "class", "tick svelte-mr6ttt");
+    			attr(g, "transform", g_transform_value = "translate(" + ctx.x(ctx.departure) + " 0)");
+    			add_location(g, file$6, 154, 12, 4441);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, g, anchor);
+    			append(g, circle);
+    			append(g, text_1);
+    			append(text_1, t);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if ((changed.ticks) && t_value !== (t_value = timeFormat('%b %d')(ctx.departure))) {
+    				set_data(t, t_value);
+    			}
+
+    			if ((changed.x || changed.ticks) && g_transform_value !== (g_transform_value = "translate(" + ctx.x(ctx.departure) + " 0)")) {
+    				attr(g, "transform", g_transform_value);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(g);
+    			}
+    		}
+    	};
+    }
+
+    // (153:8) {#each ticks as {departure, show, id}
+    function create_each_block$1(key_1, ctx) {
+    	var first, if_block_anchor;
+
+    	var if_block = (ctx.show) && create_if_block_1$2(ctx);
+
+    	return {
+    		key: key_1,
+
+    		first: null,
+
+    		c: function create() {
+    			first = empty();
+    			if (if_block) if_block.c();
+    			if_block_anchor = empty();
+    			this.first = first;
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, first, anchor);
+    			if (if_block) if_block.m(target, anchor);
+    			insert(target, if_block_anchor, anchor);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (ctx.show) {
+    				if (if_block) {
+    					if_block.p(changed, ctx);
+    				} else {
+    					if_block = create_if_block_1$2(ctx);
+    					if_block.c();
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(first);
+    			}
+
+    			if (if_block) if_block.d(detaching);
+
+    			if (detaching) {
+    				detach(if_block_anchor);
+    			}
+    		}
+    	};
+    }
+
+    function create_fragment$6(ctx) {
+    	var div6, div5, div0, t1, div1, t3, div2, t5, div3, t7, div4, t9, div6_resize_listener, dispose;
+
+    	var if_block = (ctx.path) && create_if_block$5(ctx);
+
+    	return {
+    		c: function create() {
+    			div6 = element("div");
+    			div5 = element("div");
+    			div0 = element("div");
+    			div0.textContent = "Final prices per departure date in";
+    			t1 = space();
+    			div1 = element("div");
+    			div1.textContent = "April";
+    			t3 = space();
+    			div2 = element("div");
+    			div2.textContent = "May";
+    			t5 = space();
+    			div3 = element("div");
+    			div3.textContent = "June";
+    			t7 = space();
+    			div4 = element("div");
+    			div4.textContent = "2019";
+    			t9 = space();
+    			if (if_block) if_block.c();
+    			attr(div0, "class", "label svelte-mr6ttt");
+    			add_location(div0, file$6, 143, 4, 3773);
+    			attr(div1, "class", "month-selector svelte-mr6ttt");
+    			toggle_class(div1, "active", ctx.selectedMonth === 3);
+    			add_location(div1, file$6, 144, 4, 3837);
+    			attr(div2, "class", "month-selector svelte-mr6ttt");
+    			toggle_class(div2, "active", ctx.selectedMonth === 4);
+    			add_location(div2, file$6, 145, 4, 3951);
+    			attr(div3, "class", "month-selector svelte-mr6ttt");
+    			toggle_class(div3, "active", ctx.selectedMonth === 5);
+    			add_location(div3, file$6, 146, 4, 4063);
+    			attr(div4, "class", "label svelte-mr6ttt");
+    			add_location(div4, file$6, 147, 4, 4176);
+    			attr(div5, "class", "top-line svelte-mr6ttt");
+    			add_location(div5, file$6, 142, 2, 3746);
+    			add_render_callback(() => ctx.div6_resize_handler.call(div6));
+    			attr(div6, "class", "wrapper svelte-mr6ttt");
+    			add_location(div6, file$6, 141, 0, 3670);
+
+    			dispose = [
+    				listen(div1, "click", ctx.click_handler),
+    				listen(div2, "click", ctx.click_handler_1),
+    				listen(div3, "click", ctx.click_handler_2)
+    			];
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, div6, anchor);
+    			append(div6, div5);
+    			append(div5, div0);
+    			append(div5, t1);
+    			append(div5, div1);
+    			append(div5, t3);
+    			append(div5, div2);
+    			append(div5, t5);
+    			append(div5, div3);
+    			append(div5, t7);
+    			append(div5, div4);
+    			append(div6, t9);
+    			if (if_block) if_block.m(div6, null);
+    			div6_resize_listener = add_resize_listener(div6, ctx.div6_resize_handler.bind(div6));
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (changed.selectedMonth) {
+    				toggle_class(div1, "active", ctx.selectedMonth === 3);
+    				toggle_class(div2, "active", ctx.selectedMonth === 4);
+    				toggle_class(div3, "active", ctx.selectedMonth === 5);
+    			}
+
+    			if (ctx.path) {
+    				if (if_block) {
+    					if_block.p(changed, ctx);
+    				} else {
+    					if_block = create_if_block$5(ctx);
+    					if_block.c();
+    					if_block.m(div6, null);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+    		},
+
+    		i: noop,
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(div6);
+    			}
+
+    			if (if_block) if_block.d();
+    			div6_resize_listener.cancel();
+    			run_all(dispose);
+    		}
+    	};
+    }
+
+    const shrinkingFactor = 0.75;
+
+    function instance$6($$self, $$props, $$invalidate) {
+    	
+
+      let { data, colors } = $$props;
+      const dispatch = createEventDispatcher();
+      const padding = {
+        top: 20,
+        bottom: 10
+      };
+
+      let dataMonth;
+      let width, height;
+      let svgElement;
+      let x, y;
+      let line;
+      let path;
+      let ticks;
+      let brush;
+      let isInit = true;
+      let selectedMonth;
+      let lastDays = {
+        3: [timeParser('2019-04-24T00:00:00Z'), timeParser('2019-04-25T00:00:00Z')],
+        4: [timeParser('2019-05-24T00:00:00Z'), timeParser('2019-05-25T00:00:00Z')],
+        5: [timeParser('2019-06-24T00:00:00Z'), timeParser('2019-06-25T00:00:00Z')]
+      };
+
+      function buildBrush() {
+        d3select(svgElement).selectAll('g.brush').remove();
+
+        brush = brushX()
+          .extent([[0, 0], [width, height * shrinkingFactor]])
+          .on('brush end', brushed);
+
+        d3select(svgElement).append('g')
+          .attr('class', 'brush')
+          .call(brush)
+          .call(brush.move,
+            [x(lastDays[selectedMonth][0]), x(lastDays[selectedMonth][1])]);
+      }
+
+      function brushed() {
+        if (!isInit && !event.sourceEvent || !event.selection) return;
+        isInit = false;
+        
+        const selectionX = event.selection;
+        let selectionTime = selectionX.map(x.invert);
+
+        let selectionTimeRounded = selectionTime.map(day.round);
+
+        if (selectionTimeRounded[0] >= selectionTimeRounded[1]) {
+          selectionTimeRounded[0] = day.floor(selectionTime[0]);
+          selectionTimeRounded[1] = day.offset(selectionTimeRounded[0]);
+        }
+
+        if (selectionTimeRounded[1] > x.domain()[1]) {
+          selectionTimeRounded[1] = x.domain()[1];
+        }
+
+        // Subtract a few milliseconds to get to the day before
+        selectionTimeRounded[1] = new Date(selectionTimeRounded[1] - 100);
+
+        if (event.type === 'end') {
+          d3select(this).transition().call(event.target.move, selectionTimeRounded.map(x));
+        }
+
+        if (lastDays[selectedMonth].toString() !== selectionTimeRounded.toString()) {
+          lastDays[selectedMonth] = [selectionTimeRounded[0], selectionTimeRounded[1]];      dispatch('timerangeselected', selectionTimeRounded);
+        }
+      }
+
+      function selectMonth(month) {
+        if (!month) return;
+        isInit = true;
+        $$invalidate('dataMonth', dataMonth = data.filter(elem => elem.departure.getMonth() === month));
+        dispatch('timerangeselected', lastDays[selectedMonth]);
+      }
+
+      onMount(() => {
+        $$invalidate('selectedMonth', selectedMonth = 3);
+      });
+
+    	const writable_props = ['data', 'colors'];
+    	Object.keys($$props).forEach(key => {
+    		if (!writable_props.includes(key) && !key.startsWith('$$')) console.warn(`<TimeBrush> was created with unknown prop '${key}'`);
+    	});
+
+    	function click_handler() {
+    		const $$result = selectedMonth = 3;
+    		$$invalidate('selectedMonth', selectedMonth);
+    		return $$result;
+    	}
+
+    	function click_handler_1() {
+    		const $$result = selectedMonth = 4;
+    		$$invalidate('selectedMonth', selectedMonth);
+    		return $$result;
+    	}
+
+    	function click_handler_2() {
+    		const $$result = selectedMonth = 5;
+    		$$invalidate('selectedMonth', selectedMonth);
+    		return $$result;
+    	}
+
+    	function svg_binding($$value) {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+    			$$invalidate('svgElement', svgElement = $$value);
+    		});
+    	}
+
+    	function div6_resize_handler() {
+    		width = this.offsetWidth;
+    		height = this.offsetHeight;
+    		$$invalidate('width', width);
+    		$$invalidate('height', height);
+    	}
+
+    	$$self.$set = $$props => {
+    		if ('data' in $$props) $$invalidate('data', data = $$props.data);
+    		if ('colors' in $$props) $$invalidate('colors', colors = $$props.colors);
+    	};
+
+    	$$self.$$.update = ($$dirty = { selectedMonth: 1, dataMonth: 1, width: 1, height: 1, data: 1, x: 1, y: 1, line: 1, ticks: 1, svgElement: 1 }) => {
+    		if ($$dirty.selectedMonth) { selectMonth(selectedMonth); }
+    		if ($$dirty.dataMonth || $$dirty.width || $$dirty.height || $$dirty.data || $$dirty.x || $$dirty.y || $$dirty.line || $$dirty.ticks) { if (dataMonth && dataMonth.length > 0 && width && height) {
+            $$invalidate('x', x = scaleTime()
+              .domain(extent(dataMonth, d => d.departure))
+              .range([0, width]));
+        
+            $$invalidate('y', y = linear$1()
+              .domain([0, d3max(data, d => d.endPrice)])
+              .range([height * shrinkingFactor, padding.top]));
+        
+            $$invalidate('line', line = d3line()
+              .x(d => x(d.departure))
+              .y(d => y(d.endPrice))
+              .curve(monotoneX));
+            
+            $$invalidate('path', path = line(dataMonth));
+        
+            const tickInterval = 3;
+            let lastTime = dataMonth[0].departure;
+            $$invalidate('ticks', ticks = dataMonth.map(({ departure }, index) => {
+              let show;
+              if ((departure - lastTime) / (1000 * 60 * 60 * 24) >= tickInterval) {
+                lastTime = departure;
+                show = true;
+              } else {
+                show = false;
+              }
+              return {
+                id: index,
+                departure,
+                show
+              };
+            }));
+            $$invalidate('ticks', ticks = ticks.slice(3, -3));
+          } }
+    		if ($$dirty.x || $$dirty.svgElement) { if (x && svgElement) buildBrush(); }
+    	};
+
+    	return {
+    		data,
+    		colors,
+    		padding,
+    		width,
+    		height,
+    		svgElement,
+    		x,
+    		path,
+    		ticks,
+    		selectedMonth,
+    		click_handler,
+    		click_handler_1,
+    		click_handler_2,
+    		svg_binding,
+    		div6_resize_handler
+    	};
+    }
+
+    class TimeBrush extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$6, create_fragment$6, safe_not_equal, ["data", "colors"]);
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+    		if (ctx.data === undefined && !('data' in props)) {
+    			console.warn("<TimeBrush> was created without expected prop 'data'");
+    		}
+    		if (ctx.colors === undefined && !('colors' in props)) {
+    			console.warn("<TimeBrush> was created without expected prop 'colors'");
+    		}
+    	}
+
+    	get data() {
+    		throw new Error("<TimeBrush>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set data(value) {
+    		throw new Error("<TimeBrush>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get colors() {
+    		throw new Error("<TimeBrush>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set colors(value) {
+    		throw new Error("<TimeBrush>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/App.svelte generated by Svelte v3.7.0 */
+
+    const file$7 = "src/App.svelte";
+
+    // (1:0) <script>   import Legend from './Legend/Legend.svelte';   import RadialGraph from './RadialGraph/RadialGraph.svelte';   import FlightCard from './FlightCard/FlightCard.svelte';   import TimeBrush from './TimeBrush/TimeBrush.svelte';    import { onMount }
+    function create_catch_block_2(ctx) {
+    	return {
+    		c: noop,
+    		m: noop,
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: noop
+    	};
+    }
+
+    // (86:72)          <RadialGraph data={data}
+    function create_then_block_2(ctx) {
+    	var current;
+
+    	var radialgraph = new RadialGraph({
+    		props: {
+    		data: ctx.data,
+    		timeRange: ctx.timeRange,
+    		colors: ctx.colors
+    	},
+    		$$inline: true
+    	});
+    	radialgraph.$on("flightclick", ctx.flightclick_handler);
+
+    	return {
+    		c: function create() {
+    			radialgraph.$$.fragment.c();
+    		},
+
+    		m: function mount(target, anchor) {
+    			mount_component(radialgraph, target, anchor);
+    			current = true;
+    		},
+
+    		p: function update(changed, ctx) {
+    			var radialgraph_changes = {};
+    			if (changed.data) radialgraph_changes.data = ctx.data;
+    			if (changed.timeRange) radialgraph_changes.timeRange = ctx.timeRange;
+    			if (changed.colors) radialgraph_changes.colors = ctx.colors;
+    			radialgraph.$set(radialgraph_changes);
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(radialgraph.$$.fragment, local);
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			transition_out(radialgraph.$$.fragment, local);
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			destroy_component(radialgraph, detaching);
+    		}
+    	};
+    }
+
+    // (1:0) <script>   import Legend from './Legend/Legend.svelte';   import RadialGraph from './RadialGraph/RadialGraph.svelte';   import FlightCard from './FlightCard/FlightCard.svelte';   import TimeBrush from './TimeBrush/TimeBrush.svelte';    import { onMount }
+    function create_pending_block_2(ctx) {
+    	return {
+    		c: noop,
+    		m: noop,
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: noop
+    	};
+    }
+
+    // (1:0) <script>   import Legend from './Legend/Legend.svelte';   import RadialGraph from './RadialGraph/RadialGraph.svelte';   import FlightCard from './FlightCard/FlightCard.svelte';   import TimeBrush from './TimeBrush/TimeBrush.svelte';    import { onMount }
+    function create_catch_block_1(ctx) {
+    	return {
+    		c: noop,
+    		m: noop,
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: noop
+    	};
+    }
+
+    // (99:75)          <FlightCard data={data.find(elem => elem.flightIdUnique === highlightedFlightId)}
+    function create_then_block_1(ctx) {
+    	var current;
+
+    	var flightcard = new FlightCard({
+    		props: { data: ctx.data.find(ctx.func_2) },
+    		$$inline: true
+    	});
+
+    	return {
+    		c: function create() {
+    			flightcard.$$.fragment.c();
+    		},
+
+    		m: function mount(target, anchor) {
+    			mount_component(flightcard, target, anchor);
+    			current = true;
+    		},
+
+    		p: function update(changed, ctx) {
+    			var flightcard_changes = {};
+    			if (changed.data || changed.highlightedFlightId) flightcard_changes.data = ctx.data.find(ctx.func_2);
+    			flightcard.$set(flightcard_changes);
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(flightcard.$$.fragment, local);
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			transition_out(flightcard.$$.fragment, local);
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			destroy_component(flightcard, detaching);
+    		}
+    	};
+    }
+
+    // (1:0) <script>   import Legend from './Legend/Legend.svelte';   import RadialGraph from './RadialGraph/RadialGraph.svelte';   import FlightCard from './FlightCard/FlightCard.svelte';   import TimeBrush from './TimeBrush/TimeBrush.svelte';    import { onMount }
+    function create_pending_block_1(ctx) {
+    	return {
+    		c: noop,
+    		m: noop,
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: noop
+    	};
+    }
+
+    // (1:0) <script>   import Legend from './Legend/Legend.svelte';   import RadialGraph from './RadialGraph/RadialGraph.svelte';   import FlightCard from './FlightCard/FlightCard.svelte';   import TimeBrush from './TimeBrush/TimeBrush.svelte';    import { onMount }
+    function create_catch_block(ctx) {
+    	return {
+    		c: noop,
+    		m: noop,
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: noop
+    	};
+    }
+
+    // (106:75)          <TimeBrush data={data}
+    function create_then_block(ctx) {
+    	var current;
+
+    	var timebrush = new TimeBrush({
+    		props: {
+    		data: ctx.data,
+    		colors: ctx.colors
+    	},
+    		$$inline: true
+    	});
+    	timebrush.$on("timerangeselected", ctx.timerangeselected_handler);
+
+    	return {
+    		c: function create() {
+    			timebrush.$$.fragment.c();
+    		},
+
+    		m: function mount(target, anchor) {
+    			mount_component(timebrush, target, anchor);
+    			current = true;
+    		},
+
+    		p: function update(changed, ctx) {
+    			var timebrush_changes = {};
+    			if (changed.data) timebrush_changes.data = ctx.data;
+    			if (changed.colors) timebrush_changes.colors = ctx.colors;
+    			timebrush.$set(timebrush_changes);
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(timebrush.$$.fragment, local);
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			transition_out(timebrush.$$.fragment, local);
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			destroy_component(timebrush, detaching);
+    		}
+    	};
+    }
+
+    // (1:0) <script>   import Legend from './Legend/Legend.svelte';   import RadialGraph from './RadialGraph/RadialGraph.svelte';   import FlightCard from './FlightCard/FlightCard.svelte';   import TimeBrush from './TimeBrush/TimeBrush.svelte';    import { onMount }
+    function create_pending_block(ctx) {
+    	return {
+    		c: noop,
+    		m: noop,
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: noop
+    	};
+    }
+
+    function create_fragment$7(ctx) {
+    	var t0, div8, div0, h1, t2, h3, t4, div2, div1, promise, t5, div5, div3, t6, div4, promise_1, t7, div7, div6, promise_2, current, dispose;
+
+    	add_render_callback(ctx.onwindowresize);
+
+    	let info = {
+    		ctx,
+    		current: null,
+    		token: null,
+    		pending: create_pending_block_2,
+    		then: create_then_block_2,
+    		catch: create_catch_block_2,
+    		value: 'data',
+    		error: 'null',
+    		blocks: [,,,]
+    	};
+
+    	handle_promise(promise = ctx.data.find(func).data, info);
+
+    	var legend = new Legend({ $$inline: true });
+
+    	let info_1 = {
+    		ctx,
+    		current: null,
+    		token: null,
+    		pending: create_pending_block_1,
+    		then: create_then_block_1,
+    		catch: create_catch_block_1,
+    		value: 'data',
+    		error: 'null',
+    		blocks: [,,,]
+    	};
+
+    	handle_promise(promise_1 = ctx.data.find(func_1).data, info_1);
+
+    	let info_2 = {
+    		ctx,
+    		current: null,
+    		token: null,
+    		pending: create_pending_block,
+    		then: create_then_block,
+    		catch: create_catch_block,
+    		value: 'data',
+    		error: 'null',
+    		blocks: [,,,]
+    	};
+
+    	handle_promise(promise_2 = ctx.data.find(func_3).data, info_2);
+
+    	return {
+    		c: function create() {
+    			t0 = space();
+    			div8 = element("div");
+    			div0 = element("div");
+    			h1 = element("h1");
+    			h1.textContent = "30 days to takeoff";
+    			t2 = space();
+    			h3 = element("h3");
+    			h3.textContent = "Following thousands of flight prices starting a month before departure.";
+    			t4 = space();
+    			div2 = element("div");
+    			div1 = element("div");
+
+    			info.block.c();
+
+    			t5 = space();
+    			div5 = element("div");
+    			div3 = element("div");
+    			legend.$$.fragment.c();
+    			t6 = space();
+    			div4 = element("div");
+
+    			info_1.block.c();
+
+    			t7 = space();
+    			div7 = element("div");
+    			div6 = element("div");
+
+    			info_2.block.c();
+    			attr(h1, "class", "svelte-ryow9b");
+    			add_location(h1, file$7, 80, 4, 2148);
+    			attr(h3, "class", "svelte-ryow9b");
+    			add_location(h3, file$7, 81, 4, 2180);
+    			attr(div0, "class", "title-bar svelte-ryow9b");
+    			add_location(div0, file$7, 79, 2, 2120);
+    			attr(div1, "class", "container radial-graph svelte-ryow9b");
+    			add_location(div1, file$7, 84, 4, 2302);
+    			attr(div2, "class", "top-wrapper svelte-ryow9b");
+    			add_location(div2, file$7, 83, 2, 2272);
+    			attr(div3, "class", "left legend svelte-ryow9b");
+    			add_location(div3, file$7, 94, 4, 2668);
+    			attr(div4, "class", "right svelte-ryow9b");
+    			add_location(div4, file$7, 97, 4, 2726);
+    			attr(div5, "class", "info-bar svelte-ryow9b");
+    			add_location(div5, file$7, 93, 2, 2641);
+    			attr(div6, "class", "container time-brush svelte-ryow9b");
+    			add_location(div6, file$7, 104, 4, 2978);
+    			attr(div7, "class", "time-bar svelte-ryow9b");
+    			add_location(div7, file$7, 103, 2, 2951);
+    			attr(div8, "class", "outer-wrapper svelte-ryow9b");
+    			add_location(div8, file$7, 78, 0, 2090);
+    			dispose = listen(window, "resize", ctx.onwindowresize);
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert(target, t0, anchor);
+    			insert(target, div8, anchor);
+    			append(div8, div0);
+    			append(div0, h1);
+    			append(div0, t2);
+    			append(div0, h3);
+    			append(div8, t4);
+    			append(div8, div2);
+    			append(div2, div1);
+
+    			info.block.m(div1, info.anchor = null);
+    			info.mount = () => div1;
+    			info.anchor = null;
+
+    			append(div8, t5);
+    			append(div8, div5);
+    			append(div5, div3);
+    			mount_component(legend, div3, null);
+    			append(div5, t6);
+    			append(div5, div4);
+
+    			info_1.block.m(div4, info_1.anchor = null);
+    			info_1.mount = () => div4;
+    			info_1.anchor = null;
+
+    			append(div8, t7);
+    			append(div8, div7);
+    			append(div7, div6);
+
+    			info_2.block.m(div6, info_2.anchor = null);
+    			info_2.mount = () => div6;
+    			info_2.anchor = null;
+
+    			current = true;
+    		},
+
+    		p: function update(changed, new_ctx) {
+    			ctx = new_ctx;
+    			info.ctx = ctx;
+
+    			if (('data' in changed) && promise !== (promise = ctx.data.find(func).data) && handle_promise(promise, info)) ; else {
+    				info.block.p(changed, assign(assign({}, ctx), info.resolved));
+    			}
+
+    			info_1.ctx = ctx;
+
+    			if (('data' in changed) && promise_1 !== (promise_1 = ctx.data.find(func_1).data) && handle_promise(promise_1, info_1)) ; else {
+    				info_1.block.p(changed, assign(assign({}, ctx), info_1.resolved));
+    			}
+
+    			info_2.ctx = ctx;
+
+    			if (('data' in changed) && promise_2 !== (promise_2 = ctx.data.find(func_3).data) && handle_promise(promise_2, info_2)) ; else {
+    				info_2.block.p(changed, assign(assign({}, ctx), info_2.resolved));
+    			}
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(info.block);
+
+    			transition_in(legend.$$.fragment, local);
+
+    			transition_in(info_1.block);
+    			transition_in(info_2.block);
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			for (let i = 0; i < 3; i += 1) {
+    				const block = info.blocks[i];
+    				transition_out(block);
+    			}
+
+    			transition_out(legend.$$.fragment, local);
+
+    			for (let i = 0; i < 3; i += 1) {
+    				const block = info_1.blocks[i];
+    				transition_out(block);
+    			}
+
+    			for (let i = 0; i < 3; i += 1) {
+    				const block = info_2.blocks[i];
+    				transition_out(block);
+    			}
+
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach(t0);
+    				detach(div8);
+    			}
+
+    			info.block.d();
+    			info.token = null;
+    			info = null;
+
+    			destroy_component(legend);
+
+    			info_1.block.d();
+    			info_1.token = null;
+    			info_1 = null;
+
+    			info_2.block.d();
+    			info_2.token = null;
+    			info_2 = null;
+
+    			dispose();
+    		}
+    	};
+    }
+
+    function func(elem) {
+    	return elem.name === 'flights';
+    }
+
+    function func_1(elem) {
+    	return elem.name === 'flightInfo';
+    }
+
+    function func_3(elem) {
+    	return elem.name === 'flightInfo';
+    }
+
+    function instance$7($$self, $$props, $$invalidate) {
+    	
+
+      // Define the data sources and define formatting callbacks
+      const dataPaths = [
+        {
+          name: 'flightInfo',
+          path: 'data/flight_info.csv',
+          callback: function (d) {
+            return {
+              ...d,
+              arrival: timeParser(d.arrival),
+              departure: timeParser(d.departure),
+              departureRounded: timeParser(d.departureRounded),
+              meanPrice: +d.meanPrice,
+              medianPrice: +d.medianPrice,
+              sumPrice: +d.sumPrice,
+              sdPrice: +d.sdPrice,
+              endPrice: isNaN(+d.endPrice) ? 0 : +d.endPrice
+            };
+          }
+        },
+        {
+          name: 'flights',
+          path: 'data/flights_by_day_to_departure.csv',
+          callback: function (d) {
+            return {
+              ...d,
+              price: parseFloat(d.price),
+              timeToDepartureDays: +d.timeToDepartureDays,
+              departure: timeParser(d.departure)
+            };
+          }
+        }
+      ];
+
+      // Setup the colors
+      const colors = {
+        lowPrice: '#2274A5',
+        endPrice: '#E3D8F1',
+        highPrice: '#EF6461',
+        lightGray: '#DDD'
+      };
+
+      let width, height;
+      // Set up the basic data object
+      let data = dataPaths.map(elem => ({name: elem.name, data: []}));
+
+      let timeRange = [];
+
+      let highlightedFlightId = null;
+
+      // Fetch the data from csv and convert to D3 appropriate json
+      onMount(async function () {
+        $$invalidate('data', data = await Promise.all(dataPaths.map(entry => {
+          return {
+            name: entry.name,
+            data: csv$1(entry.path, entry.callback)
+          };
+        })));
+      });
+
+    	function onwindowresize() {
+    		width = window.innerWidth; $$invalidate('width', width);
+    		height = window.innerHeight; $$invalidate('height', height);
+    	}
+
+    	function flightclick_handler(e) {
+    		const $$result = highlightedFlightId = e.detail;
+    		$$invalidate('highlightedFlightId', highlightedFlightId);
+    		return $$result;
+    	}
+
+    	function func_2(elem) {
+    		return elem.flightIdUnique === highlightedFlightId;
+    	}
+
+    	function timerangeselected_handler(e) {
+    		const $$result = timeRange = e.detail;
+    		$$invalidate('timeRange', timeRange);
+    		return $$result;
+    	}
+
+    	return {
+    		colors,
+    		width,
+    		height,
+    		data,
+    		timeRange,
+    		highlightedFlightId,
+    		onwindowresize,
+    		flightclick_handler,
+    		func_2,
+    		timerangeselected_handler
+    	};
+    }
+
+    class App extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$7, create_fragment$7, safe_not_equal, []);
+    	}
+    }
+
+    const app = new App({
+    	target: document.body
+    });
+
+    return app;
+
+}());
 //# sourceMappingURL=bundle.js.map

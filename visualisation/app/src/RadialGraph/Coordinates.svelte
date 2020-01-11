@@ -94,11 +94,11 @@
             marker-end="url(#arrow)"></path>
       <path id="text-path-start" class="text-path" d="{arc({radius: priceScale(525), startAngle: dayToAngle(maxDays + 1.1), endAngle: dayToAngle(maxDays - 0.9)}).replace('Z', '')}"></path>
       <text>
-        <textPath href="#text-path-start" startOffset="30%">-{maxDays - 1} days</textPath>
+        <textPath href="#text-path-start" startOffset="27%">-{maxDays - 1} days</textPath>
       </text>
-      <path id="text-path-end" class="text-path" d="{arc({radius: priceScale(525), startAngle: dayToAngle(1.1), endAngle: dayToAngle(-0.1)}).replace('Z', '')}"></path>
+      <path id="text-path-end" class="text-path" d="{arc({radius: priceScale(525), startAngle: dayToAngle(2.2), endAngle: dayToAngle(-0.4)}).replace('Z', '')}"></path>
       <text>
-        <textPath href="#text-path-end" startOffset="30%">-1 day</textPath>
+        <textPath href="#text-path-end" startOffset="38%">takeoff</textPath>
       </text>
     </g>
   {/if}
@@ -123,7 +123,7 @@
   }
 
   g text {
-    fill: var(--light-gray);
+    fill: var(--gray);
     text-anchor: middle;
     font-size: calc(0.5rem + 0.6vmin);
   }
@@ -134,11 +134,12 @@
 
   g.day-arcs path.even {
     fill: var(--light-gray);
-    fill-opacity: 1;
+    fill-opacity: 0.5;
   }
 
   g.day-arcs-label path.direction-arrow {
     stroke: var(--light-gray);
+    stroke-opacity: 0.5;
     stroke-width: 0.3vmin;
     stroke-linecap: round;
   }
