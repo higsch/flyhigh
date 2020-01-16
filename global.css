@@ -50,6 +50,10 @@ html, body {
 	}
 }
 
+body {
+	background-image: linear-gradient(rgb(189, 229, 240), white, white);
+}
+
 p {
 	line-height: 1.1rem;
 	text-align: justify;
