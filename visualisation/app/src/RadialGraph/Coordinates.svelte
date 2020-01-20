@@ -125,7 +125,7 @@
   g text {
     fill: var(--gray);
     text-anchor: middle;
-    font-size: calc(0.5rem + 0.6vmin);
+    font-size: calc(0.5rem + 0.4vmin);
   }
 
   g.day-arcs path.odd {
