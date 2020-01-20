@@ -110,6 +110,7 @@
       {/await}
     </div>
   </div>
+  <div class="footer">Analysis and visualisation by <a href="https://linkedin.com/in/matthias-stahl">Matthias Stahl</a>, 2020.</div>
 </div>
 
 <style>
@@ -197,5 +198,16 @@
   .container.time-brush {
     width: 100%;
     height: 100%;
+  }
+
+  .footer {
+    width: 100%;
+    padding: 0.2rem 0;
+    text-align: center;
+    font-size: 0.5rem;
+  }
+
+  .footer a {
+    color: inherit;
   }
 </style>
