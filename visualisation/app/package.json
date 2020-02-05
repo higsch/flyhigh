@@ -13,6 +13,7 @@
     "svelte": "^3.7.0"
   },
   "dependencies": {
+    "cookies-eu-banner": "^2.0.1",
     "sirv-cli": "^0.4.4",
     "ws": "^7.2.0"
   },

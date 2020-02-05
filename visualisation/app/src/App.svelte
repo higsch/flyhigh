@@ -4,6 +4,8 @@
   import FlightCard from './FlightCard/FlightCard.svelte';
   import TimeBrush from './TimeBrush/TimeBrush.svelte';
 
+  import CookieBanner from './CookieBanner.svelte';
+
   import { onMount } from 'svelte';
 
   import { csv as d3csv } from 'd3';
@@ -77,6 +79,7 @@
 <svelte:body width={width} height={height} />
 
 <div class="outer-wrapper">
+  <CookieBanner />
   <div class="title-bar">
     <h1>30 days to takeoff</h1>
     <h3>Following thousands of flight prices starting a month before departure.</h3>
