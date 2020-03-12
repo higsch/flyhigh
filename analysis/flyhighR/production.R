@@ -1,6 +1,7 @@
 library(DBI)
 library(lubridate)
 library(tidyverse)
+library(ggthemes)
 
 plotIt <- FALSE
 
@@ -11,7 +12,7 @@ plotIt <- FALSE
 
 # connect to the database
 conn <- dbConnect(drv = RSQLite::SQLite(),
-                  dbname = file.path("data", "flights.sqlite"))
+                  dbname = file.path("..", "..", "db", "flights.sqlite"))
 
 # fetch the whole flights table
 flights <- dbGetQuery(conn = conn,
@@ -85,16 +86,20 @@ flights <- flights %>%
 # plot
 if (plotIt) {
   flights %>%
-    ggplot(aes(x = timeToDeparture@.Data, y = price, group = departure, color = flightId)) +
+    ggplot(aes(x = timeToDeparture@.Data / (60 * 60 * 24), y = price, group = departure, color = flightId)) +
     geom_line() +
-    scale_x_reverse()
+    scale_x_reverse() +
+    xlab("Time to departure (days)") + ylab("Price (EUR)") +
+    theme_tufte()
   
   # plot for May 30th
   flights %>%
     filter(flightDate == "2019-05-30") %>%
     ggplot(aes(x = timeToDeparture@.Data/(24*60*60), y = price, group = departure, color = flightId)) +
     geom_line() +
-    scale_x_reverse() 
+    scale_x_reverse() +
+    xlab("Time to departure (days)") + ylab("Price (EUR)") +
+    theme_tufte()
 }
 
 

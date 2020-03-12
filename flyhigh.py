@@ -74,7 +74,7 @@ def writeFlights(db, flights):
   db.commit()
 
 def main():
-  dateRange = [datetime.datetime.now().strftime(DATEFORMAT), '2020-01-31']
+  dateRange = [datetime.datetime.now().strftime(DATEFORMAT), '2020-12-31']
   dateRangeDateFormat = [datetime.datetime.strptime(date, DATEFORMAT) for date in dateRange]
   currentDate = dateRangeDateFormat[0]
   while (currentDate <= dateRangeDateFormat[1]):
