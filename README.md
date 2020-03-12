@@ -42,3 +42,4 @@ python3 flyhigh.py
 ```
 Check if the `chromedriver` is in your `PATH`. Otherwise download
 an appropriate version from the [electron repo](https://github.com/electron/electron/releases).
+The driver you need for a raspberrypi system is `chromedriver-*-linux-armv7l.zip`.
