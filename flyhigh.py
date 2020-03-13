@@ -36,13 +36,14 @@ def parseFlights(html, date):
   flightsSoup = BeautifulSoup(html, features = 'html.parser')
   for flight in flightsSoup.find_all('li', class_ = 'gws-flights-results__result-item'):
     times = parseTimes(flight.find('div', class_ = 'gws-flights-results__times').text, date)
+    priceObj = flight.find('div', class_ = 'gws-flights-results__price')
     yield {
       'flightId': flight['data-fp'],
       'flightDate': datetime.datetime.strptime(date, DATEFORMAT),
       'departure': times[0],
       'arrival': times[1],
       'duration': flight.find('div', class_ = 'gws-flights-results__duration').text,
-      'price': parsePrice(flight.find('div', class_ = 'gws-flights-results__price').text),
+      'price': (priceObj not is None) ? parsePrice(priceObj.text) : -1,
       'timestamp': datetime.datetime.now()
     }
 
