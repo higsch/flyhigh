@@ -43,7 +43,7 @@ def parseFlights(html, date):
       'departure': times[0],
       'arrival': times[1],
       'duration': flight.find('div', class_ = 'gws-flights-results__duration').text,
-      'price': (priceObj is None) ? -1 : parsePrice(priceObj.text),
+      'price': -1 if (priceObj is None) else parsePrice(priceObj.text),
       'timestamp': datetime.datetime.now()
     }
 
