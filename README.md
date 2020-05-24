@@ -9,7 +9,8 @@
 ### Get it running
 ```
 git clone https://github.com/higsch/flyhigh.git
-cd visualisation/app/
+cd flyhigh/visualisation/app/
+npm install
 npm run dev
 ```
 
