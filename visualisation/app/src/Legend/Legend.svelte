@@ -14,6 +14,7 @@
     Each line is showing prices for a flight from Stockholm to Frankfurt for one passenger – collected from
     30 days before departure until the day before takeoff.
     The color at each time point tells whether the price is above or below the final price.
+    Change the time points by sliding the brush and try to click on the lines.
   </p>
 </div>
 <svg width={width} height={svgHeight}>
