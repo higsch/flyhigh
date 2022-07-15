@@ -10,7 +10,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-svelte": "^5.0.3",
     "rollup-plugin-terser": "^4.0.4",
-    "svelte": "^3.7.0"
+    "svelte": "^3.49.0"
   },
   "dependencies": {
     "cookies-eu-banner": "^2.0.1",
